@@ -38,7 +38,7 @@
        
         
         <!-- Page Heading -->        
-        <div class="absolute top-0 sm:left-64 z-10">
+        <div class="absolute top-0 sm:left-64 right-0 z-10">
             <x-banner />
             @if (isset($header))
             <header class="bg-white dark:bg-gray-800 shadow">
