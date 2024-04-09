@@ -33,18 +33,22 @@
                     <button type="button"
                         class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                         aria-controls="dropdown-management" data-collapse-toggle="dropdown-management">
-                        <x-codicon-settings class="w-6 h-6 text-gray-500"/>
+                        <x-codicon-settings class="w-6 h-6 text-gray-400"/>
                         <span class="flex-1 ml-3 text-left whitespace-nowrap">Management</span>
                         <x-codicon-chevron-down class="h-6 w-6" />
                     </button>
                     <ul id="dropdown-management" class="hidden py-2 space-y-2">
                         <li>
                             <a href="#"
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Users</a>
+                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                <x-fas-users-gear class="h-6 w-6 text-gray-400" /><span class="ml-2">Users</span>
+                            </a>
                         </li>
                         <li>
                             <a href="#"
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Stores</a>
+                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                <x-fas-store class="h-6 w-6 text-gray-400"/> <span class="ml-2">Stores</span>
+                            </a>
                         </li>
                     </ul>
                 </li>
