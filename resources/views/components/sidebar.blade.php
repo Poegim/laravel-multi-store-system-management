@@ -200,7 +200,7 @@
         </div>
         <div
             class="hidden absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex bg-white dark:bg-gray-800 z-20 border-r border-gray-200 dark:border-gray-700">
-            <a href="#"
+            <a href="#" data-tooltip-target="tooltip-management"
                 class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-600">
                 <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
@@ -209,6 +209,11 @@
                     </path>
                 </svg>
             </a>
+            <div id="tooltip-management" role="tooltip"
+            class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip">
+                Management page
+                <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
             <a href="#" data-tooltip-target="tooltip-settings"
                 class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark:text-gray-400 dark:hover:text-white hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600">
                 <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
@@ -223,10 +228,10 @@
                 Settings page
                 <div class="tooltip-arrow" data-popper-arrow></div>
             </div>
-            <div class="ml-2 mt-2">
-                <button type="button" x-bind:class="darkMode ? 'bg-slate-500' : 'bg-gray-200'"
+            <div class="ml-2 mt-2" data-tooltip-target="tooltip-mode">
+                <button type="button" x-bind:class="darkMode ? 'bg-slate-500' : 'bg-gray-700'"
                     x-on:click="darkMode = !darkMode"
-                    class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-gray-200 focus:ring-offset-2 hover:bg-gray-900"
                     role="switch" aria-checked="false">
                     <span class="sr-only">Dark mode toggle</span>
                     <span x-bind:class="darkMode ? 'translate-x-5 bg-gray-700' : 'translate-x-0 bg-white'"
@@ -235,7 +240,7 @@
                             x-bind:class="darkMode ? 'opacity-0 ease-out duration-100' : 'opacity-100 ease-in duration-200'"
                             class="absolute inset-0 flex h-full w-full items-center justify-center transition-opacity"
                             aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-gray-400" viewBox="0 0 20 20"
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-gray-700" viewBox="0 0 20 20"
                                 fill="currentColor">
                                 <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
                             </svg>
@@ -254,8 +259,12 @@
                     </span>
                 </button>
             </div>
-
-            
+            <div id="tooltip-mode" role="tooltip"
+            class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip">
+                Dark/Light mode
+                <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
+           
         </div>
     </aside>
 </div>
