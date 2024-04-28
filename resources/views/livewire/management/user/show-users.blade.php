@@ -43,25 +43,43 @@
     <!-- Show User Modal -->
     <x-dialog-modal wire:model.live="showUserModal">
         <x-slot name="title">
-            {{ __('Edit Account') }}
+            {{ __('Edit Account') }}: {{ $user?->name }}
         </x-slot>
 
         <x-slot name="content">
-            {{ __('Edit.') }}: {{ $user?->name }}
+            <div class="mt-4" x-data="{ activeTab: 'A' }">
+                <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+                    <li>
+                        <x-buttons.flowbite.default x-on:click="activeTab = 'A'" x-bind:class="{ 'dark:bg-blue-800': activeTab === 'A' }"> 
+                            <a href="#">User details</a>
+                        </x-buttons.flowbite.default>
+                    </li>
+                    <li>
+                        <x-buttons.flowbite.default x-on:click="activeTab = 'B'" x-bind:class="{ 'dark:bg-blue-800': activeTab === 'B' }"> 
+                            <a href="#">Access levels</a>
+                        </x-buttons.flowbite.default>
+                    </li>
+                </ul>
 
-            <div class="mt-4">
-
+                <div x-show="activeTab === 'A'" class="w-full rounded py-2 px-1 border border-1 border-gray-400">
+                    <p>User details</p>
+                </div>
+    
+                <div x-show="activeTab === 'B'" class="w-full rounded py-2 px-1 border border-1 border-gray-400">
+                    <p>Access levels</p>
+                </div>
             </div>
+
 
         </x-slot>
 
         <x-slot name="footer">
-            <x-secondary-button wire:click="$toggle('showUserModal')" wire:loading.attr="disabled">
+            <x-secondary-button wire:click="$toggle('showUserModal')">
                 {{ __('Cancel') }}
             </x-secondary-button>
 
-            <x-danger-button class="ms-3" wire:click="update" wire:loading.attr="disabled">
-                {{ __('Upate') }}
+            <x-danger-button class="ms-3" wire:click="update">
+                {{ __('Update') }}
             </x-danger-button>
         </x-slot>
     </x-dialog-modal>
