@@ -10,8 +10,6 @@ class UserController extends Controller
 {
     public function index(): View
     {
-        return view('management.user.index', [
-            'users' => User::all()->except(1)
-        ]);
+        return view('management.user.index');
     }
 }

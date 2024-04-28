@@ -18,9 +18,9 @@
             class="overflow-y-auto py-5 px-3 h-full bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <ul class="space-y-2">
                 <li>
-                    <a href="#"
+                    <a href="{{ route('dashboard') }}"
                         class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <x-carbon-dashboard-reference class="h-6 w-6 text-gray-400" />
+                        <x-carbon-dashboard-reference class="h-6 w-6 text-gray-400" />
                         <span class="ml-3">Dashboard</span>
                     </a>
                 </li>
@@ -34,7 +34,7 @@
                     </button>
                     <ul id="dropdown-management" class="hidden py-2 space-y-2">
                         <li>
-                            <a href="{{route('users.index')}}"
+                            <a href="{{ route('users.index') }}"
                                 class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                 <x-fas-users-gear class="h-6 w-6 text-gray-400" /><span class="ml-2">Users</span>
                             </a>
