@@ -8,7 +8,7 @@ Route::get('/', function () {
 });
 
 Route::name('users.')->prefix('users')->group(function () {
-    Route::get('/user', [UserController::class, 'index'])->name('index');
+    Route::get('', [UserController::class, 'index'])->name('index');
 });
 
 Route::middleware([
