@@ -61,22 +61,22 @@
             <div class="mt-4" x-data="{ activeTab: 'A' }">
                 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li>
-                        <x-buttons.flowbite.default x-on:click="activeTab = 'A'" x-bind:class="{ 'dark:bg-blue-800': activeTab === 'A' }"> 
+                        <x-buttons.flowbite.default class="rounded-t-lg" x-on:click="activeTab = 'A'" x-bind:class="{ 'dark:bg-blue-500': activeTab === 'A' }"> 
                             <a href="#">User details</a>
                         </x-buttons.flowbite.default>
                     </li>
                     <li>
-                        <x-buttons.flowbite.default x-on:click="activeTab = 'B'" x-bind:class="{ 'dark:bg-blue-800': activeTab === 'B' }"> 
+                        <x-buttons.flowbite.default class="rounded-t-lg" x-on:click="activeTab = 'B'" x-bind:class="{ 'dark:bg-blue-500': activeTab === 'B' }"> 
                             <a href="#">Access levels</a>
                         </x-buttons.flowbite.default>
                     </li>
                 </ul>
 
-                <div x-show="activeTab === 'A'" class="w-full rounded py-2 px-1 border border-1 border-gray-400">
+                <div x-show="activeTab === 'A'" class="w-full rounded-b py-2 px-1 border border-t-2 border-1 border-blue-500">
                     <p>User details</p>
                 </div>
     
-                <div x-show="activeTab === 'B'" class="w-full rounded py-2 px-1 border border-1 border-gray-400">
+                <div x-show="activeTab === 'B'" class="w-full rounded-b py-2 px-1 border border-t-2 border-1 border-blue-500">
                     <p>Access levels</p>
                 </div>
             </div>
