@@ -25,6 +25,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'role',
         'email',
         'password',
     ];
@@ -62,4 +63,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    const ADMIN = 1;
+    const USER = 2;
+
+    public function isAdmin(): bool {
+        return $this->role === self::ADMIN;
+    }
+
+
 }
