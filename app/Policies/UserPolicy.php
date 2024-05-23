@@ -14,7 +14,7 @@ class UserPolicy
     {
         return $user->isAdmin();
     }
-
+    
     /**
      * Determine whether the user can view the model.
      */
@@ -22,7 +22,7 @@ class UserPolicy
     {
         return $user->isAdmin();
     }
-
+    
     /**
      * Determine whether the user can create models.
      */
@@ -30,7 +30,7 @@ class UserPolicy
     {
         return $user->isAdmin();
     }
-
+    
     /**
      * Determine whether the user can update the model.
      */

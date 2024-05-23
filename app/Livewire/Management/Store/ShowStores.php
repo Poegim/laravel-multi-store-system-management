@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Livewire\Management\User;
+namespace App\Livewire\Management\Store;
 
-use App\Models\User;
+use App\Models\Store;
 use Livewire\Component;
 
-class ShowUsers extends Component
+class ShowStores extends Component
 {
 
     public bool $showEditModal = false;
-    public ?User $user;
+    public ?Store $store;
    
     public function mount() 
     {
@@ -18,7 +18,7 @@ class ShowUsers extends Component
 
     public function edit(int $id)
     {
-        $this->user = User::findOrFail($id);
+        $this->store = Store::findOrFail($id);
         $this->showEditModal = true;
     }
 
@@ -34,8 +34,8 @@ class ShowUsers extends Component
     
     public function render()
     {
-        return view('livewire.management.user.show-users', [
-            'users' => User::all()->except(1),
+        return view('livewire.management.store.show-stores', [
+            'stores' => Store::all(),
         ]);
     }
 }

@@ -28,7 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($users as $item)
+                        @foreach($stores as $item)
                         <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
                             <th scope="row"
                                 class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -54,7 +54,7 @@
     <!-- Show User Modal -->
     <x-dialog-modal wire:model.live="showEditModal">
         <x-slot name="title">
-            {{ __('Edit Account') }}: {{ $user?->name }}
+            {{ __('Edit Account') }}: {{ $store?->name }}
         </x-slot>
 
         <x-slot name="content">

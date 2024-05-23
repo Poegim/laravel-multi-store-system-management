@@ -24,7 +24,10 @@
                         <span class="ml-3">Dashboard</span>
                     </a>
                 </li>
-                <li>
+
+                <!-- Management -->
+                @if (auth()->user()->isAdmin())
+                                    <li>
                     <button type="button"
                         class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                         aria-controls="dropdown-management" data-collapse-toggle="dropdown-management">
@@ -33,6 +36,7 @@
                         <x-codicon-chevron-down class="h-6 w-6" />
                     </button>
                     <ul id="dropdown-management" class="hidden py-2 space-y-2">
+                        
                         @can('viewAny', App\Models\User::class)                            
                             <li>
                                 <a href="{{ route('users.index') }}"
@@ -41,14 +45,18 @@
                                 </a>
                             </li>
                         @endcan
+
                         <li>
-                            <a href="#"
+                            <a href="{{ route('stores.index') }}"
                                 class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                 <x-fas-store class="h-6 w-6 text-gray-400"/> <span class="ml-2">Stores</span>
                             </a>
                         </li>
                     </ul>
                 </li>
+                @endif
+
+                <!-- Pages -->
                 <li>
                     <button type="button"
                         class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
