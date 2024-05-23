@@ -26,6 +26,15 @@ class UsersTableSeeder extends Seeder
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
+        DB::table('users')->insert([
+            'name' => 'jacwin',
+            'role' => 2,
+            'email' => 'admin2@example.com',
+            'password' => Hash::make('password'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
         User::factory(10)->create();
 
     }

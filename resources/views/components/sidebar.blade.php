@@ -33,12 +33,14 @@
                         <x-codicon-chevron-down class="h-6 w-6" />
                     </button>
                     <ul id="dropdown-management" class="hidden py-2 space-y-2">
-                        <li>
-                            <a href="{{ route('users.index') }}"
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                                <x-fas-users-gear class="h-6 w-6 text-gray-400" /><span class="ml-2">Users</span>
-                            </a>
-                        </li>
+                        @can('viewAny', App\Models\User::class)                            
+                            <li>
+                                <a href="{{ route('users.index') }}"
+                                    class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                    <x-fas-users-gear class="h-6 w-6 text-gray-400" /><span class="ml-2">Users</span>
+                                </a>
+                            </li>
+                        @endcan
                         <li>
                             <a href="#"
                                 class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
@@ -140,16 +142,6 @@
                         <x-codicon-chevron-down class="h-6 w-6" />
                     </button>
                     <ul id="dropdown-authentication" class="hidden py-2 space-y-2">
-                        <li>
-                            <a href="#"
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Sign
-                                In</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Sign
-                                Up</a>
-                        </li>
                         <li>
                             <a href="#"
                                 class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Forgot

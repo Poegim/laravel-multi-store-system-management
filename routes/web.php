@@ -2,12 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\IsAdmin;
 
 Route::get('/', function () {
     return redirect('dashboard');
 });
 
-Route::name('users.')->prefix('users')->group(function () {
+Route::name('users.')->prefix('users')->middleware(['auth', IsAdmin::class])->group(function () {
     Route::get('', [UserController::class, 'index'])->name('index');
 });
 
