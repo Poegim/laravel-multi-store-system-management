@@ -23,6 +23,7 @@
         }
     </style>
 
+    @bukStyles
 
 </head>
 
@@ -60,8 +61,8 @@
     </div>
 
     @stack('modals')
-
     @livewireScripts
+    @bukScripts
 </body>
 
 </html>

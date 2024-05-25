@@ -54,7 +54,7 @@
     <!-- Show User Modal -->
     <x-dialog-modal wire:model.live="showEditModal">
         <x-slot name="title">
-            {{ __('Edit Account') }}: {{ $store?->name }}
+            {{ __('Edit store') }}: {{ $store?->name }}
         </x-slot>
 
         <x-slot name="content">
@@ -62,25 +62,121 @@
                 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li>
                         <x-buttons.flowbite.default class="rounded-t-lg" x-on:click="activeTab = 'A'" x-bind:class="{ 'bg-indigo-500 dark:bg-indigo-500 ': activeTab === 'A', 'bg-indigo-700 dark:bg-indigo-700 ': activeTab === 'B' }"> 
-                            <a href="#">User details</a>
+                        Basic
                         </x-buttons.flowbite.default>
                     </li>
                     <li>
                         <x-buttons.flowbite.default class="rounded-t-lg" x-on:click="activeTab = 'B'" x-bind:class="{ 'bg-indigo-500 dark:bg-indigo-500': activeTab === 'B', 'bg-indigo-700 dark:bg-indigo-700 ': activeTab === 'A' }"> 
-                            <a href="#">Access levels</a>
+                        Advanced
                         </x-buttons.flowbite.default>
                     </li>
                 </ul>
 
-                <div x-show="activeTab === 'A'" class="w-full rounded-b py-2 px-1 border-2 border-indigo-500">
-                    <p>User details</p>
-                </div>
+                <div x-show="activeTab === 'A'" class="w-full rounded-b p-4 border-2 border-indigo-500">
+
+                    <div class="mb-4">
+                        
+                        <label for="name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                        <input 
+                            wire:model="name" 
+                            type="name" 
+                            id="name" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$store?->name}}" 
+                        />
+
+                        <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                        <input 
+                            wire:model="email" 
+                            type="email" 
+                            id="email" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$store?->email}}" 
+                        />
+
+                        <label for="phone" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+                        <input 
+                            wire:model="phone" 
+                            type="text" 
+                            id="phone" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$store?->phone}}"
+                        />
+
+                        <label for="city" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">City</label>
+                        <input 
+                            wire:model="city" 
+                            type="text" 
+                            id="city" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$store?->city}}"
+                        />
+
+                        <label for="postcode" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Post code</label>
+                        <input 
+                            wire:model="postcode" 
+                            type="text" 
+                            id="postcode" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$store?->postcode}}"
+                        />
+
+                        <label for="street" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Street</label>
+                        <input 
+                            wire:model="street" 
+                            type="text" 
+                            id="street" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$store?->street}}"
+                        />
+
+                        <label for="building_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Building number</label>
+                        <input 
+                            wire:model="building_number" 
+                            type="text" 
+                            id="building_number" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$store?->building_number}}"
+                        />
+
+                        <label for="apartment_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Apartment number</label>
+                        <input 
+                            wire:model="apartment_number" 
+                            type="text" 
+                            id="apartment_number" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$store?->apartment_number}}"
+                        />
+
+                        <x-color-picker name="color" />
+                        
+                    </div>
     
-                <div x-show="activeTab === 'B'" class="w-full rounded-b py-2 px-1 border-2 border-indigo-500">
-                    <p>Access levels</p>
+                </div>
+
+                <div x-show="activeTab === 'B'" class="w-full rounded-b p-4 border-2 border-indigo-500">
+                                    
+                    <div class="mb-4">
+                        <label for="order" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">List order priority</label>
+                        <input 
+                            wire:model="order" 
+                            type="number" 
+                            id="order" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$store?->order}}" 
+                        />
+                    </div>
                 </div>
             </div>
-
 
         </x-slot>
 
