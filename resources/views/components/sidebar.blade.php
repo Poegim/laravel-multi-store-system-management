@@ -39,7 +39,7 @@
                         
                         @can('viewAny', App\Models\User::class)                            
                             <li>
-                                <a href="{{ route('users.index') }}"
+                                <a href="{{ route('user.index') }}"
                                     class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                     <x-fas-users-gear class="h-6 w-6 text-gray-400" /><span class="ml-2">Users</span>
                                 </a>
@@ -47,7 +47,7 @@
                         @endcan
 
                         <li>
-                            <a href="{{ route('stores.index') }}"
+                            <a href="{{ route('store.index') }}"
                                 class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                 <x-fas-store class="h-6 w-6 text-gray-400"/> <span class="ml-2">Stores</span>
                             </a>

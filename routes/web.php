@@ -9,12 +9,13 @@ Route::get('/', function () {
     return redirect('dashboard');
 });
 
-Route::name('users.')->prefix('users')->middleware(['auth', IsAdmin::class])->group(function () {
+Route::name('user.')->prefix('user')->middleware(['auth', IsAdmin::class])->group(function () {
     Route::get('', [UserController::class, 'index'])->name('index');
 });
 
-Route::name('stores.')->prefix('stores')->middleware(['auth', IsAdmin::class])->group(function () {
+Route::name('store.')->prefix('store')->middleware(['auth', IsAdmin::class])->group(function () {
     Route::get('', [StoreController::class, 'index'])->name('index');
+    Route::get('/{store}', [StoreController::class, 'show'])->name('show');
 });
 
 Route::middleware([
