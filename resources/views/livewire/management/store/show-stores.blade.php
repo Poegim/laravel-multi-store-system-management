@@ -54,10 +54,16 @@
     <!-- Show User Modal -->
     <x-dialog-modal wire:model.live="showEditModal">
         <x-slot name="title">
-            {{ __('Edit store') }}: {{ $store?->name }}
+            {{ __('Edit store') }}: {{ $name }}
         </x-slot>
 
         <x-slot name="content">
+
+            <div>
+                {{dump($errors)}}
+                {{dump($contracts_prefix)}}
+            </div>
+
             <div class="mt-4" x-data="{ activeTab: 'A' }">
                 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li>
@@ -74,106 +80,236 @@
 
                 <div x-show="activeTab === 'A'" class="w-full rounded-b p-4 border-2 border-indigo-500">
 
+                    <!-- Basic tab -->
                     <div class="mb-4">
                         
-                        <label for="name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                        <label for="name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('name')}}</label>
                         <input 
                             wire:model="name" 
                             type="name" 
                             id="name" 
                             class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
                             required 
-                            value="{{$store?->name}}" 
+                            value="{{$name}}" 
                         />
 
-                        <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                        <label for="color" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('color')}}</label>
+                        <input 
+                        type="color" 
+                        class="mb-4 p-1 h-10 w-full block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700" 
+                        id="color" 
+                        value="{{$color}}" 
+                        title="Choose your color">
+
+                        <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('email')}}</label>
                         <input 
                             wire:model="email" 
                             type="email" 
                             id="email" 
                             class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
                             required 
-                            value="{{$store?->email}}" 
+                            value="{{$email}}" 
                         />
 
-                        <label for="phone" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+                        <label for="phone" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('phone')}}</label>
                         <input 
                             wire:model="phone" 
                             type="text" 
                             id="phone" 
                             class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
                             required 
-                            value="{{$store?->phone}}"
+                            value="{{$phone}}"
                         />
 
-                        <label for="city" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">City</label>
+                        <label for="city" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('city')}}</label>
                         <input 
                             wire:model="city" 
                             type="text" 
                             id="city" 
                             class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
                             required 
-                            value="{{$store?->city}}"
+                            value="{{$city}}"
                         />
 
-                        <label for="postcode" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Post code</label>
+                        <label for="postcode" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('postcode')}}</label>
                         <input 
                             wire:model="postcode" 
                             type="text" 
                             id="postcode" 
                             class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
                             required 
-                            value="{{$store?->postcode}}"
+                            value="{{$postcode}}"
                         />
 
-                        <label for="street" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Street</label>
+                        <label for="street" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('street')}}</label>
                         <input 
                             wire:model="street" 
                             type="text" 
                             id="street" 
                             class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
                             required 
-                            value="{{$store?->street}}"
+                            value="{{$street}}"
                         />
 
-                        <label for="building_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Building number</label>
+                        <label for="building_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('building_number')}}</label>
                         <input 
                             wire:model="building_number" 
                             type="text" 
                             id="building_number" 
                             class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
                             required 
-                            value="{{$store?->building_number}}"
+                            value="{{$building_number}}"
                         />
 
-                        <label for="apartment_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Apartment number</label>
+                        <label for="apartment_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('apartment_number')}}</label>
                         <input 
                             wire:model="apartment_number" 
                             type="text" 
                             id="apartment_number" 
                             class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
                             required 
-                            value="{{$store?->apartment_number}}"
+                            value="{{$apartment_number}}"
                         />
-
-                        <x-color-picker name="color" />
                         
                     </div>
     
                 </div>
 
+                
+                <!-- Advanced tab -->
                 <div x-show="activeTab === 'B'" class="w-full rounded-b p-4 border-2 border-indigo-500">
                                     
                     <div class="mb-4">
-                        <label for="order" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">List order priority</label>
+                        <label for="order" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{ __('order')}}</label>
                         <input 
                             wire:model="order" 
                             type="number" 
                             id="order" 
+                            class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$order}}" 
+                        />
+
+                        <label for="contracts_prefix" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('contracts_prefix')}}</label>
+                        <input 
+                            wire:model="contracts_prefix" 
+                            type="text" 
+                            id="building_number" 
                             class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
                             required 
-                            value="{{$store?->order}}" 
+                            value="{{$contracts_prefix}}"
                         />
+
+                        <label for="invoices_prefix" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('invoices_prefix')}}</label>
+                        <input 
+                            wire:model="invoices_prefix" 
+                            type="text" 
+                            id="building_number" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$invoices_prefix}}"
+                        />
+
+                        <label for="margin_invoices_prefix" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('margin_invoices_prefix')}}</label>
+                        <input 
+                            wire:model="margin_invoices_prefix" 
+                            type="text" 
+                            id="building_number" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$margin_invoices_prefix}}"
+                        />
+
+                        <label for="proforma_invoices_prefix" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('proforma_invoices_prefix')}}</label>
+                        <input 
+                            wire:model="proforma_invoices_prefix" 
+                            type="text" 
+                            id="building_number" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$proforma_invoices_prefix}}"
+                        />
+
+                        <label for="internal_services_prefix" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('internal_services_prefix')}}</label>
+                        <input 
+                            wire:model="internal_services_prefix" 
+                            type="text" 
+                            id="building_number" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$internal_services_prefix}}"
+                        />
+
+                        <label for="external_services_prefix" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('external_services_prefix')}}</label>
+                        <input 
+                            wire:model="external_services_prefix" 
+                            type="text" 
+                            id="building_number" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$external_services_prefix}}"
+                        />
+
+                        <label for="next_receipt_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_receipt_number')}}</label>
+                        <input 
+                            wire:model="next_receipt_number" 
+                            type="number" 
+                            id="building_number" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$next_receipt_number}}"
+                        />
+
+                        <label for="next_invoice_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_invoice_number')}}</label>
+                        <input 
+                            wire:model="next_invoice_number" 
+                            type="number" 
+                            id="building_number" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$next_invoice_number}}"
+                        />
+
+                        <label for="next_margin_invoice_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_margin_invoice_number')}}</label>
+                        <input 
+                            wire:model="next_margin_invoice_number" 
+                            type="number" 
+                            id="building_number" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$next_margin_invoice_number}}"
+                        />
+
+                        <label for="next_proforma_invoice_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_proforma_invoice_number')}}</label>
+                        <input 
+                            wire:model="next_proforma_invoice_number" 
+                            type="number" 
+                            id="building_number" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$next_proforma_invoice_number}}"
+                        />
+
+                        <label for="next_internal_service_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_internal_service_number')}}</label>
+                        <input 
+                            wire:model="next_internal_service_number" 
+                            type="number" 
+                            id="building_number" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$next_internal_service_number}}"
+                        />
+
+                        <label for="next_external_service_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_external_service_number')}}</label>
+                        <input 
+                            wire:model="next_external_service_number" 
+                            type="number" 
+                            id="building_number" 
+                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$next_external_service_number}}"
+                        />
+
                     </div>
                 </div>
             </div>
@@ -185,7 +321,7 @@
                 {{ __('Cancel') }}
             </x-secondary-button>
 
-            <x-danger-button class="ms-3" wire:click="update">
+            <x-danger-button class="ms-3" wire:click="update({{$store?->id}})">
                 {{ __('Update') }}
             </x-danger-button>
         </x-slot>

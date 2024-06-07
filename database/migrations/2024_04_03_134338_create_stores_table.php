@@ -17,11 +17,11 @@ return new class extends Migration
             $table->integer('order');
             $table->string('email');
             $table->integer('phone');
-            $table->string('city');
+            $table->string('city')->default('');
             $table->integer('postcode');
-            $table->string('street');
-            $table->string('building_number');
-            $table->string('apartment_number');
+            $table->string('street')->nullable();
+            $table->string('building_number')->nullable();
+            $table->string('apartment_number')->nullable();
             $table->string('color')->unique();
             $table->string('contracts_prefix')->unique();
             $table->string('invoices_prefix')->unique();
@@ -35,7 +35,7 @@ return new class extends Migration
             $table->integer('next_proforma_invoice_number');
             $table->integer('next_internal_service_number');
             $table->integer('next_external_service_number');
-            $table->longText('description');
+            $table->text('description');
             $table->timestamps();
         });
     }
