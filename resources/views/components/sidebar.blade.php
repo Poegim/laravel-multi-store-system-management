@@ -57,7 +57,7 @@
                 @endif
 
                 <!-- Pages -->
-                <li>
+                <!-- <li>
                     <button type="button"
                         class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                         aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages">
@@ -86,6 +86,7 @@
                         </li>
                     </ul>
                 </li>
+
                 <li>
                     <button type="button"
                         class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -115,6 +116,7 @@
                         </li>
                     </ul>
                 </li>
+
                 <li>
                     <a href="#"
                         class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -134,7 +136,8 @@
                             6
                         </span>
                     </a>
-                </li>
+                </li> -->
+
                 <li>
                     <button type="button"
                         class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -168,8 +171,9 @@
                     </ul>
                 </li>
             </ul>
+
             <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
-                <li>
+                <!-- <li>
                     <a href="#"
                         class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">
                         <svg aria-hidden="true"
@@ -208,12 +212,13 @@
                         </svg>
                         <span class="ml-3">Help</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
         <div
             class="hidden absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex bg-white dark:bg-gray-800 z-20 border-r border-gray-200 dark:border-gray-700">
-            <a href="#" data-tooltip-target="tooltip-management"
+            
+            <!-- <a href="#" data-tooltip-target="tooltip-management"
                 class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-600">
                 <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
@@ -226,7 +231,8 @@
             class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip">
                 Management page
                 <div class="tooltip-arrow" data-popper-arrow></div>
-            </div>
+            </div> -->
+
             <a href="#" data-tooltip-target="tooltip-settings"
                 class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark:text-gray-400 dark:hover:text-white hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600">
                 <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
@@ -241,6 +247,7 @@
                 Settings page
                 <div class="tooltip-arrow" data-popper-arrow></div>
             </div>
+
             <div class="ml-2 mt-2" data-tooltip-target="tooltip-mode">
                 <button type="button" x-bind:class="darkMode ? 'bg-slate-500' : 'bg-gray-700'"
                     x-on:click="darkMode = !darkMode"
