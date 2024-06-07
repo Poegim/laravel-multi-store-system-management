@@ -138,39 +138,23 @@
                     </a>
                 </li> -->
 
+                
+                <!-- Authentication -->
                 <li>
-                    <button type="button"
-                        class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                        aria-controls="dropdown-authentication" data-collapse-toggle="dropdown-authentication">
-                        <svg aria-hidden="true"
-                            class="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                        <span class="flex-1 ml-3 text-left whitespace-nowrap">Authentication</span>
-                        <x-codicon-chevron-down class="h-6 w-6" />
-                    </button>
-                    <ul id="dropdown-authentication" class="hidden py-2 space-y-2">
-                        <li>
-                            <a href="#"
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Forgot
-                                Password</a>
-                        </li>
-                        <li>
-                            <!-- Authentication -->
-                            <form method="POST" action="{{ route('logout') }}" x-data>
-                                @csrf
-                                <a href="{{ route('logout') }}"
-                                         @click.prevent="$root.submit();" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                                    {{ __('Log Out') }}
-                                </a>
-                            </form>
-                        </li>
-                    </ul>
+                    <form method="POST" action="{{ route('logout') }}" x-data>
+                        @csrf
+                        <a href="{{ route('logout') }}"
+                                 @click.prevent="$root.submit();" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                 <x-carbon-logout class="h-6 w-6 text-gray-400" />
+                                 <span class="ml-4">
+
+                                     {{ __('Log Out') }}
+                                 </span>
+                        </a>
+                    </form>
                 </li>
             </ul>
+
 
             <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
                 <!-- <li>
