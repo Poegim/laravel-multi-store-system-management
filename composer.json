@@ -7,7 +7,6 @@
     "require": {
         "php": "^8.2",
         "blade-ui-kit/blade-icons": "^1.6",
-        "blade-ui-kit/blade-ui-kit": "^0.6.2",
         "codeat3/blade-carbon-icons": "^2.22",
         "codeat3/blade-codicons": "^1.33",
         "laravel/framework": "^11.0",
