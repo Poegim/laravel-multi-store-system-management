@@ -35,14 +35,14 @@ class StoreFactory extends Factory
             'invoices_prefix' => $prefix,
             'margin_invoices_prefix' => $prefix,
             'proforma_invoices_prefix' => $prefix,
-            'internal_services_prefix' => $prefix,
-            'external_services_prefix' => $prefix,
+            'internal_servicing_prefix' => $prefix,
+            'external_servicing_prefix' => $prefix,
             'next_receipt_number' => rand(1,100000),
             'next_invoice_number' => rand(1,10000),
             'next_margin_invoice_number' => rand(1,5000),
             'next_proforma_invoice_number' => rand(1,99),
-            'next_internal_service_number' => rand(1,1000),
-            'next_external_service_number' => rand(1,1000),
+            'next_internal_servicing_number' => rand(1,1000),
+            'next_external_servicing_number' => rand(1,1000),
             'description' => fake()->words(20, true),
         ];
     }

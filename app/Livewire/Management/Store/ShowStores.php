@@ -27,14 +27,14 @@ class ShowStores extends Component
     public ?string $invoices_prefix;
     public ?string $margin_invoices_prefix;
     public ?string $proforma_invoices_prefix;
-    public ?string $internal_services_prefix;
-    public ?string $external_services_prefix;
+    public ?string $internal_servicing_prefix;
+    public ?string $external_servicing_prefix;
     public ?int $next_receipt_number;
     public ?int $next_invoice_number;
     public ?int $next_margin_invoice_number;
     public ?int $next_proforma_invoice_number;
-    public ?int $next_internal_service_number;
-    public ?int $next_external_service_number;
+    public ?int $next_internal_servicing_number;
+    public ?int $next_external_servicing_number;
     public ?string $description;
 
     public function rules() : Array
@@ -80,22 +80,22 @@ class ShowStores extends Component
                 'max:8',
                 Rule::unique('stores')->ignore($this->store->proforma_invoices_prefix, 'proforma_invoices_prefix'),
             ],
-            'internal_services_prefix' => [
+            'internal_servicing_prefix' => [
                 'required',
                 'max:8',
-                Rule::unique('stores')->ignore($this->store->internal_services_prefix, 'internal_services_prefix'),
+                Rule::unique('stores')->ignore($this->store->internal_servicing_prefix, 'internal_servicing_prefix'),
             ],
-            'external_services_prefix' => [
+            'external_servicing_prefix' => [
                 'required',
                 'max:8',
-                Rule::unique('stores')->ignore($this->store->external_services_prefix, 'external_services_prefix'),
+                Rule::unique('stores')->ignore($this->store->external_servicing_prefix, 'external_servicing_prefix'),
             ],
             'next_receipt_number' => 'required|numeric',
             'next_invoice_number' => 'required|numeric',
             'next_margin_invoice_number' => 'required|numeric',
             'next_proforma_invoice_number' => 'required|numeric',
-            'next_internal_service_number' => 'required|numeric',
-            'next_external_service_number' => 'required|numeric',
+            'next_internal_servicing_number' => 'required|numeric',
+            'next_external_servicing_number' => 'required|numeric',
             'description' => 'max:2000',
         ];
     }
@@ -129,14 +129,14 @@ class ShowStores extends Component
         $this->invoices_prefix = $this->store->invoices_prefix;
         $this->margin_invoices_prefix = $this->store->margin_invoices_prefix;
         $this->proforma_invoices_prefix = $this->store->proforma_invoices_prefix;
-        $this->internal_services_prefix = $this->store->internal_services_prefix;
-        $this->external_services_prefix = $this->store->external_services_prefix;
+        $this->internal_servicing_prefix = $this->store->internal_servicing_prefix;
+        $this->external_servicing_prefix = $this->store->external_servicing_prefix;
         $this->next_receipt_number = $this->store->next_receipt_number;
         $this->next_invoice_number = $this->store->next_invoice_number;
         $this->next_margin_invoice_number = $this->store->next_margin_invoice_number;
         $this->next_proforma_invoice_number = $this->store->next_proforma_invoice_number;
-        $this->next_internal_service_number = $this->store->next_internal_service_number;
-        $this->next_external_service_number = $this->store->next_external_service_number;
+        $this->next_internal_servicing_number = $this->store->next_internal_servicing_number;
+        $this->next_external_servicing_number = $this->store->next_external_servicing_number;
         $this->description = $this->store->description;
     }
     

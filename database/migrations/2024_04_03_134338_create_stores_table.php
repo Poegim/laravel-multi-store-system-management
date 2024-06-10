@@ -27,14 +27,14 @@ return new class extends Migration
             $table->string('invoices_prefix')->unique();
             $table->string('margin_invoices_prefix')->unique();
             $table->string('proforma_invoices_prefix')->unique();
-            $table->string('internal_services_prefix')->unique();
-            $table->string('external_services_prefix')->unique();
+            $table->string('internal_servicing_prefix')->unique();
+            $table->string('external_servicing_prefix')->unique();
             $table->integer('next_receipt_number');
             $table->integer('next_invoice_number');
             $table->integer('next_margin_invoice_number');
             $table->integer('next_proforma_invoice_number');
-            $table->integer('next_internal_service_number');
-            $table->integer('next_external_service_number');
+            $table->integer('next_internal_servicing_number');
+            $table->integer('next_external_servicing_number');
             $table->text('description');
             $table->timestamps();
         });

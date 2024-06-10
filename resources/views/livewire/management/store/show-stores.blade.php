@@ -230,24 +230,24 @@
                             value="{{$proforma_invoices_prefix}}"
                         />
 
-                        <label for="internal_services_prefix" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('internal_services_prefix')}}</label>
+                        <label for="internal_servicing_prefix" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('internal_servicing_prefix')}}</label>
                         <input 
-                            wire:model="internal_services_prefix" 
+                            wire:model="internal_servicing_prefix" 
                             type="text" 
                             id="building_number" 
                             class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
                             required 
-                            value="{{$internal_services_prefix}}"
+                            value="{{$internal_servicing_prefix}}"
                         />
 
-                        <label for="external_services_prefix" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('external_services_prefix')}}</label>
+                        <label for="external_servicing_prefix" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('external_servicing_prefix')}}</label>
                         <input 
-                            wire:model="external_services_prefix" 
+                            wire:model="external_servicing_prefix" 
                             type="text" 
                             id="building_number" 
                             class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
                             required 
-                            value="{{$external_services_prefix}}"
+                            value="{{$external_servicing_prefix}}"
                         />
 
                         <label for="next_receipt_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_receipt_number')}}</label>
@@ -290,24 +290,24 @@
                             value="{{$next_proforma_invoice_number}}"
                         />
 
-                        <label for="next_internal_service_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_internal_service_number')}}</label>
+                        <label for="next_internal_servicing_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_internal_servicing_number')}}</label>
                         <input 
-                            wire:model="next_internal_service_number" 
+                            wire:model="next_internal_servicing_number" 
                             type="number" 
                             id="building_number" 
                             class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
                             required 
-                            value="{{$next_internal_service_number}}"
+                            value="{{$next_internal_servicing_number}}"
                         />
 
-                        <label for="next_external_service_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_external_service_number')}}</label>
+                        <label for="next_external_servicing_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_external_servicing_number')}}</label>
                         <input 
-                            wire:model="next_external_service_number" 
+                            wire:model="next_external_servicing_number" 
                             type="number" 
                             id="building_number" 
                             class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
                             required 
-                            value="{{$next_external_service_number}}"
+                            value="{{$next_external_servicing_number}}"
                         />
 
                     </div>
