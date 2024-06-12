@@ -1,15 +1,17 @@
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
         <div class="w-full flex justify-end my-4">
-            <x-button >
-                <a href="#" class="flex">
+            <x-buttons.flowbite.cyan-to-blue >
+                <div class="flex">
                     <x-fas-plus class="w-6 h-6 mr-2"/>
                     <span class="my-auto">
                         {{ __('CREATE') }}
                     </span>
-                </a>
-            </x-button>
+                </div>
+            </x-buttons.flowbite.cyan-to-blue>
         </div>
+
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
 
             <div class="relative overflow-x-auto">
@@ -51,7 +53,7 @@
         </div>
     </div>
 
-    <!-- Show User Modal -->
+    <!-- Show Edit Modal -->
     <x-dialog-modal wire:model.live="showEditModal">
         <x-slot name="title">
             {{ __('Edit Account') }}: {{ $user?->name }}
@@ -81,7 +83,6 @@
                 </div>
             </div>
 
-
         </x-slot>
 
         <x-slot name="footer">
@@ -94,4 +95,5 @@
             </x-danger-button>
         </x-slot>
     </x-dialog-modal>
+    
 </div>

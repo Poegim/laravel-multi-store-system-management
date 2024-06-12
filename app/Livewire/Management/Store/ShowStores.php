@@ -3,11 +3,16 @@
 namespace App\Livewire\Management\Store;
 
 use App\Models\Store;
-use Livewire\Component;
+use App\Services\StoreService;
 use Illuminate\Validation\Rule;
+use Laravel\Jetstream\InteractsWithBanner;
+use Livewire\Component;
 
 class ShowStores extends Component
 {
+    use InteractsWithBanner;
+
+    protected StoreService $storeService;
 
     public bool $showEditModal = false;
     public ?Store $store;
@@ -57,47 +62,57 @@ class ShowStores extends Component
             'city' => 'required|min:2|max:255',
             'postcode' => 'required|numeric|max_digits:5|min_digits:5',
             'street' => 'max:255',
-            'building_number' => 'max:255',
-            'apartment_number' => 'max:255',
+            'building_number' => 'max_digits:255',
+            'apartment_number' => 'max_digits:255',
             'color' => 'hex_color',
             'contracts_prefix' => [
                 'required',
                 'max:8',
+                'min:1',
                 Rule::unique('stores')->ignore($this->store->contracts_prefix, 'contracts_prefix'),
             ],
             'invoices_prefix' => [
                 'required',
                 'max:8',
+                'min:1',
                 Rule::unique('stores')->ignore($this->store->invoices_prefix, 'invoices_prefix'),
             ],
             'margin_invoices_prefix' => [
                 'required',
                 'max:8',
+                'min:1',
                 Rule::unique('stores')->ignore($this->store->margin_invoices_prefix, 'margin_invoices_prefix'),
             ],
             'proforma_invoices_prefix' => [
                 'required',
                 'max:8',
+                'min:1',
                 Rule::unique('stores')->ignore($this->store->proforma_invoices_prefix, 'proforma_invoices_prefix'),
             ],
             'internal_servicing_prefix' => [
                 'required',
                 'max:8',
+                'min:1',
                 Rule::unique('stores')->ignore($this->store->internal_servicing_prefix, 'internal_servicing_prefix'),
             ],
             'external_servicing_prefix' => [
                 'required',
                 'max:8',
+                'min:1',
                 Rule::unique('stores')->ignore($this->store->external_servicing_prefix, 'external_servicing_prefix'),
             ],
-            'next_receipt_number' => 'required|numeric',
-            'next_invoice_number' => 'required|numeric',
-            'next_margin_invoice_number' => 'required|numeric',
-            'next_proforma_invoice_number' => 'required|numeric',
-            'next_internal_servicing_number' => 'required|numeric',
-            'next_external_servicing_number' => 'required|numeric',
+            'next_receipt_number' => 'required|numeric|min:1',
+            'next_invoice_number' => 'required|numeric|min:1',
+            'next_margin_invoice_number' => 'required|numeric|min:1',
+            'next_proforma_invoice_number' => 'required|numeric|min:1',
+            'next_internal_servicing_number' => 'required|numeric|min:1',
+            'next_external_servicing_number' => 'required|numeric|min:1',
             'description' => 'max:2000',
         ];
+    }
+
+    public function boot(StoreService $storeService) {
+        $this->storeService = $storeService;
     }
 
     public function edit(int $id)
@@ -110,7 +125,12 @@ class ShowStores extends Component
     public function update(int $id)
     {
         $validated = $this->validate();
-        
+        if($validated) {
+            $flag = $this->storeService->update($validated, $id);
+            $this->showEditModal = false;
+            $flag ? $this->banner('Update success.') : $this->dangerBanner('Error, update fail.');
+        }
+
     }
 
     public function associate()

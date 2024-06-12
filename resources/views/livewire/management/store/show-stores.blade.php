@@ -1,14 +1,18 @@
 <div class="py-12">
+    
+    <!-- <x-banner /> -->
+
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="w-full flex justify-end my-4">
-            <x-button >
-                <a href="#" class="flex">
+            <x-buttons.flowbite.cyan-to-blue >
+                <div class="flex">
+
                     <x-fas-plus class="w-6 h-6 mr-2"/>
                     <span class="my-auto">
                         {{ __('CREATE') }}
                     </span>
-                </a>
-            </x-button>
+                </div>
+            </x-buttons.flowbite.cyan-to-blue>
         </div>
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
 
@@ -51,7 +55,7 @@
         </div>
     </div>
 
-    <!-- Show User Modal -->
+    <!-- Show Edit Modal -->
     <x-dialog-modal wire:model.live="showEditModal">
         <x-slot name="title">
             {{ __('Edit store') }}: {{ $name }}
@@ -59,9 +63,13 @@
 
         <x-slot name="content">
 
-            <div>
-                {{dump($errors)}}
-            </div>
+            @if ($errors->any())
+                <x-lists.errors-list >
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                </x-lists.errors-list >
+            @endif
 
             <div class="mt-4" x-data="{ activeTab: 'A' }">
                 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
@@ -93,14 +101,18 @@
                     <div class="mb-4">
                         
                         <label for="name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('name')}}</label>
+                        @error('name')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="name" 
                             type="name" 
                             id="name" 
-                            class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
                             required 
                             value="{{$name}}" 
                         />
+
 
                         <label for="order" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{ __('order')}}</label>
                         <input 
@@ -353,4 +365,5 @@
             </x-danger-button>
         </x-slot>
     </x-dialog-modal>
+
 </div>

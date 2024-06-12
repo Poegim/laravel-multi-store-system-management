@@ -34,9 +34,9 @@
     
     <div x-bind:class="{'dark' : darkMode === true}">
         <div class="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800">
-
+            
             <x-sidebar />
-
+            
             <!-- Page Heading -->        
             <div class="absolute top-0 sm:left-64 right-0 z-10">
                 
