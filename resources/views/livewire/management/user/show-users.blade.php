@@ -17,13 +17,13 @@
                     <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">
-                                Name
+                                {{__('name')}}
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Email
+                            {{__('email')}}
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Action
+                                {{__('action')}}
                             </th>
                         </tr>
                     </thead>
@@ -38,9 +38,9 @@
                                 {{$item->email}}
                             </td>
                             <td class="px-6 py-2">
-                                <button wire:click="edit({{ $item->id }})" class="text-indigo-500 dark:hover:text-indigo-300 hover:text-indigo-700 transition-colors duration-300">
+                                <x-buttons.edit-button wire:click="edit({{ $item->id }})" >
                                     <x-fas-edit class="h-6 w-6"/>
-                                </button>
+                                </x-buttons.edit-button>
                             </td>
                         </tr>
                         @endforeach
@@ -62,12 +62,12 @@
                 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li>
                         <x-buttons.flowbite.default class="rounded-t-lg" x-on:click="activeTab = 'A'" x-bind:class="{ 'bg-indigo-500 dark:bg-indigo-500 ': activeTab === 'A', 'bg-indigo-700 dark:bg-indigo-700 ': activeTab === 'B' }"> 
-                            <a href="#">User details</a>
+                            <a href="#">{{__('User details')}}</a>
                         </x-buttons.flowbite.default>
                     </li>
                     <li>
                         <x-buttons.flowbite.default class="rounded-t-lg" x-on:click="activeTab = 'B'" x-bind:class="{ 'bg-indigo-500 dark:bg-indigo-500': activeTab === 'B', 'bg-indigo-700 dark:bg-indigo-700 ': activeTab === 'A' }"> 
-                            <a href="#">Access levels</a>
+                            <a href="#">{{__('Access levels')}}</a>
                         </x-buttons.flowbite.default>
                     </li>
                 </ul>
@@ -77,7 +77,7 @@
                 </div>
     
                 <div x-show="activeTab === 'B'" class="w-full rounded-b py-2 px-1 border-2 border-indigo-500">
-                    <p>Access levels</p>
+                    <p>{{__('Access levels')}}</p>
                 </div>
             </div>
 

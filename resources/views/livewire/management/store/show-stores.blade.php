@@ -17,13 +17,13 @@
                     <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">
-                                Name
+                                {{__('name')}}
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Email
+                            {{__('email')}}
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Action
+                                {{__('action')}}
                             </th>
                         </tr>
                     </thead>
@@ -38,9 +38,9 @@
                                 {{$item->email}}
                             </td>
                             <td class="px-6 py-2">
-                                <button wire:click="edit({{ $item->id }})" class="text-indigo-500 dark:hover:text-indigo-300 hover:text-indigo-700 transition-colors duration-300">
+                                <x-buttons.edit-button wire:click="edit({{ $item->id }})">
                                     <x-fas-edit class="h-6 w-6"/>
-                                </button>
+                                </x-buttons.edit-button>
                             </td>
                         </tr>
                         @endforeach
@@ -61,19 +61,28 @@
 
             <div>
                 {{dump($errors)}}
-                {{dump($contracts_prefix)}}
             </div>
 
             <div class="mt-4" x-data="{ activeTab: 'A' }">
                 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li>
-                        <x-buttons.flowbite.default class="rounded-t-lg" x-on:click="activeTab = 'A'" x-bind:class="{ 'bg-indigo-500 dark:bg-indigo-500 ': activeTab === 'A', 'bg-indigo-700 dark:bg-indigo-700 ': activeTab === 'B' }"> 
-                        Basic
+                        <x-buttons.flowbite.default class="rounded-t-lg" x-on:click="activeTab = 'A'" x-bind:class="{ 'bg-indigo-500 dark:bg-indigo-500 ': activeTab === 'A', 'bg-indigo-700 dark:bg-indigo-700 ': activeTab != 'A' }"> 
+                        {{__('basic')}}
                         </x-buttons.flowbite.default>
                     </li>
                     <li>
-                        <x-buttons.flowbite.default class="rounded-t-lg" x-on:click="activeTab = 'B'" x-bind:class="{ 'bg-indigo-500 dark:bg-indigo-500': activeTab === 'B', 'bg-indigo-700 dark:bg-indigo-700 ': activeTab === 'A' }"> 
-                        Advanced
+                        <x-buttons.flowbite.default class="rounded-t-lg" x-on:click="activeTab = 'B'" x-bind:class="{ 'bg-indigo-500 dark:bg-indigo-500': activeTab === 'B', 'bg-indigo-700 dark:bg-indigo-700 ': activeTab != 'B' }"> 
+                        {{__('address')}}
+                        </x-buttons.flowbite.default>
+                    </li>
+                    <li>
+                        <x-buttons.flowbite.default class="rounded-t-lg" x-on:click="activeTab = 'C'" x-bind:class="{ 'bg-indigo-500 dark:bg-indigo-500': activeTab === 'C', 'bg-indigo-700 dark:bg-indigo-700 ': activeTab != 'C' }"> 
+                        {{__('prefixes')}}
+                        </x-buttons.flowbite.default>
+                    </li>
+                    <li>
+                        <x-buttons.flowbite.default class="rounded-t-lg" x-on:click="activeTab = 'D'" x-bind:class="{ 'bg-indigo-500 dark:bg-indigo-500': activeTab === 'D', 'bg-indigo-700 dark:bg-indigo-700 ': activeTab != 'D' }"> 
+                        {{__('indexes')}}
                         </x-buttons.flowbite.default>
                     </li>
                 </ul>
@@ -91,6 +100,16 @@
                             class=" mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
                             required 
                             value="{{$name}}" 
+                        />
+
+                        <label for="order" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{ __('order')}}</label>
+                        <input 
+                            wire:model="order" 
+                            type="number" 
+                            id="order" 
+                            class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
+                            required 
+                            value="{{$order}}" 
                         />
 
                         <label for="color" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('color')}}</label>
@@ -120,6 +139,17 @@
                             required 
                             value="{{$phone}}"
                         />
+
+                    </div>
+    
+                </div>
+
+                
+                <!-- Address tab -->
+                <div x-show="activeTab === 'B'" class="w-full rounded-b p-4 border-2 border-indigo-500">
+                                    
+                    <div class="mb-4">
+
 
                         <label for="city" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('city')}}</label>
                         <input 
@@ -170,25 +200,14 @@
                             required 
                             value="{{$apartment_number}}"
                         />
-                        
+
                     </div>
-    
                 </div>
 
-                
-                <!-- Advanced tab -->
-                <div x-show="activeTab === 'B'" class="w-full rounded-b p-4 border-2 border-indigo-500">
+                <!-- Prefixes tab -->
+                <div x-show="activeTab === 'C'" class="w-full rounded-b p-4 border-2 border-indigo-500">
                                     
                     <div class="mb-4">
-                        <label for="order" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{ __('order')}}</label>
-                        <input 
-                            wire:model="order" 
-                            type="number" 
-                            id="order" 
-                            class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" 
-                            required 
-                            value="{{$order}}" 
-                        />
 
                         <label for="contracts_prefix" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('contracts_prefix')}}</label>
                         <input 
@@ -249,6 +268,14 @@
                             required 
                             value="{{$external_servicing_prefix}}"
                         />
+
+                    </div>
+                </div>
+
+                <!-- Indexes tab -->
+                <div x-show="activeTab === 'D'" class="w-full rounded-b p-4 border-2 border-indigo-500">
+                                    
+                    <div class="mb-4">
 
                         <label for="next_receipt_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_receipt_number')}}</label>
                         <input 
