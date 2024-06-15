@@ -128,7 +128,7 @@ class ShowStores extends Component
         if($validated) {
             $flag = $this->storeService->update($validated, $id);
             $this->showEditModal = false;
-            $flag ? $this->banner('Update success.') : $this->dangerBanner('Error, update fail.');
+            $flag ? $this->banner('Update successful.') : $this->dangerBanner('An error was encountered while saving.');
         }
 
     }

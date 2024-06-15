@@ -18,7 +18,7 @@
             class="overflow-y-auto py-5 px-3 h-full bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <ul class="space-y-2">
                 <li>
-                    <a href="{{ route('dashboard') }}"
+                    <a href="{{ route('dashboard') }}" wire:navigate 
                         class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <x-carbon-dashboard-reference class="h-6 w-6 text-gray-400" />
                         <span class="ml-3">Dashboard</span>
@@ -27,19 +27,20 @@
 
                 <!-- Management -->
                 @if (auth()->user()->isAdmin())
-                                    <li>
-                    <button type="button"
+                <li x-data="{ open: false }">
+                    <button type="button" @click="open = !open"
                         class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                        aria-controls="dropdown-management" data-collapse-toggle="dropdown-management">
+                        >
                         <x-codicon-settings class="w-6 h-6 text-gray-400"/>
                         <span class="flex-1 ml-3 text-left whitespace-nowrap">Management</span>
                         <x-codicon-chevron-down class="h-6 w-6" />
                     </button>
-                    <ul id="dropdown-management" class="hidden py-2 space-y-2">
+
+                    <ul class="py-2 space-y-2" x-show="open">
                         
                         @can('viewAny', App\Models\User::class)                            
                             <li>
-                                <a href="{{ route('user.index') }}"
+                                <a href="{{ route('user.index') }}" wire:navigate 
                                     class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                     <x-fas-users-gear class="h-6 w-6 text-gray-400" /><span class="ml-2">Users</span>
                                 </a>
@@ -47,7 +48,7 @@
                         @endcan
 
                         <li>
-                            <a href="{{ route('store.index') }}"
+                            <a href="{{ route('store.index') }}" wire:navigate
                                 class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                 <x-fas-store class="h-6 w-6 text-gray-400"/> <span class="ml-2">Stores</span>
                             </a>

@@ -37,6 +37,7 @@ return new class extends Migration
             $table->integer('next_external_servicing_number');
             $table->text('description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
