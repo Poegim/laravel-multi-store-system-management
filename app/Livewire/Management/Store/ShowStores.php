@@ -14,7 +14,8 @@ class ShowStores extends Component
 
     protected StoreService $storeService;
 
-    public bool $showEditModal = false;
+    public bool $showModal = false;
+    public string $activeModalTab = 'A';
     public ?Store $store;
 
     //DB Columns
@@ -27,7 +28,7 @@ class ShowStores extends Component
     public ?string $street;
     public ?string $building_number;
     public ?string $apartment_number;
-    public ?string $color;
+    public string $color = "#ffffff";
     public ?string $contracts_prefix;
     public ?string $invoices_prefix;
     public ?string $margin_invoices_prefix;
@@ -67,37 +68,37 @@ class ShowStores extends Component
             'color' => 'hex_color',
             'contracts_prefix' => [
                 'required',
-                'max:8',
+                'max:30',
                 'min:1',
                 Rule::unique('stores')->ignore($this->store->contracts_prefix, 'contracts_prefix'),
             ],
             'invoices_prefix' => [
                 'required',
-                'max:8',
+                'max:30',
                 'min:1',
                 Rule::unique('stores')->ignore($this->store->invoices_prefix, 'invoices_prefix'),
             ],
             'margin_invoices_prefix' => [
                 'required',
-                'max:8',
+                'max:30',
                 'min:1',
                 Rule::unique('stores')->ignore($this->store->margin_invoices_prefix, 'margin_invoices_prefix'),
             ],
             'proforma_invoices_prefix' => [
                 'required',
-                'max:8',
+                'max:30',
                 'min:1',
                 Rule::unique('stores')->ignore($this->store->proforma_invoices_prefix, 'proforma_invoices_prefix'),
             ],
             'internal_servicing_prefix' => [
                 'required',
-                'max:8',
+                'max:30',
                 'min:1',
                 Rule::unique('stores')->ignore($this->store->internal_servicing_prefix, 'internal_servicing_prefix'),
             ],
             'external_servicing_prefix' => [
                 'required',
-                'max:8',
+                'max:30',
                 'min:1',
                 Rule::unique('stores')->ignore($this->store->external_servicing_prefix, 'external_servicing_prefix'),
             ],
@@ -115,11 +116,19 @@ class ShowStores extends Component
         $this->storeService = $storeService;
     }
 
+
+    public function create()
+    {
+        $this->resetVars();
+        $this->activeModalTab = 'A';
+        $this->showModal = true;
+    }
+
     public function edit(int $id)
     {
         $this->store = Store::findOrFail($id);
         $this->associate();
-        $this->showEditModal = true;
+        $this->showModal = true;
     }
 
     public function update(int $id)
@@ -127,7 +136,7 @@ class ShowStores extends Component
         $validated = $this->validate();
         if($validated) {
             $flag = $this->storeService->update($validated, $id);
-            $this->showEditModal = false;
+            $this->showModal = false;
             $flag ? $this->banner('Update successful.') : $this->dangerBanner('An error was encountered while saving.');
         }
 
@@ -158,6 +167,33 @@ class ShowStores extends Component
         $this->next_internal_servicing_number = $this->store->next_internal_servicing_number;
         $this->next_external_servicing_number = $this->store->next_external_servicing_number;
         $this->description = $this->store->description;
+    }
+
+    private function resetVars()
+    {
+        $this->name = null;
+        $this->order = null;
+        $this->email = null;
+        $this->phone = null;
+        $this->city = null;
+        $this->postcode = null;
+        $this->street = null;
+        $this->building_number = null;
+        $this->apartment_number = null;
+        $this->color = "#ffffff";
+        $this->contracts_prefix = null;
+        $this->invoices_prefix = null;
+        $this->margin_invoices_prefix = null;
+        $this->proforma_invoices_prefix = null;
+        $this->internal_servicing_prefix = null;
+        $this->external_servicing_prefix = null;
+        $this->next_receipt_number = null;
+        $this->next_invoice_number = null;
+        $this->next_margin_invoice_number = null;
+        $this->next_proforma_invoice_number = null;
+        $this->next_internal_servicing_number = null;
+        $this->next_external_servicing_number = null;
+        $this->description = null;
     }
     
     public function render()

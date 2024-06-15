@@ -4,15 +4,16 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="w-full flex justify-end my-4">
-            <x-buttons.flowbite.cyan-to-blue >
-                <div class="flex">
-
-                    <x-fas-plus class="w-6 h-6 mr-2"/>
-                    <span class="my-auto">
-                        {{ __('CREATE') }}
-                    </span>
-                </div>
-            </x-buttons.flowbite.cyan-to-blue>
+            <button wire:click="create()">
+                <x-buttons.flowbite.cyan-to-blue>
+                    <div class="flex">
+                        <x-fas-plus class="w-6 h-6 mr-2"/>
+                        <span class="my-auto">
+                            {{ __('CREATE') }}
+                        </span>
+                    </div>
+                </x-buttons.flowbite.cyan-to-blue>
+            </button>
         </div>
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
 
@@ -56,7 +57,7 @@
     </div>
 
     <!-- Show Edit Modal -->
-    <x-dialog-modal wire:model.live="showEditModal">
+    <x-dialog-modal wire:model.live="showModal">
         <x-slot name="title">
             {{ __('Edit store') }}: {{ $name }}
         </x-slot>
@@ -71,7 +72,7 @@
                 </x-lists.errors-list >
             @endif
 
-            <div class="mt-4" x-data="{ activeTab: 'A' }">
+            <div class="mt-4" x-data="{ activeTab: $wire.entangle('activeModalTab') }">
                 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li>
                         <x-buttons.flowbite.default class="rounded-t-lg" x-on:click="activeTab = 'A'" x-bind:class="{ 'bg-indigo-500 dark:bg-indigo-500 ': activeTab === 'A', 'bg-indigo-700 dark:bg-indigo-700 ': activeTab != 'A' }"> 
@@ -115,6 +116,9 @@
 
 
                         <label for="order" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{ __('order')}}</label>
+                        @error('order')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="order" 
                             type="number" 
@@ -125,6 +129,9 @@
                         />
 
                         <label for="color" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('color')}}</label>
+                        @error('color')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                         type="color" 
                         class="mb-4 p-1 h-10 w-full block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700" 
@@ -133,6 +140,9 @@
                         title="Choose your color">
 
                         <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('email')}}</label>
+                        @error('email')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="email" 
                             type="email" 
@@ -143,6 +153,9 @@
                         />
 
                         <label for="phone" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('phone')}}</label>
+                        @error('phone')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="phone" 
                             type="text" 
@@ -161,9 +174,10 @@
                 <div x-show="activeTab === 'B'" class="w-full rounded-b p-4 border-2 border-indigo-500">
                                     
                     <div class="mb-4">
-
-
                         <label for="city" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('city')}}</label>
+                        @error('city')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="city" 
                             type="text" 
@@ -174,6 +188,9 @@
                         />
 
                         <label for="postcode" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('postcode')}}</label>
+                        @error('postcode')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="postcode" 
                             type="text" 
@@ -184,6 +201,9 @@
                         />
 
                         <label for="street" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('street')}}</label>
+                        @error('street')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="street" 
                             type="text" 
@@ -194,6 +214,9 @@
                         />
 
                         <label for="building_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('building_number')}}</label>
+                        @error('building_number')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="building_number" 
                             type="text" 
@@ -204,6 +227,9 @@
                         />
 
                         <label for="apartment_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('apartment_number')}}</label>
+                        @error('apartment_number')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="apartment_number" 
                             type="text" 
@@ -222,6 +248,9 @@
                     <div class="mb-4">
 
                         <label for="contracts_prefix" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('contracts_prefix')}}</label>
+                        @error('contracts_prefix')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="contracts_prefix" 
                             type="text" 
@@ -232,6 +261,9 @@
                         />
 
                         <label for="invoices_prefix" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('invoices_prefix')}}</label>
+                        @error('invoices_prefix')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="invoices_prefix" 
                             type="text" 
@@ -242,6 +274,9 @@
                         />
 
                         <label for="margin_invoices_prefix" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('margin_invoices_prefix')}}</label>
+                        @error('margin_invoices_prefix')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="margin_invoices_prefix" 
                             type="text" 
@@ -252,6 +287,9 @@
                         />
 
                         <label for="proforma_invoices_prefix" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('proforma_invoices_prefix')}}</label>
+                        @error('proforma_invoices_prefix')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="proforma_invoices_prefix" 
                             type="text" 
@@ -262,6 +300,9 @@
                         />
 
                         <label for="internal_servicing_prefix" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('internal_servicing_prefix')}}</label>
+                        @error('internal_servicing_prefix')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="internal_servicing_prefix" 
                             type="text" 
@@ -272,6 +313,9 @@
                         />
 
                         <label for="external_servicing_prefix" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('external_servicing_prefix')}}</label>
+                        @error('external_servicing_prefix')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="external_servicing_prefix" 
                             type="text" 
@@ -290,6 +334,9 @@
                     <div class="mb-4">
 
                         <label for="next_receipt_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_receipt_number')}}</label>
+                        @error('next_receipt_number')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="next_receipt_number" 
                             type="number" 
@@ -300,6 +347,9 @@
                         />
 
                         <label for="next_invoice_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_invoice_number')}}</label>
+                        @error('next_invoice_number')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="next_invoice_number" 
                             type="number" 
@@ -310,6 +360,9 @@
                         />
 
                         <label for="next_margin_invoice_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_margin_invoice_number')}}</label>
+                        @error('next_margin_invoice_number')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="next_margin_invoice_number" 
                             type="number" 
@@ -320,6 +373,9 @@
                         />
 
                         <label for="next_proforma_invoice_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_proforma_invoice_number')}}</label>
+                        @error('next_proforma_invoice_number')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="next_proforma_invoice_number" 
                             type="number" 
@@ -330,6 +386,9 @@
                         />
 
                         <label for="next_internal_servicing_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_internal_servicing_number')}}</label>
+                        @error('next_internal_servicing_number')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="next_internal_servicing_number" 
                             type="number" 
@@ -340,6 +399,9 @@
                         />
 
                         <label for="next_external_servicing_number" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('next_external_servicing_number')}}</label>
+                        @error('next_external_servicing_number')
+                            <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
                         <input 
                             wire:model="next_external_servicing_number" 
                             type="number" 
@@ -356,7 +418,7 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-secondary-button wire:click="$toggle('showEditModal')">
+            <x-secondary-button wire:click="$toggle('showModal')">
                 {{ __('Cancel') }}
             </x-secondary-button>
 
