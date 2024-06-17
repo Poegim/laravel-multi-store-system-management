@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('street')->nullable();
             $table->string('building_number')->nullable();
             $table->string('apartment_number')->nullable();
-            $table->string('color')->unique();
+            $table->foreignId('color_id')->constrained('colors');
             $table->string('contracts_prefix')->unique();
             $table->string('invoices_prefix')->unique();
             $table->string('margin_invoices_prefix')->unique();

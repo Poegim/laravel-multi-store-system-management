@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Color;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -30,7 +31,7 @@ class StoreFactory extends Factory
             'street' => fake()->streetName(),
             'building_number' => rand(1,200),
             'apartment_number' => rand(1,99),
-            'color' => fake()->hexColor(),
+            'color_id' => Color::inRandomOrder()->first(),
             'contracts_prefix' => $prefix,
             'invoices_prefix' => $prefix,
             'margin_invoices_prefix' => $prefix,
