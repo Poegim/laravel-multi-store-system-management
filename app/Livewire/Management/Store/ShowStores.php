@@ -14,9 +14,10 @@ class ShowStores extends Component
 
     protected StoreService $storeService;
 
-    public bool $showModal = false;
+    public bool $modalVisibility = false;
     public string $activeModalTab = 'A';
-    public ?Store $store;
+    public ?string $actionType;
+    public ?Store $store = null;
 
     //DB Columns
     public ?string $name;
@@ -45,19 +46,11 @@ class ShowStores extends Component
 
     public function rules() : Array
     {
-        return [
-            'name' => [
-                'required', 
-                'min:3',
-                'max:255',
-                Rule::unique('stores')->ignore($this->store->name, 'name'),
-            ],
-
+        $rules = [
             'email' => [
                'required', 
                'email',
             ],
-
             'order' => 'required|numeric',
             'phone' => 'required|numeric',
             'city' => 'required|min:2|max:255',
@@ -65,43 +58,6 @@ class ShowStores extends Component
             'street' => 'max:255',
             'building_number' => 'max_digits:255',
             'apartment_number' => 'max_digits:255',
-            'color' => 'hex_color',
-            'contracts_prefix' => [
-                'required',
-                'max:30',
-                'min:1',
-                Rule::unique('stores')->ignore($this->store->contracts_prefix, 'contracts_prefix'),
-            ],
-            'invoices_prefix' => [
-                'required',
-                'max:30',
-                'min:1',
-                Rule::unique('stores')->ignore($this->store->invoices_prefix, 'invoices_prefix'),
-            ],
-            'margin_invoices_prefix' => [
-                'required',
-                'max:30',
-                'min:1',
-                Rule::unique('stores')->ignore($this->store->margin_invoices_prefix, 'margin_invoices_prefix'),
-            ],
-            'proforma_invoices_prefix' => [
-                'required',
-                'max:30',
-                'min:1',
-                Rule::unique('stores')->ignore($this->store->proforma_invoices_prefix, 'proforma_invoices_prefix'),
-            ],
-            'internal_servicing_prefix' => [
-                'required',
-                'max:30',
-                'min:1',
-                Rule::unique('stores')->ignore($this->store->internal_servicing_prefix, 'internal_servicing_prefix'),
-            ],
-            'external_servicing_prefix' => [
-                'required',
-                'max:30',
-                'min:1',
-                Rule::unique('stores')->ignore($this->store->external_servicing_prefix, 'external_servicing_prefix'),
-            ],
             'next_receipt_number' => 'required|numeric|min:1',
             'next_invoice_number' => 'required|numeric|min:1',
             'next_margin_invoice_number' => 'required|numeric|min:1',
@@ -110,10 +66,115 @@ class ShowStores extends Component
             'next_external_servicing_number' => 'required|numeric|min:1',
             'description' => 'max:2000',
         ];
+
+        if($this->store != null) {
+            $rules['name'] = [
+                'required', 
+                'min:3',
+                'max:255',
+                Rule::unique('stores')->ignore($this->store->name, 'name'),
+            ];
+            $rules['color'] = [
+                'hex_color',
+                Rule::unique('stores')->ignore($this->store->color, 'color'),
+            ];
+            $rules['contracts_prefix'] = [
+                'required',
+                'max:30',
+                'min:1',
+                Rule::unique('stores')->ignore($this->store->contracts_prefix, 'contracts_prefix'),
+            ];
+            $rules['invoices_prefix'] = [
+                'required',
+                'max:30',
+                'min:1',
+                Rule::unique('stores')->ignore($this->store->invoices_prefix, 'invoices_prefix'),
+            ];
+            $rules['margin_invoices_prefix'] = [
+                'required',
+                'max:30',
+                'min:1',
+                Rule::unique('stores')->ignore($this->store->margin_invoices_prefix, 'margin_invoices_prefix'),
+            ];
+            $rules['proforma_invoices_prefix'] = [
+                'required',
+                'max:30',
+                'min:1',
+                Rule::unique('stores')->ignore($this->store->proforma_invoices_prefix, 'proforma_invoices_prefix'),
+            ];
+            $rules['internal_servicing_prefix'] = [
+                'required',
+                'max:30',
+                'min:1',
+                Rule::unique('stores')->ignore($this->store->internal_servicing_prefix, 'internal_servicing_prefix'),
+            ];
+            $rules['external_servicing_prefix'] = [
+                'required',
+                'max:30',
+                'min:1',
+                Rule::unique('stores')->ignore($this->store->external_servicing_prefix, 'external_servicing_prefix'),
+            ];
+
+        } elseif($this->store === null) {
+            $rules['name'] = [
+                'required', 
+                'min:3',
+                'max:255',
+                Rule::unique('stores'),
+            ];
+            $rules['color'] = [
+                'hex_color',
+                Rule::unique('stores'),
+            ];
+            $rules['contracts_prefix'] = [
+                'required',
+                'max:30',
+                'min:1',
+                Rule::unique('stores'),
+            ];
+            $rules['invoices_prefix'] = [
+                'required',
+                'max:30',
+                'min:1',
+                Rule::unique('stores'),
+            ];
+            $rules['margin_invoices_prefix'] = [
+                'required',
+                'max:30',
+                'min:1',
+                Rule::unique('stores'),
+            ];
+            $rules['proforma_invoices_prefix'] = [
+                'required',
+                'max:30',
+                'min:1',
+                Rule::unique('stores'),
+            ];
+            $rules['internal_servicing_prefix'] = [
+                'required',
+                'max:30',
+                'min:1',
+                Rule::unique('stores'),
+            ];
+            $rules['external_servicing_prefix'] = [
+                'required',
+                'max:30',
+                'min:1',
+                Rule::unique('stores'),
+            ];
+        }
+
+        return $rules;
     }
 
     public function boot(StoreService $storeService) {
         $this->storeService = $storeService;
+    }
+
+    public function showModal(string $actionType)
+    {
+        $this->actionType = $actionType;
+        $this->modalVisibility = true;
     }
 
 
@@ -121,14 +182,26 @@ class ShowStores extends Component
     {
         $this->resetVars();
         $this->activeModalTab = 'A';
-        $this->showModal = true;
+        $this->showModal('create');
+    }
+
+    public function storeModel()
+    {
+        $validated = $this->validate();
+        if($validated) {
+            $flag = $this->storeService->store($validated);
+            $this->modalVisibility = false;
+            $flag ? $this->banner('Create successful.') : $this->dangerBanner('An error was encountered while creating.');
+        } else {
+            abort(403, 'Unknown error, cant store');
+        }
     }
 
     public function edit(int $id)
     {
         $this->store = Store::findOrFail($id);
         $this->associate();
-        $this->showModal = true;
+        $this->showModal('edit');
     }
 
     public function update(int $id)
@@ -136,8 +209,10 @@ class ShowStores extends Component
         $validated = $this->validate();
         if($validated) {
             $flag = $this->storeService->update($validated, $id);
-            $this->showModal = false;
+            $this->modalVisibility = false;
             $flag ? $this->banner('Update successful.') : $this->dangerBanner('An error was encountered while saving.');
+        } else {
+            abort(403, 'Unknown error, cant update');
         }
 
     }
@@ -194,6 +269,8 @@ class ShowStores extends Component
         $this->next_internal_servicing_number = null;
         $this->next_external_servicing_number = null;
         $this->description = null;
+
+        $this->store = null;
     }
     
     public function render()

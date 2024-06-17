@@ -7,10 +7,23 @@ use App\Repositories\StoreRepository\StoreRepositoryInterface;
 
 class  StoreRepository implements StoreRepositoryInterface
 {
+    
+    public function store(array $data): bool
+    {
+        $store = new Store;
+        $store = $this->associate($store, $data);
+        return $store->save();
+    }
+
     public function update(array $data, int $id): bool
     {
         $store = Store::findOrFail($id);
+        $store = $this->associate($store, $data);
+        return $store->save();
+    }
 
+    private function associate(Store $store, $data): Store 
+    {
         $store->name = $data['name'];
         $store->email = $data['email'];
         $store->order = $data['order'];
@@ -33,7 +46,9 @@ class  StoreRepository implements StoreRepositoryInterface
         $store->next_proforma_invoice_number = $data['next_proforma_invoice_number'];
         $store->next_internal_servicing_number = $data['next_internal_servicing_number'];
         $store->next_external_servicing_number = $data['next_external_servicing_number'];
-        $store->description = $data['description'];
-        return $store->save();
+        $store->description === NULL ? $store->description = '' : $store->description = $data['description'];
+
+        return $store;
     }
+
 }

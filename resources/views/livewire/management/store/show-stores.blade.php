@@ -1,7 +1,5 @@
 <div class="py-12">
     
-    <!-- <x-banner /> -->
-
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="w-full flex justify-end my-4">
             <button wire:click="create()">
@@ -57,12 +55,19 @@
     </div>
 
     <!-- Show Edit Modal -->
-    <x-dialog-modal wire:model.live="showModal">
+    <x-dialog-modal wire:model.live="modalVisibility">
         <x-slot name="title">
+            @if ($actionType === 'edit')
             {{ __('Edit store') }}: {{ $name }}
+            @elseif ($actionType === 'create')
+            {{ __('Create store') }}
+            @endif
         </x-slot>
 
+        
         <x-slot name="content">
+
+            {{ $color }}
 
             @if ($errors->any())
                 <x-lists.errors-list >
@@ -136,8 +141,15 @@
                         type="color" 
                         class="mb-4 p-1 h-10 w-full block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700" 
                         id="color" 
-                        value="{{$color}}" 
+                        value="@if($store != null) $color @endif" 
                         title="Choose your color">
+
+                        <label for="color-select" class="block mb-2 text-sm font-medium text-gray-700">Select a Tailwind CSS color:</label>
+                        <select id="color-select" class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value="">Select a color</option>
+
+                            <!-- Add more colors as needed -->
+                        </select>
 
                         <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('email')}}</label>
                         @error('email')
@@ -418,13 +430,23 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-secondary-button wire:click="$toggle('showModal')">
+            <x-secondary-button wire:click="$toggle('modalVisibility')">
                 {{ __('Cancel') }}
             </x-secondary-button>
 
+            @if ($actionType === 'create')
+            
+            <x-danger-button class="ms-3" wire:click="storeModel()">
+                {{ __('Create') }}
+            </x-danger-button> 
+
+            @elseif ($actionType === 'edit')                
+            
             <x-danger-button class="ms-3" wire:click="update({{$store?->id}})">
                 {{ __('Update') }}
             </x-danger-button>
+            
+            @endif
         </x-slot>
     </x-dialog-modal>
 

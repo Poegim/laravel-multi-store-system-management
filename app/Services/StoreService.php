@@ -11,8 +11,13 @@ class StoreService
         protected StoreRepositoryInterface $storeRepository
     ) {}
 
+    public function store(array $data) {
+        return $this->storeRepository->store($data);
+    }
+
     public function update(array $data, $id)
     {
         return $this->storeRepository->update($data, $id);
     }
+
 }
