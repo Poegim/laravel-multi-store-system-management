@@ -33,7 +33,7 @@ class  StoreRepository implements StoreRepositoryInterface
         $store->street = $data['street'];
         $store->building_number = $data['building_number'];
         $store->apartment_number = $data['apartment_number'];
-        $store->color = $data['color'];
+        $store->color_id = $data['color_id'];
         $store->contracts_prefix = $data['contracts_prefix'];
         $store->invoices_prefix = $data['invoices_prefix'];
         $store->margin_invoices_prefix = $data['margin_invoices_prefix'];

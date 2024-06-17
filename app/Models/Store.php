@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Color;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Store extends Model
@@ -21,7 +23,7 @@ class Store extends Model
         'street',
         'building_numer',
         'apartment number',
-        'color',
+        'color_id',
         'contracts_prefix',
         'invoices_prefix',
         'margin_invoices_prefix',
@@ -36,4 +38,9 @@ class Store extends Model
         'next_external_servicing_number',
         'description'
     ];
+
+    public function color() : HasOne
+    {
+        return $this->hasOne(Color::class);
+    }
 }

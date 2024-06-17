@@ -1,5 +1,7 @@
 <div class="py-12">
     
+    <!-- <x-banner /> -->
+
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="w-full flex justify-end my-4">
             <button wire:click="create()">
@@ -64,10 +66,7 @@
             @endif
         </x-slot>
 
-        
         <x-slot name="content">
-
-            {{ $color }}
 
             @if ($errors->any())
                 <x-lists.errors-list >
@@ -133,22 +132,17 @@
                             value="{{$order}}" 
                         />
 
-                        <label for="color" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('color')}}</label>
-                        @error('color')
+                        <label for="color_id" class="block mb-2 text-sm font-medium text-gray-700">Select color:</label>
+                        @error('color_id')
                             <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                         @enderror
-                        <input 
-                        type="color" 
-                        class="mb-4 p-1 h-10 w-full block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700" 
-                        id="color" 
-                        value="@if($store != null) $color @endif" 
-                        title="Choose your color">
-
-                        <label for="color-select" class="block mb-2 text-sm font-medium text-gray-700">Select a Tailwind CSS color:</label>
-                        <select id="color-select" class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                            <option value="">Select a color</option>
-
-                            <!-- Add more colors as needed -->
+                           
+                        <select id="color_id"
+                            wire:model="color_id" 
+                            class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            @foreach ($colors as $color)
+                            <option style="background-color: {{$color->value}} ;" value="{{$color->id}}">{{ $color->name }}</option>
+                            @endforeach
                         </select>
 
                         <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('email')}}</label>

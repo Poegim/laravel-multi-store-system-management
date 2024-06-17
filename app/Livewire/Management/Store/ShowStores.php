@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Management\Store;
 
+use App\Models\Color;
 use App\Models\Store;
 use App\Services\StoreService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
 use Laravel\Jetstream\InteractsWithBanner;
 use Livewire\Component;
@@ -18,6 +20,7 @@ class ShowStores extends Component
     public string $activeModalTab = 'A';
     public ?string $actionType;
     public ?Store $store = null;
+    public ?Collection $colors;
 
     //DB Columns
     public ?string $name;
@@ -29,7 +32,7 @@ class ShowStores extends Component
     public ?string $street;
     public ?string $building_number;
     public ?string $apartment_number;
-    public string $color = "#ffffff";
+    public int $color_id = 1;
     public ?string $contracts_prefix;
     public ?string $invoices_prefix;
     public ?string $margin_invoices_prefix;
@@ -74,9 +77,9 @@ class ShowStores extends Component
                 'max:255',
                 Rule::unique('stores')->ignore($this->store->name, 'name'),
             ];
-            $rules['color'] = [
-                'hex_color',
-                Rule::unique('stores')->ignore($this->store->color, 'color'),
+            $rules['color_id'] = [
+                'exists:colors,id',
+                Rule::unique('stores')->ignore($this->store->color_id, 'color_id'),
             ];
             $rules['contracts_prefix'] = [
                 'required',
@@ -122,8 +125,8 @@ class ShowStores extends Component
                 'max:255',
                 Rule::unique('stores'),
             ];
-            $rules['color'] = [
-                'hex_color',
+            $rules['color_id'] = [
+                'exists:colors,id',
                 Rule::unique('stores'),
             ];
             $rules['contracts_prefix'] = [
@@ -169,6 +172,7 @@ class ShowStores extends Component
 
     public function boot(StoreService $storeService) {
         $this->storeService = $storeService;
+        $this->colors = Color::all();
     }
 
     public function showModal(string $actionType)
@@ -228,7 +232,7 @@ class ShowStores extends Component
         $this->street = $this->store->street;
         $this->building_number = $this->store->building_number;
         $this->apartment_number = $this->store->apartment_number;
-        $this->color = $this->store->color;
+        $this->color_id = $this->store->color_id;
         $this->contracts_prefix = $this->store->contracts_prefix;
         $this->invoices_prefix = $this->store->invoices_prefix;
         $this->margin_invoices_prefix = $this->store->margin_invoices_prefix;
@@ -255,7 +259,7 @@ class ShowStores extends Component
         $this->street = null;
         $this->building_number = null;
         $this->apartment_number = null;
-        $this->color = "#ffffff";
+        $this->color_id = 1;
         $this->contracts_prefix = null;
         $this->invoices_prefix = null;
         $this->margin_invoices_prefix = null;
