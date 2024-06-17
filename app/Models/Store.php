@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Color;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -39,8 +40,8 @@ class Store extends Model
         'description'
     ];
 
-    public function color() : HasOne
+    public function color() : BelongsTo
     {
-        return $this->hasOne(Color::class);
+        return $this->belongsTo(Color::class);
     }
 }

@@ -34,10 +34,14 @@
                     </thead>
                     <tbody>
                         @foreach($stores as $item)
+
                         <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
                             <th scope="row"
                                 class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                <a href="{{route('store.show', $item)}}">{{$item->name}}</a>
+                                <div class="flex">
+                                    <div style="background-color:{{$item->color->value}};" class="h-8 w-8 my-auto rounded-full"></div>
+                                    <a href="{{route('store.show', $item)}}" class="my-auto ml-2">{{$item->name}}</a>
+                                </div>
                             </th>
                             <td class="px-6 py-2">
                                 {{$item->email}}
