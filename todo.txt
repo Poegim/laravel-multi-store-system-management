@@ -1,3 +1,6 @@
 NAV
     Active state item
     Remember accordion state
+
+APP
+    Colors CRUD
