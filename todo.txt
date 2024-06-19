@@ -1,6 +1,5 @@
 NAV
-    Active state item
-    Remember accordion state
+    New top nav visible on small screens
 
 APP
     Colors CRUD
