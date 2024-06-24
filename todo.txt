@@ -3,7 +3,17 @@ NAV
 
 APP
     Colors CRUD
+    Warnings about huge quantities and prices etc
 
 QUESTIONABLE
     Can nav-menu be an anonymous compomnent?
     Is flowbite required anymore?
+
+
+Approches
+    [
+        First In First Out,
+        Single item as single cell (old),
+        Average prices
+    ]
+
