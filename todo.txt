@@ -3,3 +3,7 @@ NAV
 
 APP
     Colors CRUD
+
+QUESTIONABLE
+    Can nav-menu be an anonymous compomnent?
+    Is flowbite required anymore?

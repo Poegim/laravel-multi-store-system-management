@@ -9,11 +9,14 @@
         "blade-ui-kit/blade-icons": "^1.6",
         "codeat3/blade-carbon-icons": "^2.22",
         "codeat3/blade-codicons": "^1.33",
+        "codeat3/blade-eos-icons": "^1.14",
+        "eduard9969/blade-polaris-icons": "^2.6",
         "laravel/framework": "^11.0",
         "laravel/jetstream": "^5.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.0",
+        "mallardduck/blade-lucide-icons": "^1.21",
         "owenvoke/blade-fontawesome": "^2.6"
     },
     "require-dev": {

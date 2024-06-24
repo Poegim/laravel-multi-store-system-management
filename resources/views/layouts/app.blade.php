@@ -32,34 +32,40 @@
     darkMode = JSON.parse(localStorage.getItem('darkMode'));
     $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))" x-cloak>
     
-    <div x-bind:class="{'dark' : darkMode === true}">
-        <div class="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800">
+    <div x-bind:class="{'dark' : darkMode === true}">               
 
-            <x-sidebar />
+        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
 
-            
-            <!-- Page Heading -->        
-            <div class="absolute top-0 sm:left-64 right-0 z-10">
-                
-                <x-banner />
-                
-                @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 ">
-                        {{ $header }}
-                    </div>
-                </header>
-                @endif
+            @livewire('navigation-menu')
 
-                <!-- Page Content -->
-                <main>
-                    <div class="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 min-h-screen">
+            <div class="sm:flex">
+
+                <div class="hidden md:block">
+                    <x-sidebar />
+                </div>
+
+                <div class="sm:w-full">
+
+                    
+                    <!-- Page Heading -->
+                    @if (isset($header))
+                    <header class="bg-white dark:bg-gray-800 shadow">
+                        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                            {{ $header }}
+                        </div>
+                    </header>
+                    @endif
+                    
+                    <!-- Page Content -->
+                    <main>
                         {{ $slot }}
-                    </div>
-                </main>
+                    </main>
+                </div>
             </div>
         </div>
     </div>
+
+
 
     @stack('modals')
     @livewireScripts
