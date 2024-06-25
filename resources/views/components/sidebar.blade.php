@@ -23,7 +23,7 @@
             <ul class="space-y-2">
                 <li>
                     <a href="{{ route('dashboard') }}"   @click="setLastClicked('dashboard')" wire:navigate
-                        class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        class="flex items-center p-2 text-base font-normal text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <x-carbon-dashboard-reference class="h-6 w-6" />
                         <span class="ml-3">Dashboard</span>
                     </a>
@@ -33,19 +33,19 @@
                 @if (auth()->user()->isAdmin())
                 <li >
                     <button type="button" @click="setLastClicked('management')"
-                        class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                        class="flex items-center p-2 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                         >
                         <x-codicon-settings class="w-6 h-6"/>
                         <span class="flex-1 ml-3 text-left whitespace-nowrap">Management</span>
                         <x-codicon-chevron-down class="h-6 w-6" />
                     </button>
 
-                    <ul class="py-2 space-y-2" x-show="lastClicked === 'management'">
+                    <ul class="overflow-hidden space-y-2 border dark:border-gray-400 border-gray-700 rounded-lg" x-collapse.duration.100 x-show="lastClicked === 'management'">
                         
                         @can('viewAny', App\Models\User::class)                            
                             <li>
                                 <a href="{{ route('user.index') }}"  wire:navigate
-                                    class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('user.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
+                                    class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('user.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
                                     <x-fas-users-gear class="h-6 w-6" /><span class="ml-2">Users</span>
                                 </a>
                             </li>
@@ -53,14 +53,14 @@
 
                         <li>
                             <a href="{{ route('store.index') }}"   wire:navigate
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
+                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
                                 <x-fas-store class="h-6 w-6"/> <span class="ml-2">Stores</span>
                             </a>
                         </li>
 
                         <li>
                             <a href="#" 
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                                 <x-fas-list-ol class="h-6 w-6"/> <span class="ml-2">Categories</span>
                             </a>
                         </li>
@@ -71,46 +71,41 @@
 
                 <li >
                     <button type="button" @click="setLastClicked('repository')"
-                        class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                        class="flex items-center p-2 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                         >
                         <x-fas-database class="w-6 h-6" />
                         <span class="flex-1 ml-3 text-left whitespace-nowrap">Repository</span>
                         <x-codicon-chevron-down class="h-6 w-6" />
                     </button>
 
-                    <ul class="py-2 space-y-2" x-show="lastClicked === 'repository'">
+                    <ul class="overflow-hidden space-y-2 border dark:border-gray-400 border-gray-700 rounded-lg" x-collapse.duration.100 x-show="lastClicked === 'repository'">
                         <li>
                             <a href="#"   wire:navigate
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
+                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
                                 <x-lucide-banana class="h-6 w-6"/> <span class="ml-2">Brands</span>
                             </a>
                         </li>
                         <li>
                             <a href="#"   wire:navigate
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
+                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
                                 <x-eos-devices-other-o class="h-6 w-6"/> <span class="ml-2">Products</span>
                             </a>
                         </li>
                         <li>
                             <a href="#"   wire:navigate
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
+                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
                                 <x-polaris-collection-featured-icon class="h-6 w-6"/> <span class="ml-2">Features</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-
-
-
-                
-
                 
                 <!-- Authentication -->
                 <li>
                     <form method="POST" action="{{ route('logout') }}" x-data>
                         @csrf
                         <a href="{{ route('logout') }}"
-                                 @click.prevent="$root.submit();" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                 @click.prevent="$root.submit();" class="flex items-center p-2 text-base font-normal text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                  <x-carbon-logout class="h-6 w-6" />
                                  <span class="ml-4">
                                      {{ __('Log Out') }}

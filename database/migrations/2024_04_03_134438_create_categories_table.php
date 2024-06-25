@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+            $table->string('plural_name');
+            $table->string('singular_name');
+            $table->string('slug');
+            $table->foreignId('parent_id')->nullable()->constrained('categories');
+            $table->unique(['slug', 'parent_id']);
             $table->timestamps();
         });
     }
