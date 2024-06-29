@@ -1,5 +1,4 @@
-
-<div class="z-40" 
+<div class="h-full" 
     x-data="{
                 lastClicked: localStorage.getItem('lastClickedButton') || 'none',
                 setLastClicked(button) {
@@ -14,7 +13,7 @@
 
     <!-- Sidebar -->
     <aside id="default-sidebar"
-        class="md:block md:top-0 md:left-0 w-full md:w-64 md:h-screen"
+        class="md:block w-full h-full md:w-64"
         aria-label="Sidenav">
 
         <div
@@ -31,7 +30,7 @@
 
                 <!-- Management -->
                 @if (auth()->user()->isAdmin())
-                <li >
+                <li>
                     <button type="button" @click="setLastClicked('management')"
                         class="flex items-center p-2 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                         >
@@ -40,7 +39,7 @@
                         <x-codicon-chevron-down class="h-6 w-6" />
                     </button>
 
-                    <ul class="overflow-hidden space-y-2 border dark:border-gray-400 border-gray-700 rounded-lg" x-collapse.duration.100 x-show="lastClicked === 'management'">
+                    <ul class="overflow-hidden space-y-2 border border-gray-300 dark:border-gray-700 rounded-lg" x-collapse.duration.100 x-show="lastClicked === 'management'">
                         
                         @can('viewAny', App\Models\User::class)                            
                             <li>
@@ -52,15 +51,15 @@
                         @endcan
 
                         <li>
-                            <a href="{{ route('store.index') }}"   wire:navigate
+                            <a href="{{ route('store.index') }}"  wire:navigate
                                 class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
                                 <x-fas-store class="h-6 w-6"/> <span class="ml-2">Stores</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="#" 
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            <a href="{{ route('category.index') }}"  wire:navigate
+                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('category.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
                                 <x-fas-list-ol class="h-6 w-6"/> <span class="ml-2">Categories</span>
                             </a>
                         </li>
@@ -69,7 +68,7 @@
                 </li>
                 @endif
 
-                <li >
+                <li>
                     <button type="button" @click="setLastClicked('repository')"
                         class="flex items-center p-2 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                         >
@@ -78,22 +77,22 @@
                         <x-codicon-chevron-down class="h-6 w-6" />
                     </button>
 
-                    <ul class="overflow-hidden space-y-2 border dark:border-gray-400 border-gray-700 rounded-lg" x-collapse.duration.100 x-show="lastClicked === 'repository'">
+                    <ul class="overflow-hidden space-y-2 border border-gray-300 dark:border-gray-700 rounded-lg" x-collapse.duration.100 x-show="lastClicked === 'repository'">
                         <li>
                             <a href="#"   wire:navigate
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
+                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{-- request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : '' --}}">
                                 <x-lucide-banana class="h-6 w-6"/> <span class="ml-2">Brands</span>
                             </a>
                         </li>
                         <li>
                             <a href="#"   wire:navigate
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
+                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{-- request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : '' --}}">
                                 <x-eos-devices-other-o class="h-6 w-6"/> <span class="ml-2">Products</span>
                             </a>
                         </li>
                         <li>
                             <a href="#"   wire:navigate
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
+                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{-- request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : '' --}}">
                                 <x-polaris-collection-featured-icon class="h-6 w-6"/> <span class="ml-2">Features</span>
                             </a>
                         </li>

@@ -10,6 +10,12 @@ class ShowUsers extends Component
 
     public bool $showEditModal = false;
     public ?User $user;
+
+    public function hydrate()
+    {
+        $this->resetErrorBag();
+        $this->resetValidation();
+    }
    
     public function mount() 
     {

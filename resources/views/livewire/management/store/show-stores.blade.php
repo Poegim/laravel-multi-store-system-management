@@ -1,7 +1,4 @@
 <div class="py-12">
-    
-    <!-- <x-banner /> -->
-
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="w-full flex justify-end my-4">
             <button wire:click="create()">
@@ -121,7 +118,6 @@
                             required 
                             value="{{$name}}" 
                         />
-
 
                         <label for="order" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{ __('order')}}</label>
                         @error('order')

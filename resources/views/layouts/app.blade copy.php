@@ -21,47 +21,48 @@
         [x-cloak] {
             display: none;
         }
-
     </style>
 
 </head>
 
-<body class="font-sans antialiased bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800"
-    x-data="{ darkMode: true }" x-init="
+<body class="font-sans antialiased bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800" x-data="{ darkMode: true }" x-init="
     if (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       localStorage.setItem('darkMode', JSON.stringify(true));
     }
     darkMode = JSON.parse(localStorage.getItem('darkMode'));
     $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))" x-cloak>
+    
+    <div x-bind:class="{'dark' : darkMode === true}">               
 
-    <div x-bind:class="{'dark' : darkMode === true}" class="">
+        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
 
-        <div class="bg-gray-100 dark:bg-gray-900 md:flex h-full min-h-screen">
-
-            <div class="md:hidden">
+            <div>
                 @livewire('navigation-menu')
             </div>
 
-            <div class="hidden md:block">
-                <x-sidebar />
+            <div class="md:grid grid-cols-2 bg-red-500">
+
+                <div class="hidden md:absolute md:flex bottom-0 top-0 h-full bg-green-500">
+                    <x-sidebar />
+                </div>
+
+                <div class="md:ml-64 w-full bg-orange-400">
+                    
+                    <!-- Page Heading -->
+                    @if (isset($header))
+                    <header class="bg-white dark:bg-gray-800 shadow">
+                        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                            {{ $header }}
+                        </div>
+                    </header>
+                    @endif
+                    
+                    <!-- Page Content -->
+                    <main>
+                        {{ $slot }}
+                    </main>
+                </div>
             </div>
-
-            <div class="w-full">
-                <!-- Page Heading -->
-                @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-                @endif
-
-                <!-- Page Content -->
-                <main>
-                    {{ $slot }}
-                </main>
-            </div>
-
         </div>
     </div>
 
