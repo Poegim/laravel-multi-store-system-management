@@ -286,7 +286,7 @@ class ShowStores extends Component
     public function render()
     {
         return view('livewire.management.store.show-stores', [
-            'stores' => Store::all(),
+            'stores' => Store::with('color')->get(),
         ]);
     }
 }

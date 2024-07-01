@@ -63,22 +63,22 @@
             <div class="mt-4" x-data="{ activeTab: 'A' }">
                 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li>
-                        <x-buttons.flowbite.default class="rounded-t-lg" x-on:click="activeTab = 'A'" x-bind:class="{ 'bg-indigo-500 dark:bg-indigo-500 ': activeTab === 'A', 'bg-indigo-700 dark:bg-indigo-700 ': activeTab === 'B' }"> 
+                        <x-buttons.flowbite.default class="rounded-t-lg bg-gradient-to-tr" x-on:click="activeTab = 'A'" x-bind:class="{ 'active-tab': activeTab === 'A', 'inactive-tab': activeTab != 'A' }"> 
                             <a href="#">{{__('User details')}}</a>
                         </x-buttons.flowbite.default>
                     </li>
                     <li>
-                        <x-buttons.flowbite.default class="rounded-t-lg" x-on:click="activeTab = 'B'" x-bind:class="{ 'bg-indigo-500 dark:bg-indigo-500': activeTab === 'B', 'bg-indigo-700 dark:bg-indigo-700 ': activeTab === 'A' }"> 
+                        <x-buttons.flowbite.default class="rounded-t-lg bg-gradient-to-tr" x-on:click="activeTab = 'B'" x-bind:class="{ 'active-tab': activeTab === 'B', 'inactive-tab': activeTab != 'B' }"> 
                             <a href="#">{{__('Access levels')}}</a>
                         </x-buttons.flowbite.default>
                     </li>
                 </ul>
 
-                <div x-show="activeTab === 'A'" class="w-full rounded-b py-2 px-1 border-2 border-indigo-500">
+                <div x-show="activeTab === 'A'" class="w-full rounded-b py-2 px-1 border-2 border-indigo-400">
                     <p>User details</p>
                 </div>
     
-                <div x-show="activeTab === 'B'" class="w-full rounded-b py-2 px-1 border-2 border-indigo-500">
+                <div x-show="activeTab === 'B'" class="w-full rounded-b py-2 px-1 border-2 border-indigo-400">
                     <p>{{__('Access levels')}}</p>
                 </div>
             </div>

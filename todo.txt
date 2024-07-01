@@ -18,4 +18,4 @@ Approches
     ]
 
 Additional features
-    Price tags generator (with api for phone specs)
+Price tags generator (with api for phone specs)

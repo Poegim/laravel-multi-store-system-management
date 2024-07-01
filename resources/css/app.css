@@ -5,3 +5,11 @@
 [x-cloak] {
     display: none;
 }
+
+.active-tab {
+    @apply from-indigo-400 to-green-400;
+}
+
+.inactive-tab {
+    @apply from-indigo-800 to-green-800;
+}
