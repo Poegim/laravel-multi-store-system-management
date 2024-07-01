@@ -22,7 +22,7 @@
             <ul class="space-y-2">
                 <li>
                     <a href="{{ route('dashboard') }}"   @click="setLastClicked('dashboard')" wire:navigate
-                        class="flex items-center p-2 text-base font-normal text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        class="flex items-center p-2 text-base font-normal text-gray-900 dark:text-white dark:hover:bg-g hover:bg-gray-100 dark:hover:bg-gray-700 rounded group {{ request()->routeIs('dashboard') ? 'nav-active-tab' : ''}}">
                         <x-carbon-dashboard-reference class="h-6 w-6" />
                         <span class="ml-3">Dashboard</span>
                     </a>
@@ -32,7 +32,7 @@
                 @if (auth()->user()->isAdmin())
                 <li>
                     <button type="button" @click="setLastClicked('management')"
-                        class="flex items-center p-2 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                        class="flex items-center p-2 w-full text-base font-normal text-gray-900 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
                         >
                         <x-codicon-settings class="w-6 h-6"/>
                         <span class="flex-1 ml-3 text-left whitespace-nowrap">Management</span>
@@ -44,7 +44,7 @@
                         @can('viewAny', App\Models\User::class)                            
                             <li>
                                 <a href="{{ route('user.index') }}"  wire:navigate
-                                    class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('user.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
+                                    class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded {{ request()->routeIs('user.index') ? 'nav-active-tab' : ''}}">
                                     <x-fas-users-gear class="h-6 w-6" /><span class="ml-2">Users</span>
                                 </a>
                             </li>
@@ -52,14 +52,14 @@
 
                         <li>
                             <a href="{{ route('store.index') }}"  wire:navigate
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
+                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded {{ request()->routeIs('store.index') ? 'nav-active-tab' : ''}}">
                                 <x-fas-store class="h-6 w-6"/> <span class="ml-2">Stores</span>
                             </a>
                         </li>
 
                         <li>
                             <a href="{{ route('category.index') }}"  wire:navigate
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('category.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
+                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded {{ request()->routeIs('category.index') ? 'nav-active-tab' : ''}}">
                                 <x-fas-list-ol class="h-6 w-6"/> <span class="ml-2">Categories</span>
                             </a>
                         </li>
@@ -70,7 +70,7 @@
 
                 <li>
                     <button type="button" @click="setLastClicked('repository')"
-                        class="flex items-center p-2 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                        class="flex items-center p-2 w-full text-base font-normal text-gray-900 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
                         >
                         <x-fas-database class="w-6 h-6" />
                         <span class="flex-1 ml-3 text-left whitespace-nowrap">Repository</span>
@@ -80,19 +80,19 @@
                     <ul class="overflow-hidden space-y-2 border border-gray-300 dark:border-gray-700 rounded-lg" x-collapse.duration.100 x-show="lastClicked === 'repository'">
                         <li>
                             <a href="#"   wire:navigate
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{-- request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : '' --}}">
+                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded {{-- request()->routeIs('store.index') ? 'nav-active-tab' : '' --}}">
                                 <x-lucide-banana class="h-6 w-6"/> <span class="ml-2">Brands</span>
                             </a>
                         </li>
                         <li>
                             <a href="#"   wire:navigate
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{-- request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : '' --}}">
+                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded {{-- request()->routeIs('store.index') ? 'nav-active-tab' : '' --}}">
                                 <x-eos-devices-other-o class="h-6 w-6"/> <span class="ml-2">Products</span>
                             </a>
                         </li>
                         <li>
                             <a href="#"   wire:navigate
-                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{-- request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : '' --}}">
+                                class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded {{-- request()->routeIs('store.index') ? 'nav-active-tab' : '' --}}">
                                 <x-polaris-collection-featured-icon class="h-6 w-6"/> <span class="ml-2">Features</span>
                             </a>
                         </li>
@@ -104,7 +104,7 @@
                     <form method="POST" action="{{ route('logout') }}" x-data>
                         @csrf
                         <a href="{{ route('logout') }}"
-                                 @click.prevent="$root.submit();" class="flex items-center p-2 text-base font-normal text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                 @click.prevent="$root.submit();" class="flex items-center p-2 text-base font-normal text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded group">
                                  <x-carbon-logout class="h-6 w-6" />
                                  <span class="ml-4">
                                      {{ __('Log Out') }}
@@ -124,7 +124,7 @@
             class="justify-center p-4 space-x-4 w-full flex bg-white dark:bg-gray-800 z-20">
 
             <a href="#" data-tooltip-target="tooltip-settings"
-                class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark dark:hover:text-white hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600">
+                class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark dark:hover:text-white hover:text-gray-900 dark:hover:bg-g hover:bg-gray-100ray-600">
                 <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
