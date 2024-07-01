@@ -1,5 +1,5 @@
 NAV
-    New top nav visible on small screens
+    
 
 APP
     Colors CRUD
@@ -12,8 +12,10 @@ QUESTIONABLE
 
 Approches
     [
-        First In First Out,
-        Single item as single cell (old),
-        Average prices
+        Items count - First In First Out,
+        Items count - Average prices
+        Single item as single row (old),
     ]
 
+Additional features
+    Price tags generator (with api for phone specs)
