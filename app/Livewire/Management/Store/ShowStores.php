@@ -18,7 +18,7 @@ class ShowStores extends Component
 
     public bool $modalVisibility = false;
     public string $activeModalTab = 'A';
-    public ?string $actionType;
+    public string $actionType = '';
     public ?Store $store = null;
     public ?Collection $colors;
 

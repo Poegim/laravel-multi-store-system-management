@@ -10,6 +10,17 @@ use Illuminate\Support\Facades\Cache;
 
 class ShowCategories extends Component
 {
+    public bool $modalVisibility = false;
+    public string $activeModalTab = 'A';
+    public string $actionType = '';
+    public ?int $categoryId = null;
+
+    //DB columns.
+    public $plural_name;
+    public $singular_name;
+    public $parent_id;
+    public $slug;
+
     public function hydrate()
     {
         $this->resetErrorBag();
@@ -66,6 +77,11 @@ class ShowCategories extends Component
         }
 
         return $rules;
+    }
+
+    public function create() {
+        $this->actionType = 'create';
+        $this->modalVisibility = true;
     }
 
     private function buildTree(array $categories, $parentId = null) {
