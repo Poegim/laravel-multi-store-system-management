@@ -2,14 +2,73 @@
 
 namespace App\Livewire\Warehouse\Category;
 
-use App\Models\Warehouse\Category;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Illuminate\Validation\Rule;
+use App\Models\Warehouse\Category;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class ShowCategories extends Component
 {
-    protected function buildTree(array $categories, $parentId = null) {
+    public function hydrate()
+    {
+        $this->resetErrorBag();
+        $this->resetValidation();
+    }
+
+    public function rules() : Array
+    {
+        $rules = [
+            'parent_id' => [
+                'exists:categories',
+                'nullable'
+            ]
+        ];
+
+        if($this->category != null) {        
+            $rules['plural_name'] = [
+                'required',
+                'string', 
+                'max:50',
+                Rule::unique('categories')->ignore($this->category->plural_name, 'plural_name'),
+            ];
+            $rules['singular_name'] = [
+                'required',
+                'string', 
+                'max:50',
+                Rule::unique('categories')->ignore($this->category->plural_name, 'singular_name'),
+            ];
+            $rules['slug'] = [
+                'required',
+                'string', 
+                'max:50',
+                Rule::unique('slug')->ignore($this->category->plural_name, 'slug'),
+            ];
+        } else {
+            $rules['plural_name'] = [
+                'required',
+                'string', 
+                'max:50',
+                Rule::unique('categories'),
+            ];
+            $rules['singular_name'] = [
+                'required',
+                'string', 
+                'max:50',
+                Rule::unique('categories'),
+            ];
+            $rules['slug'] = [
+                'required',
+                'string', 
+                'max:50',
+                Rule::unique('slug'),
+            ];
+        }
+
+        return $rules;
+    }
+
+    private function buildTree(array $categories, $parentId = null) {
         
         $branch = [];
     

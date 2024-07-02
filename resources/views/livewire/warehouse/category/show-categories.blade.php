@@ -12,6 +12,7 @@
                 </x-buttons.flowbite.cyan-to-blue>
             </button>
         </div>
+        {{-- 
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
             <div class="p-4 rounded-lg shadow-lg">
                 <ul class="list-none bg-gradient-to-tr from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 pl-4 pb-4 pt-2 rounded-lg">
@@ -20,7 +21,18 @@
                     @endforeach
                 </ul>
             </div>
-
         </div>
+        --}}
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
+            <div class="p-4 rounded-lg shadow-lg">
+                <div>
+                    @foreach ($categories as $categoryName => $category)
+                        @include('livewire.warehouse.category.list', ['name' => $categoryName, 'category' => $category, 'parent' => null])
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>
