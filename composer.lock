@@ -1740,7 +1740,8 @@
                 "illuminate/translation": "self.version",
                 "illuminate/validation": "self.version",
                 "illuminate/view": "self.version",
-                "spatie/once": "*"
+                "spatie/once": "*",
+                "fakerphp/faker": "^1.9.1"
             },
             "require-dev": {
                 "ably/ably-php": "^1.0",
