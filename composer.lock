@@ -1746,7 +1746,7 @@
                 "ably/ably-php": "^1.0",
                 "aws/aws-sdk-php": "^3.235.5",
                 "ext-gmp": "*",
-                "fakerphp/faker": "^1.23",
+                "fakerphp/faker": "^1.9.1",
                 "league/flysystem-aws-s3-v3": "^3.0",
                 "league/flysystem-ftp": "^3.0",
                 "league/flysystem-path-prefixing": "^3.3",
