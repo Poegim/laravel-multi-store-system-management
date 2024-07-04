@@ -37,6 +37,8 @@
 
     <div x-bind:class="{'dark' : darkMode === true}" class="">
 
+        <x-banner />
+
         <div class="bg-gray-100 dark:bg-gray-900 md:flex h-full min-h-screen">
 
             <div class="md:hidden">

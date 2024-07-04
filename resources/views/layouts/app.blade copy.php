@@ -32,15 +32,17 @@
     darkMode = JSON.parse(localStorage.getItem('darkMode'));
     $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))" x-cloak>
     
-    <div x-bind:class="{'dark' : darkMode === true}">               
-
+    <div x-bind:class="{'dark' : darkMode === true}">     
+        
+        
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-
+            
             <div>
                 @livewire('navigation-menu')
             </div>
-
+            
             <div class="md:grid grid-cols-2 bg-red-500">
+                <x-banner />
 
                 <div class="hidden md:absolute md:flex bottom-0 top-0 h-full bg-green-500">
                     <x-sidebar />
