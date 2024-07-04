@@ -108,13 +108,6 @@
             <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
                 <!-- Authentication -->
                 <li>
-                    <a href="{{ route('profile.show') }}"   @click="setLastClicked('dashboard')" wire:navigate
-                        class="flex items-center p-2 text-gray-900 dark:text-white dark:hover:bg-g hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg group {{ request()->routeIs('profile.show') ? 'nav-active-tab' : ''}}">
-                        <x-far-circle-user class="h-6 w-6" />
-                        <span class="ml-3">Profile</span>
-                    </a>
-                </li>
-                <li>
                     <form method="POST" action="{{ route('logout') }}" x-data>
                         @csrf
                         <a href="{{ route('logout') }}"
@@ -131,10 +124,15 @@
 
                     
         <div
-            class="justify-center p-4 space-x-4 w-full flex bg-white dark:bg-gray-800 z-20">
+            class="justify-center p-4 space-x-2 w-full flex bg-white dark:bg-gray-800 z-20">
 
-            <a href="#" data-tooltip-target="tooltip-settings"
-                class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark dark:hover:text-white hover:text-gray-900 dark:hover:bg-g hover:bg-gray-100ray-600">
+            <a href="{{ route('profile.show') }}" wire:navigate
+                class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark dark:hover:text-white hover:text-gray-900 dark:hover:bg-gray-600 hover:bg-gray-100">
+                <x-far-circle-user class="h-6 w-6" />
+            </a>
+
+            <a href="#"
+                class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark dark:hover:text-white hover:text-gray-900 dark:hover:bg-gray-600 hover:bg-gray-100">
                 <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
@@ -142,14 +140,10 @@
                         clip-rule="evenodd"></path>
                 </svg>
             </a>
-            <div id="tooltip-settings" role="tooltip"
-                class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip">
-                Settings page
-                <div class="tooltip-arrow" data-popper-arrow></div>
-            </div>
+            
 
-            <div class="ml-2 mt-2" data-tooltip-target="tooltip-mode">
-                <button type="button" x-bind:class="darkMode ? 'bg-slate-500' : 'bg-gray-700'"
+            <div class="mt-2" data-tooltip-target="tooltip-mode">
+                <button type="button" x-bind:class="darkMode ? 'bg-slate-900' : 'bg-green-200'"
                     x-on:click="darkMode = !darkMode"
                     class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-gray-200 focus:ring-offset-2 hover:bg-gray-900"
                     role="switch" aria-checked="false">
