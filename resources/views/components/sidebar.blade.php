@@ -99,7 +99,18 @@
                     </ul>
                 </li>
                 
+            </ul>
+
+
+            <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
                 <!-- Authentication -->
+                <li>
+                    <a href="{{ route('profile.show') }}"   @click="setLastClicked('dashboard')" wire:navigate
+                        class="flex items-center p-2 text-gray-900 dark:text-white dark:hover:bg-g hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg group {{ request()->routeIs('profile.show') ? 'nav-active-tab' : ''}}">
+                        <x-far-circle-user class="h-6 w-6" />
+                        <span class="ml-3">Profile</span>
+                    </a>
+                </li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}" x-data>
                         @csrf
@@ -112,11 +123,7 @@
                         </a>
                     </form>
                 </li>
-            </ul>
 
-
-            <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
-                
             </ul>
 
                     
