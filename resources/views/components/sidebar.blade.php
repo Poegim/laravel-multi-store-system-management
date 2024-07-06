@@ -26,6 +26,7 @@
                 <li>
                     <a href="{{ route('dashboard') }}"   @click="setLastClicked('dashboard')" wire:navigate
                         class="flex items-center p-2 text-gray-900 dark:text-white dark:hover:bg-g hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg group {{ request()->routeIs('dashboard') ? 'nav-active-tab' : ''}}">
+                        <svg src="{{asset('storage/icons/svg/dashboard--reference.svg')}}" alt="dashboard_icon" class="w-6 h-6 fill-blue-600"></svg>
                         <span class="ml-3">Dashboard</span>
                     </a>
                 </li>
