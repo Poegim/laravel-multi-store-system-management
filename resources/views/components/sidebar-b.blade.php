@@ -59,7 +59,7 @@
                             <li>
                                 <a href="{{ route('user.index') }}"  wire:navigate
                                     class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('user.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
-                                    <x-fas-users-gear class="h-6 w-6 text-gray-600" /><span class="ml-2">Users</span>
+                                    <span class="ml-2">Users</span>
                                 </a>
                             </li>
                         @endcan
@@ -67,14 +67,14 @@
                         <li>
                             <a href="{{ route('store.index') }}"   wire:navigate
                                 class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->routeIs('store.index') ? 'bg-gray-100 dark:bg-gray-700' : ''}}">
-                                <x-fas-store class="h-6 w-6 text-gray-600"/> <span class="ml-2">Stores</span>
+                                <span class="ml-2">Stores</span>
                             </a>
                         </li>
 
                         <li>
                             <a href="#" 
                                 class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                                <x-fas-list-ol class="h-6 w-6 text-gray-600"/> <span class="ml-2">Categories</span>
+                                <span class="ml-2">Categories</span>
                             </a>
                         </li>
 

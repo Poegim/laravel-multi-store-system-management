@@ -4,7 +4,6 @@
             <button wire:click="create()">
                 <x-buttons.flowbite.cyan-to-blue>
                     <div class="flex">
-                        <x-fas-plus class="w-6 h-6 mr-2" />
                         <span class="my-auto">
                             {{ __('CREATE') }}
                         </span>

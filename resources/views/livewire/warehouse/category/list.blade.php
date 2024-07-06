@@ -22,16 +22,15 @@
         
     @if (array_key_exists('children', $category))
         <button @click="open = ! open" class=" mr-2 rounded bg-gray-200 dark:bg-gray-700 transition-all" :class="open ? '' : 'rotate-180'">
-            <x-heroicon-o-chevron-down class="h-6 w-6"/>    
+            >   
         </button>
         @else
-            <x-heroicon-o-arrow-long-right class="h-6 w-6 mr-2"/>
+            <
         @endif
 
         <div class="w-full">
         <button class="px-2 rounded-lg flex w-full justify-between border-dotted border-b border-gray-500 py-1 hover:bg-gray-100 dark:hover:bg-gray-700">
             <span class="my-auto flex">
-                <x-fas-edit class="h-5 w-5 mr-1 text-green-900 dark:text-green-200"/>
                 {{ $category['plural_name'] }}
             </span>
             @if($parent)

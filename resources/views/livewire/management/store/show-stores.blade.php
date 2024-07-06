@@ -4,7 +4,6 @@
             <button wire:click="create()">
                 <x-buttons.flowbite.cyan-to-blue>
                     <div class="flex">
-                        <x-fas-plus class="w-6 h-6 mr-2"/>
                         <span class="my-auto">
                             {{ __('CREATE') }}
                         </span>
@@ -45,7 +44,7 @@
                             </td>
                             <td class="px-6 py-2">
                                 <x-buttons.edit-button wire:click="edit({{ $item->id }})">
-                                    <x-fas-edit class="h-6 w-6"/>
+                                    Edit
                                 </x-buttons.edit-button>
                             </td>
                         </tr>
