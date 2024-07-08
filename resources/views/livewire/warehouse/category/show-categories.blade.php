@@ -63,11 +63,63 @@
                 @error('plural_name')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
-                <input wire:model="plural_name" type="plural_name" id="plural_name"
+                <input wire:model.live="plural_name" type="plural_name" id="plural_name"
                     class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                     required value="{{$plural_name}}" />
 
-                
+                <label for="slug"
+                    class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('slug')}}</label>
+                @error('slug')
+                <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                @enderror
+                <input wire:model="slug" type="slug" id="slug"
+                class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                required value="{{$slug}}" disabled/>
+
+                <label for="singular_name"
+                    class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('singular_name')}}</label>
+                @error('singular_name')
+                <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                @enderror
+                <input wire:model="singular_name" type="singular_name" id="singular_name"
+                    class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    required value="{{$singular_name}}" />
+
+                @php
+                    function renderCategoryOptions($categories, $level = 0) {
+                        foreach ($categories as $category) {
+                            echo '<option value="' . $category['id'] . '" class="ml-' . ($level * 2) . '">';
+                            echo str_repeat('&nbsp;', $level * 2) . $category['plural_name'];
+                            echo '</option>';
+                            if (array_key_exists('children', $category)) {
+                                renderCategoryOptions($category['children'], $level + 1);
+                            }
+                        }
+                    }
+                @endphp
+                <label for="category"
+                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('category')}}</label>
+                @error('category')
+                <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                @enderror
+                <select class="w-full rounded-lg border border-blue-300 mb-4">
+                    @php
+                        renderCategoryOptions($categories);
+                    @endphp
+                </select>
+
+                @error('disabled')
+                <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                @enderror
+                <div class="flex">
+                    <input wire:model="disabled" type="checkbox" id="disabled"
+                    class=" my-auto border border-indigo-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    required value="{{$disabled}}" />
+                    <label for="disabled" class="ml-1 my-auto text-sm font-medium text-gray-900 dark:text-white">{{__('disabled')}}</label>
+                    <span class="italic ml-2">
+                        ({{ __('disabled categories will not appear in other lists')}})
+                    </span>
+                </div>
             </div>
 
 

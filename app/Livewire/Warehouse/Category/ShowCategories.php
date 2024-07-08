@@ -3,6 +3,7 @@
 namespace App\Livewire\Warehouse\Category;
 
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use App\Models\Warehouse\Category;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +21,7 @@ class ShowCategories extends Component
     public $singular_name;
     public $parent_id;
     public $slug;
+    public $disabled;
 
     public function hydrate()
     {
@@ -77,6 +79,11 @@ class ShowCategories extends Component
         }
 
         return $rules;
+    }
+
+    public function updatedPluralName($property) 
+    {
+        $this->slug = Str::slug($this->plural_name);
     }
 
     public function create() {

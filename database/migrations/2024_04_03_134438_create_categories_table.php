@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('plural_name');
             $table->string('singular_name');
             $table->string('slug');
+            $table->boolean('disabled')->default(0);
             $table->foreignId('parent_id')->nullable()->constrained('categories');
             $table->unique(['slug', 'parent_id']);
             $table->timestamps();

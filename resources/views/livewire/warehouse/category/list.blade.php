@@ -16,16 +16,14 @@
     </li>
 --}}
 
-<div class="ml-4 text-gray-800 dark:text-gray-200" x-data="{ open: true }">
+<div class="ml-12 text-gray-800 dark:text-gray-200" x-data="{ open: true }">
 
     <div class="flex items-center rounded-lg py-1 ml-1">
         
-    @if (array_key_exists('children', $category))
-        <button @click="open = ! open" class=" mr-2 rounded bg-gray-200 dark:bg-gray-700 transition-all" :class="open ? '' : 'rotate-180'">
-            >
-        </button>
-        @else
-            <
+        @if (array_key_exists('children', $category))
+        <button @click="open = ! open" class=" -ml-9 mr-2 px-2 py-1 font-extrabold rounded bg-gray-200 dark:bg-gray-700 transition-all" :class="open ? '' : 'rotate-180'">
+            v
+        </button>           
         @endif
 
         <div class="w-full">
