@@ -22,7 +22,7 @@
         
     @if (array_key_exists('children', $category))
         <button @click="open = ! open" class=" mr-2 rounded bg-gray-200 dark:bg-gray-700 transition-all" :class="open ? '' : 'rotate-180'">
-            >   
+            >
         </button>
         @else
             <

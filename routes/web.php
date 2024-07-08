@@ -6,9 +6,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\Warehouse\CategoryController;
 
-Route::get('/', function () {
-    return redirect('dashboard');
-});
 
 Route::name('user.')->prefix('user')->middleware(['auth', IsAdmin::class])->group(function () {
     Route::get('', [UserController::class, 'index'])->name('index');
@@ -29,7 +26,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
+    Route::get('/', function () {
         return view('dashboard');
     })->name('dashboard');
 });
