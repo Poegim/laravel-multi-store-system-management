@@ -9,7 +9,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['plural_name', 'singular_name',  'slug','disabled' ,'parent_id'];
+    protected $fillable = ['plural_name', 'singular_name',  'slug', 'disabled' ,'parent_id'];
 
     public static function boot()
     {

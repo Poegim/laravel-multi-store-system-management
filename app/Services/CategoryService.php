@@ -2,21 +2,21 @@
 
 namespace App\Services;
 
-use App\Repositories\CategoryRespository\CategoryRespositoryInterface;
+use App\Repositories\CategoryRepository\CategoryRepositoryInterface;
 
 class CategoryService
 {
     public function __construct(
-        protected CategoryRespositoryInterface $storeRepository
+        protected CategoryRepositoryInterface $categoryRepository
     ) {}
 
     public function store(array $data) {
-        // return $this->storeRepository->store($data);
+        return $this->categoryRepository->store($data);
     }
 
     public function update(array $data, $id)
     {
-        // return $this->storeRepository->update($data, $id);
+        return $this->categoryRepository->update($data, $id);
     }
 
 }

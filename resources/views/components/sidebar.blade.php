@@ -95,7 +95,7 @@
                         <li>
                             <a href="#" wire:navigate
                                 class="flex items-center p-2 pl-11 w-full text-gray-900 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 {{-- request()->routeIs('store.index') ? 'nav-active-tab' : '' --}}">
-                                <svg fill="#000000" class="size-6" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 507.2 507.2" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M380.8,240c-17.6-22.4-33.6-43.2-40-67.2c-1.6-4.8-3.2-9.6-4.8-14.4c-11.2-40-22.4-78.4-65.6-84.8V40c0-6.4,9.6-8,16-8 c9.6,0,16-6.4,16-16c0-9.6-6.4-16-16-16c-33.6,0-48,20.8-48,40v30.4c-44.8,8-56,44.8-67.2,84.8c-1.6,4.8-3.2,9.6-4.8,14.4 c-6.4,27.2-22.4,48-40,70.4c-25.6,32-52.8,68.8-52.8,120c0,88,70.4,147.2,179.2,147.2h1.6c108.8,0,179.2-57.6,179.2-147.2 C433.6,308.8,404.8,272,380.8,240z M256,475.2h-1.6c-72,0-147.2-30.4-147.2-115.2c0-40,22.4-70.4,46.4-100.8 c17.6-24,36.8-48,46.4-78.4c1.6-4.8,3.2-11.2,4.8-16c11.2-46.4,17.6-62.4,49.6-62.4s38.4,16,51.2,62.4c1.6,4.8,3.2,9.6,4.8,16 c9.6,30.4,27.2,54.4,46.4,78.4c24,30.4,46.4,59.2,46.4,100.8C403.2,444.8,326.4,475.2,256,475.2z"></path> </g> </g> </g></svg>
+                                <svg fill="#000000" class="size-6 fill-gray-900 dark:fill-white" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 507.2 507.2" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M380.8,240c-17.6-22.4-33.6-43.2-40-67.2c-1.6-4.8-3.2-9.6-4.8-14.4c-11.2-40-22.4-78.4-65.6-84.8V40c0-6.4,9.6-8,16-8 c9.6,0,16-6.4,16-16c0-9.6-6.4-16-16-16c-33.6,0-48,20.8-48,40v30.4c-44.8,8-56,44.8-67.2,84.8c-1.6,4.8-3.2,9.6-4.8,14.4 c-6.4,27.2-22.4,48-40,70.4c-25.6,32-52.8,68.8-52.8,120c0,88,70.4,147.2,179.2,147.2h1.6c108.8,0,179.2-57.6,179.2-147.2 C433.6,308.8,404.8,272,380.8,240z M256,475.2h-1.6c-72,0-147.2-30.4-147.2-115.2c0-40,22.4-70.4,46.4-100.8 c17.6-24,36.8-48,46.4-78.4c1.6-4.8,3.2-11.2,4.8-16c11.2-46.4,17.6-62.4,49.6-62.4s38.4,16,51.2,62.4c1.6,4.8,3.2,9.6,4.8,16 c9.6,30.4,27.2,54.4,46.4,78.4c24,30.4,46.4,59.2,46.4,100.8C403.2,444.8,326.4,475.2,256,475.2z"></path> </g> </g> </g></svg>
                                 <span class="ml-2">Brands</span>
                             </a>
                         </li>
@@ -149,7 +149,7 @@
                     class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark dark:hover:text-white hover:text-gray-900 dark:hover:bg-gray-600 hover:bg-gray-100">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                      </svg>                      
+                    </svg>                      
                 </a>
 
                 <a href="#"

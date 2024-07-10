@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Management\Store;
 
+use App\HasModal;
 use App\Models\Color;
 use App\Models\Store;
 use App\Services\StoreService;
@@ -13,12 +14,11 @@ use Livewire\Component;
 class ShowStores extends Component
 {
     use InteractsWithBanner;
+    use HasModal;
 
     protected StoreService $storeService;
 
-    public bool $modalVisibility = false;
     public string $activeModalTab = 'A';
-    public string $actionType = '';
     public ?Store $store = null;
     public ?Collection $colors;
 
@@ -181,13 +181,6 @@ class ShowStores extends Component
         $this->colors = Color::all();
     }
 
-    public function showModal(string $actionType)
-    {
-        $this->actionType = $actionType;
-        $this->modalVisibility = true;
-    }
-
-
     public function create()
     {
         $this->resetVars();
@@ -198,13 +191,10 @@ class ShowStores extends Component
     public function storeModel()
     {
         $validated = $this->validate();
-        if($validated) {
-            $flag = $this->storeService->store($validated);
-            $this->modalVisibility = false;
-            $flag ? $this->banner('Create successful.') : $this->dangerBanner('An error was encountered while creating.');
-        } else {
-            abort(403, 'Unknown error, cant store');
-        }
+        $flag = $this->storeService->store($validated);
+        $this->modalVisibility = false;
+        $flag ? $this->banner('Successfully created!') : $this->dangerBanner('An error was encountered while creating.');
+
     }
 
     public function edit(int $id)
@@ -220,7 +210,7 @@ class ShowStores extends Component
         if($validated) {
             $flag = $this->storeService->update($validated, $id);
             $this->modalVisibility = false;
-            $flag ? $this->banner('Update successful.') : $this->dangerBanner('An error was encountered while saving.');
+            $flag ? $this->banner('Successfully updated!') : $this->dangerBanner('An error was encountered while saving.');
         } else {
             abort(403, 'Unknown error, cant update');
         }

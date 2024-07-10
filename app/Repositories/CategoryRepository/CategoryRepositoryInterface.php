@@ -1,8 +1,12 @@
 <?php
 
-namespace App\Repositories\CategoryRespository;
+namespace App\Repositories\CategoryRepository ;
 
-interface CategoryRespositoryInterface
+use App\Models\Warehouse\Category;
+
+interface CategoryRepositoryInterface
 {
-    //
+    public function store(array $data);
+    public function update(array $data, int $id);
+    public function toggleCategoryChildren(Category $category, bool $disabled);
 }

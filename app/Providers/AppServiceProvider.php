@@ -4,11 +4,14 @@ namespace App\Providers;
 
 use App\Models\User;
 use App\Policies\UserPolicy;
-use App\Repositories\StoreRepository\StoreRepository;
-use App\Repositories\StoreRepository\StoreRepositoryInterface;
 use App\Services\StoreService;
+use App\Services\CategoryService;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\StoreRepository\StoreRepository;
+use App\Repositories\CategoryRepository\CategoryRepository;
+use App\Repositories\StoreRepository\StoreRepositoryInterface;
+use App\Repositories\CategoryRepository\CategoryRepositoryInterface;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -21,6 +24,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(StoreRepositoryInterface::class, StoreRepository::class);
         $this->app->bind(StoreService::class, function ($app) {
             return new StoreService($app->make(StoreRepositoryInterface::class));
+        });
+
+        $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
+        $this->app->bind(CategoryService::class, function ($app) {
+            return new CategoryService($app->make(CategoryRepositoryInterface::class));
         });
     }
 

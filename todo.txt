@@ -8,6 +8,7 @@ APP
 QUESTIONABLE
     Can nav-menu be an anonymous compomnent?
     Is flowbite required anymore?
+    Remove stores and categories if there is no dependencies
 
 
 Approches
@@ -17,5 +18,5 @@ Approches
         Single item as single row (old),
     ]
 
-Additional features
-Price tags generator (with api for phone specs)
+ADDITIONAL FEATURES
+    Price tags generator (with api for phone specs)

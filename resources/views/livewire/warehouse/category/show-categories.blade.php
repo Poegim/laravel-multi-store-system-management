@@ -11,23 +11,13 @@
                 </x-buttons.flowbite.cyan-to-blue>
             </button>
         </div>
-        {{-- 
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-            <div class="p-4 rounded-lg shadow-lg">
-                <ul class="list-none bg-gradient-to-tr from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 pl-4 pb-4 pt-2 rounded-lg">
-                    @foreach ($categories as $categoryName => $category)
-                        @include('livewire.warehouse.category.list', ['name' => $categoryName, 'category' => $category])
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-        --}}
+
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
             <div class="p-4 rounded-lg shadow-lg">
                 <div>
                     @foreach ($categories as $categoryName => $category)
-                    @include('livewire.warehouse.category.list', ['name' => $categoryName, 'category' => $category,
-                    'parent' => null])
+                        @include('livewire.warehouse.category.list', ['name' => $categoryName, 'category' => $category,
+                        'parent' => null])
                     @endforeach
                 </div>
             </div>
@@ -88,40 +78,59 @@
                 @php
                     function renderCategoryOptions($categories, $level = 0) {
                         foreach ($categories as $category) {
-                            echo '<option value="' . $category['id'] . '" class="ml-' . ($level * 2) . '">';
-                            echo str_repeat('&nbsp;', $level * 2) . $category['plural_name'];
-                            echo '</option>';
-                            if (array_key_exists('children', $category)) {
-                                renderCategoryOptions($category['children'], $level + 1);
+                            if($category['disabled'] == false) {
+                            
+                                echo '<option value="' . $category['id'] . '" class="ml-' . ($level * 2) . '">';
+                                echo str_repeat('&nbsp;', $level * 2) . $category['plural_name'];
+                                echo '</option>';
+                                if (array_key_exists('children', $category)) {
+                                    renderCategoryOptions($category['children'], $level + 1);
+                                }
                             }
                         }
                     }
                 @endphp
+
                 <label for="category"
                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('category')}}</label>
                 @error('category')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
-                <select class="w-full rounded-lg border border-blue-300 mb-4">
+                <select class="w-full rounded-lg border border-blue-300 mb-4" wire:model="parent_id">
                     @php
                         renderCategoryOptions($categories);
                     @endphp
                 </select>
 
-                @error('disabled')
-                <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                @enderror
-                <div class="flex">
-                    <input wire:model="disabled" type="checkbox" id="disabled"
-                    class=" my-auto border border-indigo-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                    required value="{{$disabled}}" />
-                    <label for="disabled" class="ml-1 my-auto text-sm font-medium text-gray-900 dark:text-white">{{__('disabled')}}</label>
-                    <span class="italic ml-2">
-                        ({{ __('disabled categories will not appear in other lists')}})
-                    </span>
+                <div class="border-2 border-orange-500 dark:border-orange-300 p-2 rounded-lg">
+                    @error('disabled')
+                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                    @enderror  
+                    <div>
+                        <div class="italic flex space-x-2 space-y-1 my-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-orange-500 dark:text-orange-300">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                            </svg>
+                            <div>
+                                {{ __('Disabled categories will be excluded from selection menus, but remain visible in the listing.')}}
+                            </div>
+                        </div>
+                        <div class="italic flex space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-orange-500 dark:text-orange-300">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                            </svg>
+                            <div>
+                                {{ __('Enabling or disabling a category will set the same state for all its subcategories.')}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex my-2">
+                        <input wire:model="disabled" type="checkbox" id="disabled" 
+                        class="my-auto border border-indigo-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-gray-700 dark:border-gray-600" required />
+                        <label for="disabled" class="ml-2 my-auto text-sm font-medium text-gray-900 dark:text-white">{{__('disabled')}}</label>
+                    </div>
                 </div>
             </div>
-
 
         </x-slot>
 
@@ -132,13 +141,13 @@
 
             @if ($actionType === 'create')
 
-            <x-danger-button class="ms-3" wire:click="storeModel()">
+            <x-danger-button class="ms-3" wire:click="store()">
                 {{ __('Create') }}
             </x-danger-button>
 
             @elseif ($actionType === 'edit')
 
-            <x-danger-button class="ms-3" wire:click="update({{$category?->id}})">
+            <x-danger-button class="ms-3" wire:click="update({{ $category['id'] ?? 'null' }})">
                 {{ __('Update') }}
             </x-danger-button>
 
