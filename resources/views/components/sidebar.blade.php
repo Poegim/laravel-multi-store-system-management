@@ -71,8 +71,8 @@
                             <a href="{{ route('category.index') }}" wire:navigate
                                 class="flex items-center p-2 pl-11 w-full text-gray-900 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->routeIs('category.index') ? 'nav-active-tab' : ''}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
-                                </svg>                                  
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.242 5.992h12m-12 6.003H20.24m-12 5.999h12M4.117 7.495v-3.75H2.99m1.125 3.75H2.99m1.125 0H5.24m-1.92 2.577a1.125 1.125 0 1 1 1.591 1.59l-1.83 1.83h2.16M2.99 15.745h1.125a1.125 1.125 0 0 1 0 2.25H3.74m0-.002h.375a1.125 1.125 0 0 1 0 2.25H2.99" />
+                                </svg>
                                 <span class="ml-2">Categories</span>
                             </a>
                         </li>
