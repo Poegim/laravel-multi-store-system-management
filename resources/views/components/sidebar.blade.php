@@ -11,7 +11,7 @@
             }">
 
     <!-- Sidebar -->
-    <aside id="default-sidebar" class="md:block w-full h-full md:w-64" aria-label="Sidenav">
+    <aside id="default-sidebar" class="lg:block w-full h-full md:w-64" aria-label="Sidenav">
 
 
         <div

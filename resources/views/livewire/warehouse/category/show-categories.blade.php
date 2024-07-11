@@ -14,7 +14,7 @@
 
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
             <div class="p-4 rounded-lg shadow-lg">
-                <div>
+                <div class="-ml-12">
                     @foreach ($categories as $categoryName => $category)
                         @include('livewire.warehouse.category.list', ['name' => $categoryName, 'category' => $category,
                         'parent' => null])
@@ -111,7 +111,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 float-left mr-2 mt-2 text-orange-500 dark:text-orange-300">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
                         </svg>
-                        {{ __('Inactive categories will not appear in select lists but will remain visible in the general listing. Setting a category to disabled will change the state of its subcategories accordingly. Conversely, enabling a subcategory will change the state of its parent category to enabled.')}}
+                        {{ __('Disabled categories will not appear in select lists but will remain visible in the general listing. Setting a category to disabled will change the state of its subcategories accordingly. Conversely, enabling a subcategory will change the state of its parent category to enabled.')}}
 
                     </div>
                     <div class="flex my-2">
