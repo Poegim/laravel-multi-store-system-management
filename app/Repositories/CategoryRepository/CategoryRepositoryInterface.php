@@ -8,5 +8,4 @@ interface CategoryRepositoryInterface
 {
     public function store(array $data);
     public function update(array $data, int $id);
-    public function toggleCategoryChildren(Category $category, bool $disabled);
 }

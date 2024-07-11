@@ -18,6 +18,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         $category = Category::findOrFail($id);
         $category = $this->associate($category, $data);
         $this->toggleCategoryChildren($category, $category->disabled);
+        $this->toggleCategoryParent($category);
 
         return $category->save();
     }
@@ -32,7 +33,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         return $category;
     }
 
-    public function toggleCategoryChildren(Category $category, bool $disabled)
+    private function toggleCategoryChildren(Category $category, bool $disabled)
     {
         if($category->children) {
             foreach ($category->children as $child) {
@@ -40,6 +41,15 @@ class CategoryRepository implements CategoryRepositoryInterface
                 $child->save();
                 $this->toggleCategoryChildren($child, $disabled);
             }
+        }
+    }
+
+    private function toggleCategoryParent(Category $category)
+    {
+        if($category->parent) {
+            $category->parent->disabled = false;
+            $category->parent->save();
+            $this->toggleCategoryParent($category->parent);
         }
     }
 }

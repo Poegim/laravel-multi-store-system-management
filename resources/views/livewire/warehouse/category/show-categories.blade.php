@@ -107,22 +107,12 @@
                     <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                     @enderror  
                     <div>
-                        <div class="italic flex space-x-2 space-y-1 my-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-orange-500 dark:text-orange-300">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                            </svg>
-                            <div>
-                                {{ __('Disabled categories will be excluded from selection menus, but remain visible in the listing.')}}
-                            </div>
-                        </div>
-                        <div class="italic flex space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-orange-500 dark:text-orange-300">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                            </svg>
-                            <div>
-                                {{ __('Enabling or disabling a category will set the same state for all its subcategories.')}}
-                            </div>
-                        </div>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 float-left mr-2 mt-2 text-orange-500 dark:text-orange-300">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                        </svg>
+                        {{ __('Inactive categories will not appear in select lists but will remain visible in the general listing. Setting a category to disabled will change the state of its subcategories accordingly. Conversely, enabling a subcategory will change the state of its parent category to enabled.')}}
+
                     </div>
                     <div class="flex my-2">
                         <input wire:model="disabled" type="checkbox" id="disabled" 
