@@ -19,7 +19,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         $category = $this->associate($category, $data);
 
         /**
-         *  Set same state fot children.
+         *  Set same state fot all children.
          */
         $this->toggleCategoryChildren($category, $category->disabled);
 
