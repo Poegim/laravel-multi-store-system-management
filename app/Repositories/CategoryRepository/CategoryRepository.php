@@ -17,8 +17,16 @@ class CategoryRepository implements CategoryRepositoryInterface
     {
         $category = Category::findOrFail($id);
         $category = $this->associate($category, $data);
+
+        /**
+         *  Set same state fot children.
+         */
         $this->toggleCategoryChildren($category, $category->disabled);
-        $this->toggleCategoryParent($category);
+
+        /**
+         *  If category has been enabled, then enable parents.
+         */
+        if ($category->disabled === false) $this->toggleCategoryParent($category);
 
         return $category->save();
     }
