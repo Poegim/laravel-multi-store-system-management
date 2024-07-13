@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GitHubController;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -31,7 +32,5 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/', [GitHubController::class, 'index'])->name('dashboard');
 });
