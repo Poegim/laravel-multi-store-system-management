@@ -1,10 +1,8 @@
-NAV
-    
-
 APP
+    Images
     Colors CRUD
     Warnings about huge quantities and prices etc
-
+    
 QUESTIONABLE
     Can nav-menu be an anonymous compomnent?
     Is flowbite required anymore?
@@ -12,12 +10,16 @@ QUESTIONABLE
 
 
 Approches
-    [
+    Items storage => [
         Items count - First In First Out,
         Items count - Average prices
         Single item as single row (old),
     ]
 
+    Images => [
+        Separated, every model has own column of image path
+        One pivot
+    ]
+
 ADDITIONAL FEATURES
     Price tags generator (with api for phone specs)
-

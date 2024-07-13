@@ -1,16 +1,12 @@
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
         <div class="w-full flex justify-end my-4">
-            <button wire:click="create()">
-                <x-buttons.flowbite.cyan-to-blue>
-                    <div class="flex">
-                        <span class="my-auto">
-                            {{ __('CREATE') }}
-                        </span>
-                    </div>
-                </x-buttons.flowbite.cyan-to-blue>
-            </button>
+            <x-button wire:click="create()">
+                {{ __('CREATE') }}
+            </x-button>
         </div>
+
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
 
             <div class="relative overflow-x-auto">
@@ -20,7 +16,7 @@
                             <th scope="col" class="px-6 py-3">
                                 {{__('name')}}
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" class="px-6 py-3 hidden md:table-cell">
                             {{__('email')}}
                             </th>
                             <th scope="col" class="px-6 py-3">
@@ -39,7 +35,7 @@
                                     <a href="{{route('store.show', $item)}}" class="my-auto ml-2">{{$item->name}}</a>
                                 </div>
                             </th>
-                            <td class="px-6 py-2">
+                            <td class="px-6 py-2 hidden md:table-cell">
                                 {{$item->email}}
                             </td>
                             <td class="px-6 py-2">

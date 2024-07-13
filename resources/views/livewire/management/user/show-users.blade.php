@@ -2,13 +2,9 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
         <div class="w-full flex justify-end my-4">
-            <x-buttons.flowbite.cyan-to-blue>
-                <div class="flex">
-                    <span class="my-auto">
-                        {{ __('CREATE') }}
-                    </span>
-                </div>
-            </x-buttons.flowbite.cyan-to-blue>
+            <x-button>
+                {{ __('CREATE') }}
+            </x-button>
         </div>
 
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">

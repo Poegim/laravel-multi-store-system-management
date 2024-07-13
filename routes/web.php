@@ -4,8 +4,9 @@ use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\Warehouse\BrandController;
 use App\Http\Controllers\Warehouse\CategoryController;
-
+use App\Models\Warehouse\Brand;
 
 Route::name('user.')->prefix('user')->middleware(['auth', IsAdmin::class])->group(function () {
     Route::get('', [UserController::class, 'index'])->name('index');
@@ -19,6 +20,10 @@ Route::name('store.')->prefix('store')->middleware(['auth', IsAdmin::class])->gr
 Route::name('category.')->prefix('category')->middleware(['auth', IsAdmin::class])->group(function () {
     Route::get('', [CategoryController::class, 'index'])->name('index');
     Route::get('/{category}', [CategoryController::class, 'show'])->name('show');
+});
+
+Route::name('brand.')->prefix('brand')->middleware(['auth'])->group(function () {
+    Route::get('', [BrandController::class, 'index'])->name('index');
 });
 
 Route::middleware([

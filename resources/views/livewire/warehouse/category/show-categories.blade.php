@@ -1,15 +1,10 @@
 <div class="py-12 text-gray-800 dark:text-gray-200">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        
         <div class="w-full flex justify-end my-4">
-            <button wire:click="create()">
-                <x-buttons.flowbite.cyan-to-blue>
-                    <div class="flex">
-                        <span class="my-auto">
-                            {{ __('CREATE') }}
-                        </span>
-                    </div>
-                </x-buttons.flowbite.cyan-to-blue>
-            </button>
+            <x-button wire:click="create()">
+                {{ __('CREATE') }}
+            </x-button>
         </div>
 
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">

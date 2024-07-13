@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Models\User;
 use App\Policies\UserPolicy;
+use App\Repositories\BrandRepository\BrandRepository;
+use App\Repositories\BrandRepository\BrandRepositoryInterface;
 use App\Services\StoreService;
 use App\Services\CategoryService;
 use Illuminate\Support\Facades\Gate;
@@ -12,7 +14,7 @@ use App\Repositories\StoreRepository\StoreRepository;
 use App\Repositories\CategoryRepository\CategoryRepository;
 use App\Repositories\StoreRepository\StoreRepositoryInterface;
 use App\Repositories\CategoryRepository\CategoryRepositoryInterface;
-
+use App\Services\BrandService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +31,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->bind(CategoryService::class, function ($app) {
             return new CategoryService($app->make(CategoryRepositoryInterface::class));
+        });
+
+        $this->app->bind(BrandRepositoryInterface::class, BrandRepository::class);
+        $this->app->bind(BrandService::class, function ($app) {
+            return new BrandService($app->make(BrandRepositoryInterface::class));
         });
     }
 

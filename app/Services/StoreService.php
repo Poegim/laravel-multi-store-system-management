@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Repositories\StoreRepository\StoreRepositoryInterface;
 
-
 class StoreService
 {
     public function __construct(
