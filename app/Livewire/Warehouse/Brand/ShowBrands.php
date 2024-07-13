@@ -19,7 +19,7 @@ class ShowBrands extends Component
 
     public function render()
     {
-        $brands = Brand::where('name', 'like', '%'.$this->search.'%')->paginate(25);
+        $brands = Brand::where('name', 'like', '%'.$this->search.'%')->paginate(10);
         return view('livewire.warehouse.brand.show-brands', compact('brands'));
     }
 }
