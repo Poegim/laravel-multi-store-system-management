@@ -36,7 +36,7 @@
     darkMode = JSON.parse(localStorage.getItem('darkMode'));
     $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))" x-cloak>
 
-    <div x-bind:class="{'dark' : darkMode === true}" class="">
+    <div x-bind:class="{'dark' : darkMode === false}">
 
         <x-banner />
 
