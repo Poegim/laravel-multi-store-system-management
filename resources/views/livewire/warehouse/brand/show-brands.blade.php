@@ -26,7 +26,6 @@
                     </thead>
                     <tbody>
                         @foreach($brands as $item)
-
                         <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
                             <th scope="row"
                                 class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">

@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\Warehouse\BrandController;
 use App\Http\Controllers\Warehouse\CategoryController;
+use App\Http\Controllers\Warehouse\ProductController;
 use App\Models\Warehouse\Brand;
 
 Route::name('user.')->prefix('user')->middleware(['auth', IsAdmin::class])->group(function () {
@@ -25,6 +26,10 @@ Route::name('category.')->prefix('category')->middleware(['auth', IsAdmin::class
 
 Route::name('brand.')->prefix('brand')->middleware(['auth'])->group(function () {
     Route::get('', [BrandController::class, 'index'])->name('index');
+});
+
+Route::name('product.')->prefix('product')->middleware(['auth'])->group(function () {
+    Route::get('', [ProductController::class, 'index'])->name('index');
 });
 
 Route::middleware([
