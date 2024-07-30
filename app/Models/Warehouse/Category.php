@@ -2,8 +2,9 @@
 
 namespace App\Models\Warehouse;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
@@ -25,10 +26,10 @@ class Category extends Model
             }
 
             if ($query->exists()) {
-                return false;
+                throw ValidationException::withMessages([
+                    'slug' => 'The combination of slug and parent_id must be unique.',
+                ]);
             }
-
-            return true;
         });
 
     }
