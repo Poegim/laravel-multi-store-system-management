@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name')->default('default');
             $table->string('slug')->default('');
+            $table->json('attributes')->nullable();
+            $table->string('ean')->nullable();
             $table->foreignId('product_id')->constrained();
             $table->unique(['product_id', 'slug']);
             $table->timestamps();
