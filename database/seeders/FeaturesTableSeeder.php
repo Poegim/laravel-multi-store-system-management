@@ -50,7 +50,6 @@ class FeaturesTableSeeder extends Seeder
             DB::table('features')->insert([
                 'name' => $feature,
                 'slug' => Str::slug($feature),
-                'is_device' => false,
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
