@@ -6,7 +6,6 @@ use Faker\Factory as Faker;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use App\Models\Warehouse\Product;
-use App\Models\Warehouse\ProductVariant;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -46,7 +45,9 @@ class ProductVariantsTableSeeder extends Seeder
             // Insert batch if full.
             if (count($data) >= $batchSize) {
                 DB::table('product_variants')->insert($data);
-                $data = []; // Resetowanie tablicy po wstawieniu
+                
+                // Reset array.
+                $data = []; 
             }
         }
 

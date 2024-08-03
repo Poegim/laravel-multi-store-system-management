@@ -2,9 +2,12 @@
 
 namespace App\Models\Warehouse;
 
+use App\Models\Warehouse\Brand;
+use App\Models\Warehouse\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
@@ -30,6 +33,16 @@ class Product extends Model
                 ]);
             }
         });
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class);
     }
 
     public function variants(): HasMany
