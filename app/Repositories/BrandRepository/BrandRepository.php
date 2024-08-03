@@ -8,7 +8,9 @@ class BrandRepository implements BrandRepositoryInterface
 {
     public function store(array $data)
     {
-        //
+        $brand = new Brand;
+        $brand = $this->associate($brand, $data);
+        return $brand->save();
     }
 
     public function update(array $data, int $id)
@@ -16,9 +18,11 @@ class BrandRepository implements BrandRepositoryInterface
         //
     }
 
-    private function associate()
+    private function associate(Brand $brand, array $data)
     {
-        //
+        $brand->name = $data['name'];
+        $brand->slug = $data['slug'];
+        return $brand;
     }
 
 }

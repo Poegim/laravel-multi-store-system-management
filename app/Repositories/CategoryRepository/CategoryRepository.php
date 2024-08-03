@@ -31,7 +31,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         return $category->save();
     }
 
-    private function associate(Category $category, $data)
+    private function associate(Category $category, array $data)
     {
         $category->plural_name = $data['plural_name'];
         $category->singular_name = $data['singular_name'];

@@ -3,9 +3,7 @@
 
         <div class="w-full flex justify-end my-4 h-9 space-x-2">
             <x-input id="name" type="text" aria-placeholder="Search..." placeholder="Search..." wire:model.debounce.500ms.live="search" />
-            <x-button wire:click="create()">
-                {{ __('CREATE') }}
-            </x-button>
+            @livewire('warehouse.brand.create-brand')
         </div>
         
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">

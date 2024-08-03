@@ -48,7 +48,7 @@
                 @error('plural_name')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
-                <input wire:model.live="plural_name" type="plural_name" id="plural_name"
+                <input wire:model.live="plural_name" type="text" id="plural_name"
                     class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                     required value="{{$plural_name}}" />
 
@@ -57,7 +57,7 @@
                 @error('slug')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
-                <input wire:model="slug" type="slug" id="slug"
+                <input wire:model="slug" type="text" id="slug"
                 class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 required value="{{$slug}}" disabled/>
 
@@ -66,7 +66,7 @@
                 @error('singular_name')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
-                <input wire:model="singular_name" type="singular_name" id="singular_name"
+                <input wire:model="singular_name" type="text" id="singular_name"
                     class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                     required value="{{$singular_name}}" />
 
@@ -138,5 +138,5 @@
 
             @endif
         </x-slot>
-</x-dialog-modal>
+    </x-dialog-modal>
 </div>
