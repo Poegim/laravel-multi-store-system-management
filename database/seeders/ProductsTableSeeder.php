@@ -35,10 +35,9 @@ class ProductsTableSeeder extends Seeder
             $brandId = $brandIds[array_rand($brandIds)];
 
             $productName = implode(' ', $faker->randomElements($words, rand(1, 3)));
-            $productName = ucwords($productName.' '.$faker->words(rand(1,3), true));
+            $productName = ucwords($productName.' '.$faker->words(rand(1,3), true)).rand(1,10);
 
-            // Wstaw produkt do bazy danych
-            DB::table('products')->insert([
+            $data[] = [
                 'category_id' => $categoryId,
                 'brand_id' => $brandId,
                 'name' => $productName,
@@ -46,7 +45,11 @@ class ProductsTableSeeder extends Seeder
                 'is_device' => false,
                 'created_at' => now(),
                 'updated_at' => now()
-            ]);
+            ];
+
+
         }
+
+        DB::table('products')->insert($data);
     }
 }

@@ -112,6 +112,8 @@ class CategoriesTableSeeder extends Seeder
                 $this->createCategories($details['subcategories'], $categoryModel->id);
             }
         }
+
+        
     }
     
 }

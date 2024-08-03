@@ -251,12 +251,15 @@ class ColorsTableSeeder extends Seeder
         ];
 
         foreach($tailwindColors as $key => $value) {
-            DB::table('colors')->insert([
+            $data[] = [
                 'name' => $key,
                 'value' => $value,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ]);
+            ];
         }
+
+        DB::table('colors')->insert($data);
+
     }
 }

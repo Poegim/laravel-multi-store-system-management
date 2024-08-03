@@ -234,12 +234,14 @@ class BrandsTableSeeder extends Seeder
         ];
 
         foreach ($brands as $brand) {
-            DB::table('brands')->insert([
+            $data[] = [
                 'name' => $brand,
                 'slug' => Str::slug($brand, '-'),
                 'created_at' => now(),
                 'updated_at' => now()
-            ]);
+            ];
         }
+
+        DB::table('brands')->insert($data);
     }
 }
