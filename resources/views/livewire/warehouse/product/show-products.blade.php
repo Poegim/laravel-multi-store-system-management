@@ -43,13 +43,13 @@
                                     </svg>
                                 </div>
                             </th>
-                            <th scope="col" class="px-6 py-3 hidden md:table-cell">
+                            <th scope="col" class="px-6 py-3 hidden lg:table-cell">
                             {{__('slug')}}
                             </th>
-                            <th scope="col" class="px-6 py-3 hidden md:table-cell">
+                            <th scope="col" class="px-6 py-3 hidden lg:table-cell">
                             {{__('category')}}
                             </th>
-                            <th scope="col" class="px-6 py-3 hidden md:table-cell">
+                            <th scope="col" class="px-6 py-3 hidden lg:table-cell">
                             {{__('brand')}}
                             </th>
                             <th scope="col" class="px-6 py-3 text-right">
@@ -60,7 +60,7 @@
                     <tbody>
                         @foreach($products as $item)
                         <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <td class="px-6 py-2 hidden md:table-cell">
+                            <td class="px-6 py-2">
                                {{$item->id}}
                             </td>
                             <td scope="row"
@@ -69,13 +69,13 @@
                                     <a href="#" class="my-auto" alt="{{$item->name}}" label="{{$item->name}}">{{Illuminate\Support\Str::limit($item->name, 30, '...')}}</a>
                                 </div>
                             </td>
-                            <td class="px-6 py-2 hidden md:table-cell">
+                            <td class="px-6 py-2 hidden lg:table-cell">
                                 {{$item->slug}}
                             </td>
-                            <td class="px-6 py-2 hidden md:table-cell">
+                            <td class="px-6 py-2 hidden lg:table-cell">
                                 {{$item->category->plural_name}}
                             </td>
-                            <td class="px-6 py-2 hidden md:table-cell">
+                            <td class="px-6 py-2 hidden lg:table-cell">
                                 {{$item->brand->name}}
                             </td>
                             <td class="px-6 py-2 flex justify-end">

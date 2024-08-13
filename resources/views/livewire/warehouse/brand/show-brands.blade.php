@@ -41,7 +41,7 @@
                                     </svg>
                                 </div>
                             </th>
-                            <th scope="col" class="px-6 py-3 hidden md:table-cell">
+                            <th scope="col" class="px-6 py-3 hidden lg:table-cell">
                             {{__('slug')}}
                             </th>
                             <th scope="col" class="px-6 py-3 text-right">
@@ -62,7 +62,7 @@
                                     <a href="#" class="my-auto">{{$item->name}}</a>
                                 </div>
                             </th>
-                            <td class="px-6 py-2 hidden md:table-cell">
+                            <td class="px-6 py-2 hidden lg:table-cell">
                                 {{$item->slug}}
                             </td>
                             <td class="px-6 py-2 flex justify-end">
