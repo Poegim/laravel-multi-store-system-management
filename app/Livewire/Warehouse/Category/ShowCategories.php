@@ -2,12 +2,12 @@
 
 namespace App\Livewire\Warehouse\Category;
 
-use App\HasModal;
 use Livewire\Component;
+use App\Traits\HasModal;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use App\Models\Warehouse\Category;
 use App\Services\CategoryService;
+use App\Models\Warehouse\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use Laravel\Jetstream\InteractsWithBanner;
@@ -17,9 +17,9 @@ class ShowCategories extends Component
 
     use InteractsWithBanner;
     use HasModal;
-
+    
     protected CategoryService $categoryService;
-
+    
     public ?Category $category = null;
     public $categories;
 

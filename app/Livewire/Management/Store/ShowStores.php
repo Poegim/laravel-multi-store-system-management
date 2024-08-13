@@ -2,14 +2,14 @@
 
 namespace App\Livewire\Management\Store;
 
-use App\HasModal;
 use App\Models\Color;
 use App\Models\Store;
+use Livewire\Component;
+use App\Traits\HasModal;
 use App\Services\StoreService;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
 use Laravel\Jetstream\InteractsWithBanner;
-use Livewire\Component;
+use Illuminate\Database\Eloquent\Collection;
 
 class ShowStores extends Component
 {

@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Warehouse\Brand;
 
-use App\HasModal;
 use Livewire\Component;
+use App\Traits\HasModal;
 use Illuminate\Support\Str;
 use App\Services\BrandService;
 use Illuminate\Validation\Rule;
