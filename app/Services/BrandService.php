@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Warehouse\Brand;
 use App\Repositories\BrandRepository\BrandRepositoryInterface;
 
 class BrandService
@@ -14,9 +15,9 @@ class BrandService
         return $this->brandRepository->store($data);
     }
 
-    public function update(array $data, $id)
+    public function update(array $data, Brand $brand)
     {
-        return $this->brandRepository->update($data, $id);
+        return $this->brandRepository->update($data, $brand);
     }
 
 }

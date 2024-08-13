@@ -6,6 +6,8 @@ use App\Models\Warehouse\Brand;
 use App\Traits\Sortable;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
+
 
 class ShowBrands extends Component
 {
@@ -13,6 +15,11 @@ class ShowBrands extends Component
     use Sortable;
 
     public $search = '';
+
+    #[On('updated')]
+    public function refresh()
+    {
+    }
 
     public function render()
     {

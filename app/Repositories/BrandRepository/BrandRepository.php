@@ -13,9 +13,10 @@ class BrandRepository implements BrandRepositoryInterface
         return $brand->save();
     }
 
-    public function update(array $data, int $id)
+    public function update(array $data, Brand $brand)
     {
-        //
+        $brand = $this->associate($brand, $data);
+        return $brand->save();
     }
 
     private function associate(Brand $brand, array $data)

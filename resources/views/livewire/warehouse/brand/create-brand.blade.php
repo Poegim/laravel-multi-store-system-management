@@ -7,7 +7,7 @@
     <!-- Show Create Modal -->
     <x-dialog-modal wire:model.live="modalVisibility">
         <x-slot name="title">
-            {{ __('Create product') }}
+            {{ __('Create Brand') }}
         </x-slot>
 
         <x-slot name="content">

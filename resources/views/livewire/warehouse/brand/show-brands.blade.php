@@ -66,9 +66,7 @@
                                 {{$item->slug}}
                             </td>
                             <td class="px-6 py-2 flex justify-end">
-                                <x-buttons.edit-button wire:click="edit({{ $item->id }})">
-                                    Edit
-                                </x-buttons.edit-button>
+                                @livewire('warehouse.brand.edit-brand', ['brand' => $item], key($item->id))
                             </td>
                         </tr>
                         @endforeach
