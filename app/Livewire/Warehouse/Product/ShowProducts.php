@@ -15,6 +15,11 @@ class ShowProducts extends Component
 
     public $search = '';
 
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $sortDirection = $this->sortAsc ? 'asc' : 'desc';

@@ -59,7 +59,7 @@
                     </thead>
                     <tbody>
                         @foreach($products as $item)
-                        <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700" wire:key="row-{{ $item->id }}">
                             <td class="px-6 py-2">
                                {{$item->id}}
                             </td>
@@ -94,5 +94,5 @@
             </div>            
         </div>
 
-    </div>    
+    </div> 
 </div>
