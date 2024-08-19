@@ -1,4 +1,8 @@
-<div x-data="{ visibleList: false, search: '' }">
+<div x-data="{ visibleList: false, search: '' }" x-init="
+    document.addEventListener('modalVisibility', () => {
+        visibleList = false; @this.search = null;
+    });
+">
     <div class="overflow-hidden">
         <div class="flex">
             <x-input type="text" 
