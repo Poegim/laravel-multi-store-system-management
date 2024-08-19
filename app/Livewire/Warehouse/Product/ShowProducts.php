@@ -2,13 +2,13 @@
 
 namespace App\Livewire\Warehouse\Product;
 
+use App\Models\Warehouse\Brand;
 use Livewire\Component;
 use App\Traits\HasModal;
 use App\Traits\Sortable;
 use App\Traits\BuildTree;
 use App\Traits\Searchable;
 use Illuminate\Support\Str;
-use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Illuminate\Validation\Rule;
 use App\Services\ProductService;
@@ -91,6 +91,7 @@ class ShowProducts extends Component
         $this->product = $product;
         $this->name = $product->name;
         $this->slug = $product->slug;
+        $this->category_id = $product->category_id;
         $this->brand_id = $product->brand_id;
         $this->showModal('edit');
     }

@@ -1,4 +1,4 @@
-<div class=" py-2 sm:py-12">
+<div class="py-2 sm:py-4">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
         <div class="w-full flex justify-end my-4 h-9 space-x-2">
@@ -163,7 +163,14 @@
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
                 
-                <livewire:search-dropdown wire:model.debounce.500ms.live="brand_id" :collection="$brands" :selected_id="$brand_id"/>
+                <div class="{{ $brand_id != null ? 'bg-greeen-300' : 'bg-red-300' }} w-full rounded-t-lg border-t border-l border-r border-gray-200 text-xs px-2 py-1">
+                    Selected id: {{$brand_id}}
+                    <div wire:loading class="bg-green-300 px-4"> 
+                        Changing...
+                    </div>
+                </div>
+
+                <livewire:search-dropdown wire:model.debounce.500ms.live="brand_id" :collection="$brands" />
                     
                 </div>
 
