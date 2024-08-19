@@ -157,13 +157,13 @@
                 </select>
 
                 <label for="brand"
-                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('brand')}}</label>
+                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('brand')}}
+                </label>
                 @error('brand')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
-
-                {{$brand_id}}
-                <livewire:search-dropdown wire:model.debounce.500ms.live="brand_id" :collection="$brands" />
+                
+                <livewire:search-dropdown wire:model.debounce.500ms.live="brand_id" :collection="$brands" :selected_id="$brand_id"/>
                     
                 </div>
 

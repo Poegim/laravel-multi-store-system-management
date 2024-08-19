@@ -14,10 +14,14 @@ class SearchDropdown extends Component
     public $collection;
     public $searchBy;
     public $searched;
+    public $selected_id;
 
-    public function mount($collection, $searchBy = 'name')
+    public function mount($collection, $selected_id = null, $searchBy = 'name')
     {
         $this->collection = $collection;
+        if($selected_id) {
+            $this->selectedItem = $selected_id;
+        }
         $this->searchBy = $searchBy;
         $this->searched = $collection;
     }

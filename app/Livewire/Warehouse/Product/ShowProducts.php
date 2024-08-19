@@ -91,6 +91,7 @@ class ShowProducts extends Component
         $this->product = $product;
         $this->name = $product->name;
         $this->slug = $product->slug;
+        $this->brand_id = $product->brand_id;
         $this->showModal('edit');
     }
 
