@@ -163,9 +163,9 @@
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
                 
-                <div class="{{ $brand_id != null ? 'bg-greeen-300' : 'bg-red-300' }} w-full rounded-t-lg border-t border-l border-r border-gray-200 text-xs px-2 py-1">
-                    Selected id: {{$brand_id}}
-                    <div wire:loading class="bg-green-300 px-4"> 
+                <div class="w-full rounded-t-lg border-t border-l border-r border-gray-200 text-xs px-2 py-1">
+                    Selected id: [{{$brand_id}}] {{$brand?->name}}
+                    <div wire:loading wire:target="brand_id" class="bg-green-300 px-4"> 
                         Changing...
                     </div>
                 </div>

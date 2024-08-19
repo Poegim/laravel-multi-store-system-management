@@ -27,6 +27,7 @@ class ShowProducts extends Component
     use BuildTree;
 
     public ?Product $product;
+    public ?Brand $brand;
     
     public ?array $categories;
     public ?string $name;
@@ -86,6 +87,11 @@ class ShowProducts extends Component
          }
     }
 
+    public function updatedBrandId()
+    {
+        $this->brand = Brand::findOrFail($this->brand_id);
+    }
+
     public function edit(Product $product) 
     {
         $this->product = $product;
@@ -93,6 +99,7 @@ class ShowProducts extends Component
         $this->slug = $product->slug;
         $this->category_id = $product->category_id;
         $this->brand_id = $product->brand_id;
+        $this->brand = Brand::findOrFail($this->brand_id);
         $this->showModal('edit');
     }
 
