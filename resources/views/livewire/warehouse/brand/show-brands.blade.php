@@ -85,7 +85,7 @@
 
     </div>
     
-    <!-- Show Create Modal -->
+    <!-- Show Edit Modal -->
     <x-dialog-modal wire:model.live="modalVisibility">
         <x-slot name="title">
             {{ __('Edit') }}: {{$brand?->name}}

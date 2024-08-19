@@ -8,7 +8,6 @@ QUESTIONABLE
     Is flowbite required anymore?
     Remove stores and categories if there is no dependencies
 
-
 Approches
     Items storage => [
         Items count - First In First Out,
@@ -23,3 +22,6 @@ Approches
 
 ADDITIONAL FEATURES
     Price tags generator (with api for phone specs)
+
+REFACTOR
+    Rewrte SearchDropdown component to partly use vanilla JavaScript to avoid unnecessary requests.

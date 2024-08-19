@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Livewire\WithPagination;
 use App\Services\BrandService;
 use App\Models\Warehouse\Brand;
+use App\Traits\Searchable;
 use Illuminate\Validation\Rule;
 use Laravel\Jetstream\InteractsWithBanner;
 
@@ -17,11 +18,10 @@ class ShowBrands extends Component
 {
     use WithPagination;
     use Sortable;
+    use Searchable;
     use InteractsWithBanner;
     use HasModal;
     
-    public $search = '';
-
     public ?Brand $brand;
 
     public ?string $name;
@@ -43,18 +43,10 @@ class ShowBrands extends Component
     {
         return [
             'name' => [
-                'required',
-                'string', 
-                'max:50',
-                'min:2',
-                Rule::unique('brands')->ignore($this->brand->id),
+                'required', 'string', 'max:50', 'min:2', Rule::unique('brands')->ignore($this->brand->id),
             ],
             'slug' => [
-                'required',
-                'string', 
-                'max:50',
-                'min:2',
-                Rule::unique('brands')->ignore($this->brand->id),
+                'required', 'string', 'max:50', 'min:2', Rule::unique('brands')->ignore($this->brand->id),
             ]
         ];
     }
@@ -70,7 +62,6 @@ class ShowBrands extends Component
         $this->modalVisibility = false;
         if($flag) {
             $this->banner('Successfully updated!');
-            $this->dispatch('updated');
          } else {
              $this->dangerBanner('An error was encountered while updating.');
          }
@@ -82,11 +73,6 @@ class ShowBrands extends Component
         $this->name = $brand->name;
         $this->slug = $brand->slug;
         $this->showModal('edit');
-    }
-
-    public function updatedSearch()
-    {
-        $this->resetPage();
     }
 
     public function render()

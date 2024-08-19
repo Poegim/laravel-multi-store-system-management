@@ -3,6 +3,7 @@
 namespace App\Models\Warehouse;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -32,6 +33,14 @@ class Category extends Model
             }
         });
 
+    }
+
+    /**
+     * Scope a query to only include enabled categories.
+     */
+    public function scopeEnabled(Builder $query): void
+    {
+        $query->where('disabled', 0);
     }
 
     public function parent()

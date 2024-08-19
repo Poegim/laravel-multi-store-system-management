@@ -3,21 +3,95 @@
 namespace App\Livewire\Warehouse\Product;
 
 use Livewire\Component;
-use Livewire\WithPagination;
-use App\Models\Warehouse\Product;
+use App\Traits\HasModal;
 use App\Traits\Sortable;
+use App\Traits\BuildTree;
+use App\Traits\Searchable;
+use Illuminate\Support\Str;
+use Livewire\Attributes\On;
+use Livewire\WithPagination;
+use Illuminate\Validation\Rule;
+use App\Services\ProductService;
+use App\Models\Warehouse\Product;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
+use Laravel\Jetstream\InteractsWithBanner;
 
 class ShowProducts extends Component
 {
-
-    use WithPagination;
     use Sortable;
+    use Searchable;
+    use HasModal;
+    use WithPagination;
+    use InteractsWithBanner;
+    use BuildTree;
 
-    public $search = '';
+    public ?Product $product;
+    
+    public ?array $categories;
+    public ?string $name;
+    public ?string $slug;
+    public ?bool $is_device;
+    public ?int $brand_id;
+    public ?int $category_id;
 
-    public function updatedSearch()
+    protected ProductService $productService;
+
+    public function rules() 
     {
-        $this->resetPage();
+        return [
+            'name' => ['string','min:2','max:255',Rule::unique('products'),],
+            'slug' => ['string','min:2','max:255',Rule::unique('products'),],
+            'is_device' => ['boolean'],
+            'brand_id' => ['exists:App\Models\Brand,id'],
+            'category_id' => ['exists:App\Models\Category,id'],
+        ];
+    }
+
+    public function hydrate()
+    {
+        $this->resetErrorBag();
+        $this->resetValidation();
+    }
+
+    public function boot(ProductService $productService) {
+        $this->productService = $productService;
+    }
+
+    public function mount() {
+        //Get enabled categories and build tree.
+        $categoryTree = Cache::remember('categories_tree', 60, function () {
+            $categories = DB::table('categories')->where('disabled', 0)->get()->map(function ($category) {
+                return (array) $category;
+            })->all();
+        
+            $this->categories = $this->buildTree($categories);
+        });
+    }
+
+    public function updatedName() 
+    {
+        $this->slug = Str::slug($this->name);
+    }
+
+    public function update() {
+        dd($this->selectedBrand);
+        $validated = $this->validate();
+        $flag = $this->productService->update($validated, $this->product);
+        $this->modalVisibility = false;
+        if($flag) {
+            $this->banner('Successfully updated!');
+         } else {
+             $this->dangerBanner('An error was encountered while updating.');
+         }
+    }
+
+    public function edit(Product $product) 
+    {
+        $this->product = $product;
+        $this->name = $product->name;
+        $this->slug = $product->slug;
+        $this->showModal('edit');
     }
 
     public function render()
@@ -26,7 +100,11 @@ class ShowProducts extends Component
         $products = Product::with(['category', 'brand'])->where('name', 'like', '%'.$this->search.'%')
                         ->orderBy($this->sortField, $sortDirection)
                         ->paginate(10);
-                        
-        return view('livewire.warehouse.product.show-products', compact('products'));
+
+        $brands = DB::table('brands')
+        ->select('id', 'name')
+        ->get();
+
+        return view('livewire.warehouse.product.show-products', compact('products', 'brands'));
     }
 }

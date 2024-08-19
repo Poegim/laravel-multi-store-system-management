@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use App\Services\CategoryService;
 use App\Models\Warehouse\Category;
+use App\Traits\BuildTree;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use Laravel\Jetstream\InteractsWithBanner;
@@ -17,6 +18,7 @@ class ShowCategories extends Component
 
     use InteractsWithBanner;
     use HasModal;
+    use BuildTree;
     
     protected CategoryService $categoryService;
     
@@ -156,23 +158,6 @@ class ShowCategories extends Component
         })->all();
 
         $this->categories = $this->buildTree($categories);
-    }
-
-    private function buildTree(array $categories, $parentId = null) {
-        
-        $branch = [];
-    
-        foreach ($categories as $category) {
-            if ($category['parent_id'] == $parentId) {
-                $children = $this->buildTree($categories, $category['id']);
-                if ($children) {
-                    $category['children'] = $children;
-                }
-                $branch[] = $category;
-            }
-        }
-    
-        return $branch;
     }
 
     public function resetVars()
