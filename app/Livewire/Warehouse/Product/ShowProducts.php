@@ -100,6 +100,7 @@ class ShowProducts extends Component
         $this->category_id = $product->category_id;
         $this->brand_id = $product->brand_id;
         $this->brand = Brand::findOrFail($this->brand_id);
+        $this->dispatch('resetSearchDropdownState');
         $this->showModal('edit');
     }
 

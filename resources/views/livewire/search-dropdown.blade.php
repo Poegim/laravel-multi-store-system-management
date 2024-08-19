@@ -1,5 +1,5 @@
 <div x-data="{ visibleList: false, search: '' }" x-init="
-    document.addEventListener('modalVisibility', () => {
+    document.addEventListener('resetSearchDropdownState', () => {
         visibleList = false; @this.search = null;
     });
 ">

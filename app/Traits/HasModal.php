@@ -11,6 +11,6 @@ trait HasModal
     {
         $this->actionType = $actionType;
         $this->modalVisibility = true;
-        $this->dispatch('modalVisibility');
+        
     }
 }
