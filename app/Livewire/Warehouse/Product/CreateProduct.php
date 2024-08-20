@@ -63,9 +63,19 @@ class CreateProduct extends Component
     {
         $validated = $this->validate();
         $flag = $this->productService->store($validated);
-        $this->reset();
+        $this->resetVars();
         $this->modalVisibility = false;
         $flag ? $this->banner('Successfully created!') : $this->dangerBanner('An error was encountered while creating.');
+    }
+
+    public function resetVars()
+    {
+        $this->name = '';
+        $this->slug = '';
+        $this->is_device = false;
+        $this->brand_id = null;
+        $this->category_id = null;
+        $this->brand = null;
     }
 
     public function render()
