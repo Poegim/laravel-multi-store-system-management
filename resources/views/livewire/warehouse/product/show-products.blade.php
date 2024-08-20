@@ -3,7 +3,7 @@
 
         <div class="w-full flex justify-end my-4 h-9 space-x-2">
             <x-input id="name" type="text" aria-placeholder="Search..." placeholder="Search..." wire:model.debounce.500ms.live="search" />
-            {{-- <@livewire('warehouse.product.create-product') --}}
+            @livewire('warehouse.product.create-product')
         </div>
 
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
@@ -130,28 +130,13 @@
                 class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 required value="{{$slug}}" disabled/>
 
-                @php
-                    function renderCategoryOptions($categories, $level = 0) {
-                        foreach ($categories as $category) {
-                            echo '<option value="' . $category['id'] . '" class="ml-' . ($level * 2) . '">';
-                            echo str_repeat('&nbsp;', $level * 2) . $category['plural_name'];
-                            echo '</option>';
-                            if (array_key_exists('children', $category)) {
-                                renderCategoryOptions($category['children'], $level + 1);
-                            }
-                        }
-                    }
-                @endphp
-
                 <label for="category"
                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('category')}}</label>
                 @error('category')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
                 <select class="w-full rounded-lg border border-blue-300 mb-4" wire:model="category_id">
-                    @php
-                        renderCategoryOptions($categories);
-                    @endphp
+                    {!! $categoryOptions !!}
                 </select>
 
                 <label for="brand"
@@ -169,7 +154,6 @@
                 </div>
 
                 <livewire:search-dropdown wire:model.debounce.500ms.live="brand_id" :collection="$brands" />
-
 
                 @error('is_device')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>

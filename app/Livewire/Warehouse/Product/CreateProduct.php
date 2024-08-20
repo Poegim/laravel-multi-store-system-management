@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Warehouse\Product;
 
-use App\Services\CategoryService;
 use Livewire\Component;
+use App\Traits\HasModal;
+use App\Models\Warehouse\Brand;
+use App\RendersCategoryOptions;
 use Illuminate\Validation\Rule;
 use App\Services\ProductService;
-use App\Traits\HasModal;
+use App\Services\CategoryService;
 use Illuminate\Support\Facades\DB;
 use Laravel\Jetstream\InteractsWithBanner;
 
@@ -14,6 +16,9 @@ class CreateProduct extends Component
 {
     use HasModal;
     use InteractsWithBanner;
+    use RendersCategoryOptions;
+
+    public ?Brand $brand;
 
     public ?array $categories;
     public string $name = '';
@@ -57,8 +62,11 @@ class CreateProduct extends Component
         ->select('id', 'name')
         ->get();
 
+        $categoryOptions = $this->renderCategoryOptions($this->categories);
+
         return view('livewire.warehouse.product.create-product', [
-            'brands' => $brands
+            'brands' => $brands,
+            'categoryOptions' => $categoryOptions,
         ]);
     }
 }

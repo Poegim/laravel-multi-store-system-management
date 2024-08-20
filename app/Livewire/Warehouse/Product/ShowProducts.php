@@ -12,9 +12,9 @@ use App\Models\Warehouse\Brand;
 use Illuminate\Validation\Rule;
 use App\Services\ProductService;
 use App\Models\Warehouse\Product;
+use App\RendersCategoryOptions;
 use App\Services\CategoryService;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Cache;
 use Laravel\Jetstream\InteractsWithBanner;
 
 class ShowProducts extends Component
@@ -24,6 +24,7 @@ class ShowProducts extends Component
     use HasModal;
     use WithPagination;
     use InteractsWithBanner;
+    use RendersCategoryOptions;
 
     public ?Product $product;
     public ?Brand $brand;
@@ -109,6 +110,8 @@ class ShowProducts extends Component
         ->select('id', 'name')
         ->get();
 
-        return view('livewire.warehouse.product.show-products', compact('products', 'brands'));
+        $categoryOptions = $this->renderCategoryOptions($this->categories);
+
+        return view('livewire.warehouse.product.show-products', compact('products', 'brands', 'categoryOptions'));
     }
 }
