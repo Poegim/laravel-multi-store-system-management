@@ -6,15 +6,15 @@ use Livewire\Component;
 use App\Traits\HasModal;
 use App\Traits\Sortable;
 use App\Traits\Searchable;
-use Illuminate\Support\Str;
 use Livewire\WithPagination;
 use App\Models\Warehouse\Brand;
 use Illuminate\Validation\Rule;
 use App\Services\ProductService;
 use App\Models\Warehouse\Product;
-use App\RendersCategoryOptions;
 use App\Services\CategoryService;
+use App\Traits\HasUpdatedName;
 use Illuminate\Support\Facades\DB;
+use App\Traits\RendersCategoryOptions;
 use Laravel\Jetstream\InteractsWithBanner;
 
 class ShowProducts extends Component
@@ -22,6 +22,7 @@ class ShowProducts extends Component
     use Sortable;
     use Searchable;
     use HasModal;
+    use HasUpdatedName;
     use WithPagination;
     use InteractsWithBanner;
     use RendersCategoryOptions;
@@ -63,11 +64,6 @@ class ShowProducts extends Component
 
     public function mount() {
         $this->categories = $this->categoryService->activeTree();
-    }
-
-    public function updatedName()
-    {
-        $this->slug = Str::slug($this->name);
     }
 
     public function update() {

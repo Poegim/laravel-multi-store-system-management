@@ -5,10 +5,10 @@ namespace App\Livewire\Warehouse\Brand;
 use Livewire\Component;
 use App\Traits\HasModal;
 use App\Traits\Sortable;
-use Illuminate\Support\Str;
 use Livewire\WithPagination;
 use App\Services\BrandService;
 use App\Models\Warehouse\Brand;
+use App\Traits\HasUpdatedName;
 use App\Traits\Searchable;
 use Illuminate\Validation\Rule;
 use Laravel\Jetstream\InteractsWithBanner;
@@ -21,7 +21,8 @@ class ShowBrands extends Component
     use Searchable;
     use InteractsWithBanner;
     use HasModal;
-    
+    use HasUpdatedName;
+
     public ?Brand $brand;
 
     public ?string $name;
@@ -51,11 +52,6 @@ class ShowBrands extends Component
         ];
     }
 
-    public function updatedName() 
-    {
-        $this->slug = Str::slug($this->name);
-    }
-
     public function update() {
         $validated = $this->validate();
         $flag = $this->brandService->update($validated, $this->brand);
@@ -67,7 +63,7 @@ class ShowBrands extends Component
          }
     }
 
-    public function edit(Brand $brand) 
+    public function edit(Brand $brand)
     {
         $this->brand = $brand;
         $this->name = $brand->name;

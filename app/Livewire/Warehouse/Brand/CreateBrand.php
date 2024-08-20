@@ -4,8 +4,8 @@ namespace App\Livewire\Warehouse\Brand;
 
 use Livewire\Component;
 use App\Traits\HasModal;
-use Illuminate\Support\Str;
 use App\Services\BrandService;
+use App\Traits\HasUpdatedName;
 use Illuminate\Validation\Rule;
 use Laravel\Jetstream\InteractsWithBanner;
 
@@ -13,6 +13,7 @@ class CreateBrand extends Component
 {
     use HasModal;
     use InteractsWithBanner;
+    use HasUpdatedName;
 
     public ?string $name;
     public ?string $slug;
@@ -24,14 +25,14 @@ class CreateBrand extends Component
         return [
             'name' => [
                 'required',
-                'string', 
+                'string',
                 'max:50',
                 'min:2',
                 Rule::unique('brands'),
             ],
             'slug' => [
                 'required',
-                'string', 
+                'string',
                 'max:50',
                 'min:2',
                 Rule::unique('brands'),
@@ -47,11 +48,6 @@ class CreateBrand extends Component
 
     public function boot(BrandService $brandService) {
         $this->brandService = $brandService;
-    }
-
-    public function updatedName() 
-    {
-        $this->slug = Str::slug($this->name);
     }
 
     public function store() {

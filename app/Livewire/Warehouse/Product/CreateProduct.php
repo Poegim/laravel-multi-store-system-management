@@ -5,11 +5,12 @@ namespace App\Livewire\Warehouse\Product;
 use Livewire\Component;
 use App\Traits\HasModal;
 use App\Models\Warehouse\Brand;
-use App\RendersCategoryOptions;
 use Illuminate\Validation\Rule;
 use App\Services\ProductService;
 use App\Services\CategoryService;
+use App\Traits\HasUpdatedName;
 use Illuminate\Support\Facades\DB;
+use App\Traits\RendersCategoryOptions;
 use Laravel\Jetstream\InteractsWithBanner;
 
 class CreateProduct extends Component
@@ -17,6 +18,7 @@ class CreateProduct extends Component
     use HasModal;
     use InteractsWithBanner;
     use RendersCategoryOptions;
+    use HasUpdatedName;
 
     public ?Brand $brand;
 
