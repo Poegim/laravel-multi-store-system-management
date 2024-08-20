@@ -35,7 +35,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     /**
      *
-     * Returns active tree of categories.
+     * Returns tree of active categories.
      *
      */
     public function activeTree()
@@ -64,7 +64,7 @@ class CategoryRepository implements CategoryRepositoryInterface
     {
         Cache::forget('categories_tree');
 
-        //Get enabled categories and build tree.
+        //Get all categories and build tree.
         $categoryTree = Cache::remember('categories_tree', 60, function () {
             $categories = DB::table('categories')->get()->map(function ($category) {
                 return (array) $category;

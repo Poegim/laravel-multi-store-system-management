@@ -47,6 +47,7 @@
                 @enderror
 
                 <select class="w-full rounded-lg border border-blue-300 mb-4" wire:model="category_id">
+                    <option></option>
                     {!! $categoryOptions !!}
                 </select>
 

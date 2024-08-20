@@ -35,11 +35,11 @@ class CreateProduct extends Component
     public function rules()
     {
         return [
-            'name' => ['string','min:2','max:255',Rule::unique('products'),],
-            'slug' => ['string','min:2','max:255',Rule::unique('products'),],
-            'is_device' => ['boolean'],
-            'brand_id' => ['exists:App\Models\Warehouse\Brand,id'],
-            'category_id' => ['exists:App\Models\Warehouse\Category,id'],
+            'name' => ['required', 'string','min:2','max:255',Rule::unique('products'),],
+            'slug' => ['required', 'string','min:2','max:255',Rule::unique('products'),],
+            'is_device' => ['required', 'boolean'],
+            'brand_id' => ['required', 'exists:App\Models\Warehouse\Brand,id'],
+            'category_id' => ['required', 'exists:App\Models\Warehouse\Category,id'],
         ];
     }
 
@@ -54,8 +54,18 @@ class CreateProduct extends Component
         $this->categoryService = $categoryService;
     }
 
-    public function mount() {
+    public function mount()
+    {
         $this->categories = $this->categoryService->activeTree();
+    }
+
+    public function store()
+    {
+        $validated = $this->validate();
+        $flag = $this->productService->store($validated);
+        $this->reset();
+        $this->modalVisibility = false;
+        $flag ? $this->banner('Successfully created!') : $this->dangerBanner('An error was encountered while creating.');
     }
 
     public function render()

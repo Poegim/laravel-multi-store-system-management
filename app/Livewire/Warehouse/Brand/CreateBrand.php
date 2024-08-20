@@ -53,6 +53,7 @@ class CreateBrand extends Component
     public function store() {
         $validated = $this->validate();
         $flag = $this->brandService->store($validated);
+        $this->reset();
         $this->modalVisibility = false;
         $flag ? $this->banner('Successfully created!') : $this->dangerBanner('An error was encountered while creating.');
     }

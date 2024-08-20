@@ -43,11 +43,11 @@ class ShowProducts extends Component
     public function rules()
     {
         return [
-            'name' => ['string','min:2','max:255',Rule::unique('products')->ignore($this->product->id),],
-            'slug' => ['string','min:2','max:255',Rule::unique('products')->ignore($this->product->id),],
-            'is_device' => ['boolean'],
-            'brand_id' => ['exists:App\Models\Warehouse\Brand,id'],
-            'category_id' => ['exists:App\Models\Warehouse\Category,id'],
+            'name' => ['required', 'string','min:2','max:255',Rule::unique('products')->ignore($this->product->id),],
+            'slug' => ['required', 'string','min:2','max:255',Rule::unique('products')->ignore($this->product->id),],
+            'is_device' => ['required', 'boolean'],
+            'brand_id' => ['required', 'exists:App\Models\Warehouse\Brand,id'],
+            'category_id' => ['required', 'exists:App\Models\Warehouse\Category,id'],
         ];
     }
 
@@ -63,7 +63,7 @@ class ShowProducts extends Component
     }
 
     public function mount() {
-        $this->categories = $this->categoryService->activeTree();
+        $this->categories = $this->categoryService->allTree();
     }
 
     public function update() {
