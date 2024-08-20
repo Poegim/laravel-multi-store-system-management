@@ -3,6 +3,8 @@
 namespace App\Repositories\CategoryRepository ;
 
 use App\Models\Warehouse\Category;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
@@ -31,6 +33,71 @@ class CategoryRepository implements CategoryRepositoryInterface
         return $category->save();
     }
 
+    /**
+     *
+     * Returns active tree of categories.
+     *
+     */
+    public function activeTree()
+    {
+
+        Cache::forget('categories_tree');
+
+        //Get enabled categories and build tree.
+        $categoryTree = Cache::remember('categories_tree', 60, function () {
+            $categories = DB::table('categories')->where('disabled', 0)->get()->map(function ($category) {
+                return (array) $category;
+            })->all();
+
+            return $this->buildTree($categories);
+        });
+
+        return $categoryTree;
+    }
+
+    /**
+     *
+     * Returns tree of all categories.
+     *
+     */
+    public function allTree()
+    {
+        Cache::forget('categories_tree');
+
+        //Get enabled categories and build tree.
+        $categoryTree = Cache::remember('categories_tree', 60, function () {
+            $categories = DB::table('categories')->get()->map(function ($category) {
+                return (array) $category;
+            })->all();
+
+            return $this->buildTree($categories);
+        });
+
+        return $categoryTree;
+    }
+
+    /**
+     *
+     * Builds tree structure.
+     *
+     */
+    private function buildTree(array $categories, $parentId = null) {
+
+        $branch = [];
+
+        foreach ($categories as $category) {
+            if ($category['parent_id'] == $parentId) {
+                $children = $this->buildTree($categories, $category['id']);
+                if ($children) {
+                    $category['children'] = $children;
+                }
+                $branch[] = $category;
+            }
+        }
+
+        return $branch;
+    }
+
     private function associate(Category $category, array $data)
     {
         $category->plural_name = $data['plural_name'];
@@ -41,6 +108,11 @@ class CategoryRepository implements CategoryRepositoryInterface
         return $category;
     }
 
+    /**
+     *
+     * Toggling children categories.
+     *
+     */
     private function toggleCategoryChildren(Category $category, bool $disabled)
     {
         if($category->children) {
@@ -52,6 +124,11 @@ class CategoryRepository implements CategoryRepositoryInterface
         }
     }
 
+    /**
+     *
+     * Toggling parent categories.
+     *
+     */
     private function toggleCategoryParent(Category $category)
     {
         if($category->parent) {

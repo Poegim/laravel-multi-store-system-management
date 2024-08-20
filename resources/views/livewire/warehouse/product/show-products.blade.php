@@ -3,9 +3,7 @@
 
         <div class="w-full flex justify-end my-4 h-9 space-x-2">
             <x-input id="name" type="text" aria-placeholder="Search..." placeholder="Search..." wire:model.debounce.500ms.live="search" />
-            <x-button wire:click="create()">
-                {{ __('CREATE') }}
-            </x-button>
+            {{-- <@livewire('warehouse.product.create-product') --}}
         </div>
 
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
@@ -44,13 +42,13 @@
                                 </div>
                             </th>
                             <th scope="col" class="px-6 py-3 hidden lg:table-cell">
-                            {{__('slug')}}
+                                {{__('slug')}}
                             </th>
                             <th scope="col" class="px-6 py-3 hidden lg:table-cell">
-                            {{__('category')}}
+                                {{__('category')}}
                             </th>
                             <th scope="col" class="px-6 py-3 hidden lg:table-cell">
-                            {{__('brand')}}
+                                {{__('brand')}}
                             </th>
                             <th scope="col" class="px-6 py-3 text-right">
                                 {{__('action')}}
@@ -164,7 +162,7 @@
                 @enderror
 
                 <div class="w-full rounded-t-lg border-t border-l border-r border-gray-200 text-xs px-2 py-1">
-                    Selected id: [{{$brand_id}}] {{$brand?->name}}
+                    Selected: {{$brand?->name}} ID: [{{$brand_id}}]
                     <div wire:loading wire:target="brand_id" class="bg-green-300 px-4">
                         Changing...
                     </div>

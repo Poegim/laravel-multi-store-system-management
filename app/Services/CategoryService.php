@@ -19,4 +19,14 @@ class CategoryService
         return $this->categoryRepository->update($data, $id);
     }
 
+    public function activeTree()
+    {
+        return $this->categoryRepository->activeTree();
+    }
+
+    public function allTree()
+    {
+        return $this->categoryRepository->allTree();
+    }
+
 }

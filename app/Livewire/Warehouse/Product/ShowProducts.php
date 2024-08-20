@@ -2,17 +2,17 @@
 
 namespace App\Livewire\Warehouse\Product;
 
-use App\Models\Warehouse\Brand;
 use Livewire\Component;
 use App\Traits\HasModal;
 use App\Traits\Sortable;
-use App\Traits\BuildTree;
 use App\Traits\Searchable;
 use Illuminate\Support\Str;
 use Livewire\WithPagination;
+use App\Models\Warehouse\Brand;
 use Illuminate\Validation\Rule;
 use App\Services\ProductService;
 use App\Models\Warehouse\Product;
+use App\Services\CategoryService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use Laravel\Jetstream\InteractsWithBanner;
@@ -24,7 +24,6 @@ class ShowProducts extends Component
     use HasModal;
     use WithPagination;
     use InteractsWithBanner;
-    use BuildTree;
 
     public ?Product $product;
     public ?Brand $brand;
@@ -37,6 +36,7 @@ class ShowProducts extends Component
     public ?int $category_id;
 
     protected ProductService $productService;
+    protected CategoryService $categoryService;
 
     public function rules()
     {
@@ -55,19 +55,13 @@ class ShowProducts extends Component
         $this->resetValidation();
     }
 
-    public function boot(ProductService $productService) {
+    public function boot(ProductService $productService, CategoryService $categoryService) {
         $this->productService = $productService;
+        $this->categoryService = $categoryService;
     }
 
     public function mount() {
-        //Get enabled categories and build tree.
-        $categoryTree = Cache::remember('categories_tree', 60, function () {
-            $categories = DB::table('categories')->where('disabled', 0)->get()->map(function ($category) {
-                return (array) $category;
-            })->all();
-
-            $this->categories = $this->buildTree($categories);
-        });
+        $this->categories = $this->categoryService->activeTree();
     }
 
     public function updatedName()

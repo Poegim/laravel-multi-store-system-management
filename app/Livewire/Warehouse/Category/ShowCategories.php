@@ -8,9 +8,6 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use App\Services\CategoryService;
 use App\Models\Warehouse\Category;
-use App\Traits\BuildTree;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Cache;
 use Laravel\Jetstream\InteractsWithBanner;
 
 class ShowCategories extends Component
@@ -18,10 +15,9 @@ class ShowCategories extends Component
 
     use InteractsWithBanner;
     use HasModal;
-    use BuildTree;
-    
+
     protected CategoryService $categoryService;
-    
+
     public ?Category $category = null;
     public $categories;
 
@@ -34,13 +30,7 @@ class ShowCategories extends Component
 
     public function mount()
     {
-        $categoryTree = Cache::remember('categories_tree', 60, function () {
-            $categories = DB::table('categories')->get()->map(function ($category) {
-                return (array) $category;
-            })->all();
-        
-            $this->categories = $this->buildTree($categories);
-        });
+        $this->categories = $this->categoryService->allTree();
     }
 
     public function hydrate()
@@ -63,24 +53,24 @@ class ShowCategories extends Component
             'disabled' => "required",
         ];
 
-        if($this->category != null) {        
+        if($this->category != null) {
             $rules['plural_name'] = [
                 'required',
-                'string', 
+                'string',
                 'max:50',
                 'min:2',
                 Rule::unique('categories')->ignore($this->category->plural_name, 'plural_name'),
             ];
             $rules['singular_name'] = [
                 'required',
-                'string', 
+                'string',
                 'max:50',
                 'min:2',
                 Rule::unique('categories')->ignore($this->category->singular_name, 'singular_name'),
             ];
             $rules['slug'] = [
                 'required',
-                'string', 
+                'string',
                 'max:50',
                 'min:2',
                 Rule::unique('categories')->ignore($this->category->slug, 'slug'),
@@ -88,21 +78,21 @@ class ShowCategories extends Component
         } else {
             $rules['plural_name'] = [
                 'required',
-                'string', 
+                'string',
                 'max:50',
                 'min:2',
                 Rule::unique('categories'),
             ];
             $rules['singular_name'] = [
                 'required',
-                'string', 
+                'string',
                 'max:50',
                 'min:2',
                 Rule::unique('categories'),
             ];
             $rules['slug'] = [
                 'required',
-                'string', 
+                'string',
                 'max:50',
                 'min:2',
                 Rule::unique('categories'),
@@ -112,7 +102,7 @@ class ShowCategories extends Component
         return $rules;
     }
 
-    public function updatedPluralName() 
+    public function updatedPluralName()
     {
         $this->slug = Str::slug($this->plural_name);
     }
@@ -153,11 +143,8 @@ class ShowCategories extends Component
 
     private function refreshCategoryList()
     {
-        $categories = DB::table('categories')->get()->map(function ($category) {
-            return (array) $category;
-        })->all();
-
-        $this->categories = $this->buildTree($categories);
+        $this->categories = $this->categoryService->allTree();
+        // dd($this->categories);
     }
 
     public function resetVars()
