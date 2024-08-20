@@ -7,7 +7,7 @@ use Livewire\Attributes\Modelable;
 
 class SearchDropdown extends Component
 {
-    #[Modelable] 
+    #[Modelable]
     public $selectedItem;
 
     public $search = '';

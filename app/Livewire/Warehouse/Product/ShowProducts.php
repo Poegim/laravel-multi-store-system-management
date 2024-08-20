@@ -28,7 +28,7 @@ class ShowProducts extends Component
 
     public ?Product $product;
     public ?Brand $brand;
-    
+
     public ?array $categories;
     public ?string $name;
     public ?string $slug;
@@ -38,14 +38,14 @@ class ShowProducts extends Component
 
     protected ProductService $productService;
 
-    public function rules() 
+    public function rules()
     {
         return [
-            'name' => ['string','min:2','max:255',Rule::unique('products'),],
-            'slug' => ['string','min:2','max:255',Rule::unique('products'),],
+            'name' => ['string','min:2','max:255',Rule::unique('products')->ignore($this->product->id),],
+            'slug' => ['string','min:2','max:255',Rule::unique('products')->ignore($this->product->id),],
             'is_device' => ['boolean'],
-            'brand_id' => ['exists:App\Models\Brand,id'],
-            'category_id' => ['exists:App\Models\Category,id'],
+            'brand_id' => ['exists:App\Models\Warehouse\Brand,id'],
+            'category_id' => ['exists:App\Models\Warehouse\Category,id'],
         ];
     }
 
@@ -65,18 +65,17 @@ class ShowProducts extends Component
             $categories = DB::table('categories')->where('disabled', 0)->get()->map(function ($category) {
                 return (array) $category;
             })->all();
-        
+
             $this->categories = $this->buildTree($categories);
         });
     }
 
-    public function updatedName() 
+    public function updatedName()
     {
         $this->slug = Str::slug($this->name);
     }
 
     public function update() {
-        dd($this->selectedBrand);
         $validated = $this->validate();
         $flag = $this->productService->update($validated, $this->product);
         $this->modalVisibility = false;
@@ -92,13 +91,14 @@ class ShowProducts extends Component
         $this->brand = Brand::findOrFail($this->brand_id);
     }
 
-    public function edit(Product $product) 
+    public function edit(Product $product)
     {
         $this->product = $product;
         $this->name = $product->name;
         $this->slug = $product->slug;
         $this->category_id = $product->category_id;
         $this->brand_id = $product->brand_id;
+        $this->is_device = $product->is_device;
         $this->brand = Brand::findOrFail($this->brand_id);
         $this->dispatch('resetSearchDropdownState');
         $this->showModal('edit');

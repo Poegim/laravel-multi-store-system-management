@@ -13,7 +13,8 @@ class ProductRepository implements ProductRepositoryInterface
     }
 
     public function update(array $data, Product $product) {
-        //
+        $product = $this->associate($product, $data);
+        return $product->save();
     }
 
     private function associate(Product $product, array $data)

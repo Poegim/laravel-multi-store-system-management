@@ -7,7 +7,7 @@
                 {{ __('CREATE') }}
             </x-button>
         </div>
-        
+
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
             <div class="relative overflow-x-auto">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -18,11 +18,11 @@
                                     <span class="uppercase">
                                         {{__('id')}}
                                     </span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" 
-                                    viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="size-4 {{ $sortField === 'id' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                 </svg>
@@ -33,11 +33,11 @@
                                     <span class="uppercase" >
                                         {{__('name')}}
                                     </span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" 
-                                        fill="none" 
-                                        viewBox="0 0 24 24" 
-                                        stroke-width="1.5" 
-                                        stroke="currentColor" 
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
                                         class="size-4 {{ $sortField === 'name' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                     </svg>
@@ -88,14 +88,14 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <div class=" m-4">
                 {{ $products->links() }}
-            </div>            
+            </div>
         </div>
 
     </div>
-    
+
     <!-- Show Edit Modal -->
     <x-dialog-modal wire:model.live="modalVisibility">
         <x-slot name="title">
@@ -162,17 +162,30 @@
                 @error('brand')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
-                
+
                 <div class="w-full rounded-t-lg border-t border-l border-r border-gray-200 text-xs px-2 py-1">
                     Selected id: [{{$brand_id}}] {{$brand?->name}}
-                    <div wire:loading wire:target="brand_id" class="bg-green-300 px-4"> 
+                    <div wire:loading wire:target="brand_id" class="bg-green-300 px-4">
                         Changing...
                     </div>
                 </div>
 
                 <livewire:search-dropdown wire:model.debounce.500ms.live="brand_id" :collection="$brands" />
-                    
+
+
+                @error('is_device')
+                <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                @enderror
+
+                <div class="flex space-x-2 mt-4">
+                    <input wire:model.live="is_device" type="checkbox" id="is_device"
+                    class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    required value="{{$is_device}}" />
+                    <label for="is_device"
+                    class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('is_device')}}</label>
                 </div>
+
+            </div>
 
         </x-slot>
 
