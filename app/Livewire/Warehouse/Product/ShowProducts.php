@@ -40,6 +40,13 @@ class ShowProducts extends Component
     protected ProductService $productService;
     protected CategoryService $categoryService;
 
+    protected $listeners = ['reloadProductsIndex'];
+
+    public function reloadProductsIndex()
+    {
+        $this->resetPage();
+    }
+
     public function rules()
     {
         return [

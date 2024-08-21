@@ -32,6 +32,13 @@ class CreateProduct extends Component
     protected ProductService $productService;
     protected CategoryService $categoryService;
 
+    // protected $listeners = ['brandSelected'];
+
+    // public function brandSelected($brandId)
+    // {
+    //     $this->brand_id = $brandId;
+    // }
+
     public function rules()
     {
         return [
@@ -66,6 +73,7 @@ class CreateProduct extends Component
         $this->resetVars();
         $this->modalVisibility = false;
         $flag ? $this->banner('Successfully created!') : $this->dangerBanner('An error was encountered while creating.');
+        $this->dispatch('reloadProductsIndex');
     }
 
     public function resetVars()

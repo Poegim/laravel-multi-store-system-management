@@ -2,7 +2,7 @@ APP
     Images
     Colors CRUD
     Warnings about huge quantities and prices etc
-    
+
 QUESTIONABLE
     Can nav-menu be an anonymous compomnent?
     Is flowbite required anymore?
@@ -25,3 +25,7 @@ ADDITIONAL FEATURES
 
 REFACTOR
     Rewrte SearchDropdown component to partly use vanilla JavaScript to avoid unnecessary requests.
+
+
+MINOR INFO
+    -- comments in create-products

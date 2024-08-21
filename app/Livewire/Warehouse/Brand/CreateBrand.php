@@ -23,20 +23,8 @@ class CreateBrand extends Component
     public function rules()
     {
         return [
-            'name' => [
-                'required',
-                'string',
-                'max:50',
-                'min:2',
-                Rule::unique('brands'),
-            ],
-            'slug' => [
-                'required',
-                'string',
-                'max:50',
-                'min:2',
-                Rule::unique('brands'),
-            ]
+            'name' => [ 'required', 'string', 'max:50', 'min:2', Rule::unique('brands'),],
+            'slug' => [ 'required', 'string', 'max:50', 'min:2', Rule::unique('brands'),]
         ];
     }
 
