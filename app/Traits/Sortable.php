@@ -5,7 +5,7 @@ namespace App\Traits;
 trait Sortable
 {
     public $sortField ='id';
-    public $sortAsc = true;
+    public $sortAsc = false;
 
     public function sortBy($field) {
         if($field == $this->sortField) {

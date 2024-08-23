@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\DB;
 use App\Traits\RendersCategoryOptions;
 use Laravel\Jetstream\InteractsWithBanner;
 
+
 class CreateProduct extends Component
 {
+    
     use HasModal;
     use InteractsWithBanner;
     use RendersCategoryOptions;
@@ -32,11 +34,17 @@ class CreateProduct extends Component
     protected ProductService $productService;
     protected CategoryService $categoryService;
 
-    // protected $listeners = ['brandSelected'];
+    
+    // protected $listeners = ['searchDropdownSelected', 'dispatchStore'];
 
-    // public function brandSelected($brandId)
+    // public function searchDropdownSelectedv($brandId)
     // {
     //     $this->brand_id = $brandId;
+    // }
+
+    // public function dispatchStore()
+    // {
+    //     $this->store();
     // }
 
     public function rules()
