@@ -1,19 +1,32 @@
-@props(['inputName', 'collection'])
-
-<div x-data="autocomplete('{{ $inputName }}')" class="relative">
-    <input
-        x-model="query"
-        @input.debounce.300ms="filterData"
-        @keydown.arrow-down.prevent="moveDown"
-        @keydown.arrow-up.prevent="moveUp"
-        @keydown.enter.prevent="handleEnterKey"
-        type="text"
+{{-- Assuming 'searchBy' is passed from PHP --}}
+<div x-data="autocomplete('{{ $inputName }}', '{{ $searchBy }}')" @click.away="closeDropdown()" class="relative">
+    <div class="flex">
+        <input
+            x-model="query"
+            @input.debounce.300ms="filterData"
+            @keydown.arrow-down.prevent="moveDown"
+            @keydown.arrow-up.prevent="moveUp"
+            @keydown.enter.prevent="handleEnterKey"
+            @focus="openDropdown()"
+            type="text"
+            :id="InputVisibleUniqueId"
+            :name="InputVisibleUniqueId"
+            placeholder="Search..."
+            class="border-r-0 rounded-tl-lg rounded-bl-lg border-blue-400 px-3 py-2 w-11/12"
+        />
+        
+        <button 
+            @click="toggleDropdown()" 
+            class="border border-l-0 rounded-tr-lg rounded-br-lg border-blue-400 w-1/12">v</button>
+    </div>
+    
+    <input type="hidden" 
         :id="uniqueId"
         :name="uniqueId"
-        placeholder="Search collection..."
-        class="border px-3 py-2"
+        x-ref="hiddenInput"
     />
-    <ul x-show="open" class="absolute border bg-white w-full mt-1 z-10">
+
+    <ul x-show="open" class="border bg-white w-full mt-1 z-90 max-h-96 overflow-y-auto">
         <template x-for="(item, index) in filteredData" :key="index">
             <li 
                 :class="{'bg-blue-500 text-white': index === highlightedIndex}"
@@ -21,24 +34,34 @@
                 @mouseenter="highlightedIndex = index"
                 class="px-4 py-2 cursor-pointer"
             >
-                <span x-text="item.name"></span>
+                <span x-text="item[searchBy]"></span>
             </li>
         </template>
     </ul>
 
     <script>
-        function autocomplete(uniqueId) {
+        function autocomplete(uniqueId, searchBy) {
             return {
                 query: '',
                 open: false,
                 highlightedIndex: 0,
+                InputVisibleUniqueId: 'visible_' + uniqueId,
                 uniqueId: uniqueId,
+                searchBy: searchBy,
+                originalData: @json($collection),
                 filteredData: @json($collection),
                 filterData() {
                     const search = this.query.toLowerCase();
-                    this.filteredData = @json($collection).filter(item => 
-                        item.name.toLowerCase().includes(search)
-                    );
+                    if (search === '') {
+                        this.filteredData = this.originalData; // Show all items when search is empty
+                        this.open = this.filteredData.length > 0;
+                        return;
+                    }
+                    this.filteredData = this.originalData.filter(item => {
+                        // Access the dynamic field and convert it to a string
+                        const fieldValue = String(item[this.searchBy]);
+                        return fieldValue.toLowerCase().includes(search);
+                    });
                     this.open = this.filteredData.length > 0;
                     this.highlightedIndex = 0; // Reset highlighted index when filtering
                 },
@@ -54,12 +77,26 @@
                 },
                 selectOption(index = this.highlightedIndex) {
                     if (this.filteredData.length > 0 && index >= 0 && index < this.filteredData.length) {
-                        this.query = this.filteredData[index].name;
+                        const selectedItem = this.filteredData[index];
+                        this.query = selectedItem[this.searchBy];
+                        this.$refs.hiddenInput.value = selectedItem.id; // Set the hidden input value to the selected item's id
                         this.open = false;
+
+                        console.log(this.$refs.hiddenInput.value);
+                        console.log(this.$refs.hiddenInput.name);
                     }
                 },
                 handleEnterKey() {
                     this.selectOption();
+                },
+                openDropdown() {
+                    this.open = true;
+                },
+                closeDropdown() {
+                    this.open = false;
+                },
+                toggleDropdown() {
+                    this.open = !this.open;
                 }
             }
         }
