@@ -150,6 +150,15 @@
             toggleDropdown() {
                 this.open = !this.open;
             },
+
+            reset() {
+                console.log('asdf');
+                this.query = '';
+                this.open = false;
+                this.highlightedIndex = 0;
+                this.selected = false;
+                this.filteredData = this.originalData;
+            },
         };
     }
     </script>

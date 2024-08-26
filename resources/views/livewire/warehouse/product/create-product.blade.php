@@ -102,12 +102,23 @@
 
     </x-dialog-modal>
 
+    @script
+
+
+
+
     <!-- Listening for Blade SearchDropdown combobox component data -->
     <!-- This is not Livewire SearchDropdown listener -->
-    @script
         <script>
+            
+            $wire.on('closeModal', () => {
+                console.log('close');
+                document.querySelector('[x-data]').__x.$data.reset(); // Wywołaj metodę resetującą w Alpine.js
+            });
+
             $wire.on('searchDropdownChange', (data) => {
                 @this[data['uniqueId']] = data['value'];
+                console.log('change');
             });
         </script>
     @endscript

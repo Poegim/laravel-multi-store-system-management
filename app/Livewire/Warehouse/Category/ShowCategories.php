@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use App\Services\CategoryService;
 use App\Models\Warehouse\Category;
+use App\Rules\ValidParentCategory;
 use Laravel\Jetstream\InteractsWithBanner;
 
 class ShowCategories extends Component
@@ -48,7 +49,8 @@ class ShowCategories extends Component
         $rules = [
             'parent_id' => [
                 'exists:categories,id',
-                'nullable'
+                'nullable',
+                new ValidParentCategory($this->category ? $this->category->id : null),
             ],
             'disabled' => "required",
         ];
