@@ -14,7 +14,7 @@
         </x-slot>
 
         <x-slot name="content">
-            {{ $brand_id }}
+
             @if ($errors->any())
             <x-lists.errors-list>
                 @foreach ($errors->all() as $error)
@@ -71,8 +71,7 @@
                     @endforeach
                 </datalist> --}}
 
-                <x-searchDropdown :collection="$brands" :inputName="'brand_id'" :searchBy="'name'"/>
-
+                <x-searchDropdown :collection="$brands" :inputName="'brand_id'" :searchBy="'name'" />
 
                 @error('is_device')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>

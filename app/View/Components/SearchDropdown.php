@@ -9,13 +9,28 @@ use Illuminate\View\Component;
 
 class SearchDropdown extends Component
 {
+    
+    /**
+     * In case of use this component inside a Livewire Component add JS listener to parent view.
+     * That will set your Livewire property to selected item id.
+     * 
+     *     @script
+     *      <script>
+     *          $wire.on('searchDropdownChange', (data) => {
+     *              @this[data['uniqueId']] = data['value'];
+     *          });
+     *      </script>
+     *      @endscript
+     */
+
     /**
      * Create a new component instance.
      */
     public function __construct(
         public Collection $collection, 
         public string $inputName,
-        public string $searchBy = 'name'
+        public $passedId = null,
+        public string $searchBy = 'name',
         ) {}
 
     /**
@@ -27,6 +42,7 @@ class SearchDropdown extends Component
             'collection' => $this->collection,
             'inputName' => $this->inputName,
             'searchBy' => $this->searchBy,
+            'passedId' => $this->passedId,
         ]);
     }
 }
