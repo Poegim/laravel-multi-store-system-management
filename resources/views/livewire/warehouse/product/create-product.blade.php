@@ -103,4 +103,14 @@
 
     </x-dialog-modal>
 
+    <!-- Listening for Blade SearchDropdown combobox component data -->
+    <!-- This is not Livewire SearchDropdown listener -->
+    @script
+        <script>
+            $wire.on('searchDropdownChange', (data) => {
+                @this[data['uniqueId']] = data['value'];
+            });
+        </script>
+    @endscript
+
 </div>

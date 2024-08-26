@@ -1,4 +1,3 @@
-{{-- Assuming 'searchBy' is passed from PHP --}}
 <div x-data="autocomplete('{{ $inputName }}', '{{ $searchBy }}')" @click.away="closeDropdown()" class="relative">
     <div class="flex">
         <input
@@ -50,7 +49,12 @@
                 searchBy: searchBy,
                 originalData: @json($collection),
                 filteredData: @json($collection),
+                selected: false,
                 filterData() {
+
+                    // If user starts typing after a selection, deselect the current item
+                    this.deselect();
+
                     const search = this.query.toLowerCase();
                     if (search === '') {
                         this.filteredData = this.originalData; // Show all items when search is empty
@@ -65,27 +69,46 @@
                     this.open = this.filteredData.length > 0;
                     this.highlightedIndex = 0; // Reset highlighted index when filtering
                 },
+
                 moveDown() {
                     if (this.highlightedIndex < this.filteredData.length - 1) {
                         this.highlightedIndex++;
                     }
                 },
+
                 moveUp() {
                     if (this.highlightedIndex > 0) {
                         this.highlightedIndex--;
                     }
                 },
+
                 selectOption(index = this.highlightedIndex) {
                     if (this.filteredData.length > 0 && index >= 0 && index < this.filteredData.length) {
                         const selectedItem = this.filteredData[index];
                         this.query = selectedItem[this.searchBy];
                         this.$refs.hiddenInput.value = selectedItem.id; // Set the hidden input value to the selected item's id
-                        this.open = false;
 
-                        console.log(this.$refs.hiddenInput.value);
-                        console.log(this.$refs.hiddenInput.name);
+                        // Emit an event to the parent component with uniqueId and selected value
+                        this.$dispatch('searchDropdownChange', {
+                            uniqueId: this.uniqueId,
+                            value: selectedItem.id
+                        });
+                        this.selected = true;
+                        this.open = false;
                     }
                 },
+                                
+                deselect() {
+                    if(this.selected === true) {
+                        // Clear the hidden input and emit the deselect event
+                        this.$refs.hiddenInput.value = '';
+                        this.$dispatch('searchDropdownChange', {
+                            uniqueId: this.uniqueId,
+                            value: null
+                        });
+                    }
+                },
+
                 handleEnterKey() {
                     this.selectOption();
                 },
@@ -97,7 +120,8 @@
                 },
                 toggleDropdown() {
                     this.open = !this.open;
-                }
+                },
+
             }
         }
     </script>

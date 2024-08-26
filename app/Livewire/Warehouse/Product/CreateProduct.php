@@ -4,11 +4,12 @@ namespace App\Livewire\Warehouse\Product;
 
 use Livewire\Component;
 use App\Traits\HasModal;
+use Livewire\Attributes\On;
+use App\Traits\HasUpdatedName;
 use App\Models\Warehouse\Brand;
 use Illuminate\Validation\Rule;
 use App\Services\ProductService;
 use App\Services\CategoryService;
-use App\Traits\HasUpdatedName;
 use Illuminate\Support\Facades\DB;
 use App\Traits\RendersCategoryOptions;
 use Laravel\Jetstream\InteractsWithBanner;
@@ -33,19 +34,6 @@ class CreateProduct extends Component
 
     protected ProductService $productService;
     protected CategoryService $categoryService;
-
-    
-    // protected $listeners = ['searchDropdownSelected', 'dispatchStore'];
-
-    // public function searchDropdownSelectedv($brandId)
-    // {
-    //     $this->brand_id = $brandId;
-    // }
-
-    // public function dispatchStore()
-    // {
-    //     $this->store();
-    // }
 
     public function rules()
     {
