@@ -40,115 +40,117 @@
     </ul>
 
     <script>
-        function autocomplete(uniqueId, searchBy, passedId = null) {
-    return {
-        query: '',
-        open: false,
-        highlightedIndex: 0,
-        InputVisibleUniqueId: 'visible_' + uniqueId,
-        uniqueId: uniqueId,
-        passedId: passedId,
-        searchBy: searchBy,
-        originalData: @json($collection),
-        filteredData: @json($collection),
-        selected: false,
-        
-        init() {
-            // If passedId is provided, select the corresponding option
-            if (this.passedId !== null) {
-                this.selectOptionById(this.passedId);
-            }
-        },
-
-        filterData() {
-            // If user starts typing after a selection, deselect the current item
-            this.deselect();
-
-            const search = this.query.toLowerCase();
-            if (search === '') {
-                this.filteredData = this.originalData; // Show all items when search is empty
-                this.open = this.filteredData.length > 0;
-                return;
-            }
-            this.filteredData = this.originalData.filter(item => {
-                // Access the dynamic field and convert it to a string
-                const fieldValue = String(item[this.searchBy]);
-                return fieldValue.toLowerCase().includes(search);
-            });
-            this.open = this.filteredData.length > 0;
-            this.highlightedIndex = 0; // Reset highlighted index when filtering
-        },
-
-        moveDown() {
-            if (this.highlightedIndex < this.filteredData.length - 1) {
-                this.highlightedIndex++;
-            }
-        },
-
-        moveUp() {
-            if (this.highlightedIndex > 0) {
-                this.highlightedIndex--;
-            }
-        },
-
-        selectOption(index = this.highlightedIndex) {
-
-            if (this.filteredData.length > 0 && index >= 0 && index < this.filteredData.length) {
-                const selectedItem = this.filteredData[index];
-                this.query = selectedItem[this.searchBy];
-                this.$refs.hiddenInput.value = selectedItem.id; // Set the hidden input value to the selected item's id.
-
-                //In case of passing data from parent fill input.
-                if(this.passedId != '' ) {
-                    this.$refs.InputVisibleUniqueId.value = selectedItem[this.searchBy];
+    function autocomplete(uniqueId, searchBy, passedId = null) {
+        return {
+            query: '',
+            open: false,
+            highlightedIndex: 0,
+            InputVisibleUniqueId: 'visible_' + uniqueId,
+            uniqueId: uniqueId,
+            passedId: passedId,
+            searchBy: searchBy,
+            originalData: @json($collection),
+            filteredData: @json($collection),
+            selected: false,
+            
+            init() {
+                // If passedId is provided, select the corresponding option
+                if (this.passedId != null) {
+                    this.selectOptionById(this.passedId);
                 }
+            },
 
-                // Emit an event to the parent component with uniqueId and selected value
-                this.$dispatch('searchDropdownChange', {
-                    uniqueId: this.uniqueId,
-                    value: selectedItem.id
+            filterData() {
+                // If user starts typing after a selection, deselect the current item
+                this.deselect();
+
+                const search = this.query.toLowerCase();
+                if (search === '') {
+                    this.filteredData = this.originalData; // Show all items when search is empty
+                    this.open = this.filteredData.length > 0;
+                    return;
+                }
+                this.filteredData = this.originalData.filter(item => {
+                    // Access the dynamic field and convert it to a string
+                    const fieldValue = String(item[this.searchBy]);
+                    return fieldValue.toLowerCase().includes(search);
                 });
+                this.open = this.filteredData.length > 0;
+                this.highlightedIndex = 0; // Reset highlighted index when filtering
+            },
 
-                this.selected = true;
+            moveDown() {
+                if (this.highlightedIndex < this.filteredData.length - 1) {
+                    this.highlightedIndex++;
+                }
+            },
+
+            moveUp() {
+                if (this.highlightedIndex > 0) {
+                    this.highlightedIndex--;
+                }
+            },
+
+            selectOption(index = this.highlightedIndex) {
+
+                if (this.filteredData.length > 0 && index >= 0 && index < this.filteredData.length) {
+                    const selectedItem = this.filteredData[index];
+                    this.query = selectedItem[this.searchBy];
+                    this.$refs.hiddenInput.value = selectedItem.id; // Set the hidden input value to the selected item's id.
+
+                    //In case of passing data from parent fill input.
+                    if(this.passedId != '' ) {
+                        this.$refs.InputVisibleUniqueId.value = selectedItem[this.searchBy];
+                    }
+
+                    // Emit an event to the parent component with uniqueId and selected value
+                    this.$dispatch('searchDropdownChange', {
+                        uniqueId: this.uniqueId,
+                        value: selectedItem.id
+                    });
+
+                    this.selected = true;
+                    this.open = false;
+                }
+            },
+
+            selectOptionById(id) {
+                const index = this.originalData.findIndex(item => item.id == parseInt(id));
+                if (index !== -1) {
+                    this.selectOption(index);
+                }
+            },
+
+            deselect() {
+                if (this.selected === true) {
+
+                    // Clear the hidden input and emit the deselect event
+                    this.$refs.hiddenInput.value = '';
+                    this.$dispatch('searchDropdownChange', {
+                        uniqueId: this.uniqueId,
+                        value: null
+                    });
+
+                    this.selected = false; // Reset selected state
+                }
+            },
+
+            handleEnterKey() {
+                this.selectOption();
+            },
+
+            openDropdown() {
+                this.open = true;
+            },
+
+            closeDropdown() {
                 this.open = false;
-            }
-        },
+            },
 
-        selectOptionById(id) {
-            const index = this.originalData.findIndex(item => item.id == parseInt(id));
-            if (index !== -1) {
-                this.selectOption(index);
-            }
-        },
-
-        deselect() {
-            if (this.selected === true) {
-                // Clear the hidden input and emit the deselect event
-                this.$refs.hiddenInput.value = '';
-                this.$dispatch('searchDropdownChange', {
-                    uniqueId: this.uniqueId,
-                    value: null
-                });
-                this.selected = false; // Reset selected state
-            }
-        },
-
-        handleEnterKey() {
-            this.selectOption();
-        },
-
-        openDropdown() {
-            this.open = true;
-        },
-
-        closeDropdown() {
-            this.open = false;
-        },
-
-        toggleDropdown() {
-            this.open = !this.open;
-        },
-    };
-}
+            toggleDropdown() {
+                this.open = !this.open;
+            },
+        };
+    }
     </script>
 </div>
