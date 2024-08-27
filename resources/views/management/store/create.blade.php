@@ -78,7 +78,7 @@
                                     <option value=""></option>
                                     @foreach ($colors as $color)
                                     <option style="background-color: {{$color->value}} ;"
-                                    value="{{$color->id}}" @if(old('color_id')) selected @endif>{{ $color->name }}</option>
+                                    value="{{$color->id}}" @if(old('color_id') == $color->id) selected @endif>{{ $color->name }}</option>
                                     @endforeach
                                     </select>
 
