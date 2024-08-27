@@ -17,8 +17,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 
     <!-- Show Edit Modal -->
@@ -71,8 +69,8 @@
                     required value="{{$singular_name}}" />
 
                 @php
-                    function renderCategoryOptions($categories, $level = 0) {
-                        foreach ($categories as $category) {
+                    function renderCategoryOptions($categoriesSelectList, $level = 0) {
+                        foreach ($categoriesSelectList as $category) {
                             if($category['disabled'] == false) {
                             
                                 echo '<option value="' . $category['id'] . '" class="ml-' . ($level * 2) . '">';
@@ -93,7 +91,7 @@
                 @enderror
                 <select class="w-full rounded-lg border border-blue-300 mb-4" wire:model="parent_id">
                     @php
-                        renderCategoryOptions($categories);
+                        renderCategoryOptions($categoriesSelectList);
                     @endphp
                 </select>
 

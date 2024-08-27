@@ -19,14 +19,14 @@ class CategoryService
         return $this->categoryRepository->update($data, $id);
     }
 
-    public function activeTree()
+    public function activeTree($excludeChildOf = null)
     {
-        return $this->categoryRepository->activeTree();
+        return $this->categoryRepository->activeTree($excludeChildOf);
     }
 
-    public function allTree()
+    public function allTree($excludeChildOf = null)
     {
-        return $this->categoryRepository->allTree();
+        return $this->categoryRepository->allTree($excludeChildOf);
     }
 
 }

@@ -38,16 +38,22 @@ class CategoryRepository implements CategoryRepositoryInterface
      * Returns tree of active categories.
      *
      */
-    public function activeTree()
+    public function activeTree($excludeChildOf = null)
     {
-
         Cache::forget('categories_tree');
 
         //Get enabled categories and build tree.
-        $categoryTree = Cache::remember('categories_tree', 60, function () {
-            $categories = DB::table('categories')->where('disabled', 0)->get()->map(function ($category) {
-                return (array) $category;
-            })->all();
+        $categoryTree = Cache::remember('categories_tree', 60, function () use ($excludeChildOf) {
+            $categories = DB::table('categories')
+                ->where('disabled', 0)
+                ->get()
+                ->map(function ($category) {
+                    return (array) $category;
+                })->all();
+
+            if ($excludeChildOf) {
+                $categories = $this->filterOutChildren($categories, $excludeChildOf);
+            }
 
             return $this->buildTree($categories);
         });
@@ -60,15 +66,21 @@ class CategoryRepository implements CategoryRepositoryInterface
      * Returns tree of all categories.
      *
      */
-    public function allTree()
+    public function allTree($excludeChildOf = null)
     {
         Cache::forget('categories_tree');
 
         //Get all categories and build tree.
-        $categoryTree = Cache::remember('categories_tree', 60, function () {
-            $categories = DB::table('categories')->get()->map(function ($category) {
-                return (array) $category;
-            })->all();
+        $categoryTree = Cache::remember('categories_tree', 60, function () use ($excludeChildOf) {
+            $categories = DB::table('categories')
+                ->get()
+                ->map(function ($category) {
+                    return (array) $category;
+                })->all();
+
+            if ($excludeChildOf) {
+                $categories = $this->filterOutChildren($categories, $excludeChildOf);
+            }
 
             return $this->buildTree($categories);
         });
@@ -96,6 +108,36 @@ class CategoryRepository implements CategoryRepositoryInterface
         }
 
         return $branch;
+    }
+
+    /**
+     *
+     * Filters out children of the given category.
+     *
+     */
+    private function filterOutChildren(array $categories, $excludeChildOf) {
+        $excludedIds = $this->getDescendantIds($categories, $excludeChildOf);
+        return array_filter($categories, function ($category) use ($excludedIds) {
+            return !in_array($category['id'], $excludedIds);
+        });
+    }
+
+    /**
+     *
+     * Recursively gets all descendant IDs of a given category.
+     *
+     */
+    private function getDescendantIds(array $categories, $parentId) {
+        $descendants = [];
+        
+        foreach ($categories as $category) {
+            if ($category['parent_id'] == $parentId) {
+                $descendants[] = $category['id'];
+                $descendants = array_merge($descendants, $this->getDescendantIds($categories, $category['id']));
+            }
+        }
+
+        return $descendants;
     }
 
     private function associate(Category $category, array $data)

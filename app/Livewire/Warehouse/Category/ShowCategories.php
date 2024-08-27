@@ -20,7 +20,12 @@ class ShowCategories extends Component
     protected CategoryService $categoryService;
 
     public ?Category $category = null;
+
+    // Index of all categories.
     public $categories;
+
+    // Index of categories with excluded children for select list, to avoid try put parent inside child.
+    public $categoriesSelectList;
 
     //DB columns.
     public $plural_name;
@@ -32,6 +37,7 @@ class ShowCategories extends Component
     public function mount()
     {
         $this->categories = $this->categoryService->allTree();
+        $this->categoriesSelectList = $this->categoryService->allTree();
     }
 
     public function hydrate()
@@ -126,6 +132,7 @@ class ShowCategories extends Component
     public function edit($id)
     {
         $this->category = Category::findOrFail($id);
+        $this->categoriesSelectList = $this->categoryService->activeTree($this->category->id);
         $this->plural_name = $this->category->plural_name;
         $this->singular_name = $this->category->singular_name;
         $this->parent_id = $this->category->parent_id;
@@ -146,7 +153,6 @@ class ShowCategories extends Component
     private function refreshCategoryList()
     {
         $this->categories = $this->categoryService->allTree();
-        // dd($this->categories);
     }
 
     public function resetVars()

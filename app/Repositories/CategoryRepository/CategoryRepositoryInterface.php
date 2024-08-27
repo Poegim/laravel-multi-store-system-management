@@ -6,6 +6,6 @@ interface CategoryRepositoryInterface
 {
     public function store(array $data);
     public function update(array $data, int $id);
-    public function activeTree();
-    public function allTree();
+    public function activeTree($excludeChildOf);
+    public function allTree($excludeChildOf);
 }
