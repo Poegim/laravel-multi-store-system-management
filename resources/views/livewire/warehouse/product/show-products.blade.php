@@ -146,17 +146,14 @@
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
 
-                <x-searchDropdown :collection="$brands" :inputName="'brand_id'" :passedId="$brand?->id" :searchBy="'name'" />
-
-
-                {{-- <div class="w-full rounded-t-lg border-t border-l border-r border-gray-200 text-xs px-2 py-1">
+                <div class="w-full rounded-t-lg border-t border-l border-r border-gray-200 text-xs px-2 py-1">
                     Selected: {{$brand?->name}} ID: [{{$brand_id}}]
                     <div wire:loading wire:target="brand_id" class="bg-green-300 px-4">
                         Changing...
                     </div>
                 </div>
 
-                <livewire:search-dropdown wire:model.debounce.500ms.live="brand_id" :collection="$brands" /> --}}
+                <livewire:search-dropdown wire:model.debounce.500ms.live="brand_id" :collection="$brands" />
 
                 @error('is_device')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>

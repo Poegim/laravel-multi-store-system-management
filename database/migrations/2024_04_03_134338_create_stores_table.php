@@ -35,7 +35,7 @@ return new class extends Migration
             $table->integer('next_proforma_invoice_number');
             $table->integer('next_internal_servicing_number');
             $table->integer('next_external_servicing_number');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

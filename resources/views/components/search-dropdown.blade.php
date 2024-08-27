@@ -58,6 +58,10 @@
                 if (this.passedId != null) {
                     this.selectOptionById(this.passedId);
                 }
+
+                // this.$el.addEventListener('resetVariable', () => {
+                //     this.reset();
+                // });
             },
 
             filterData() {

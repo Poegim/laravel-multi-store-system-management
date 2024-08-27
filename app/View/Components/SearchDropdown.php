@@ -11,6 +11,11 @@ class SearchDropdown extends Component
 {
     
     /**
+     * AT THIS MOMENT THIS COMPONENT CANNOT BY USE IN LIVEWIRE COMPONENTS, 
+     * IT IS UNABLE TO RESET SEARCH STATE.
+     */
+
+    /**
      * In case of use this component inside a Livewire Component add JS listener to parent view.
      * That will set your Livewire property to selected item id.
      * 

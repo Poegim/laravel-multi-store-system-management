@@ -19,21 +19,19 @@
     @apply bg-gradient-to-tr from-indigo-200 to-green-200 dark:from-indigo-400 dark:to-green-400;
 }
 
-ol.supercombo {
-    position: absolute;
-    background: #EEEEEE;
-    top: 27px;
-    width: 392px;
-    left: 160px;
-    padding: 0;
-    border: 1px solid #666666;
-    z-index: 10;
-    line-height: 1;
-    list-style: none;
-    font-weight: bold;
-    font-size: 14px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    max-height: 352px;
-    white-space: normal;
+.breadcrumb
+{
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+.link
+{
+    @apply text-blue-700 dark:text-blue-500 hover:underline;
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+.accordion-btn
+{
+    @apply text-blue-700 dark:text-blue-400 text-xl flex px-4 py-2 w-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-150;
+    font-family: "Roboto Condensed", sans-serif;
 }
