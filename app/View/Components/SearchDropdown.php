@@ -11,8 +11,9 @@ class SearchDropdown extends Component
 {
     
     /**
-     * AT THIS MOMENT THIS COMPONENT CANNOT BY USE IN LIVEWIRE COMPONENTS, 
+     * AT THIS MOMENT THIS COMPONENT SHOULDNT BE USE IN LIVEWIRE COMPONENTS, 
      * IT IS UNABLE TO RESET SEARCH STATE.
+     * 
      */
 
     /**

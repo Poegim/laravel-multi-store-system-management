@@ -13,6 +13,7 @@
             x-ref="InputVisibleUniqueId"
             placeholder="Search..."
             class="border-r-0 rounded-tl-lg rounded-bl-lg border-blue-400 px-3 py-2 w-11/12"
+            
         />
         
         <button 
@@ -24,6 +25,7 @@
         :id="uniqueId"
         :name="uniqueId"
         x-ref="hiddenInput"
+        required
     />
 
     <ul x-show="open" class="border bg-white w-full mt-1 z-90 max-h-96 overflow-y-auto">
@@ -58,10 +60,6 @@
                 if (this.passedId != null) {
                     this.selectOptionById(this.passedId);
                 }
-
-                // this.$el.addEventListener('resetVariable', () => {
-                //     this.reset();
-                // });
             },
 
             filterData() {
@@ -153,15 +151,6 @@
 
             toggleDropdown() {
                 this.open = !this.open;
-            },
-
-            reset() {
-                console.log('asdf');
-                this.query = '';
-                this.open = false;
-                this.highlightedIndex = 0;
-                this.selected = false;
-                this.filteredData = this.originalData;
             },
         };
     }

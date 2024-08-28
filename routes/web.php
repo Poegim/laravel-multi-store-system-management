@@ -24,23 +24,29 @@ Route::name('store.')->prefix('store')->middleware(['auth', IsAdmin::class])->gr
 
 Route::name('category.')->prefix('category')->middleware(['auth', IsAdmin::class])->group(function () {
     Route::get('', [CategoryController::class, 'index'])->name('index');
+    Route::get('/create', [CategoryController::class, 'create'])->name('create');
+    Route::post('/store', [CategoryController::class, 'store'])->name('store');
     Route::get('/{category:slug}', [CategoryController::class, 'show'])->name('show');
     Route::get('/{category:slug}/edit', [CategoryController::class, 'edit'])->name('edit');
-    Route::post('/{category:slug}/update', [CategoryController::class, 'update'])->name('update');
+    Route::put('/{category:slug}/update', [CategoryController::class, 'update'])->name('update');
 });
 
 Route::name('brand.')->prefix('brand')->middleware(['auth'])->group(function () {
     Route::get('', [BrandController::class, 'index'])->name('index');
+    Route::get('/create', [BrandController::class, 'create'])->name('create');
+    Route::post('/store', [BrandController::class, 'store'])->name('store');
     Route::get('/{brand:slug}', [BrandController::class, 'show'])->name('show');
     Route::get('/{brand:slug}/edit', [BrandController::class, 'edit'])->name('edit');
-    Route::post('/{brand:slug}/update', [BrandController::class, 'update'])->name('update');
+    Route::put('/{brand:slug}/update', [BrandController::class, 'update'])->name('update');
 });
 
 Route::name('product.')->prefix('product')->middleware(['auth'])->group(function () {
     Route::get('', [ProductController::class, 'index'])->name('index');
+    Route::get('/create', [ProductController::class, 'create'])->name('create');
+    Route::post('/store', [ProductController::class, 'store'])->name('store');
     Route::get('/{product:slug}', [ProductController::class, 'show'])->name('show');
     Route::get('/{product:slug}/edit', [ProductController::class, 'edit'])->name('edit');
-    Route::post('/{product:slug}/update', [ProductController::class, 'update'])->name('update');
+    Route::put('/{product:slug}/update', [ProductController::class, 'update'])->name('update');
 });
 
 Route::middleware([

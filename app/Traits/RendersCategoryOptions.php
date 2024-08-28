@@ -23,6 +23,7 @@ trait RendersCategoryOptions
                 $html .= $this->renderCategoryOptions($category['children'], $level + 1);
             }
         }
+
         return $html;
     }
 }

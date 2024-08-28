@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained();
             $table->foreignId('brand_id')->constrained();
             $table->string('name');
-            $table->unique(['name', 'brand_id']);
+            $table->unique(['slug', 'brand_id']);
             $table->string('slug')->unique();
             $table->boolean('is_device')->default(0);
             $table->timestamps();

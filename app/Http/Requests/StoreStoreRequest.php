@@ -76,7 +76,7 @@ class StoreStoreRequest extends FormRequest
                'email',
             ],
             'order' => 'required|numeric|min:1',
-            'phone' => 'required|numeric',
+            'phone' => 'required|numeric|min_digits:1|max_digits:20',
             'city' => 'required|min:2|max:255',
             'postcode' => 'required|numeric|max_digits:5|min_digits:5',
             'street' => 'max:255',

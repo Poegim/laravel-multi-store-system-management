@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers\Warehouse;
 
-use App\Http\Controllers\Controller;
-use App\Models\Warehouse\Product;
-use App\Services\ProductService;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use App\Models\Warehouse\Brand;
+use App\Services\ProductService;
+use App\Models\Warehouse\Product;
+use App\Services\CategoryService;
+use Illuminate\Contracts\View\View;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProductRequest;
+use App\Traits\RendersCategoryOptions;
 
 class ProductController extends Controller
 {
+
+    use RendersCategoryOptions;
+
     public function __construct(
-        protected ProductService $productService
+        protected ProductService $productService,
+        protected CategoryService $categoryService
         ) {}
 
     public function index(): View
@@ -23,17 +31,21 @@ class ProductController extends Controller
 
     public function create()
     {
-        //
+        
+        return view('warehouse.product.create', [
+            'categoryOptions' => $this->renderCategoryOptions($this->categoryService->activeTree()),
+            'brands' => Brand::select('id', 'name')->get(),
+        ]);
     }
 
-    public function store()
+    public function store(StoreProductRequest $request)
     {
-        //
+        return $request;
     }
 
     public function edit()
     {
-        //
+        view('warehouse.product.edit');
     }
 
     public function update()

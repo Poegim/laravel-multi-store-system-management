@@ -36,3 +36,13 @@
     @apply text-blue-700 dark:text-blue-400 text-xl flex px-4 py-2 w-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-150;
     font-family: "Roboto Condensed", sans-serif;
 }
+
+.input-label
+{
+    @apply block mb-1 text-sm font-medium text-gray-900 dark:text-white;
+}
+
+.input-text
+{
+    @apply mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white;
+}

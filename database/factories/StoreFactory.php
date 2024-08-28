@@ -19,10 +19,13 @@ class StoreFactory extends Factory
      */
     public function definition(): array
     {
+
+
+
         $prefix = strtoupper(Str::random(rand(3,3)));
 
         return [
-            'name' => fake()->company(),
+            'name' => $this->randomStoreName(),
             'order' => rand(1,10),
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->randomNumber(9),
@@ -46,5 +49,15 @@ class StoreFactory extends Factory
             'next_external_servicing_number' => rand(1,1000),
             'description' => fake()->words(20, true),
         ];
+    }
+
+    private function randomStoreName() {
+        $prefix = strtoupper(Str::random(rand(3,3)));
+        $names = ['bronowice', 'jaworzno', 'luboń'];
+        $types = ['sklep', 'wyspa'];
+        $brands = ['MS', 'iAkces', 'MyCase'];
+
+        return Str::ucfirst($brands[rand(0,2)]). ' ' .Str::ucfirst($names[rand(0,2)]). ' ' .Str::ucfirst($types[rand(0,1)]). ' ' . $prefix;
+
     }
 }

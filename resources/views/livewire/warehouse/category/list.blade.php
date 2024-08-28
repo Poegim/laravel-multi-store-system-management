@@ -3,7 +3,7 @@
     <div class="flex items-center rounded-lg py-1 ml-1">
         
         @if (array_key_exists('children', $category))
-        <button @click="open = ! open" class="px-1 py-1 font-extrabold rounded bg-gray-200 dark:bg-gray-700 transition-all" :class="open ? '' : 'rotate-180'">
+        <button @click="open = ! open" class="px-1 py-1 font-extrabold rounded bg-gray-200 dark:bg-gray-700 transition-all duration-150" :class="open ? '' : 'rotate-180'">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
             </svg>
@@ -37,7 +37,7 @@
     </div>
 
     @if (array_key_exists('children', $category))
-    <div class="border-dotted border-l-[1px] border-gray-500 ml-4" x-show="open" x-collapse>
+    <div class="border-dotted border-l-[1px] border-gray-500 ml-4" x-show="open" >
         @foreach ($category['children'] as $child)
         @include('livewire.warehouse.category.list', ['category' => $child, 'parent' => $category])
         @endforeach

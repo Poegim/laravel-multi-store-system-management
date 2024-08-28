@@ -18,9 +18,9 @@ class Product extends Model
     {
         parent::boot();
 
-        //Validate is name and brand_id together unique.
+        //Validate is slug and brand_id together unique.
         static::saving(function ($product) {
-            $query = static::where('name', $product->name)
+            $query = static::where('slug', $product->slug)
                            ->where('brand_id', $product->brand_id);
 
             if ($product->exists) {
@@ -29,7 +29,7 @@ class Product extends Model
 
             if ($query->exists()) {
                 throw ValidationException::withMessages([
-                    'name' => 'The combination of name and brand_id must be unique.',
+                    'slug' => 'The combination of slug and brand_id must be unique.',
                 ]);
             }
         });

@@ -23,21 +23,21 @@
             <div class="mt-4 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
 
                 <label for="name"
-                    class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('name')}}</label>
+                    class="input-label">{{__('name')}}</label>
                 @error('name')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
 
                 <input wire:model.live="name" type="text" id="name"
-                    class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    class="input-text"
                     required value="{{$name}}" />
 
-                <label for="slug" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('slug')}}</label>
+                <label for="slug" class="input-label">{{__('slug')}}</label>
                 @error('slug')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
                 <input wire:model="slug" type="text" id="slug"
-                class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                class="input-text"
                 required value="{{$slug}}" disabled/>
                 
             </div>

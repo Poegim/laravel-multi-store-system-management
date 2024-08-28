@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->integer('order');
             $table->string('email');
-            $table->integer('phone');
+            $table->string('phone');
             $table->string('city')->default('');
             $table->integer('postcode');
             $table->string('street')->nullable();

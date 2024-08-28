@@ -42,30 +42,30 @@
             <div class="mt-4 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
 
                 <label for="plural_name"
-                    class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('plural_name')}}</label>
+                    class="input-label">{{__('plural_name')}}</label>
                 @error('plural_name')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
                 <input wire:model.live="plural_name" type="text" id="plural_name"
-                    class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    class="input-text"
                     required value="{{$plural_name}}" />
 
                 <label for="slug"
-                    class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('slug')}}</label>
+                    class="input-label">{{__('slug')}}</label>
                 @error('slug')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
                 <input wire:model="slug" type="text" id="slug"
-                class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                class="input-text"
                 required value="{{$slug}}" disabled/>
 
                 <label for="singular_name"
-                    class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('singular_name')}}</label>
+                    class="input-label">{{__('singular_name')}}</label>
                 @error('singular_name')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
                 <input wire:model="singular_name" type="text" id="singular_name"
-                    class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    class="input-text"
                     required value="{{$singular_name}}" />
 
                 @php
@@ -85,7 +85,7 @@
                 @endphp
 
                 <label for="category"
-                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">{{__('category')}}</label>
+                class="input-label">{{__('category')}}</label>
                 @error('category')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
