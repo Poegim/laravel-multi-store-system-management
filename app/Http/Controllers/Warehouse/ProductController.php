@@ -20,4 +20,24 @@ class ProductController extends Controller
             'products' => Product::paginate(10),
         ]);
     }
+
+    public function create()
+    {
+        //
+    }
+
+    public function store()
+    {
+        //
+    }
+
+    public function edit()
+    {
+        //
+    }
+
+    public function update()
+    {
+        //
+    }
 }

@@ -355,7 +355,7 @@
                                 <a href="{{route('store.index')}}">
                                     <x-secondary-button>Cancel</x-secondary-button>
                                 </a>
-                                <x-danger-button type="submit">Update</x-danger-button>
+                                <x-danger-button type="submit">Create</x-danger-button>
                             </div>
 
                         </form>

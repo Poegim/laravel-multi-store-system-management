@@ -14,7 +14,6 @@ class StoreController extends Controller
 {
     use AuthorizesRequests;
     
-
     public function __construct(
         protected StoreService $storeService
         ) {}
