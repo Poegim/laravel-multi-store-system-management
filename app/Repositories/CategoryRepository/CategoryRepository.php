@@ -36,6 +36,7 @@ class CategoryRepository implements CategoryRepositoryInterface
     /**
      *
      * Returns tree of active categories.
+     * Optionaly exclude child/ren of given parent.
      *
      */
     public function activeTree($excludeChildOf = null)
@@ -64,6 +65,7 @@ class CategoryRepository implements CategoryRepositoryInterface
     /**
      *
      * Returns tree of all categories.
+     * Optionaly exclude child/ren of given parent.
      *
      */
     public function allTree($excludeChildOf = null)

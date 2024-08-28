@@ -21,6 +21,7 @@
 
 .breadcrumb
 {
+    @apply capitalize;
     font-family: "Roboto Condensed", sans-serif;
 }
 

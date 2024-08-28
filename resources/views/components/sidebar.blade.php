@@ -11,9 +11,7 @@
             }">
 
     <!-- Sidebar -->
-    <aside id="default-sidebar" class="lg:block w-full h-full md:w-64" aria-label="Sidenav">
-
-
+    <aside id="default-sidebar" class="lg:block w-full h-full lg:w-64" aria-label="Sidenav">
         <div
             class="texd-md sm:text-sm font-semibold  overflow-y-auto py-5 sm:px-3 h-full bg-white md:border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
 

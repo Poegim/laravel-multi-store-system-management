@@ -43,13 +43,13 @@
 
         <x-banner />
 
-        <div class="bg-gray-100 dark:bg-gray-900 md:flex h-full min-h-screen">
+        <div class="bg-gray-100 dark:bg-gray-900 lg:flex h-full min-h-screen">
 
-            <div class="md:hidden">
+            <div class="lg:hidden">
                 @livewire('navigation-menu')
             </div>
 
-            <div class="hidden md:block">
+            <div class="hidden lg:block">
                 <x-sidebar />
             </div>
 
@@ -65,7 +65,11 @@
 
                 <!-- Page Content -->
                 <main>
-                    {{ $slot }}
+                    <div class="py-2 dark:text-gray-200 sm:my-10">
+                        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                            {{ $slot }}
+                        </div>
+                    </div>
                 </main>
             </div>
 
