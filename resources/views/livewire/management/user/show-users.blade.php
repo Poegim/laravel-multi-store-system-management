@@ -1,10 +1,10 @@
 <div>
-    <div class="w-full flex justify-end my-4">
+    <div class="w-full flex justify-end my-4 h-9 space-x-2 pr-2 sm:pr-0">
         <x-button>
             {{ __('CREATE') }}
         </x-button>
     </div>
-    
+
     <x-window>
 
             <div class="text-gray-900uppercase dark:text-gray-400 grid grid-cols-1 md:grid-cols-3 text-xs font-bold">
@@ -19,7 +19,7 @@
                     {{__('email')}}
                 </div>
                 <div class="px-6 py-3 uppercase hidden md:block text-center">
-                    {{__('action')}}
+
                 </div>
             </div>
 
@@ -34,11 +34,11 @@
                 <div class="px-6 py-2 text-center text-sm text-gray-400 md:text-left my-auto">
                     {{$item->email}}
                 </div>
-                <div class="px-6 py-2 text-right my-auto flex justify-center">
-                    <x-buttons.edit-button wire:click="edit({{ $item->id }})" class="hidden md:block" />
-                    <x-button wire:click="edit({{ $item->id }})"
+                <div class=" text-right my-auto flex justify-center">
+                    <x-buttons.edit-button wire:click="edit({{ $item->id }})" />
+                    {{-- <x-button wire:click="edit({{ $item->id }})"
                         class="block md:hidden bg-gradient-to-tr from-indigo-600 to-green-600 dark:from-indigo-400 dark:to-green-400">
-                        Edit</x-button>
+                        Edit</x-button> --}}
                 </div>
             </div>
             @endforeach

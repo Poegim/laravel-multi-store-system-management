@@ -1,6 +1,6 @@
 <div>
 
-    <div class="w-full flex justify-end my-4">
+    <div class="w-full flex justify-end my-4 h-9 space-x-2 pr-2 sm:pr-0 pr-2 sm:pr-0">
         <a href="{{route('store.create')}}">
             <x-button>
                 {{ __('CREATE') }}
@@ -20,7 +20,7 @@
                         {{__('email')}}
                     </th>
                     <th scope="col" class="px-6 py-3 text-center">
-                        {{__('action')}}
+
                     </th>
                 </tr>
             </thead>

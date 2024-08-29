@@ -1,7 +1,7 @@
 <div class="py-2 sm:py-4 text-gray-800 dark:text-gray-200">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        
-        <div class="w-full flex justify-end my-4">
+
+        <div class="w-full flex justify-end my-4 h-9 space-x-2 pr-2 sm:pr-0">
             <x-button wire:click="create()">
                 {{ __('CREATE') }}
             </x-button>
@@ -72,7 +72,7 @@
                     function renderCategoryOptions($categoriesSelectList, $level = 0) {
                         foreach ($categoriesSelectList as $category) {
                             if($category['disabled'] == false) {
-                            
+
                                 echo '<option value="' . $category['id'] . '" class="ml-' . ($level * 2) . '">';
                                 echo str_repeat('&nbsp;', $level * 2) . $category['plural_name'];
                                 echo '</option>';
@@ -98,7 +98,7 @@
                 <div class="border-2 border-orange-500 dark:border-orange-300 p-2 rounded-lg">
                     @error('disabled')
                     <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                    @enderror  
+                    @enderror
                     <div>
 
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 float-left mr-2 mt-2 text-orange-500 dark:text-orange-300">
@@ -108,7 +108,7 @@
 
                     </div>
                     <div class="flex my-2">
-                        <input wire:model="disabled" type="checkbox" id="disabled" 
+                        <input wire:model="disabled" type="checkbox" id="disabled"
                         class="my-auto border border-indigo-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-gray-700 dark:border-gray-600" required />
                         <label for="disabled" class="ml-2 my-auto text-sm font-medium text-gray-900 dark:text-white">{{__('disabled')}}</label>
                     </div>

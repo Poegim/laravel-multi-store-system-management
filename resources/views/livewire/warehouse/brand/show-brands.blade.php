@@ -1,11 +1,11 @@
 <div class="py-2 sm:py-4">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-        <div class="w-full flex justify-end my-4 h-9 space-x-2">
+        <div class="w-full flex justify-end my-4 h-9 space-x-2 pr-2 sm:pr-0">
             <x-input id="name" type="text" aria-placeholder="Search..." placeholder="Search..." wire:model.debounce.500ms.live="search" />
             @livewire('warehouse.brand.create-brand')
         </div>
-        
+
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
             <div class="relative overflow-x-auto">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -16,11 +16,11 @@
                                     <span class="uppercase">
                                         {{__('id')}}
                                     </span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" 
-                                    fill="none" 
-                                    viewBox="0 0 24 24" 
-                                    stroke-width="1.5" 
-                                    stroke="currentColor" 
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
                                     class="size-4 {{ $sortField === 'id' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                 </svg>
@@ -31,11 +31,11 @@
                                     <span class="uppercase" >
                                         {{__('name')}}
                                     </span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" 
-                                        fill="none" 
-                                        viewBox="0 0 24 24" 
-                                        stroke-width="1.5" 
-                                        stroke="currentColor" 
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
                                         class="size-4 {{ $sortField === 'name' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                     </svg>
@@ -45,7 +45,7 @@
                             {{__('slug')}}
                             </th>
                             <th scope="col" class="px-6 py-3 text-right">
-                                {{__('action')}}
+
                             </th>
                         </tr>
                     </thead>
@@ -77,14 +77,14 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <div class=" m-4">
                 {{ $brands->links() }}
-            </div>            
+            </div>
         </div>
 
     </div>
-    
+
     <!-- Show Edit Modal -->
     <x-dialog-modal wire:model.live="modalVisibility">
         <x-slot name="title">
@@ -120,7 +120,7 @@
                 <input wire:model="slug" type="text" id="slug"
                 class="input-text"
                 required value="{{$slug}}" disabled/>
-                
+
             </div>
 
         </x-slot>

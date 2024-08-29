@@ -1,6 +1,6 @@
 <div>
 
-    <div class="w-full flex justify-end my-4 h-9 space-x-2">
+    <div class="w-full flex justify-end my-4 h-9 space-x-2 pr-2 sm:pr-0">
         <x-input id="name" type="text" aria-placeholder="Search..." placeholder="Search..." wire:model.debounce.500ms.live="search" />
         <a href="{{route('product.create')}}">
             <x-button>
@@ -50,7 +50,7 @@
                             {{__('brand')}}
                         </th>
                         <th scope="col" class="px-6 py-3 text-right">
-                            {{__('action')}}
+
                         </th>
                     </tr>
                 </thead>
