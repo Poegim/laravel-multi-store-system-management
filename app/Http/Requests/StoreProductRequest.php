@@ -33,12 +33,12 @@ class StoreProductRequest extends FormRequest
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'slug.unique' => 'The combination of name and brand must be unique.',
-        ];
-    }
+    // public function messages()
+    // {
+    //     return [
+    //         'slug.unique' => 'The combination of name and brand must be unique.',
+    //     ];
+    // }
 
     /**
      * Prepare the data for validation.

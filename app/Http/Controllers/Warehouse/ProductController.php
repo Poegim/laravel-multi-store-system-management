@@ -56,9 +56,13 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(UpdateProductRequest $request)
+    public function update(UpdateProductRequest $request, $slug)
     {
-        return $request;
+        $product = Product::where('slug', $slug)->firstOrFail();
+        $this->productService->update($request->validated(), $product);
+        session()->flash('flash.banner', __('Successfully created!'));
+        session()->flash('flash.bannerStyle', 'success');
+        return redirect()->route('product.index');
     }
 
 

@@ -10,6 +10,7 @@ class UpdateProductRequest extends FormRequest
 {
     public function rules(): array
     {
+        // dd($this->route(), $this->input('id'));
         return [
             'name' => ['required', 'string','min:2','max:255',],
             'slug' =>
@@ -19,7 +20,7 @@ class UpdateProductRequest extends FormRequest
                 'min:2',
                 'max:255',
                 // Rule::unique('products')->where('brand_id', $this->input('brand_id'))->ignore($this->id)
-                Rule::unique('products')->ignore($this->id)
+                Rule::unique('products')->ignore($this->route('product'), 'slug')
             ],
             'is_device' => ['required', 'boolean'],
             // 'brand_id' => ['required', 'exists:App\Models\Warehouse\Brand,id'],
@@ -27,12 +28,12 @@ class UpdateProductRequest extends FormRequest
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'slug.unique' => 'The combination of name and brand must be unique.',
-        ];
-    }
+    // public function messages()
+    // {
+    //     return [
+    //         'slug.unique' => 'The combination of name and brand must be unique.',
+    //     ];
+    // }
 
     /**
      * Prepare the data for validation.

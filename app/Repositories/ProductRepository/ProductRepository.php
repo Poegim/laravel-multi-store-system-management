@@ -23,7 +23,7 @@ class ProductRepository implements ProductRepositoryInterface
         $product->slug = $data['slug'];
         $product->is_device = $data['is_device'];
         $product->category_id = $data['category_id'];
-        $product->brand_id = $data['brand_id'];
+        // $product->brand_id = $data['brand_id'];
         return $product;
     }
 }
