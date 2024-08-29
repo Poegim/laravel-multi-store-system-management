@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    
+
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -65,7 +65,7 @@
 
                 <!-- Page Content -->
                 <main>
-                    <div class="py-2 dark:text-gray-200 sm:my-10">
+                    <div class="py-2 dark:text-gray-200">
                         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                             {{ $slot }}
                         </div>
