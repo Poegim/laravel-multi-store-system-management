@@ -2,7 +2,7 @@
 
     <div class="w-full flex justify-end my-4 h-9 space-x-2 pr-2 sm:pr-0">
         <x-input id="name" type="text" aria-placeholder="Search..." placeholder="Search..." wire:model.debounce.500ms.live="search" />
-        <a href="{{route('product.create')}}">
+        <a href="{{route('product.create')}}" wire:navigate>
             <x-button>
                 {{ __('CREATE') }}
             </x-button>
@@ -77,7 +77,7 @@
                             {{$item->brand->name}}
                         </td>
                         <td class="px-6 py-2 flex justify-end">
-                            <a href="{{route('product.edit', $item->slug)}}" >
+                            <a href="{{route('product.edit', $item->slug)}}" wire:navigate>
                                 <x-buttons.edit-button >
                                     Edit
                                 </x-buttons.edit-button>
