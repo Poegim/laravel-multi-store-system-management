@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Warehouse;
 
-use Illuminate\Http\Request;
 use App\Models\Warehouse\Brand;
 use App\Services\ProductService;
 use App\Models\Warehouse\Product;
@@ -10,6 +9,7 @@ use App\Services\CategoryService;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Traits\RendersCategoryOptions;
 
 class ProductController extends Controller
@@ -31,7 +31,7 @@ class ProductController extends Controller
 
     public function create()
     {
-        
+
         return view('warehouse.product.create', [
             'categoryOptions' => $this->renderCategoryOptions($this->categoryService->activeTree()),
             'brands' => Brand::select('id', 'name')->get(),
@@ -43,15 +43,21 @@ class ProductController extends Controller
         return $request;
     }
 
-    public function edit()
+    public function edit(string $slug)
     {
-        view('warehouse.product.edit');
+        $product = Product::where('slug', $slug)->firstOrFail();
+
+        return view('warehouse.product.edit', [
+            'categoryOptions' => $this->renderCategoryOptions($this->categoryService->activeTree(), $product->category_id),
+            'brands' => Brand::select('id', 'name')->get(),
+            'product' => $product,
+        ]);
     }
 
-    public function update()
+    public function update(UpdateProductRequest $request)
     {
-        //
+        return $request;
     }
 
-    
+
 }

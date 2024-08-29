@@ -77,9 +77,11 @@
                             {{$item->brand->name}}
                         </td>
                         <td class="px-6 py-2 flex justify-end">
-                            <x-buttons.edit-button wire:click="edit({{ $item->id }})">
-                                Edit
-                            </x-buttons.edit-button>
+                            <a href="{{route('product.edit', $item->slug)}}" >
+                                <x-buttons.edit-button >
+                                    Edit
+                                </x-buttons.edit-button>
+                            </a>
                         </td>
                     </tr>
                     @endforeach

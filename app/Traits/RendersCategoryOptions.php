@@ -2,25 +2,27 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Collection;
+
 trait RendersCategoryOptions
 {
-    public function renderCategoryOptions($categories, $level = 0)
+    public function renderCategoryOptions(array $categories, ?int $category_id = null): string
     {
+        $level = 0;
         $html = '';
 
         foreach ($categories as $category) {
+            $selected = ($category_id !== null && $category['id'] == $category_id) ? ' selected' : '';
+            $disabled = $category['disabled'] ? ' disabled' : '';
 
-            if($category['disabled']) {
-                $html .= '<option disabled value="' . $category['id'] . '" class="ml-' . ($level * 2) . '">';
-            } else {
+            $class = 'class="ml-' . ($level * 2) . '"';
 
-                $html .= '<option value="' . $category['id'] . '" class="ml-' . ($level * 2) . '">';
-            }
-
-            $html .= str_repeat('&nbsp;', $level * 2) . $category['plural_name'];
+            $html .= '<option value="' . htmlspecialchars($category['id'], ENT_QUOTES, 'UTF-8') . '" ' . $class . $disabled . $selected . '>';
+            $html .= str_repeat('&nbsp;', $level * 2) . htmlspecialchars($category['plural_name'], ENT_QUOTES, 'UTF-8');
             $html .= '</option>';
-            if (array_key_exists('children', $category)) {
-                $html .= $this->renderCategoryOptions($category['children'], $level + 1);
+
+            if (isset($category['children']) && is_array($category['children'])) {
+                $html .= $this->renderCategoryOptions($category['children'], $category_id, $level + 1);
             }
         }
 
