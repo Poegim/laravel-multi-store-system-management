@@ -46,9 +46,6 @@
                         <th scope="col" class="px-6 py-3 hidden lg:table-cell">
                             {{__('category')}}
                         </th>
-                        <th scope="col" class="px-6 py-3 hidden lg:table-cell">
-                            {{__('brand')}}
-                        </th>
                         <th scope="col" class="px-6 py-3 text-right">
 
                         </th>
@@ -73,9 +70,7 @@
                         <td class="px-6 py-2 hidden lg:table-cell">
                             {{$item->category->plural_name}}
                         </td>
-                        <td class="px-6 py-2 hidden lg:table-cell">
-                            {{$item->brand->name}}
-                        </td>
+
                         <td class="px-6 py-2 flex justify-end">
                             <a href="{{route('product.edit', $item->slug)}}" wire:navigate>
                                 <x-buttons.edit-button >

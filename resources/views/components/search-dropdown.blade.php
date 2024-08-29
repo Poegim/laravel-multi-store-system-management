@@ -9,7 +9,6 @@
             @focus="openDropdown()"
             type="text"
             :id="InputVisibleUniqueId"
-            :name="InputVisibleUniqueId"
             x-ref="InputVisibleUniqueId"
             placeholder="Search..."
             class="border-r-0 rounded-tl-lg rounded-bl-lg border-blue-400 px-3 py-2 w-full"

@@ -105,16 +105,12 @@ class ShowProducts extends Component
     public function render()
     {
         $sortDirection = $this->sortAsc ? 'asc' : 'desc';
-        $products = Product::with(['category', 'brand'])->where('name', 'like', '%'.$this->search.'%')
+        $products = Product::with(['category'])->where('name', 'like', '%'.$this->search.'%')
                         ->orderBy($this->sortField, $sortDirection)
                         ->paginate(10);
 
-        $brands = DB::table('brands')
-        ->select('id', 'name')
-        ->get();
-
         $categoryOptions = $this->renderCategoryOptions($this->categories);
 
-        return view('livewire.warehouse.product.show-products', compact('products', 'brands', 'categoryOptions'));
+        return view('livewire.warehouse.product.show-products', compact('products', 'categoryOptions'));
     }
 }

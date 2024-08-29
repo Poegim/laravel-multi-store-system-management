@@ -31,7 +31,6 @@ class ProductController extends Controller
 
     public function create()
     {
-
         return view('warehouse.product.create', [
             'categoryOptions' => $this->renderCategoryOptions($this->categoryService->activeTree()),
             'brands' => Brand::select('id', 'name')->get(),
@@ -40,7 +39,10 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        return $request;
+        $this->productService->store($request->validated());
+        session()->flash('flash.banner', __('Successfully created!'));
+        session()->flash('flash.bannerStyle', 'success');
+        return redirect()->route('product.index');
     }
 
     public function edit(string $slug)

@@ -18,10 +18,11 @@ class UpdateProductRequest extends FormRequest
                 'string',
                 'min:2',
                 'max:255',
-                Rule::unique('products')->where('brand_id', $this->input('brand_id'))->ignore($this->id)
+                // Rule::unique('products')->where('brand_id', $this->input('brand_id'))->ignore($this->id)
+                Rule::unique('products')->ignore($this->id)
             ],
-            'is_device' => [''],
-            'brand_id' => ['required', 'exists:App\Models\Warehouse\Brand,id'],
+            'is_device' => ['required', 'boolean'],
+            // 'brand_id' => ['required', 'exists:App\Models\Warehouse\Brand,id'],
             'category_id' => ['required', 'exists:App\Models\Warehouse\Category,id'],
         ];
     }

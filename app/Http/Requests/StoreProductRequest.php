@@ -26,9 +26,9 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string','min:2','max:255',],
-            'slug' => ['required', 'string','min:2','max:255', Rule::unique('products')->where('brand_id', $this->input('brand_id'))],
-            'is_device' => [''],
-            'brand_id' => ['required', 'exists:App\Models\Warehouse\Brand,id'],
+            'slug' => ['required', 'string','min:2','max:255', Rule::unique('products')],
+            'is_device' => ['required', 'boolean'],
+            // 'brand_id' => ['required', 'exists:App\Models\Warehouse\Brand,id'],
             'category_id' => ['required', 'exists:App\Models\Warehouse\Category,id'],
         ];
     }
