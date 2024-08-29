@@ -12,29 +12,37 @@
             :name="InputVisibleUniqueId"
             x-ref="InputVisibleUniqueId"
             placeholder="Search..."
-            class="border-r-0 rounded-tl-lg rounded-bl-lg border-blue-400 px-3 py-2 w-11/12"
-            
+            class="border-r-0 rounded-tl-lg rounded-bl-lg border-blue-400 px-3 py-2 w-full"
+
         />
-        
-        <button 
-            @click="toggleDropdown()" 
-            class="border border-l-0 rounded-tr-lg rounded-br-lg border-blue-400 w-1/12">v</button>
+
+        <button
+            type="button"
+            @click="toggleDropdown()"
+            class="border border-l-0 rounded-tr-lg rounded-br-lg border-blue-400 pl-2">
+
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            class="size-4 ml-auto mr-3">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+            </svg>
+
+        </button>
     </div>
-    
-    <input type="hidden" 
+
+    <input type="hidden"
         :id="uniqueId"
         :name="uniqueId"
         x-ref="hiddenInput"
         required
     />
 
-    <ul x-show="open" class="border bg-white w-full mt-1 z-90 max-h-96 overflow-y-auto">
+    <ul x-show="open" class="border bg-white w-full mt-1 z-90 max-h-48 overflow-y-auto absolute">
         <template x-for="(item, index) in filteredData" :key="index">
-            <li 
+            <li
                 :class="{'bg-blue-500 text-white': index === highlightedIndex}"
                 @click="selectOption(index)"
                 @mouseenter="highlightedIndex = index"
-                class="px-4 py-2 cursor-pointer"
+                class="px-4 py-1 cursor-pointer text-sm"
             >
                 <span x-text="item[searchBy]"></span>
             </li>
@@ -54,7 +62,7 @@
             originalData: @json($collection),
             filteredData: @json($collection),
             selected: false,
-            
+
             init() {
                 // If passedId is provided, select the corresponding option
                 if (this.passedId != null) {

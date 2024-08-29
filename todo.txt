@@ -35,8 +35,6 @@ ADDITIONAL FEATURES
     Price tags generator (with api for phone specs)
 
 REFACTOR
-    Rewrite SearchDropdown component to partly use vanilla JavaScript to avoid unnecessary requests.
-
 
 MINOR INFO
     -- comments in create-products
