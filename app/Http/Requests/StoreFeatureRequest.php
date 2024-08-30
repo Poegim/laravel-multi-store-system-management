@@ -3,11 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Support\Str;
-use App\Models\Warehouse\Brand;
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProductRequest extends FormRequest
+class StoreFeatureRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,20 +23,11 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string','min:2','max:255',],
-            'slug' => ['required', 'string','min:2','max:255', Rule::unique('products')],
-            'is_device' => ['required', 'boolean'],
-            // 'brand_id' => ['required', 'exists:App\Models\Warehouse\Brand,id'],
-            'category_id' => ['required', 'exists:App\Models\Warehouse\Category,id'],
+            'name' => ['required', 'string', 'unique:features,name', 'min:2', 'max:20'],
+            'short_name' => ['unique:features,short_name', 'min:2', 'max:6', 'nullable'],
+            'slug' => ['required', 'string','min:2','max:20', 'unique:features,slug'],
         ];
     }
-
-    // public function messages()
-    // {
-    //     return [
-    //         'slug.unique' => 'The combination of name and brand must be unique.',
-    //     ];
-    // }
 
     /**
      * Prepare the data for validation.

@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\Warehouse\BrandController;
 use App\Http\Controllers\Warehouse\CategoryController;
+use App\Http\Controllers\Warehouse\FeatureController;
 use App\Http\Controllers\Warehouse\ProductController;
 
 Route::name('user.')->prefix('user')->middleware(['auth', IsAdmin::class])->group(function () {
@@ -47,6 +48,15 @@ Route::name('product.')->prefix('product')->middleware(['auth'])->group(function
     Route::get('/{product:slug}', [ProductController::class, 'show'])->name('show');
     Route::get('/{product:slug}/edit', [ProductController::class, 'edit'])->name('edit');
     Route::put('/{product:slug}/update', [ProductController::class, 'update'])->name('update');
+});
+
+Route::name('feature.')->prefix('feature')->middleware(['auth'])->group(function () {
+    Route::get('', [FeatureController::class, 'index'])->name('index');
+    Route::get('/create', [FeatureController::class, 'create'])->name('create');
+    Route::post('/store', [FeatureController::class, 'store'])->name('store');
+    Route::get('/{feature:slug}', [FeatureController::class, 'show'])->name('show');
+    Route::get('/{feature:slug}/edit', [FeatureController::class, 'edit'])->name('edit');
+    Route::put('/{feature:slug}/update', [FeatureController::class, 'update'])->name('update');
 });
 
 Route::middleware([

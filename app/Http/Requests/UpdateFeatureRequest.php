@@ -3,11 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Support\Str;
-use App\Models\Warehouse\Brand;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProductRequest extends FormRequest
+class UpdateFeatureRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,21 +23,31 @@ class StoreProductRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
-            'name' => ['required', 'string','min:2','max:255',],
-            'slug' => ['required', 'string','min:2','max:255', Rule::unique('products')],
-            'is_device' => ['required', 'boolean'],
-            // 'brand_id' => ['required', 'exists:App\Models\Warehouse\Brand,id'],
-            'category_id' => ['required', 'exists:App\Models\Warehouse\Category,id'],
+            'name' => [
+                'required',
+                'string',
+                'min:2',
+                'max:20',
+                Rule::unique('features', 'name')->ignore($this->feature, 'slug'),
+            ],
+            'short_name' => [
+                'nullable',
+                'string',
+                'min:2',
+                'max:6',
+                Rule::unique('features', 'short_name')->ignore($this->feature, 'slug'),
+            ],
+            'slug' => [
+                'required',
+                'string',
+                'min:2',
+                'max:20',
+                Rule::unique('features', 'slug')->ignore($this->feature, 'slug'),
+            ],
         ];
     }
-
-    // public function messages()
-    // {
-    //     return [
-    //         'slug.unique' => 'The combination of name and brand must be unique.',
-    //     ];
-    // }
 
     /**
      * Prepare the data for validation.

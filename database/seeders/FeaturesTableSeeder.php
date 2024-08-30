@@ -49,6 +49,7 @@ class FeaturesTableSeeder extends Seeder
         foreach($features as $feature) {
             DB::table('features')->insert([
                 'name' => $feature,
+                'short_name' => NULL,
                 'slug' => Str::slug($feature),
                 'created_at' => now(),
                 'updated_at' => now()

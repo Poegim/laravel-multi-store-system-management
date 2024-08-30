@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('features', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+
+            $table->string('short_name')->unique()->nullable()
+            ->comment('Short name will be used for receipts that have a limited number of characters');
+
             $table->string('slug')->unique();
             $table->timestamps();
         });

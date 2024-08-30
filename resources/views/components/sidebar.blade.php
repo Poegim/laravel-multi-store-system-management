@@ -102,8 +102,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" wire:navigate
-                                class="flex items-center p-2 pl-11 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 {{-- request()->routeIs('store.index') ? 'nav-active-tab' : '' --}}">
+                            <a href="{{route('feature.index')}}" wire:navigate
+                                class="flex items-center p-2 pl-11 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 {{request()->routeIs('feature.index') ? 'nav-active-tab' : ''}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
