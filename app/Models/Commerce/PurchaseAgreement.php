@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Warehouse;
+namespace App\Models\Commerce;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ExternalInvoice extends Model
+class PurchaseAgreement extends Model
 {
     use HasFactory;
 }

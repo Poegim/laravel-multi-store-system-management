@@ -16,7 +16,7 @@
 
 .nav-active-tab
 {
-    @apply bg-gradient-to-tr from-indigo-200 to-green-200 dark:from-indigo-400 dark:to-green-400;
+    @apply bg-gradient-to-tr from-blue-100 to-purple-200 dark:from-blue-500 dark:to-gray-500;
 }
 
 .breadcrumb
