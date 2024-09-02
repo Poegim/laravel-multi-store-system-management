@@ -12,7 +12,11 @@ export default {
         './resources/views/**/*.blade.php',
         "./node_modules/flowbite/**/*.js",
     ],
-
+    safelist: [
+      {
+        pattern: /(?:bg-|fill-)(red|orange|yellow|green|teal|blue|indigo|purple|pink|rose|cyan|emerald|fuchsia|gray|lime|amber|violet|slate|stone|zinc|neutral|warmGray|coolGray|blueGray)-(50|100|200|300|400|500|600|700|800|900|950)/
+      }
+    ],
 
     theme: {
         extend: {

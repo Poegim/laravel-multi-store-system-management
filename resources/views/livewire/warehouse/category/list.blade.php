@@ -1,6 +1,6 @@
 <div class="ml-12 text-gray-800 dark:text-gray-200" x-data="{ open: true }">
 
-    <div class="flex items-center rounded-lg py-1 ml-1">
+    <div class="flex items-center rounded-md py-1 ml-1">
 
         @if (array_key_exists('children', $category))
         <button @click="open = ! open" class="px-1 py-1 font-extrabold rounded bg-gray-200 dark:bg-gray-700 transition-all duration-150" :class="open ? '' : 'rotate-180'">
@@ -11,7 +11,7 @@
         @endif
 
         <div class="w-full ml-2">
-            <div class="px-2 rounded-lg w-full grid grid-cols-1 xl:grid-cols-2 border-dotted border-b border-gray-500 py-1 hover:bg-gray-100 dark:hover:bg-gray-700">
+            <div class="px-2 rounded-md w-full grid grid-cols-1 xl:grid-cols-2 border-dotted border-b border-gray-500 py-1 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <span class="my-auto flex">
                     {{ $category['plural_name'] }}
                 </span>

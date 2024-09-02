@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="breadcrumb text-xl text-gray-800 dark:text-gray-200 leading-tight lowercase">
-            <div class="sm:flex">
+            <div class="sm:flex py-6 px-4">
                 <a class="link" href="{{ route('product.index')}} " wire:navigate>{{__('back to:')}}
                     {{ __('products') }}</a>
                 <div class="flex space-x-2">
@@ -30,7 +30,7 @@
         </x-lists.errors-list>
         @endif
 
-        <div class="mt-4 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div class="mt-4 p-4 rounded-md border border-gray-200 dark:border-gray-700">
 
             <label for="name" class="input-label">{{__('name')}}</label>
             @error('name')
@@ -47,7 +47,7 @@
             @error('category')
             <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
             @enderror
-            <select class="w-full rounded-lg border border-blue-300 mb-4" name="category_id">
+            <select class="w-full rounded-md border border-blue-300 mb-4" name="category_id">
                 {!! $categoryOptions !!}
             </select>
 

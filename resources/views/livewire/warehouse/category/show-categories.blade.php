@@ -1,5 +1,5 @@
 <div class="py-2 sm:py-4 text-gray-800 dark:text-gray-200">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="">
 
         <div class="w-full flex justify-end my-4 h-9 space-x-2 pr-2 sm:pr-0">
             <x-button wire:click="create()">
@@ -7,8 +7,8 @@
             </x-button>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-            <div class="p-4 rounded-lg shadow-lg">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-md">
+            <div class="p-4 rounded-md shadow-lg">
                 <div class="-ml-12">
                     @foreach ($categories as $categoryName => $category)
                         @include('livewire.warehouse.category.list', ['name' => $categoryName, 'category' => $category,
@@ -39,7 +39,7 @@
             </x-lists.errors-list>
             @endif
 
-            <div class="mt-4 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+            <div class="mt-4 p-4 rounded-md border border-gray-200 dark:border-gray-700">
 
                 <label for="plural_name"
                     class="input-label">{{__('plural_name')}}</label>
@@ -89,13 +89,13 @@
                 @error('category')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
-                <select class="w-full rounded-lg border border-blue-300 mb-4" wire:model="parent_id">
+                <select class="w-full rounded-md border border-blue-300 mb-4" wire:model="parent_id">
                     @php
                         renderCategoryOptions($categoriesSelectList);
                     @endphp
                 </select>
 
-                <div class="border-2 border-orange-500 dark:border-orange-300 p-2 rounded-lg">
+                <div class="border-2 border-orange-500 dark:border-orange-300 p-2 rounded-md">
                     @error('disabled')
                     <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                     @enderror
@@ -109,7 +109,7 @@
                     </div>
                     <div class="flex my-2">
                         <input wire:model="disabled" type="checkbox" id="disabled"
-                        class="my-auto border border-indigo-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-gray-700 dark:border-gray-600" required />
+                        class="my-auto border border-indigo-300 text-gray-900 text-sm rounded-md p-2.5 dark:bg-gray-700 dark:border-gray-600" required />
                         <label for="disabled" class="ml-2 my-auto text-sm font-medium text-gray-900 dark:text-white">{{__('disabled')}}</label>
                     </div>
                 </div>

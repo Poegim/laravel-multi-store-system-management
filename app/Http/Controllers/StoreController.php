@@ -25,7 +25,10 @@ class StoreController extends Controller
 
     public function show(Store $store): View 
     {
-        return view('management.store.show', compact('store'));
+        return view('management.store.show', [
+            'store' => $store,
+            'storeBgColor' => 'bg-'.$store->color->name,
+        ]);
     }
 
     public function create()

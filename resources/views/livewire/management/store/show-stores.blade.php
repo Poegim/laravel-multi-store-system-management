@@ -32,8 +32,7 @@
                         <div class="flex">
                             <div style="background-color:{{$item->color->value}};" class="h-8 w-8 my-auto rounded-full">
                             </div>
-                            <a href="{{route('store.show', $item)}}" class="my-auto ml-2"
-                                wire:navigate>{{$item->name}}</a>
+                            <a href="{{route('store.show', $item)}}" class="my-auto ml-2" wire:navigate >{{$item->name}}</a>
                         </div>
                     </th>
                     <td class="px-6 py-2 hidden md:table-cell">
@@ -45,7 +44,7 @@
                         Edit
                         </x-buttons.edit-button> --}}
 
-                        <a href="{{route('store.edit', $item)}}" wire:navigate>
+                        <a href="{{route('store.edit', $item)}}" wire:navigate >
                             <x-buttons.edit-button class="edit-button" />
                         </a>
                     </td>

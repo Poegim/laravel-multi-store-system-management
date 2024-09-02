@@ -1,12 +1,12 @@
 <div class="py-2 sm:py-4">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="">
 
         <div class="w-full flex justify-end my-4 h-9 space-x-2 pr-2 sm:pr-0">
             <x-input id="name" type="text" aria-placeholder="Search..." placeholder="Search..." wire:model.debounce.500ms.live="search" />
             @livewire('warehouse.brand.create-brand')
         </div>
 
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-md">
             <div class="relative overflow-x-auto">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
@@ -101,7 +101,7 @@
             </x-lists.errors-list>
             @endif
 
-            <div class="mt-4 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+            <div class="mt-4 p-4 rounded-md border border-gray-200 dark:border-gray-700">
 
                 <label for="name"
                     class="input-label">{{__('name')}}</label>

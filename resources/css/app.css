@@ -16,7 +16,7 @@
 
 .nav-active-tab
 {
-    @apply bg-gradient-to-tr from-blue-100 to-purple-200 dark:from-blue-500 dark:to-gray-500;
+    @apply bg-gradient-to-tr from-blue-100 to-purple-200 dark:from-blue-500 dark:to-gray-500 hover:from-blue-100 hover:to-purple-300 dark:hover:from-blue-600 dark:hover:to-gray-600;
 }
 
 .breadcrumb
@@ -44,5 +44,5 @@
 
 .input-text
 {
-    @apply mb-4 border border-indigo-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white;
+    @apply mb-4 border border-indigo-300 text-gray-900 text-sm rounded-md block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white;
 }

@@ -43,4 +43,28 @@ class Store extends Model
     {
         return $this->belongsTo(Color::class);
     }
+
+    public function storeBgColor(): String
+    {
+        return 'bg-'.$this->color->name;
+    }
+
+    public function fillColor(): String
+    {
+        return 'fill-'.$this->color->name;
+    }
+
+    public function bgFillColor(): string
+    {
+        $parts = explode('-', $this->color->name);
+        if(count($parts) != 2) {
+            return 'bg-white';
+        } else {
+            if(intval($parts[1]) > 500) {
+                return 'bg-white';
+            } else {
+                return 'bg-slate-900';
+            }
+        }
+    }
 }

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="breadcrumb text-xl text-gray-800 dark:text-gray-200 leading-tight lowercase">
-            <div class="sm:flex">
+            <div class="sm:flex py-6 px-4">
                 <a class="link" href="{{ route('feature.index')}} " wire:navigate>{{__('back to:')}}
                     {{ __('features') }}</a>
                 <div class="flex space-x-2">
@@ -30,7 +30,7 @@
         </x-lists.errors-list>
         @endif
 
-        <div class="mt-4 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div class="mt-4 p-4 rounded-md border border-gray-200 dark:border-gray-700">
 
             <label for="name" class="input-label">{{__('name')}}</label>
             @error('name')

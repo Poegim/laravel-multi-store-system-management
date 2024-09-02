@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\GitHubController;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\GitHubController;
+use App\Http\Controllers\Commerce\SaleController;
 use App\Http\Controllers\Warehouse\BrandController;
-use App\Http\Controllers\Warehouse\CategoryController;
 use App\Http\Controllers\Warehouse\FeatureController;
 use App\Http\Controllers\Warehouse\ProductController;
+use App\Http\Controllers\Warehouse\CategoryController;
 
 Route::name('user.')->prefix('user')->middleware(['auth', IsAdmin::class])->group(function () {
     Route::get('', [UserController::class, 'index'])->name('index');
@@ -58,6 +59,16 @@ Route::name('feature.')->prefix('feature')->middleware(['auth'])->group(function
     Route::get('/{feature:slug}/edit', [FeatureController::class, 'edit'])->name('edit');
     Route::put('/{feature:slug}/update', [FeatureController::class, 'update'])->name('update');
 });
+
+Route::name('sale.')->prefix('sale')->middleware(['auth'])->group(function () {
+    Route::get('/store/{store:id?}', [SaleController::class, 'index'])->name('index');
+    Route::get('/store/{store}/create', [SaleController::class, 'create'])->name('create');
+    Route::post('/store', [SaleController::class, 'store'])->name('store');
+    Route::get('/show/{sale}', [SaleController::class, 'show'])->name('show');
+    Route::get('/{sale}/edit', [SaleController::class, 'edit'])->name('edit');
+    Route::put('/{sale}/update', [SaleController::class, 'update'])->name('update');
+});
+
 
 Route::middleware([
     'auth:sanctum',

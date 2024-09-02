@@ -39,6 +39,7 @@
     darkMode = JSON.parse(localStorage.getItem('darkMode'));
     $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))" x-cloak>
 
+    @props(['headerBgColor' => 'bg-white dark:bg-gray-800'])
     <div x-bind:class="{'dark' : darkMode === false}">
 
         <x-banner />
@@ -56,8 +57,8 @@
             <div class="w-full">
                 <!-- Page Heading -->
                 @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <header class="shadow {{ $headerBgColor }}">
+                    <div class="mx-auto">
                         {{ $header }}
                     </div>
                 </header>
@@ -66,7 +67,7 @@
                 <!-- Page Content -->
                 <main>
                     <div class="py-2 dark:text-gray-200">
-                        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div class="mx-auto sm:px-4">
                             {{ $slot }}
                         </div>
                     </div>

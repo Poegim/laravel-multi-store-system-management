@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="breadcrumb text-xl text-gray-800 dark:text-gray-200 leading-tight lowercase">
-            <div class="sm:flex">
+            <div class="sm:flex py-6 px-4">
                 <a class="link" href="{{route('store.index')}}" wire:navigate>{{__('back to:')}} {{ __('stores') }}</a>
                 <div class="flex space-x-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -29,7 +29,7 @@
             @endif
 
             <div x-data="{ open: true}"
-                class="border border-gray-200 dark:border-gray-600 rounded-lg my-2 overflow-hidden">
+                class="border border-gray-200 dark:border-gray-600 rounded-md my-2 overflow-hidden">
                 <button type="button" class="accordion-btn" x-on:click="open = !open"
                     :class="!open ? '' : 'bg-gray-200 dark:bg-gray-900'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -101,7 +101,7 @@
 
             <!-- Address tab -->
             <div x-data="{ open: false}"
-                class="border border-gray-200 dark:border-gray-600 rounded-lg my-2 overflow-hidden">
+                class="border border-gray-200 dark:border-gray-600 rounded-md my-2 overflow-hidden">
                 <button type="button" class="accordion-btn" x-on:click="open = !open"
                     :class="!open ? '' : 'bg-gray-200 dark:bg-gray-900'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -167,7 +167,7 @@
 
             <!-- Prefixes tab -->
             <div x-data="{ open: false}"
-                class="border border-gray-200 dark:border-gray-600 rounded-lg my-2 overflow-hidden">
+                class="border border-gray-200 dark:border-gray-600 rounded-md my-2 overflow-hidden">
                 <button type="button" class="accordion-btn" x-on:click="open = !open"
                     :class="!open ? '' : 'bg-gray-200 dark:bg-gray-900'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -246,7 +246,7 @@
 
             <!-- Indexes tab -->
             <div x-data="{ open: false}"
-                class="border border-gray-200 dark:border-gray-600 rounded-lg my-2 overflow-hidden">
+                class="border border-gray-200 dark:border-gray-600 rounded-md my-2 overflow-hidden">
                 <button type="button" class="accordion-btn" x-on:click="open = !open"
                     :class="!open ? '' : 'bg-gray-200 dark:bg-gray-900'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -325,7 +325,7 @@
 
             <!-- Description tab -->
             <div x-data="{ open: false}"
-                class="border border-gray-200 dark:border-gray-600 rounded-lg my-2 overflow-hidden">
+                class="border border-gray-200 dark:border-gray-600 rounded-md my-2 overflow-hidden">
                 <button type="button" class="accordion-btn" x-on:click="open = !open"
                     :class="!open ? '' : 'bg-gray-200 dark:bg-gray-900'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
