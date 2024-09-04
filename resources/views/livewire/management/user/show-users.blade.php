@@ -24,7 +24,7 @@
             </div>
 
             @foreach($users as $item)
-            <div class="bg-white dark:bg-gray-800 grid grid-cols-1 md:grid-cols-3 md:hover:bg-gray-200 dark:md:hover:bg-gray-600 rounded-md md:rounded-none p-4 md:p-0 m-4 md:m-0 border border-1 border-gray-200 md:border-0">
+            <div class="bg-white dark:bg-gray-800 grid grid-cols-1 md:grid-cols-3 md:hover:bg-gray-200 dark:md:hover:bg-gray-600 rounded-mid  md:rounded-none p-4 md:p-0 m-4 md:m-0 border border-1 border-gray-200 md:border-0">
                 <div
                     class="px-6 py-2 font-medium text-center items-center md:place-items-start text-gray-900 whitespace-nowrap dark:text-white flex flex-col md:flex-row md:text-left justify-center md:justify-start">
                     <img src="{{ $item->profile_photo_url }}" alt="{{ $item->name }}"

@@ -1,4 +1,4 @@
-<div>
+<div class="py-1">
 
     <div class="w-full flex justify-end my-4 h-9 space-x-2 pr-2 sm:pr-0">
         <x-input id="name" type="text" aria-placeholder="Search..." placeholder="Search..." wire:model.debounce.500ms.live="search" />
@@ -41,9 +41,6 @@
                             </div>
                         </th>
                         <th scope="col" class="px-6 py-3 hidden lg:table-cell">
-                            {{__('slug')}}
-                        </th>
-                        <th scope="col" class="px-6 py-3 hidden lg:table-cell">
                             {{__('category')}}
                         </th>
                         <th scope="col" class="px-6 py-3 text-right">
@@ -55,23 +52,20 @@
                     @foreach($products as $item)
                     <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
                         wire:key="row-{{ $item->id }}">
-                        <td class="px-6 py-2">
+                        <td class="px-6 py-1">
                             {{$item->id}}
                         </td>
-                        <td scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <td scope="row" class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <div class="flex">
                                 <a href="#" class="my-auto" alt="{{$item->name}}"
                                     label="{{$item->name}}">{{Illuminate\Support\Str::limit($item->name, 30, '...')}}</a>
                             </div>
                         </td>
-                        <td class="px-6 py-2 hidden lg:table-cell">
-                            {{$item->slug}}
-                        </td>
-                        <td class="px-6 py-2 hidden lg:table-cell">
+                        <td class="px-6 py-1 hidden lg:table-cell">
                             {{$item->category->plural_name}}
                         </td>
 
-                        <td class="px-6 py-2 flex justify-end">
+                        <td class="px-6 py-1 flex justify-end">
                             <a href="{{route('product.edit', $item->slug)}}" wire:navigate>
                                 <x-buttons.edit-button >
                                     Edit

@@ -18,10 +18,10 @@
             <img src="{{ asset('logo.png') }}" alt="logo" class="mx-auto mb-4 hidden md:block">
 
             <ul class="space-y-2">
-                @if (Route::is('store.show') || Route::is('sale.create'))
+                {{-- @if (Route::is('store.show') || Route::is('sale.create'))
                 <li>
                     <a href="{{ route('sale.create', request()->route('store')) }}" @click="setLastClicked('sell')" wire:navigate
-                    class="flex items-center p-2 text-gray-700 dark:text-white rounded-md group hover:bg-gray-100 dark:hover:bg-gray-700 {{ Route::is('sale.create') ? 'nav-active-tab' : ''}}">
+                    class="flex items-center p-2 text-gray-700 dark:text-white rounded-mid  group hover:bg-gray-100 dark:hover:bg-gray-700 {{ Route::is('sale.create') ? 'nav-active-tab' : ''}}">
                     <svg 
                         xmlns="http://www.w3.org/2000/svg" 
                         viewBox="0 0 576 512" class="size-6 fill-amber-500 dark:fill-amber-300" >
@@ -31,10 +31,10 @@
                         <span class="ml-3">{{ __('Sell in:') }} {{ request()->route('store')->invoices_prefix }}</span>
                     </a>
                 </li>
-                @endif
+                @endif --}}
                 <li>
                     <a href="{{ route('dashboard') }}" @click="setLastClicked('dashboard')" wire:navigate
-                        class="flex items-center p-2 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md group {{ request()->routeIs('dashboard') ? 'nav-active-tab' : ''}}">
+                        class="flex items-center p-2 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-mid  group {{ request()->routeIs('dashboard') ? 'nav-active-tab' : ''}}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                             <path fill-rule="evenodd"
                                 d="M2.25 13.5a8.25 8.25 0 0 1 8.25-8.25.75.75 0 0 1 .75.75v6.75H18a.75.75 0 0 1 .75.75 8.25 8.25 0 0 1-16.5 0Z"
@@ -49,7 +49,7 @@
 
                 <li>
                     <button type="button" @click="setLastClicked('repository')"
-                        class="flex items-center p-2 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                        class="flex items-center p-2 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-mid ">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                             <path
                                 d="M21 6.375c0 2.692-4.03 4.875-9 4.875S3 9.067 3 6.375 7.03 1.5 12 1.5s9 2.183 9 4.875Z" />
@@ -63,7 +63,7 @@
                         <span class="flex-1 ml-3 text-left whitespace-nowrap">Repository</span>
                     </button>
 
-                    <ul class="mt-2 overflow-hidden space-y-2 border border-gray-300 dark:border-gray-700 rounded-md"
+                    <ul class="mt-2 overflow-hidden space-y-2 border border-gray-300 dark:border-gray-700 rounded-mid "
                         x-collapse.duration.50 x-show="lastClicked === 'repository'">
 
                         <li>
@@ -129,14 +129,14 @@
 
                 <li>
                     <button type="button" @click="setLastClicked('stores')"
-                        class="flex items-center p-2 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                        class="flex items-center p-2 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-mid ">
                         <svg class="size-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                             <path fill-rule="evenodd" d="M5.535 7.677c.313-.98.687-2.023.926-2.677H17.46c.253.63.646 1.64.977 2.61.166.487.312.953.416 1.347.11.42.148.675.148.779 0 .18-.032.355-.09.515-.06.161-.144.3-.243.412-.1.111-.21.192-.324.245a.809.809 0 0 1-.686 0 1.004 1.004 0 0 1-.324-.245c-.1-.112-.183-.25-.242-.412a1.473 1.473 0 0 1-.091-.515 1 1 0 1 0-2 0 1.4 1.4 0 0 1-.333.927.896.896 0 0 1-.667.323.896.896 0 0 1-.667-.323A1.401 1.401 0 0 1 13 9.736a1 1 0 1 0-2 0 1.4 1.4 0 0 1-.333.927.896.896 0 0 1-.667.323.896.896 0 0 1-.667-.323A1.4 1.4 0 0 1 9 9.74v-.008a1 1 0 0 0-2 .003v.008a1.504 1.504 0 0 1-.18.712 1.22 1.22 0 0 1-.146.209l-.007.007a1.01 1.01 0 0 1-.325.248.82.82 0 0 1-.316.08.973.973 0 0 1-.563-.256 1.224 1.224 0 0 1-.102-.103A1.518 1.518 0 0 1 5 9.724v-.006a2.543 2.543 0 0 1 .029-.207c.024-.132.06-.296.11-.49.098-.385.237-.85.395-1.344ZM4 12.112a3.521 3.521 0 0 1-1-2.376c0-.349.098-.8.202-1.208.112-.441.264-.95.428-1.46.327-1.024.715-2.104.958-2.767A1.985 1.985 0 0 1 6.456 3h11.01c.803 0 1.539.481 1.844 1.243.258.641.67 1.697 1.019 2.72a22.3 22.3 0 0 1 .457 1.487c.114.433.214.903.214 1.286 0 .412-.072.821-.214 1.207A3.288 3.288 0 0 1 20 12.16V19a2 2 0 0 1-2 2h-6a1 1 0 0 1-1-1v-4H8v4a1 1 0 0 1-1 1H6a2 2 0 0 1-2-2v-6.888ZM13 15a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2Z" clip-rule="evenodd"/>
                           </svg>                          
                         <span class="flex-1 ml-3 text-left whitespace-nowrap">Stores</span>
                     </button>
 
-                    <ul class="mt-2 overflow-hidden space-y-2 border border-gray-300 dark:border-gray-700 rounded-md"
+                    <ul class="mt-2 overflow-hidden space-y-2 border border-gray-300 dark:border-gray-700 rounded-mid "
                         x-collapse.duration.50 x-show="lastClicked === 'stores'">
 
                         @foreach ($stores as $store)
@@ -158,7 +158,7 @@
                 @if (auth()->user()->isAdmin())
                 <li>
                     <button type="button" @click="setLastClicked('management')"
-                        class="flex items-center p-2 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                        class="flex items-center p-2 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-mid ">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                             <path
                                 d="M18.75 12.75h1.5a.75.75 0 0 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5ZM12 6a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 12 6ZM12 18a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 12 18ZM3.75 6.75h1.5a.75.75 0 1 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5ZM5.25 18.75h-1.5a.75.75 0 0 1 0-1.5h1.5a.75.75 0 0 1 0 1.5ZM3 12a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 3 12ZM9 3.75a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5ZM12.75 12a2.25 2.25 0 1 1 4.5 0 2.25 2.25 0 0 1-4.5 0ZM9 15.75a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" />
@@ -166,7 +166,7 @@
                         <span class="flex-1 ml-3 text-left whitespace-nowrap">Management</span>
                     </button>
 
-                    <ul class=" mt-2 overflow-hidden space-y-2 border border-gray-300 dark:border-gray-700 rounded-md"
+                    <ul class=" mt-2 overflow-hidden space-y-2 border border-gray-300 dark:border-gray-700 rounded-mid "
                         x-collapse.duration.50 x-show="lastClicked === 'management'">
 
                         @can('viewAny', App\Models\User::class)
@@ -215,7 +215,7 @@
                     <form method="POST" action="{{ route('logout') }}" x-data>
                         @csrf
                         <a href="{{ route('logout') }}" @click.prevent="$root.submit();"
-                            class="flex items-center p-2 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md group">
+                            class="flex items-center p-2 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-mid  group">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -287,7 +287,7 @@
                     </button>
                 </div>
                 <div id="tooltip-mode" role="tooltip"
-                    class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-md shadow-sm opacity-0 transition-opacity duration-300 tooltip">
+                    class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-mid  shadow-sm opacity-0 transition-opacity duration-300 tooltip">
                     Dark/Light mode
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div>

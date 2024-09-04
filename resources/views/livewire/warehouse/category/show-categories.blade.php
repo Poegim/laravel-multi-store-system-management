@@ -7,8 +7,8 @@
             </x-button>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-md">
-            <div class="p-4 rounded-md shadow-lg">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-mid ">
+            <div class="p-4 rounded-mid  shadow-lg">
                 <div class="-ml-12">
                     @foreach ($categories as $categoryName => $category)
                         @include('livewire.warehouse.category.list', ['name' => $categoryName, 'category' => $category,
@@ -39,7 +39,7 @@
             </x-lists.errors-list>
             @endif
 
-            <div class="mt-4 p-4 rounded-md border border-gray-200 dark:border-gray-700">
+            <div class="mt-4 p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
 
                 <label for="plural_name"
                     class="input-label">{{__('plural_name')}}</label>
@@ -89,13 +89,13 @@
                 @error('category')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
-                <select class="w-full rounded-md border border-blue-300 mb-4" wire:model="parent_id">
+                <select class="w-full rounded-mid  border border-blue-300 mb-4" wire:model="parent_id">
                     @php
                         renderCategoryOptions($categoriesSelectList);
                     @endphp
                 </select>
 
-                <div class="border-2 border-orange-500 dark:border-orange-300 p-2 rounded-md">
+                <div class="border-2 border-orange-500 dark:border-orange-300 p-2 rounded-mid ">
                     @error('disabled')
                     <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                     @enderror
@@ -109,7 +109,7 @@
                     </div>
                     <div class="flex my-2">
                         <input wire:model="disabled" type="checkbox" id="disabled"
-                        class="my-auto border border-indigo-300 text-gray-900 text-sm rounded-md p-2.5 dark:bg-gray-700 dark:border-gray-600" required />
+                        class="my-auto border border-indigo-300 text-gray-900 text-sm rounded-mid  p-2.5 dark:bg-gray-700 dark:border-gray-600" required />
                         <label for="disabled" class="ml-2 my-auto text-sm font-medium text-gray-900 dark:text-white">{{__('disabled')}}</label>
                     </div>
                 </div>

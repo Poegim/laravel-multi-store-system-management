@@ -20,7 +20,7 @@
             </x-lists.errors-list>
             @endif
 
-            <div class="mt-4 p-4 rounded-md border border-gray-200 dark:border-gray-700">
+            <div class="mt-4 p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
 
                 <label for="name"
                     class="input-label">{{__('name')}}</label>

@@ -2,7 +2,7 @@
     {{
     $attributes->merge([
         'type' => 'submit',
-        'class' => 'flex space-x-1 transition-colors duration-300 bg-blue-900 dark:bg-blue-200 hover:bg-blue-700 dark:hover:bg-blue-400 px-4 py-1 rounded-md text-white dark:text-black'
+        'class' => 'flex space-x-1 transition-colors duration-300 bg-blue-900 dark:bg-blue-200 hover:bg-blue-700 dark:hover:bg-blue-400 px-4 py-1 rounded-mid  text-white dark:text-black'
         ])
     }}>
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">

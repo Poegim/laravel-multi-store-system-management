@@ -28,7 +28,7 @@
         </x-lists.errors-list>
         @endif
 
-        <div class="mt-4 p-4 rounded-md border border-gray-200 dark:border-gray-700">
+        <div class="mt-4 p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
 
             <label for="name" class="input-label">{{__('name')}}</label>
             @error('name')
@@ -45,7 +45,7 @@
             @error('category')
             <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
             @enderror
-            <select class="w-full rounded-md border border-blue-300 mb-4" name="category_id">
+            <select class="w-full rounded-mid  border border-blue-300 mb-4" name="category_id">
                 {!! $categoryOptions !!}
             </select>
 

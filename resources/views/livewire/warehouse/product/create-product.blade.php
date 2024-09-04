@@ -23,7 +23,7 @@
             </x-lists.errors-list>
             @endif
 
-            <div class="mt-4 p-4 rounded-md border border-gray-200 dark:border-gray-700">
+            <div class="mt-4 p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
 
                 <label for="name"
                     class="input-label">{{__('name')}}</label>
@@ -49,7 +49,7 @@
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
 
-                <select class="w-full rounded-md border border-blue-300 mb-4" wire:model="category_id">
+                <select class="w-full rounded-mid  border border-blue-300 mb-4" wire:model="category_id">
                     <option></option>
                     {!! $categoryOptions !!}
                 </select>
@@ -86,7 +86,7 @@
 
                 <div class="flex space-x-2 mt-4">
                     <input wire:model.live="is_device" type="checkbox" id="is_device"
-                    class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-md block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    class="mb-4 border border-indigo-300 text-gray-900 text-sm rounded-mid  block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                     required />
                     <label for="is_device"
                     class="input-label">{{__('is_device')}}</label>

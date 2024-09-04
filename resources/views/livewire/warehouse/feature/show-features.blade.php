@@ -1,5 +1,4 @@
-<div class="py-2 sm:py-4">
-    <div class="">
+<div class="py-1">
 
         <div class="w-full flex justify-end my-4 h-9 space-x-2 pr-2 sm:pr-0">
             <x-input id="name" type="text" aria-placeholder="Search..." placeholder="Search..." wire:model.debounce.500ms.live="search" />
@@ -8,8 +7,7 @@
             </a>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-md">
-            <div class="relative overflow-x-auto">
+        <x-window>
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
                         <tr>
@@ -58,22 +56,22 @@
                         @foreach($features as $item)
                         <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
                             <th scope="row"
-                                class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                class="font-thin px-6 py-1 text-gray-900 whitespace-nowrap dark:text-white">
                                     {{$item->id}}
                             </th>
                             <th scope="row"
-                                class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <div class="flex">
                                     <a href="#" class="my-auto">{{$item->name}}</a>
                                 </div>
                             </th>
-                            <td class="px-6 py-2 hidden lg:table-cell">
+                            <td class="px-6 py-1 hidden lg:table-cell">
                                 {{$item->short_name}}
                             </td>
-                            <td class="px-6 py-2 hidden lg:table-cell">
+                            <td class="px-6 py-1 hidden lg:table-cell">
                                 {{$item->slug}}
                             </td>
-                            <td class="px-6 py-2 flex justify-end">
+                            <td class="px-6 py-1 flex justify-end">
                                 <a href="{{route('feature.edit', $item->slug)}}">
                                     <x-buttons.edit-button>
                                         {{__('edit')}}
@@ -84,14 +82,9 @@
                         @endforeach
                     </tbody>
                 </table>
-            </div>
 
             <div class=" m-4">
                 {{ $features->links() }}
             </div>
-        </div>
-
-    </div>
-
-
+        </x-window>
 </div>
