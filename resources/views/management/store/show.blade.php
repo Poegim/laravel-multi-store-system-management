@@ -17,7 +17,7 @@
     <x-window>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 py-2">
             <div>
-                <a href="#" class="store-dashboard-link">
+                <a href="{{route('sale.create', $store)}}" class="store-dashboard-link" wire:navigate>
                     <div class="mx-auto flex">
                         <svg class="store-dashboard-icon fill-amber-500 dark:fill-amber-400"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
@@ -28,12 +28,12 @@
                         </svg>
                     </div>
                     <p class="mx-auto uppercase roboto font-semibold text-sm">
-                        {{ __('New sell') }}
+                        {{ __('New sale') }}
                     </p>
                 </a>
             </div>
             <div>
-                <a href="#" class="store-dashboard-link">
+                <a href="{{route('sale.index')}}" class="store-dashboard-link">
                     <div class="mx-auto">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
                             class="store-dashboard-icon fill-amber-500 dark:fill-amber-400">
@@ -43,7 +43,7 @@
                         </svg>
                     </div>
                     <p class="mx-auto uppercase roboto font-semibold text-sm">
-                        {{ __('Sell list') }}
+                        {{ __('Sale list') }}
                     </p>
                 </a>
             </div>

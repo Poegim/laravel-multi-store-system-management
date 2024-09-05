@@ -10,6 +10,7 @@ use App\Http\Controllers\Warehouse\BrandController;
 use App\Http\Controllers\Warehouse\FeatureController;
 use App\Http\Controllers\Warehouse\ProductController;
 use App\Http\Controllers\Warehouse\CategoryController;
+use App\Http\Controllers\Warehouse\ProductVariantController;
 
 Route::name('user.')->prefix('user')->middleware(['auth', IsAdmin::class])->group(function () {
     Route::get('', [UserController::class, 'index'])->name('index');
@@ -49,6 +50,14 @@ Route::name('product.')->prefix('product')->middleware(['auth'])->group(function
     Route::get('/{product:slug}', [ProductController::class, 'show'])->name('show');
     Route::get('/{product:slug}/edit', [ProductController::class, 'edit'])->name('edit');
     Route::put('/{product:slug}/update', [ProductController::class, 'update'])->name('update');
+});
+Route::name('product-variant.')->prefix('product-variant')->middleware(['auth'])->group(function () {
+    Route::get('', [ProductVariantController::class, 'index'])->name('index');
+    // Route::get('/create', [ProductVariantController::class, 'create'])->name('create');
+    // Route::post('/store', [ProductVariantController::class, 'store'])->name('store');
+    // Route::get('/{product:slug}', [ProductVariantController::class, 'show'])->name('show');
+    // Route::get('/{product:slug}/edit', [ProductVariantController::class, 'edit'])->name('edit');
+    // Route::put('/{product:slug}/update', [ProductVariantController::class, 'update'])->name('update');
 });
 
 Route::name('feature.')->prefix('feature')->middleware(['auth'])->group(function () {

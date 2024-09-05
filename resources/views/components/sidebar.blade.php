@@ -114,6 +114,16 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ route('product-variant.index') }}" wire:navigate
+                                class="flex items-center p-2 pl-11 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->routeIs('product-variant.index') ? 'nav-active-tab' : '' }}">
+                                <svg class="size-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 8v8m0-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 0a4 4 0 0 1-4 4h-1a3 3 0 0 0-3 3"/>
+                                  </svg>
+                                  
+                                <span class="ml-2">Variants</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{route('feature.index')}}" wire:navigate
                                 class="flex items-center p-2 pl-11 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 {{request()->routeIs('feature.index') ? 'nav-active-tab' : ''}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

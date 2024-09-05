@@ -18,7 +18,7 @@ return new class extends Migration
             $table->json('attributes')->nullable();
             $table->string('ean')->nullable();
             $table->foreignId('product_id')->constrained();
-            $table->unique(['product_id', 'slug']);
+            $table->unique(['product_id', 'id']);
             $table->timestamps();
         });
     }
