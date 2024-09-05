@@ -38,6 +38,7 @@ class ShowProductVariants extends Component
                 $q->where('name', 'like', '%' . $this->search . '%');
             });
         })
+        
         ->orderBy($this->sortField, $sortDirection)
         ->paginate(10);
         

@@ -32,7 +32,15 @@ class ProductVariantsTableSeeder extends Seeder
                     ];
                 } else {
                     if (rand(1, 2) === 1) {
-                        $name = $faker->sentence(rand(1, 2), true);
+                        $name = 'Wariant 1';
+                        $data[] = [
+                            'name' => $name,
+                            'slug' => Str::slug($name),
+                            'product_id' => $product->id,
+                        ];
+                    }
+                    if (rand(1, 3) === 2) {
+                        $name = 'Wariant 2';
                         $data[] = [
                             'name' => $name,
                             'slug' => Str::slug($name),

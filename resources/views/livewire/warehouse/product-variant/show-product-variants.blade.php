@@ -49,7 +49,10 @@
                             </div>
                         </th>
                         <th scope="col" class="px-6 py-3 hidden lg:table-cell">
-                        {{__('product')}}
+                        {{__('product id')}}
+                        </th>
+                        <th scope="col" class="px-6 py-3 hidden lg:table-cell">
+                        {{__('product name')}}
                         </th>
                         <th scope="col" class="px-6 py-3 hidden lg:table-cell">
                         {{__('ean')}}
@@ -72,6 +75,9 @@
                                 <a href="#" class="my-auto">{{$item->name}}</a>
                             </div>
                         </th>
+                        <td class="px-6 py-1 hidden lg:table-cell">
+                            {{$item->product->id}}
+                        </td>
                         <td class="px-6 py-1 hidden lg:table-cell">
                             {{$item->product->name}}
                         </td>
