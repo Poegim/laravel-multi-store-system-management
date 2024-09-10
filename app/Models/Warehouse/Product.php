@@ -49,4 +49,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductVariant::class);
     }
+
+    public function compatibleVariants()
+    {
+        return $this->belongsToMany(ProductVariant::class, 'product_variant_device', 'device_id', 'product_variant_id');
+    }
 }

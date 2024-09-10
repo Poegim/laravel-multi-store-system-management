@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('external_invoices', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('slug')->unique();
             $table->foreignId('store_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->foreignId('company_id')->constrained();
+            $table->integer('price');
+            $table->boolean('is_temp')->default(true);
             $table->timestamps();
         });
     }

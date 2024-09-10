@@ -7,11 +7,13 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Database\Factories\UserFactory;
+use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UsersTableSeeder extends Seeder
 {
+    
     /**
      * Run the database seeds.
      */

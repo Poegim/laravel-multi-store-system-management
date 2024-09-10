@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('nip');
+            $table->string('nip')->unique();
             $table->string('country');
             $table->string('city');
             $table->string('postcode');
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('phone')->default('');
             $table->string('second_phone')->default('');
             $table->string('www')->default('');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@ class ProductVariantsTableSeeder extends Seeder
     public function run(): void
     {
         $products = Product::all();
-        $faker = Faker::create();
+        // $faker = Faker::create();
 
         $batchSize = 1000;
         $data = [];

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Color;
 use App\Models\Store;
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -16,15 +17,17 @@ class StoresTableSeeder extends Seeder
     {
         // Store::factory(5)->create();
 
+        $faker = Faker::create('pl_PL');
+
         $stores = [
             [
                 'name' => 'Bronowice Wyspa',
                 'order' => rand(1,10),
-                'email' => fake()->unique()->safeEmail(),
-                'phone' => fake()->randomNumber(9),
-                'city' => fake()->city(),
-                'postcode' => fake()->randomNumber(5),
-                'street' => fake()->streetName(),
+                'email' => $faker->unique()->safeEmail(),
+                'phone' => $faker->randomNumber(9),
+                'city' => $faker->city(),
+                'postcode' => $faker->randomNumber(5),
+                'street' => $faker->streetName(),
                 'building_number' => rand(1,200),
                 'apartment_number' => rand(1,99),
                 'color_id' => Color::inRandomOrder()->first()->id,
@@ -40,16 +43,16 @@ class StoresTableSeeder extends Seeder
                 'next_proforma_invoice_number' => 1,
                 'next_internal_servicing_number' => 1,
                 'next_external_servicing_number' => 1,
-                'description' => fake()->words(20, true),
+                'description' => $faker->words(20, true),
             ],
             [
                 'name' => 'Bronowice Sklep',
                 'order' => rand(1,10),
-                'email' => fake()->unique()->safeEmail(),
-                'phone' => fake()->randomNumber(9),
-                'city' => fake()->city(),
-                'postcode' => fake()->randomNumber(5),
-                'street' => fake()->streetName(),
+                'email' => $faker->unique()->safeEmail(),
+                'phone' => $faker->randomNumber(9),
+                'city' => $faker->city(),
+                'postcode' => $faker->randomNumber(5),
+                'street' => $faker->streetName(),
                 'building_number' => rand(1,200),
                 'apartment_number' => rand(1,99),
                 'color_id' => Color::inRandomOrder()->first()->id,
@@ -65,16 +68,16 @@ class StoresTableSeeder extends Seeder
                 'next_proforma_invoice_number' => 1,
                 'next_internal_servicing_number' => 1,
                 'next_external_servicing_number' => 1,
-                'description' => fake()->words(20, true),
+                'description' => $faker->words(20, true),
             ],
             [
                 'name' => 'Galena Jaworzno',
                 'order' => rand(1,10),
-                'email' => fake()->unique()->safeEmail(),
-                'phone' => fake()->randomNumber(9),
-                'city' => fake()->city(),
-                'postcode' => fake()->randomNumber(5),
-                'street' => fake()->streetName(),
+                'email' => $faker->unique()->safeEmail(),
+                'phone' => $faker->randomNumber(9),
+                'city' => $faker->city(),
+                'postcode' => $faker->randomNumber(5),
+                'street' => $faker->streetName(),
                 'building_number' => rand(1,200),
                 'apartment_number' => rand(1,99),
                 'color_id' => Color::inRandomOrder()->first()->id,
@@ -90,16 +93,16 @@ class StoresTableSeeder extends Seeder
                 'next_proforma_invoice_number' => 1,
                 'next_internal_servicing_number' => 1,
                 'next_external_servicing_number' => 1,
-                'description' => fake()->words(20, true),
+                'description' => $faker->words(20, true),
             ],
             [
                 'name' => 'iAkces Galeria Bronowice',
                 'order' => rand(1,10),
-                'email' => fake()->unique()->safeEmail(),
-                'phone' => fake()->randomNumber(9),
-                'city' => fake()->city(),
-                'postcode' => fake()->randomNumber(5),
-                'street' => fake()->streetName(),
+                'email' => $faker->unique()->safeEmail(),
+                'phone' => $faker->randomNumber(9),
+                'city' => $faker->city(),
+                'postcode' => $faker->randomNumber(5),
+                'street' => $faker->streetName(),
                 'building_number' => rand(1,200),
                 'apartment_number' => rand(1,99),
                 'color_id' => Color::inRandomOrder()->first()->id,
@@ -115,16 +118,16 @@ class StoresTableSeeder extends Seeder
                 'next_proforma_invoice_number' => 1,
                 'next_internal_servicing_number' => 1,
                 'next_external_servicing_number' => 1,
-                'description' => fake()->words(20, true),
+                'description' => $faker->words(20, true),
             ],
             [
                 'name' => 'Etuillo Bronowice Sklep',
                 'order' => rand(1,10),
-                'email' => fake()->unique()->safeEmail(),
-                'phone' => fake()->randomNumber(9),
-                'city' => fake()->city(),
-                'postcode' => fake()->randomNumber(5),
-                'street' => fake()->streetName(),
+                'email' => $faker->unique()->safeEmail(),
+                'phone' => $faker->randomNumber(9),
+                'city' => $faker->city(),
+                'postcode' => $faker->randomNumber(5),
+                'street' => $faker->streetName(),
                 'building_number' => rand(1,200),
                 'apartment_number' => rand(1,99),
                 'color_id' => Color::inRandomOrder()->first()->id,
@@ -140,7 +143,7 @@ class StoresTableSeeder extends Seeder
                 'next_proforma_invoice_number' => 1,
                 'next_internal_servicing_number' => 1,
                 'next_external_servicing_number' => 1,
-                'description' => fake()->words(20, true),
+                'description' => $faker->words(20, true),
             ],
         ];
 

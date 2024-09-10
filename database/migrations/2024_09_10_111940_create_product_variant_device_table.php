@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_variants', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->default('default');
-            $table->string('slug')->default('');
-            $table->string('ean')->nullable();
-            $table->foreignId('product_id')->constrained('products');
+        Schema::create('product_variant_device', function (Blueprint $table) {
+            $table->foreignId('product_variant_id')->constrained('product_variants')->onDelete('cascade');
+            $table->foreignId('device_id')->constrained('products')->onDelete('cascade');
+            $table->primary(['product_variant_id', 'device_id']);
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_variants');
+        Schema::dropIfExists('product_variant_device');
     }
 };
