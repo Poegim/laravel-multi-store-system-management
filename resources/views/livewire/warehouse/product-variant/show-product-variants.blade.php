@@ -1,6 +1,6 @@
-<div class="py-1">
+<div >
 
-    <div class="w-full flex justify-end my-4 h-9 space-x-2 pr-2 sm:pr-0">
+    <div class="w-full flex justify-end my-1 sm:my-4 h-9 space-x-2 pr-2 sm:pr-0">
         <x-secondary-button wire:click="resetSearch">reset</x-secondary-button>
         <select wire:model="searchBy" name="searchBy" id="searchBy" 
             class="input-jetstream text-gray-700">

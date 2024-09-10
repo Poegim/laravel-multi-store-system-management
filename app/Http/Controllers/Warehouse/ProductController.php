@@ -29,6 +29,13 @@ class ProductController extends Controller
         ]);
     }
 
+    public function show(Product $product)
+    {
+        return view('warehouse.product.show', [
+            'product' => $product,
+        ]);
+    }
+
     public function create()
     {
         return view('warehouse.product.create', [

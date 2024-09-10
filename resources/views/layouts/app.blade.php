@@ -66,7 +66,7 @@
 
                 <!-- Page Content -->
                 <main>
-                    <div class="py-2 dark:text-gray-200">
+                    <div class="py-1 sm:py-2 dark:text-gray-200">
                         <div class="mx-auto sm:px-4">
                             {{ $slot }}
                         </div>

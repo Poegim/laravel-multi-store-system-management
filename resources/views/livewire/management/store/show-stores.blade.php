@@ -1,6 +1,6 @@
 <div>
 
-    <div class="w-full flex justify-end my-4 h-9 space-x-2 pr-2 sm:pr-0">
+    <div class="w-full flex justify-end my-1 sm:my-4 h-9 space-x-2 pr-2 sm:pr-0">
         <a href="{{route('store.create')}}" wire:navigate>
             <x-button>
                 {{ __('CREATE') }}
