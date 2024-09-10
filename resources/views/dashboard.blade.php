@@ -15,10 +15,18 @@
                 </div>
                 <div class="px-6 py-4">
                     @foreach ($commits as $commit)
-                        <div class="mb-4">
-                            <p class="text-lg font-semibold text-gray-800 dark:text-gray-200">{{$commit['commit']['message']}}</p>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">{{ \Carbon\Carbon::parse($commit['commit']['author']['date'])->diffForHumans() }}</p>
+                        @if (is_string($commit))
+                           <div class="roboto tracking-wide italic text-red-700 dark:text-red-200 font-semibold">
+                            {{ $commit }}
+                           </div>
+                        @else
+                        <div class="">
+                            <a href="{{$commit['parents'][0]['html_url']}}" target="_blank" class="link">
+                                <span class="text-base font-medium text-indigo-800 dark:text-indigo-200">{{$commit['commit']['message']}}</span>
+                            </a>
+                            <span class="text-sm text-gray-600 dark:text-gray-400">{{ \Carbon\Carbon::parse($commit['commit']['author']['date'])->diffForHumans() }}</span>
                         </div>
+                        @endif
                     @endforeach
                 </div>
             </div>
