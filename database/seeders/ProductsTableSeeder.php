@@ -58,7 +58,7 @@ class ProductsTableSeeder extends Seeder
         $categoryIds = DB::table('categories')->pluck('id')->toArray();
         // $brands = Brand::select(['id', 'name'])->get();
 
-        $numberOfProducts = 300;
+        $numberOfProducts = 1000;
 
         $data = [];
 
@@ -68,14 +68,14 @@ class ProductsTableSeeder extends Seeder
             // $brand = $brands->random();
             // $brandId = $brand->id;
 
-            $productName = $gsmProducts[rand(0, count($gsmProducts) - 1)] . ' ' . $words[rand(0, count($words) - 1)] . ' ' . $words[rand(0, count($words) - 1)];
-
+            $productName = $gsmProducts[rand(0, count($gsmProducts) - 1)] . ' ' . $words[rand(0, count($words) - 1)] . ' ' . $words[rand(0, count($words) - 1)] . ' ' . rand(1,100);
+            $is_device = rand(1,100) > 95 ? true : false;
             $data[] = [
                 'category_id' => $categoryId,
                 // 'brand_id' => $brandId,
                 'name' => $productName,
                 'slug' => Str::slug($productName),
-                'is_device' => false,
+                'is_device' => $is_device,
                 'created_at' => now(),
                 'updated_at' => now()
             ];

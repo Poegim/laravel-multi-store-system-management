@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Warehouse;
 
 use App\Http\Controllers\Controller;
+use App\Models\Warehouse\ProductVariant;
 use Illuminate\Http\Request;
 
 class ProductVariantController extends Controller
@@ -11,4 +12,5 @@ class ProductVariantController extends Controller
     {
         return view('warehouse.product_variant.index');
     }
+
 }

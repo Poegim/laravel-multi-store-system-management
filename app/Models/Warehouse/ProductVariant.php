@@ -24,10 +24,9 @@ class ProductVariant extends Model
                     ->withPivot('value');
     }
 
-    public function compatibleDevices(): BelongsToMany
+    public function devices(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'product_variant_device', 'product_variant_id', 'device_id')
-                    ->where('is_device', true);
+        return $this->belongsToMany(Product::class, 'device_product_variant', 'product_variant_id', 'device_id');
     }
 
 

@@ -57,7 +57,7 @@
                         </td>
                         <td scope="row" class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <div class="flex">
-                                <a href="#" class="my-auto" alt="{{$item->name}}"
+                                <a href="{{ route('product.show', $item)}}" class="link my-auto" alt="{{$item->name}}"
                                     label="{{$item->name}}">{{Illuminate\Support\Str::limit($item->name, 30, '...')}}</a>
                             </div>
                         </td>

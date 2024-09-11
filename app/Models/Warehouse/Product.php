@@ -40,18 +40,23 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function scopeDevices($query)
+    {
+        return $query->where('is_device', true);
+    }
+
     // public function brand(): BelongsTo
     // {
     //     return $this->belongsTo(Brand::class);
     // }
 
-    public function variants(): HasMany
+    public function productVariants(): HasMany
     {
         return $this->hasMany(ProductVariant::class);
     }
 
-    public function compatibleVariants()
-    {
-        return $this->belongsToMany(ProductVariant::class, 'product_variant_device', 'device_id', 'product_variant_id');
-    }
+    // public function compatibleVariants()
+    // {
+    //     return $this->belongsToMany(ProductVariant::class, 'product_variant_device', 'device_id', 'product_variant_id');
+    // }
 }
