@@ -44,7 +44,7 @@
                                 d="M12.75 3a.75.75 0 0 1 .75-.75 8.25 8.25 0 0 1 8.25 8.25.75.75 0 0 1-.75.75h-7.5a.75.75 0 0 1-.75-.75V3Z"
                                 clip-rule="evenodd" />
                         </svg>
-                        <span class="ml-3 text-xl font-semibold">Dashboardzzz</span>
+                        <span class="ml-3">Dashboard</span>
                     </a>
                 </li>
 
