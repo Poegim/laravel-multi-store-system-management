@@ -1,7 +1,10 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <img src="{{ asset('logo.png') }}" alt="logo">
+            {{-- <img src="{{ asset('logo.png') }}" alt="logo"> --}}
+            <div class="w-full text-center text-2xl font-light italic dark:text-gray-200">
+                Laravel Multi Store System Management
+            </div>
         </x-slot>
 
         <x-validation-errors class="mb-4" />

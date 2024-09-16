@@ -89,7 +89,7 @@
                 @error('category')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
-                <select class="w-full rounded-mid  border border-blue-300 mb-4" wire:model="parent_id">
+                <select class="w-full rounded-mid border border-blue-300 mb-4 dark:bg-slate-700 dark:text-gray200" wire:model="parent_id">
                     @php
                         renderCategoryOptions($categoriesSelectList);
                     @endphp

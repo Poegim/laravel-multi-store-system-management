@@ -15,7 +15,8 @@
         <div
             class="sm:text-sm overflow-y-auto py-5 sm:px-3 h-full bg-white md:border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
 
-            <img src="{{ asset('logo.png') }}" alt="logo" class="mx-auto mb-4 hidden md:block">
+            {{-- <img src="{{ asset('logo.png') }}" alt="logo" class="mx-auto mb-4 hidden md:block"> --}}
+            <div class="w-full text-center text-lg font-bold italic dark:text-gray-200">LMSSM</div>
 
             <ul class="space-y-2">
                 {{-- @if (Route::is('store.show') || Route::is('sale.create'))

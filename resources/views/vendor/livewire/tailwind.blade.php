@@ -41,7 +41,7 @@ $scrollIntoViewJsSnippet = ($scrollTo !== false)
 
             <div class="hidden lg:flex-1 lg:flex lg:items-center lg:justify-between">
                 <div>
-                    <p class="text-sm text-gray-700 leading-5">
+                    <p class="text-sm text-gray-700 dark:text-gray-400 leading-5">
                         <span>{!! __('Showing') !!}</span>
                         <span class="font-medium">{{ $paginator->firstItem() }}</span>
                         <span>{!! __('to') !!}</span>

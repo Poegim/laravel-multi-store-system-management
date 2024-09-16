@@ -13,4 +13,14 @@ class ProductVariantController extends Controller
         return view('warehouse.product_variant.index');
     }
 
+    public function show(string $slug)
+    {
+
+        $productVariant = ProductVariant::where('slug', $slug)->with('stockItems')->first();
+                
+        return view('warehouse.product_variant.show', [
+            'productVariant' => $productVariant,
+        ]);
+    }
+
 }

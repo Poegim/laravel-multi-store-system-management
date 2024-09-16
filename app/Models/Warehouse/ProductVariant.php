@@ -24,6 +24,11 @@ class ProductVariant extends Model
                     ->withPivot('value');
     }
 
+    public function stockItems()
+    {
+        return $this->hasMany(StockItem::class);
+    }
+
     public function devices(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'device_product_variant', 'product_variant_id', 'device_id');

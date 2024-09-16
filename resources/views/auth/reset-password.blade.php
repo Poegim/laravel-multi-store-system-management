@@ -1,7 +1,8 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <img src="{{ asset('logo.png') }}" alt="logo">
+            {{-- <img src="{{ asset('logo.png') }}" alt="logo"> --}}
+            <div class="w-full text-center text-lg font-bold italic dark:text-gray-200">LMSSM</div>
         </x-slot>
 
         <x-validation-errors class="mb-4" />
