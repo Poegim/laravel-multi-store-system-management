@@ -38,3 +38,4 @@ REFACTOR
 
 MINOR INFO
     -- comments in create-products
+    -- comments in seeders

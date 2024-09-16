@@ -20,6 +20,14 @@ class FeatureController extends Controller
         return view('warehouse.feature.index');
     }
 
+    public function show(string $slug)
+    {
+        $feature = Feature::where('slug', $slug)->with('productVariants')->first();
+        return view('warehouse.feature.show', [
+            'feature' => $feature,
+        ]);
+    }
+
     public function create()
     {
         return view('warehouse.feature.create');

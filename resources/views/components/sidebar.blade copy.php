@@ -34,22 +34,24 @@
                 </li>
                 @endif --}}
                 <li>
-                    <a href="{{ route('dashboard') }}" 
-                       @click="setLastClicked('dashboard')" 
-                       wire:navigate
-                       class="flex items-center p-2 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md group {{ request()->routeIs('dashboard') ? 'nav-active-tab' : ''}}">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-gray-500 dark:text-gray-300">
-                            <path fill-rule="evenodd" d="M2.25 13.5a8.25 8.25 0 0 1 8.25-8.25.75.75 0 0 1 .75.75v6.75H18a.75.75 0 0 1 .75.75 8.25 8.25 0 0 1-16.5 0Z" clip-rule="evenodd" />
-                            <path fill-rule="evenodd" d="M12.75 3a.75.75 0 0 1 .75-.75 8.25 8.25 0 0 1 8.25 8.25.75.75 0 0 1-.75.75h-7.5a.75.75 0 0 1-.75-.75V3Z" clip-rule="evenodd" />
+                    <a href="{{ route('dashboard') }}" @click="setLastClicked('dashboard')" wire:navigate
+                        class="flex items-center p-2 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-mid  group {{ request()->routeIs('dashboard') ? 'nav-active-tab' : ''}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                            <path fill-rule="evenodd"
+                                d="M2.25 13.5a8.25 8.25 0 0 1 8.25-8.25.75.75 0 0 1 .75.75v6.75H18a.75.75 0 0 1 .75.75 8.25 8.25 0 0 1-16.5 0Z"
+                                clip-rule="evenodd" />
+                            <path fill-rule="evenodd"
+                                d="M12.75 3a.75.75 0 0 1 .75-.75 8.25 8.25 0 0 1 8.25 8.25.75.75 0 0 1-.75.75h-7.5a.75.75 0 0 1-.75-.75V3Z"
+                                clip-rule="evenodd" />
                         </svg>
-                        <span class="ml-3 text-lg font-medium">Dashboard</span>
+                        <span class="ml-3 text-xl font-semibold">Dashboardzzz</span>
                     </a>
                 </li>
 
                 <li>
                     <button type="button" @click="setLastClicked('repository')"
                         class="flex items-center p-2 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-mid ">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-gray-500 dark:text-gray-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                             <path
                                 d="M21 6.375c0 2.692-4.03 4.875-9 4.875S3 9.067 3 6.375 7.03 1.5 12 1.5s9 2.183 9 4.875Z" />
                             <path
@@ -59,7 +61,7 @@
                             <path
                                 d="M12 20.25c2.685 0 5.19-.586 7.078-1.609a8.282 8.282 0 0 0 1.897-1.384c.016.121.025.244.025.368 0 2.692-4.03 4.875-9 4.875s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.284 8.284 0 0 0 1.897 1.384C6.809 19.664 9.315 20.25 12 20.25Z" />
                         </svg>
-                        <span class="flex-1 ml-3 text-left whitespace-nowrap text-lg font-medium">Repository</span>
+                        <span class="flex-1 ml-3 text-left whitespace-nowrap">Repository</span>
                     </button>
 
                     <ul class="mt-2 overflow-hidden space-y-2 border border-gray-300 dark:border-gray-700 rounded-mid "
@@ -74,7 +76,7 @@
                                         d="M7.491 5.992a.75.75 0 0 1 .75-.75h12a.75.75 0 1 1 0 1.5h-12a.75.75 0 0 1-.75-.75ZM7.49 11.995a.75.75 0 0 1 .75-.75h12a.75.75 0 0 1 0 1.5h-12a.75.75 0 0 1-.75-.75ZM7.491 17.994a.75.75 0 0 1 .75-.75h12a.75.75 0 1 1 0 1.5h-12a.75.75 0 0 1-.75-.75ZM2.24 3.745a.75.75 0 0 1 .75-.75h1.125a.75.75 0 0 1 .75.75v3h.375a.75.75 0 0 1 0 1.5H2.99a.75.75 0 0 1 0-1.5h.375v-2.25H2.99a.75.75 0 0 1-.75-.75ZM2.79 10.602a.75.75 0 0 1 0-1.06 1.875 1.875 0 1 1 2.652 2.651l-.55.55h.35a.75.75 0 0 1 0 1.5h-2.16a.75.75 0 0 1-.53-1.281l1.83-1.83a.375.375 0 0 0-.53-.53.75.75 0 0 1-1.062 0ZM2.24 15.745a.75.75 0 0 1 .75-.75h1.125a1.875 1.875 0 0 1 1.501 2.999 1.875 1.875 0 0 1-1.501 3H2.99a.75.75 0 0 1 0-1.501h1.125a.375.375 0 0 0 .036-.748H3.74a.75.75 0 0 1-.75-.75v-.002a.75.75 0 0 1 .75-.75h.411a.375.375 0 0 0-.036-.748H2.99a.75.75 0 0 1-.75-.75Z"
                                         clip-rule="evenodd" />
                                 </svg> --}}
-                                <svg viewBox="0 0 48 48" class="size-6 text-gray-500 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                                <svg viewBox="0 0 48 48" class="size-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                     <g id="SVGRepo_iconCarrier"> <title>tree-structure</title> 
@@ -82,7 +84,7 @@
                                             <rect fill="none"></rect> </g> <g id="Q3_icons" data-name="Q3 icons"> 
                                                 <path d="M26,30H42a2,2,0,0,0,2-2V20a2,2,0,0,0-2-2H26a2,2,0,0,0-2,2v2H16V14h6a2,2,0,0,0,2-2V4a2,2,0,0,0-2-2H6A2,2,0,0,0,4,4v8a2,2,0,0,0,2,2h6V40a2,2,0,0,0,2,2H24v2a2,2,0,0,0,2,2H42a2,2,0,0,0,2-2V36a2,2,0,0,0-2-2H26a2,2,0,0,0-2,2v2H16V26h8v2A2,2,0,0,0,26,30Zm2-8H40v4H28ZM8,6H20v4H8ZM28,38H40v4H28Z">
                                                     </path> </g> </g> </g></svg>
-                                <span class="ml-2 font-medium">Categories</span>
+                                <span class="ml-2">Categories</span>
                             </a>
                         </li>
 
@@ -90,7 +92,7 @@
                         <li>
                             <a href="{{ route('brand.index') }}" wire:navigate
                                 class="flex items-center p-2 pl-11 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->routeIs('brand.index') ? 'nav-active-tab' : '' }}">
-                                <svg fill="#000000" class="size-6 fill-gray-500 dark:fill-gray-300" version="1.1"
+                                <svg fill="#000000" class="size-6 fill-gray-900 dark:fill-white" version="1.1"
                                     id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 507.2 507.2"
                                     xml:space="preserve">
@@ -106,39 +108,39 @@
                                         </g>
                                     </g>
                                 </svg>
-                                <span class="ml-2 font-medium">Brands</span>
+                                <span class="ml-2">Brands</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('product.index') }}" wire:navigate
                                 class="flex items-center p-2 pl-11 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->routeIs('product.index') ? 'nav-active-tab' : '' }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-6 text-gray-500 dark:text-gray-300">
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
                                 </svg>
-                                <span class="ml-2 font-medium">Products</span>
+                                <span class="ml-2">Products</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('product-variant.index') }}" wire:navigate
                                 class="flex items-center p-2 pl-11 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->routeIs('product-variant.index') ? 'nav-active-tab' : '' }}">
-                                <svg class="text-gray-500 dark:text-gray-300 size-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <svg class="size-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 8v8m0-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 0a4 4 0 0 1-4 4h-1a3 3 0 0 0-3 3"/>
                                   </svg>
                                   
-                                <span class="ml-2 font-medium">Variants</span>
+                                <span class="ml-2">Variants</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{route('feature.index')}}" wire:navigate
                                 class="flex items-center p-2 pl-11 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 {{request()->routeIs('feature.index') ? 'nav-active-tab' : ''}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-6 text-gray-500 dark:text-gray-300">
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402M6.75 21A3.75 3.75 0 0 1 3 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 0 0 3.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008Z" />
                                 </svg>
-                                <span class="ml-2 font-medium">Features</span>
+                                <span class="ml-2">Features</span>
                             </a>
                         </li>
                     </ul>
@@ -147,10 +149,10 @@
                 <li>
                     <button type="button" @click="setLastClicked('stores')"
                         class="flex items-center p-2 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-mid ">
-                        <svg class="size-6 text-gray-500 dark:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <svg class="size-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                             <path fill-rule="evenodd" d="M5.535 7.677c.313-.98.687-2.023.926-2.677H17.46c.253.63.646 1.64.977 2.61.166.487.312.953.416 1.347.11.42.148.675.148.779 0 .18-.032.355-.09.515-.06.161-.144.3-.243.412-.1.111-.21.192-.324.245a.809.809 0 0 1-.686 0 1.004 1.004 0 0 1-.324-.245c-.1-.112-.183-.25-.242-.412a1.473 1.473 0 0 1-.091-.515 1 1 0 1 0-2 0 1.4 1.4 0 0 1-.333.927.896.896 0 0 1-.667.323.896.896 0 0 1-.667-.323A1.401 1.401 0 0 1 13 9.736a1 1 0 1 0-2 0 1.4 1.4 0 0 1-.333.927.896.896 0 0 1-.667.323.896.896 0 0 1-.667-.323A1.4 1.4 0 0 1 9 9.74v-.008a1 1 0 0 0-2 .003v.008a1.504 1.504 0 0 1-.18.712 1.22 1.22 0 0 1-.146.209l-.007.007a1.01 1.01 0 0 1-.325.248.82.82 0 0 1-.316.08.973.973 0 0 1-.563-.256 1.224 1.224 0 0 1-.102-.103A1.518 1.518 0 0 1 5 9.724v-.006a2.543 2.543 0 0 1 .029-.207c.024-.132.06-.296.11-.49.098-.385.237-.85.395-1.344ZM4 12.112a3.521 3.521 0 0 1-1-2.376c0-.349.098-.8.202-1.208.112-.441.264-.95.428-1.46.327-1.024.715-2.104.958-2.767A1.985 1.985 0 0 1 6.456 3h11.01c.803 0 1.539.481 1.844 1.243.258.641.67 1.697 1.019 2.72a22.3 22.3 0 0 1 .457 1.487c.114.433.214.903.214 1.286 0 .412-.072.821-.214 1.207A3.288 3.288 0 0 1 20 12.16V19a2 2 0 0 1-2 2h-6a1 1 0 0 1-1-1v-4H8v4a1 1 0 0 1-1 1H6a2 2 0 0 1-2-2v-6.888ZM13 15a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2Z" clip-rule="evenodd"/>
                           </svg>                          
-                        <span class="flex-1 ml-3 text-left whitespace-nowrap text-lg font-medium">Stores</span>
+                        <span class="flex-1 ml-3 text-left whitespace-nowrap">Stores</span>
                     </button>
 
                     <ul class="mt-2 overflow-hidden space-y-2 border border-gray-300 dark:border-gray-700 rounded-mid "
@@ -160,7 +162,7 @@
                             <li>
                                 <a href="{{ route('store.show', $store->id) }}" wire:navigate
                                     class="flex p-2 text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 {{ url()->current() == route('store.show', $store->id) ? 'nav-active-tab' : ''}}">
-                                    <span class="ml-11 font-medium">
+                                    <span class="ml-11">
                                         {{ $store->name}}
                                     </span>
                                 </a>
@@ -176,11 +178,11 @@
                 <li>
                     <button type="button" @click="setLastClicked('management')"
                         class="flex items-center p-2 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-mid ">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-gray-500 dark:text-gray-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                             <path
                                 d="M18.75 12.75h1.5a.75.75 0 0 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5ZM12 6a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 12 6ZM12 18a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 12 18ZM3.75 6.75h1.5a.75.75 0 1 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5ZM5.25 18.75h-1.5a.75.75 0 0 1 0-1.5h1.5a.75.75 0 0 1 0 1.5ZM3 12a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 3 12ZM9 3.75a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5ZM12.75 12a2.25 2.25 0 1 1 4.5 0 2.25 2.25 0 0 1-4.5 0ZM9 15.75a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" />
                         </svg>
-                        <span class="flex-1 ml-3 text-left whitespace-nowrap text-lg font-medium">Management</span>
+                        <span class="flex-1 ml-3 text-left whitespace-nowrap">Management</span>
                     </button>
 
                     <ul class=" mt-2 overflow-hidden space-y-2 border border-gray-300 dark:border-gray-700 rounded-mid "
@@ -191,7 +193,7 @@
                             <a href="{{ route('user.index') }}" wire:navigate
                                 class="flex items-center p-2 pl-11 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->routeIs('user.index') ? 'nav-active-tab' : ''}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                    class="size-6 text-gray-500 dark:text-gray-300">
+                                    class="size-6">
                                     <path fill-rule="evenodd"
                                         d="M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 0 1-.372-.568 6.787 6.787 0 0 1 1.019-4.38Z"
                                         clip-rule="evenodd" />
@@ -199,7 +201,7 @@
                                         d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
                                 </svg>
 
-                                <span class="ml-2 font-medium">Users</span>
+                                <span class="ml-2">Users</span>
                             </a>
                         </li>
                         @endcan
@@ -208,14 +210,14 @@
                             <a href="{{ route('store.index') }}" wire:navigate
                                 class="flex items-center p-2 pl-11 w-full text-gray-700 transition duration-75 group dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 {{ request()->routeIs('store.index') ? 'nav-active-tab' : ''}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                    class="size-6 text-gray-500 dark:text-gray-300">
+                                    class="size-6">
                                     <path
                                         d="M5.223 2.25c-.497 0-.974.198-1.325.55l-1.3 1.298A3.75 3.75 0 0 0 7.5 9.75c.627.47 1.406.75 2.25.75.844 0 1.624-.28 2.25-.75.626.47 1.406.75 2.25.75.844 0 1.623-.28 2.25-.75a3.75 3.75 0 0 0 4.902-5.652l-1.3-1.299a1.875 1.875 0 0 0-1.325-.549H5.223Z" />
                                     <path fill-rule="evenodd"
                                         d="M3 20.25v-8.755c1.42.674 3.08.673 4.5 0A5.234 5.234 0 0 0 9.75 12c.804 0 1.568-.182 2.25-.506a5.234 5.234 0 0 0 2.25.506c.804 0 1.567-.182 2.25-.506 1.42.674 3.08.675 4.5.001v8.755h.75a.75.75 0 0 1 0 1.5H2.25a.75.75 0 0 1 0-1.5H3Zm3-6a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-.75.75h-3a.75.75 0 0 1-.75-.75v-3Zm8.25-.75a.75.75 0 0 0-.75.75v5.25c0 .414.336.75.75.75h3a.75.75 0 0 0 .75-.75v-5.25a.75.75 0 0 0-.75-.75h-3Z"
                                         clip-rule="evenodd" />
                                 </svg>
-                                <span class="ml-2 font-medium">Stores</span>
+                                <span class="ml-2">Stores</span>
                             </a>
                         </li>
 
@@ -238,7 +240,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
                             </svg>
-                            <span class="ml-4 text-lg font-medium">
+                            <span class="ml-4">
                                 {{ __('Log Out') }}
                             </span>
                         </a>
@@ -251,7 +253,7 @@
             <div class="justify-center p-4 space-x-2 w-full flex bg-white dark:bg-gray-800 z-20">
 
                 <a href="{{ route('profile.show') }}" wire:navigate
-                    class="inline-flex justify-center p-2 text-gray-800 dark:text-gray-200 rounded cursor-pointer dark:hover:text-white hover:text-gray-700 dark:hover:bg-gray-600 hover:bg-gray-100">
+                    class="inline-flex justify-center p-2 text-gray-800 dark:text-gray-200 rounded cursor-pointer dark dark:hover:text-white hover:text-gray-700 dark:hover:bg-gray-600 hover:bg-gray-100">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -260,7 +262,7 @@
                 </a>
 
                 <a href="#"
-                    class="inline-flex justify-center p-2 text-gray-800 dark:text-gray-200 rounded cursor-pointer dark:hover:text-white hover:text-gray-700  dark:hover:bg-gray-600 hover:bg-gray-200">
+                    class="inline-flex justify-center p-2 text-gray-800 dark:text-gray-200 rounded cursor-pointer dark dark:hover:text-white hover:text-gray-700  dark:hover:bg-gray-600 hover:bg-gray-200">
                     <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -275,7 +277,7 @@
                         x-on:click="darkMode = !darkMode"
                         class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-gray-200 focus:ring-offset-2 hover:bg-sky-500"
                         role="switch" aria-checked="false">
-                        <span class="sr-only">mode toggle</span>
+                        <span class="sr-only">Dark mode toggle</span>
 
                         <span x-bind:class="darkMode ? 'translate-x-5 bg-sky-700' : 'translate-x-0 bg-black'"
                             class="pointer-events-none relative inline-block h-5 w-5 transform rounded-full shadow ring-0 transition duration-200 ease-in-out">

@@ -1,0 +1,24 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="breadcrumb text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            <div class="sm:flex py-6 px-4">
+            {{ __('Feature') }}: {{ $feature->name }}, {{ $feature->id }}
+            </div>
+        </h2>
+    </x-slot>
+    
+    <x-window>
+        @if ($feature->productVariants)
+         
+            @foreach ($feature->productVariants as $item)
+            <p>
+                {{ $item->id}}, {{ $item->name }}
+            </p>
+            @endforeach
+
+        @else
+            <p>Didnt found any product variants realated to this feature.</p>
+        @endif
+    </x-window>
+
+</x-app-layout>

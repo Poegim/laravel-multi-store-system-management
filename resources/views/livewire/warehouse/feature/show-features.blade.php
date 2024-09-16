@@ -62,7 +62,7 @@
                             <th scope="row"
                                 class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <div class="flex">
-                                    <a href="#" class="my-auto">{{$item->name}}</a>
+                                    <a href="{{ route('feature.show', $item->slug) }}" class="link my-auto">{{$item->name}}</a>
                                 </div>
                             </th>
                             <td class="px-6 py-1 hidden lg:table-cell">
