@@ -10,9 +10,9 @@
     <x-window>
         @if ($feature->productVariants)
          
-            @foreach ($feature->productVariants as $item)
+            @foreach ($feature->productVariants as $productVariant)
             <p>
-                {{ $item->id}}, {{ $item->name }}
+                {{$productVariant->product->name }}, {{ $productVariant->id}}, {{ $productVariant->name }}
             </p>
             @endforeach
 

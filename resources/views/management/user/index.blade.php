@@ -7,6 +7,6 @@
         </h2>
     </x-slot>
     
-    @livewire('management.user.show-users')
+    @livewire('management.user.index-users')
 
 </x-app-layout>

@@ -8,7 +8,7 @@ use App\Traits\Sortable;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ShowFeatures extends Component
+class IndexFeatures extends Component
 {
     use Searchable;
     use Sortable;
@@ -22,6 +22,6 @@ class ShowFeatures extends Component
                     ->orderBy($this->sortField, $sortDirection)
                     ->paginate(10);
 
-        return view('livewire.warehouse.feature.show-features', compact('features'));
+        return view('livewire.warehouse.feature.index-features', compact('features'));
     }
 }

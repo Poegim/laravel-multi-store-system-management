@@ -8,7 +8,7 @@ use App\Traits\Sortable;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ShowProductVariants extends Component
+class IndexProductVariants extends Component
 {
     use Sortable;
     use Searchable;
@@ -42,7 +42,7 @@ class ShowProductVariants extends Component
         ->orderBy($this->sortField, $sortDirection)
         ->paginate(10);
         
-        return view('livewire.warehouse.product-variant.show-product-variants', [
+        return view('livewire.warehouse.product-variant.index-product-variants', [
             'productVariants' => $productsVariants,
         ]);
     }

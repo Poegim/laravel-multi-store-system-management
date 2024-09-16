@@ -22,7 +22,7 @@ class FeatureController extends Controller
 
     public function show(string $slug)
     {
-        $feature = Feature::where('slug', $slug)->with('productVariants')->first();
+        $feature = Feature::where('slug', $slug)->with('productVariants.product')->first();
         return view('warehouse.feature.show', [
             'feature' => $feature,
         ]);

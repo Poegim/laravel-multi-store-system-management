@@ -11,7 +11,7 @@ use App\Models\Warehouse\Category;
 use App\Rules\ValidParentCategory;
 use Laravel\Jetstream\InteractsWithBanner;
 
-class ShowCategories extends Component
+class IndexCategories extends Component
 {
 
     use InteractsWithBanner;
@@ -168,6 +168,6 @@ class ShowCategories extends Component
 
     public function render()
     {
-        return view('livewire.warehouse.category.show-categories');
+        return view('livewire.warehouse.category.index-categories');
     }
 }

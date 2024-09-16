@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use App\Traits\RendersCategoryOptions;
 use Laravel\Jetstream\InteractsWithBanner;
 
-class ShowProducts extends Component
+class IndexProducts extends Component
 {
     use Sortable;
     use Searchable;
@@ -111,6 +111,6 @@ class ShowProducts extends Component
 
         $categoryOptions = $this->renderCategoryOptions($this->categories);
 
-        return view('livewire.warehouse.product.show-products', compact('products', 'categoryOptions'));
+        return view('livewire.warehouse.product.index-products', compact('products', 'categoryOptions'));
     }
 }

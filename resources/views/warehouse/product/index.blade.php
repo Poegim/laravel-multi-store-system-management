@@ -7,6 +7,6 @@
         </h2>
     </x-slot>
     
-    @livewire('warehouse.product.show-products')
+    @livewire('warehouse.product.index-products')
 
 </x-app-layout>

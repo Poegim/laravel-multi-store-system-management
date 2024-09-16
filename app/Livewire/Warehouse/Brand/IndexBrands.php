@@ -14,7 +14,7 @@ use Illuminate\Validation\Rule;
 use Laravel\Jetstream\InteractsWithBanner;
 
 
-class ShowBrands extends Component
+class IndexBrands extends Component
 {
     use WithPagination;
     use Sortable;
@@ -79,6 +79,6 @@ class ShowBrands extends Component
                     ->orderBy($this->sortField, $sortDirection)
                     ->paginate(10);
 
-        return view('livewire.warehouse.brand.show-brands', compact('brands'));
+        return view('livewire.warehouse.brand.index-brands', compact('brands'));
     }
 }

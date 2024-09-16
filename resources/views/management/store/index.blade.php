@@ -9,6 +9,6 @@
 
     </x-slot>
     
-    @livewire('management.store.show-stores')
+    @livewire('management.store.index-stores')
 
 </x-app-layout>

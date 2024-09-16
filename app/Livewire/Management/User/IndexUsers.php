@@ -5,7 +5,7 @@ namespace App\Livewire\Management\User;
 use App\Models\User;
 use Livewire\Component;
 
-class ShowUsers extends Component
+class IndexUsers extends Component
 {
 
     public bool $showEditModal = false;
@@ -40,7 +40,7 @@ class ShowUsers extends Component
     
     public function render()
     {
-        return view('livewire.management.user.show-users', [
+        return view('livewire.management.user.index-users', [
             'users' => User::all()->except(1),
         ]);
     }
