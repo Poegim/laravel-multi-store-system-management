@@ -74,7 +74,7 @@ class ProductsTableSeeder extends Seeder
 
             $productName = $gsmProducts[rand(0, count($gsmProducts) - 1)] . ' ' . $words[rand(0, count($words) - 1)] . ' ' . $words[rand(0, count($words) - 1)] . ' ' . rand(1,100);
             $is_device = rand(1,100) > 95 ? true : false;
-            $price = rand(1,3) === 3 ? $this->getRandomPrice() : null;
+            $price = rand(1,3) === 3 ? $this->getRandomPrice() : 0;
             $data[] = [
                 'category_id' => $categoryId,
                 // 'brand_id' => $brandId,

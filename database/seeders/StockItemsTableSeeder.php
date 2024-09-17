@@ -42,7 +42,7 @@ class StockItemsTableSeeder extends Seeder
                     $productVariantId = $productVariants[array_rand($productVariants)];
                     $storeId = $stores[array_rand($stores)];
                     $brandId = $brands[array_rand($brands)];
-                    $price = rand(1,5) === 1 ? null : $this->getRandomPrice();
+                    $price = rand(1,5) === 1 ? 0 : $this->getRandomPrice();
 
                     $batchData[] = [
                         'product_variant_id' => $productVariantId,

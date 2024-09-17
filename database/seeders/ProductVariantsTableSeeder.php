@@ -29,7 +29,7 @@ class ProductVariantsTableSeeder extends Seeder
         foreach ($products as $product) {
             for ($i = 0; $i < 2; $i++) {
                 if ($i === 0) {
-                    $price = rand(1,2) === 1 ? $this->getRandomPrice() : null;
+                    $price = rand(1,2) === 1 ? $this->getRandomPrice() : 0;
 
                     $data[] = [
                         'name' => 'default',
@@ -39,7 +39,7 @@ class ProductVariantsTableSeeder extends Seeder
                     ];
                 } else {
                     if (rand(1, 2) === 1) {
-                        $price = rand(1,2) === 1 ? $this->getRandomPrice() : null;
+                        $price = rand(1,2) === 1 ? $this->getRandomPrice() : 0;
                         $name = 'Wariant 1';
 
                         $data[] = [
@@ -50,7 +50,7 @@ class ProductVariantsTableSeeder extends Seeder
                         ];
                     }
                     if (rand(1, 3) === 2) {
-                        $price = rand(1,2) === 1 ? $this->getRandomPrice() : null;
+                        $price = rand(1,2) === 1 ? $this->getRandomPrice() : 0;
 
                         $name = 'Wariant 2';
                         $data[] = [

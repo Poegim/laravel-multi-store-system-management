@@ -4,6 +4,7 @@ namespace App\Models\Warehouse;
 
 use App\Models\Warehouse\Brand;
 use App\Models\Warehouse\Category;
+use App\Traits\ModelHasPrice;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Product extends Model
 {
     use HasFactory;
+    use ModelHasPrice;
 
     // public static function boot()
     // {

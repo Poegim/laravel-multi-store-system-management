@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_variant_id')->constrained();
-            $table->integer('price')->nullable();
+            $table->integer('price')->default(0);
             $table->foreignId('store_id')->constrained();
             $table->foreignId('external_invoice_id')->constrained();
             $table->integer('quantity')->default(0);
