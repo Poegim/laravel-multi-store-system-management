@@ -2,9 +2,10 @@
 
 namespace App\Models\Warehouse;
 
+use App\Traits\ModelHasPrice;
 use App\Models\Warehouse\Brand;
 use App\Models\Warehouse\Category;
-use App\Traits\ModelHasPrice;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -61,4 +62,5 @@ class Product extends Model
     // {
     //     return $this->belongsToMany(ProductVariant::class, 'product_variant_device', 'device_id', 'product_variant_id');
     // }
+
 }

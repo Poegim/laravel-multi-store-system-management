@@ -8,8 +8,8 @@
 
     <x-window>
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
-                <tr>
+            <thead class="text-xs uppercase">
+                <tr class="text-black dark:text-white">
                     <th scope="col" class="px-6 py-3">
                         <div class="flex cursor-pointer" wire:click="sortBy('id')">
                             <span class="uppercase">
@@ -34,8 +34,17 @@
                             </svg>
                         </div>
                     </th>
-                    <th scope="col" class="px-6 py-3 hidden md:table-cell">
-                        {{__('items_count')}}
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex cursor-pointer" wire:click="sortBy('stock_items_count')">
+                            <span class="uppercase">
+                                {{__('stock_items_count')}}
+                            </span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor"
+                                class="size-4 {{ $sortField === 'stock_items_count' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </div>
                     </th>
                     <th scope="col" class="px-6 py-3 hidden lg:table-cell">
                         {{__('slug')}}

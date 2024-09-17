@@ -11,8 +11,8 @@
     <x-window>
 
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
-                <tr>
+            <thead class="text-xs uppercase">
+                <tr class="text-black dark:text-white">
                     <th scope="col" class="px-6 py-3">
                         {{__('name')}}
                     </th>
