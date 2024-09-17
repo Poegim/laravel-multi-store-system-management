@@ -77,6 +77,7 @@ class IndexBrands extends Component
 
         $brands = Brand::where('name', 'like', '%'.$this->search.'%')
                     ->orderBy($this->sortField, $sortDirection)
+                    ->withCount('stockItems')
                     ->paginate(10);
 
         return view('livewire.warehouse.brand.index-brands', compact('brands'));

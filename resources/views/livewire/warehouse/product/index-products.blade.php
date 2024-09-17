@@ -52,7 +52,7 @@
                     @foreach($products as $item)
                     <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
                         wire:key="row-{{ $item->id }}">
-                        <td class="px-6 py-1">
+                        <td class="px-6 py-1 dark:text-gray-100 font-thin">
                             {{$item->id}}
                         </td>
                         <td scope="row" class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">

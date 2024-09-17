@@ -13,7 +13,7 @@
 
 .rounded-mid
 {
-    @apply rounded;
+    @apply rounded-sm;
 }
 
 .store-dashboard-link
@@ -36,7 +36,11 @@
 
 .nav-active-tab
 {
-    @apply bg-gradient-to-tr from-blue-100 to-purple-200 dark:from-blue-500 dark:to-gray-500 hover:from-blue-100 hover:to-purple-300 dark:hover:from-blue-600 dark:hover:to-gray-600;
+    @apply bg-gray-900 text-gray-100 dark:bg-gray-200 dark:text-gray-900 hover:bg-gray-700 dark:hover:bg-gray-100;
+}
+.nav-inactive-tab
+{
+    @apply dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700;
 }
 
 .breadcrumb
@@ -47,7 +51,7 @@
 
 .link
 {
-    @apply text-blue-700 dark:text-blue-500 hover:underline;
+    @apply text-blue-700 dark:text-blue-500 underline hover:tracking-wide italic;
     font-family: "Roboto Condensed", sans-serif;
 }
 

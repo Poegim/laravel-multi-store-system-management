@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+
     /**
      * Run the migrations.
      */
@@ -14,6 +15,8 @@ return new class extends Migration
         Schema::create('stock_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_variant_id')->constrained();
+            $table->integer('price')->nullable();
+            $table->foreignId('brand_id')->constrained();
             $table->string('color');
             $table->integer('status');
             $table->foreignId('store_id');

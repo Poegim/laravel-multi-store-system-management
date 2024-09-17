@@ -34,6 +34,9 @@
                             </svg>
                         </div>
                     </th>
+                    <th scope="col" class="px-6 py-3 hidden md:table-cell">
+                        {{__('items_count')}}
+                    </th>
                     <th scope="col" class="px-6 py-3 hidden lg:table-cell">
                         {{__('slug')}}
                     </th>
@@ -43,23 +46,26 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($brands as $item)
+                @foreach($brands as $brand)
                 <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
                     <th scope="row" class="font-thin px-6 py-1 text-gray-800 whitespace-nowrap dark:text-white">
-                        {{$item->id}}
+                        {{$brand->id}}
                     </th>
                     <th scope="row" class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <div class="flex">
-                            <a href="#" class="my-auto">{{$item->name}}</a>
+                        <div class="flex link">
+                            <a href="{{ route('brand.show', $brand->slug) }}" class="my-auto">{{$brand->name}}</a>
                         </div>
                     </th>
                     <td class="px-6 py-1 hidden lg:table-cell">
-                        {{$item->slug}}
+                        {{$brand->stock_items_count}}
+                    </td>
+                    <td class="px-6 py-1 hidden lg:table-cell">
+                        {{$brand->slug}}
                     </td>
                     <td class="px-6 py-1 flex justify-end">
-                        {{-- @livewire('warehouse.brand.edit-brand', ['brand' => $item], key($item->id), ['preserveScroll' => true]) --}}
-                        {{-- <livewire:warehouse.brand.edit-brand :brand="$item"> --}}
-                        <x-buttons.edit-button wire:click="edit({{ $item }})">
+                        {{-- @livewire('warehouse.brand.edit-brand', ['brand' => $brand], key($brand->id), ['preserveScroll' => true]) --}}
+                        {{-- <livewire:warehouse.brand.edit-brand :brand="$brand"> --}}
+                        <x-buttons.edit-button wire:click="edit({{ $brand }})">
                             Edit
                         </x-buttons.edit-button>
                     </td>
