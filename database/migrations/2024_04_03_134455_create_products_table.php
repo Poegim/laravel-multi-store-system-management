@@ -19,7 +19,7 @@ return new class extends Migration
             // $table->unique(['slug', 'brand_id']);
             $table->string('slug')->unique();
             $table->boolean('is_device')->default(0);
-            $table->integer('price')->default(0);
+            $table->integer('suggested_retail_price')->default(0);
             $table->timestamps();
         });
     }

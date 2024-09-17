@@ -49,7 +49,6 @@
                             {{__('stock_count')}}
                             </th>
 
-
                             <th scope="col" class="px-6 py-3 hidden lg:table-cell">
                             {{__('slug')}}
                             </th>
