@@ -8,12 +8,14 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Warehouse\ProductVariant;
 use App\Traits\GetRandomPrice;
+use App\Traits\NetToGrossConverts;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class StockItemsTableSeeder extends Seeder
 {
 
     use GetRandomPrice;
+    use NetToGrossConverts;
 
     /**
      * Run the database seeds.
@@ -46,7 +48,9 @@ class StockItemsTableSeeder extends Seeder
 
                     $batchData[] = [
                         'product_variant_id' => $productVariantId,
-                        'price' => $price,
+                        'suggested_retail_price' => $price,
+                        'purchase_price_net' => 1000,
+                        'purchase_price_gross' => $this->netToGrossConverts(1000, 23),
                         'color' => $color,
                         'store_id' => $storeId,
                         'brand_id' => $brandId,

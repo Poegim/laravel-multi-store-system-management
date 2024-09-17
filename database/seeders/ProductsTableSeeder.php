@@ -78,7 +78,7 @@ class ProductsTableSeeder extends Seeder
             $data[] = [
                 'category_id' => $categoryId,
                 // 'brand_id' => $brandId,
-                'price' => $price,
+                'suggested_retail_price' => $price,
                 'name' => $productName,
                 'slug' => Str::slug($productName),
                 'is_device' => $is_device,

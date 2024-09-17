@@ -34,7 +34,7 @@ class ProductVariantsTableSeeder extends Seeder
                     $data[] = [
                         'name' => 'default',
                         'slug' => 'default',
-                        'price' => $price,
+                        'suggested_retail_price' => $price,
                         'product_id' => $product->id,
                     ];
                 } else {
@@ -45,7 +45,7 @@ class ProductVariantsTableSeeder extends Seeder
                         $data[] = [
                             'name' => $name,
                             'slug' => Str::slug($name),
-                            'price' => $price,
+                            'suggested_retail_price' => $price,
                             'product_id' => $product->id,
                         ];
                     }
@@ -56,7 +56,7 @@ class ProductVariantsTableSeeder extends Seeder
                         $data[] = [
                             'name' => $name,
                             'slug' => Str::slug($name),
-                            'price' => $price,
+                            'suggested_retail_price' => $price,
                             'product_id' => $product->id,
                         ];
                     }
