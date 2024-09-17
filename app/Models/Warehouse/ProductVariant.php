@@ -4,7 +4,7 @@ namespace App\Models\Warehouse;
 
 use App\Models\Warehouse\Feature;
 use App\Models\Warehouse\Product;
-use App\Traits\ModelHasPrice;
+use App\Traits\HasFormattedSRP;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class ProductVariant extends Model
 {
     use HasFactory;
-    use ModelHasPrice;
+    use HasFormattedSRP;
 
     public function product(): BelongsTo
     {

@@ -41,13 +41,13 @@
                             </div>
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex cursor-pointer" wire:click="sortBy('price')">
+                            <div class="flex cursor-pointer" wire:click="sortBy('suggested_retail_price')">
                                 <span class="uppercase">
-                                    {{__('price')}}
+                                    {{__('suggested_retail_price')}}
                                 </span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor"
-                                    class="size-4 {{ $sortField === 'price' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
+                                    class="size-4 {{ $sortField === 'suggested_retail_price' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                 </svg>
@@ -86,8 +86,9 @@
                                     label="{{$product->name}}">{{Illuminate\Support\Str::limit($product->name, 30, '...')}}</a>
                             </div>
                         </td>
+
                         <td class="px-6 py-1 hidden lg:table-cell">
-                            {{$product->getFormattedPrice()}}
+                            {{$product->formattedSRP()}}
                         </td>
 
                         <td class="px-6 py-1 hidden lg:table-cell">

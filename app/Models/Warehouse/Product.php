@@ -2,10 +2,9 @@
 
 namespace App\Models\Warehouse;
 
-use App\Traits\ModelHasPrice;
-use App\Models\Warehouse\Brand;
 use App\Models\Warehouse\Category;
-use Illuminate\Support\Facades\DB;
+use App\Traits\GetsFormattedAmount;
+use App\Traits\HasFormattedSRP;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,7 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Product extends Model
 {
     use HasFactory;
-    use ModelHasPrice;
+    use HasFormattedSRP;
 
     // public static function boot()
     // {
