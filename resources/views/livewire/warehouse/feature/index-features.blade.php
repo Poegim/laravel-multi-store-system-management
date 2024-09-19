@@ -9,8 +9,8 @@
 
         <x-window>
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
-                        <tr>
+                    <thead class="text-xs uppercase">
+                        <tr class="text-black dark:text-white">
                             <th scope="col" class="px-6 py-3">
                                 <div class="flex cursor-pointer" wire:click="sortBy('id')">
                                     <span class="uppercase">
@@ -44,6 +44,11 @@
                             <th scope="col" class="px-6 py-3 hidden lg:table-cell">
                             {{__('short name')}}
                             </th>
+
+                            <th scope="col" class="px-6 py-3 hidden lg:table-cell">
+                            {{__('stock_count')}}
+                            </th>
+
                             <th scope="col" class="px-6 py-3 hidden lg:table-cell">
                             {{__('slug')}}
                             </th>
@@ -53,26 +58,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($features as $item)
+                        @foreach($features as $feature)
                         <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
                             <th scope="row"
                                 class="font-thin px-6 py-1 text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{$item->id}}
+                                    {{$feature->id}}
                             </th>
                             <th scope="row"
                                 class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <div class="flex">
-                                    <a href="{{ route('feature.show', $item->slug) }}" class="link my-auto">{{$item->name}}</a>
+                                    <a href="{{ route('feature.show', $feature->slug) }}" class="link my-auto">{{$feature->name}}</a>
                                 </div>
                             </th>
                             <td class="px-6 py-1 hidden lg:table-cell">
-                                {{$item->short_name}}
+                                {{$feature->short_name}}
                             </td>
                             <td class="px-6 py-1 hidden lg:table-cell">
-                                {{$item->slug}}
+                                {{ $feature->totalStockItemsCount() }}
+                            </td>
+                            <td class="px-6 py-1 hidden lg:table-cell">
+                                {{$feature->slug}}
                             </td>
                             <td class="px-6 py-1 flex justify-end">
-                                <a href="{{route('feature.edit', $item->slug)}}">
+                                <a href="{{route('feature.edit', $feature->slug)}}">
                                     <x-buttons.edit-button>
                                         {{__('edit')}}
                                     </x-buttons.edit-button>

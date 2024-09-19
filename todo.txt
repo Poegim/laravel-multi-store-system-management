@@ -15,6 +15,7 @@ APP
     Warnings about huge quantities and prices etc
 
 QUESTIONABLE
+    Default store ?
     Can nav-menu be an anonymous compomnent?
     Remove stores and categories if there is no dependencies
 

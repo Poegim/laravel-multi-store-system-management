@@ -38,10 +38,11 @@ class IndexProductVariants extends Component
                 $q->where('name', 'like', '%' . $this->search . '%');
             });
         })
-        
+
+        ->withCount('stockItems')
         ->orderBy($this->sortField, $sortDirection)
         ->paginate(10);
-        
+
         return view('livewire.warehouse.product-variant.index-product-variants', [
             'productVariants' => $productsVariants,
         ]);

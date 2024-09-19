@@ -106,6 +106,7 @@ class IndexProducts extends Component
     {
         $sortDirection = $this->sortAsc ? 'asc' : 'desc';
         $products = Product::with(['category'])->where('name', 'like', '%'.$this->search.'%')
+                        ->withCount('productVariants')
                         ->orderBy($this->sortField, $sortDirection)
                         ->paginate(10);
 

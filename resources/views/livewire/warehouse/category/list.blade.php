@@ -23,13 +23,13 @@
                     </span>
                     @endif
                     @if ($category['disabled'] == true)
-                    <div class="my-auto min-h-5 max-h-5 sm:min-h-7 sm:max-h-7 flex rounded-mid  px-2 roboto tracking-wider text-white italic text-xs bg-gradient-to-tr from-red-600 to-red-900 ">
+                    <div class="my-auto min-h-5 max-h-5 sm:min-h-7 sm:max-h-7 flex rounded-mid  px-2 roboto tracking-wider text-white italic text-xs bg-gradient-to-tr from-red-600 to-red-700 ">
                         <span class="my-auto mx-auto">
                             disabled
                         </span>
                     </div>
                     @elseif($category['disabled'] == false)
-                    <div class="my-auto min-h-5 max-h-5  sm:min-h-7 sm:max-h-7  flex rounded-mid  px-2 roboto tracking-wider text-black italic text-xs bg-gradient-to-tr from-green-600 to-green-400 ">
+                    <div class="my-auto min-h-5 max-h-5  sm:min-h-7 sm:max-h-7  flex rounded-mid  px-2 roboto tracking-wider text-black italic text-xs bg-gradient-to-tr from-green-500 to-green-400 ">
                         <span class="my-auto mx-auto">
                             enabled
                         </span>

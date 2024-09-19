@@ -15,4 +15,12 @@ class Feature extends Model
         return $this->belongsToMany(ProductVariant::class, 'feature_product_variant', 'feature_id', 'product_variant_id');
     }
 
+    public function totalStockItemsCount()
+    {
+        return ProductVariant::join('feature_product_variant', 'product_variants.id', '=', 'feature_product_variant.product_variant_id')
+                             ->join('stock_items', 'product_variants.id', '=', 'stock_items.product_variant_id')
+                             ->where('feature_product_variant.feature_id', $this->id)
+                             ->count('stock_items.id');
+    }
+
 }

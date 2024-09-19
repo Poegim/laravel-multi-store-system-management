@@ -14,4 +14,9 @@ class BrandController extends Controller
     {
         return view('warehouse.brand.index');
     }
+
+    public function show(string $slug): View
+    {
+        return view('warehouse.brand.show', compact('slug'));
+    }
 }
