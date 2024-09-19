@@ -41,16 +41,18 @@
 
             <div class="mt-4 p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
 
+                <input type="hidden" autofocus>
+
                 <label for="plural_name"
-                    class="input-label">{{__('plural_name')}}</label>
+                    class="input-label" >{{__('plural_name')}}</label>
                 @error('plural_name')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
                 <input wire:model.live="plural_name" type="text" id="plural_name"
                     class="input-text"
-                    required value="{{$plural_name}}" />
+                    required value="{{$plural_name}}" autofocus="false"/>
 
-                <label for="slug"
+                <label for="slug" 
                     class="input-label">{{__('slug')}}</label>
                 @error('slug')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>

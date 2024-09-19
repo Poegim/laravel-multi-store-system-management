@@ -23,7 +23,7 @@
             <div class="mt-4 p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
 
                 <label for="name"
-                    class="input-label">{{__('name')}}</label>
+                    class="input-label" autofocus>{{__('name')}}</label>
                 @error('name')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror

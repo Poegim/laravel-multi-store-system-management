@@ -10,17 +10,20 @@ use App\Services\FeatureService;
 use App\Services\ProductService;
 use App\Services\CategoryService;
 use Illuminate\Support\Facades\Gate;
+use App\Services\ProductVariantService;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\BrandRepository\BrandRepository;
 use App\Repositories\StoreRepository\StoreRepository;
-use App\Repositories\ProductRepository\ProductRepository;
 use App\Repositories\FeatureRepository\FeatureRepository;
+use App\Repositories\ProductRepository\ProductRepository;
 use App\Repositories\CategoryRepository\CategoryRepository;
 use App\Repositories\BrandRepository\BrandRepositoryInterface;
 use App\Repositories\StoreRepository\StoreRepositoryInterface;
-use App\Repositories\ProductRepository\ProductRepositoryInterface;
 use App\Repositories\FeatureRepository\FeatureRepositoryInterface;
+use App\Repositories\ProductRepository\ProductRepositoryInterface;
 use App\Repositories\CategoryRepository\CategoryRepositoryInterface;
+use App\Repositories\ProductVariantRepository\ProductVariantRepository;
+use App\Repositories\ProductVariantRepository\ProductVariantRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -47,6 +50,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
         $this->app->bind(ProductService::class, function ($app) {
             return new ProductService($app->make(ProductRepositoryInterface::class));
+        });
+
+        $this->app->bind(ProductVariantRepositoryInterface::class, ProductVariantRepository::class);
+        $this->app->bind(ProductVariantService::class, function ($app) {
+            return new ProductVariantService($app->make(ProductVariantRepositoryInterface::class));
         });
 
         $this->app->bind(FeatureRepositoryInterface::class, FeatureRepository::class);

@@ -35,6 +35,11 @@ class SearchDropdown extends Component
         });
     }
 
+    public function resetSelectedItem()
+    {
+        $this->selectedItem = null;
+    }
+
     public function selectItem($id)
     {
         $this->selectedItem = $id;
