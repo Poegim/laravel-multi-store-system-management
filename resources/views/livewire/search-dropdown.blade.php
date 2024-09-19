@@ -17,7 +17,7 @@
 >
 
     <div class="w-full flex space-x-2 mb-1">
-        <div class="my-auto">
+        <div class="my-auto ">
             Selected:&nbsp;
         </div>
             @if ($selectedItem)
