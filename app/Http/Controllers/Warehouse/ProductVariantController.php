@@ -16,10 +16,10 @@ class ProductVariantController extends Controller
         return view('warehouse.product_variant.index');
     }
 
-    public function show(string $slug)
+    public function show(int $id)
     {
 
-        $productVariant = ProductVariant::where('slug', $slug)->with('stockItems')->first();
+        $productVariant = ProductVariant::where('id', $id)->with('stockItems')->first();
                 
         return view('warehouse.product_variant.show', [
             'productVariant' => $productVariant,
@@ -30,8 +30,14 @@ class ProductVariantController extends Controller
     {
         return view('warehouse.product_variant.create', [
             'products' => Product::all('id', 'name'),
-            'features' => Feature::all('id', 'name'),
+            'devices' => Product::devices()->get(),
+            'features' => Feature::select(['id', 'name'])->orderBy('name', 'asc')->get(),
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        return $request;
     }
 
 }

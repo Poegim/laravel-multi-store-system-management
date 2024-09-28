@@ -11,7 +11,7 @@
             :id="InputVisibleUniqueId"
             x-ref="InputVisibleUniqueId"
             placeholder="Search..."
-            class="border-r-0 rounded-tl-lg rounded-bl-lg border-blue-400 px-3 py-2 w-full"
+            class="border-r-0 rounded-tl-lg rounded-bl-lg border-blue-400 px-3 py-2 w-full dark:bg-gray-900"
 
         />
 
@@ -35,7 +35,7 @@
         required
     />
 
-    <ul x-show="open" class="border bg-white w-full mt-1 z-90 max-h-48 overflow-y-auto absolute">
+    <ul x-show="open" class="border bg-white dark:bg-gray-800 w-full mt-1 z-90 max-h-48 overflow-y-auto absolute">
         <template x-for="(item, index) in filteredData" :key="index">
             <li
                 :class="{'bg-blue-500 text-white': index === highlightedIndex}"

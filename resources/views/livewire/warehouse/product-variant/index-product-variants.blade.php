@@ -104,7 +104,7 @@
                         <th scope="row"
                             class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <div class="flex">
-                                <a href="{{route('product-variant.show', $item->slug)}}" class="my-auto link">{{$item->name}}</a>
+                                <a href="{{route('product-variant.show', $item->id)}}" class="my-auto link">{{$item->name}}</a>
                             </div>
                         </th>
 

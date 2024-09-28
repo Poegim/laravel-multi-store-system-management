@@ -2,16 +2,16 @@
     <x-slot name="header">
         <h2 class="breadcrumb text-xl text-gray-800 dark:text-gray-200 leading-tight">
             <div class="sm:flex py-6 px-4">
-            {{ __('create_product_variant') }}
+                {{ __('create_product_variant') }}
             </div>
         </h2>
     </x-slot>
 
-    <form action="{{ route('product.store') }}" method="POST">
-    @csrf
+    <form action="{{ route('product-variant.store') }}" method="POST">
+        @csrf
 
         <x-window>
-        
+
             @if ($errors->any())
             <x-lists.errors-list>
                 @foreach ($errors->all() as $error)
@@ -24,63 +24,63 @@
 
                 <div class="mt-4 p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
 
-                    <label for="name"
-                    class="input-label" autofocus>{{__('name')}}</label>
+                    <label for="name" class="input-label" autofocus>{{__('name')}}</label>
                     @error('name')
                     <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                     @enderror
-                    
-                    <input wire:model.live="name" type="text" id="name"
-                    class="input-text"
-                    required 
-                    autofocus="false"/>
-                    
-                    <label for="ean"
-                    class="input-label" >{{__('ean')}}</label>
+
+                    <input wire:model.live="name" type="text" id="name" class="input-text" required autofocus="false" />
+
+                    <label for="ean" class="input-label">{{__('ean')}}</label>
                     @error('slug')
                     <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                     @enderror
-                    
+
                     @error('ean')
                     <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                     @enderror
-                    
-                    <input wire:model="ean" type="text" id="ean"
-                    class="input-text"
-                    required 
-                    autofocus="false"/>
 
-                    <label for="product_id"
-                    class="input-label" >{{__('product')}}</label>
+                    <input wire:model="ean" type="text" id="ean" class="input-text" required autofocus="false" />
+
+                    <label for="product_id" class="input-label">{{__('product')}}</label>
                     @error('product_id')
                     <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                     @enderror
-                    
-                    
-                    
+
+
+
                     <x-search-dropdown :collection="$products" :inputName="'product_id'" />
-                
+
                 </div>
 
 
                 <div class="mt-4 p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
-                    <fieldset class="border border-solid border-gray-300 p-3">
-                        <legend class="font-semibold text-sm text-gray-800">{{ __('choose_features') }}:</legend>
-                      
+                <fieldset class="">
+                    <legend class="font-semibold text-sm text-gray-800 dark:text-gray-100">{{ __('choose_features') }}:</legend>
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+                        @foreach ($features as $feature)
                         <div>
-                          <input type="checkbox" id="scales" name="scales" checked />
-                          <label for="scales">Scales</label>
+                            <input type="checkbox" id="{{$feature->id}}" name="features[]" value="{{ $feature->id }}" />
+                            <label class="text-gray-700 dark:text-gray-300" for="{{$feature->id}}">{{ $feature->name}}</label>
                         </div>
-                      
+                        @endforeach
+                    </div>
+                </fieldset>
+                </div>
+                
+
+                <div class="mt-4 p-4 rounded-mid  border border-gray-200 dark:border-gray-700 md:col-span-2">
+                <fieldset>
+                    <legend class="font-semibold text-sm text-gray-800 dark:text-gray-100">{{ __('choose_features') }}:</legend>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+                        @foreach ($devices as $device)
                         <div>
-                          <input type="checkbox" id="horns" name="horns" />
-                          <label for="horns">Horns</label>
+                            <input type="checkbox" id="{{$device->id}}" name="devices[]" value="{{ $device->id }}" />
+                            <label class="text-gray-700 dark:text-gray-300" for="{{$device->id}}">{{ $device->name}}</label>
                         </div>
-                        
-                      </fieldset>
-                    @foreach ($features as $feature)
-                        {{ $feature->id }}, {{ $feature->name }}
-                    @endforeach
+                        @endforeach
+                    </div>
+                </fieldset>
                 </div>
 
             </div>
@@ -92,4 +92,4 @@
     </form>
 
 
-    </x-app-layout>
+</x-app-layout>
