@@ -2,11 +2,12 @@
 
 namespace App\Livewire\Warehouse\ProductVariant;
 
-use App\Models\Warehouse\ProductVariant;
-use App\Traits\Searchable;
-use App\Traits\Sortable;
 use Livewire\Component;
+use App\Traits\Sortable;
+use App\Traits\Searchable;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
+use App\Models\Warehouse\ProductVariant;
 
 class IndexProductVariants extends Component
 {
@@ -45,6 +46,7 @@ class IndexProductVariants extends Component
 
         return view('livewire.warehouse.product-variant.index-product-variants', [
             'productVariants' => $productsVariants,
+            'products' => DB::table('products')->select('id', 'name')->get(),
         ]);
     }
 }

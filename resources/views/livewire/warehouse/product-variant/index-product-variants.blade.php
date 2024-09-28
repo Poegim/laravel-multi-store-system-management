@@ -9,11 +9,10 @@
             <option value="ean">{{__('ean')}}</option>
         </select>
         <x-input id="name" type="text" aria-placeholder="Search..." placeholder="Search..." wire:model.debounce.500ms.live="search" />
-        {{-- <a href="#">
+        
+        <a href="{{route('product-variant.create')}}" wire:navigate>
             <x-button>{{__('create')}}</x-button>
-        </a> --}}
-
-        @livewire('warehouse.product-variant.create-product-variant')
+        </a>
         
     </div>
 

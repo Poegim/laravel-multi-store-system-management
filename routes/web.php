@@ -48,13 +48,13 @@ Route::name('product.')->prefix('product')->middleware(['auth'])->group(function
     Route::get('', [ProductController::class, 'index'])->name('index');
     Route::get('/create', [ProductController::class, 'create'])->name('create');
     Route::post('/store', [ProductController::class, 'store'])->name('store');
-    Route::get('/{product:slug}', [ProductController::class, 'show'])->name('show');
+    Route::get('/show/{product:slug}', [ProductController::class, 'show'])->name('show');
     Route::get('/{product:slug}/edit', [ProductController::class, 'edit'])->name('edit');
     Route::put('/{product:slug}/update', [ProductController::class, 'update'])->name('update');
 });
 Route::name('product-variant.')->prefix('product-variant')->middleware(['auth'])->group(function () {
     Route::get('', [ProductVariantController::class, 'index'])->name('index');
-    // Route::get('/create', [ProductVariantController::class, 'create'])->name('create');
+    Route::get('/create', [ProductVariantController::class, 'create'])->name('create');
     // Route::post('/store', [ProductVariantController::class, 'store'])->name('store');
     Route::get('/{product:slug}', [ProductVariantController::class, 'show'])->name('show');
     // Route::get('/{product:slug}/edit', [ProductVariantController::class, 'edit'])->name('edit');

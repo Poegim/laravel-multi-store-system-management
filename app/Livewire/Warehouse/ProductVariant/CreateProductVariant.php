@@ -11,6 +11,16 @@ use Illuminate\Support\Facades\DB;
 use App\Services\ProductVariantService;
 use Laravel\Jetstream\InteractsWithBanner;
 
+
+/**
+ * This component and child dropdrown component requires somehow 200ms.
+ * Ill try to replace it as Controller bases CRUD.
+ */
+
+/**
+ * CreateProductVariant class
+ * @param Callection $products
+ */
 class CreateProductVariant extends Component
 {
     use HasUpdatedName;
@@ -59,9 +69,9 @@ class CreateProductVariant extends Component
         $this->productVariantService = $productVariantService;
     }
 
-    public function mount()
+    public function mount(Collection $products)
     {
-        $this->products = DB::table('products')->select('id', 'name')->get();
+        $this->products = $products;
     }
 
     public function hydrate()

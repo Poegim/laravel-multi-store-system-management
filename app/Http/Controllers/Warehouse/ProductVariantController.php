@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Warehouse;
 
+use Illuminate\Http\Request;
+use App\Models\Warehouse\Feature;
+use App\Models\Warehouse\Product;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Warehouse\ProductVariant;
-use Illuminate\Http\Request;
 
 class ProductVariantController extends Controller
 {
@@ -20,6 +23,14 @@ class ProductVariantController extends Controller
                 
         return view('warehouse.product_variant.show', [
             'productVariant' => $productVariant,
+        ]);
+    }
+
+    public function create()
+    {
+        return view('warehouse.product_variant.create', [
+            'products' => Product::all('id', 'name'),
+            'features' => Feature::all('id', 'name'),
         ]);
     }
 

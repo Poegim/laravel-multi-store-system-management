@@ -61,6 +61,7 @@
                 @error('product_id')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
+                
                 <livewire:search-dropdown :collection="$products" wire:model="product_id" />
 
             </div>

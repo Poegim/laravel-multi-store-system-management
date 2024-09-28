@@ -1,0 +1,95 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="breadcrumb text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            <div class="sm:flex py-6 px-4">
+            {{ __('create_product_variant') }}
+            </div>
+        </h2>
+    </x-slot>
+
+    <form action="{{ route('product.store') }}" method="POST">
+    @csrf
+
+        <x-window>
+        
+            @if ($errors->any())
+            <x-lists.errors-list>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </x-lists.errors-list>
+            @endif
+
+            <div class="grid md:grid-cols-2 space-x-4">
+
+                <div class="mt-4 p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
+
+                    <label for="name"
+                    class="input-label" autofocus>{{__('name')}}</label>
+                    @error('name')
+                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                    @enderror
+                    
+                    <input wire:model.live="name" type="text" id="name"
+                    class="input-text"
+                    required 
+                    autofocus="false"/>
+                    
+                    <label for="ean"
+                    class="input-label" >{{__('ean')}}</label>
+                    @error('slug')
+                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                    @enderror
+                    
+                    @error('ean')
+                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                    @enderror
+                    
+                    <input wire:model="ean" type="text" id="ean"
+                    class="input-text"
+                    required 
+                    autofocus="false"/>
+
+                    <label for="product_id"
+                    class="input-label" >{{__('product')}}</label>
+                    @error('product_id')
+                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                    @enderror
+                    
+                    
+                    
+                    <x-search-dropdown :collection="$products" :inputName="'product_id'" />
+                
+                </div>
+
+
+                <div class="mt-4 p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
+                    <fieldset class="border border-solid border-gray-300 p-3">
+                        <legend class="font-semibold text-sm text-gray-800">{{ __('choose_features') }}:</legend>
+                      
+                        <div>
+                          <input type="checkbox" id="scales" name="scales" checked />
+                          <label for="scales">Scales</label>
+                        </div>
+                      
+                        <div>
+                          <input type="checkbox" id="horns" name="horns" />
+                          <label for="horns">Horns</label>
+                        </div>
+                        
+                      </fieldset>
+                    @foreach ($features as $feature)
+                        {{ $feature->id }}, {{ $feature->name }}
+                    @endforeach
+                </div>
+
+            </div>
+
+            <x-submit-cancel-btns :cancelRoute="'product-variant.index'" :type="'create'" />
+
+        </x-window>
+
+    </form>
+
+
+    </x-app-layout>
