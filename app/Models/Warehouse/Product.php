@@ -16,26 +16,26 @@ class Product extends Model
     use HasFactory;
     use HasFormattedSRP;
 
-    // public static function boot()
-    // {
-    //     parent::boot();
+    public static function boot()
+    {
+        parent::boot();
 
-    //     //Validate is slug and brand_id together unique.
-    //     static::saving(function ($product) {
-    //         $query = static::where('slug', $product->slug)
-    //                        ->where('brand_id', $product->brand_id);
+        //Validate is slug and brand_id together unique.
+        static::saving(function ($product) {
+            $query = static::where('slug', $product->slug)
+                           ->where('brand_id', $product->brand_id);
 
-    //         if ($product->exists) {
-    //             $query->where('id', '!=', $product->id);
-    //         }
+            if ($product->exists) {
+                $query->where('id', '!=', $product->id);
+            }
 
-    //         if ($query->exists()) {
-    //             throw ValidationException::withMessages([
-    //                 'slug' => 'The combination of slug and brand_id must be unique.',
-    //             ]);
-    //         }
-    //     });
-    // }
+            if ($query->exists()) {
+                throw ValidationException::withMessages([
+                    'slug' => 'The combination of slug and brand_id must be unique.',
+                ]);
+            }
+        });
+    }
 
     public function category(): BelongsTo
     {
@@ -47,10 +47,10 @@ class Product extends Model
         return $query->where('is_device', true);
     }
 
-    // public function brand(): BelongsTo
-    // {
-    //     return $this->belongsTo(Brand::class);
-    // }
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class);
+    }
 
     public function productVariants(): HasMany
     {

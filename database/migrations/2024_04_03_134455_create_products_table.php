@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained();
-            // $table->foreignId('brand_id')->constrained();
+            $table->foreignId('brand_id')->constrained();
             $table->string('name');
-            // $table->unique(['slug', 'brand_id']);
+            $table->unique(['slug', 'brand_id']);
             $table->string('slug')->unique();
             $table->boolean('is_device')->default(0);
             $table->integer('suggested_retail_price')->default(0);

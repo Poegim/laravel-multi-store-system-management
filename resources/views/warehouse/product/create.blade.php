@@ -49,13 +49,13 @@
                 {!! $categoryOptions !!}
             </select>
 
-            {{-- <label for="brand_id" class="input-label">{{__('brand_id')}}
+            <label for="brand_id" class="input-label">{{__('brand_id')}}
             </label>
             @error('brand_id')
             <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
             @enderror
 
-            <x-search-dropdown :collection="$brands" :inputName="'brand_id'" :passedId="old('brand_id') ?? null" :searchBy="'name'" /> --}}
+            <x-search-dropdown :collection="$brands" :inputName="'brand_id'" :passedId="old('brand_id') ?? null" :searchBy="'name'" />
 
 
             @error('is_device')

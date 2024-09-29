@@ -105,10 +105,25 @@ class IndexProducts extends Component
     public function render()
     {
         $sortDirection = $this->sortAsc ? 'asc' : 'desc';
-        $products = Product::with(['category'])->where('name', 'like', '%'.$this->search.'%')
-                        ->withCount('productVariants')
-                        ->orderBy($this->sortField, $sortDirection)
-                        ->paginate(10);
+
+        $productsQuery = Product::with(['category'])
+        ->where('products.name', 'like', '%' . $this->search . '%') // Explicitly specify that we're referring to products.name
+        ->withCount('productVariants'); // Add the alias 'product_variants_count'
+
+        if ($this->sortField === 'brand') {
+            // Add a join to the brands table to sort by brand.name
+            $productsQuery = $productsQuery->join('brands', 'products.brand_id', '=', 'brands.id')
+                                           ->orderBy('brands.name', $sortDirection);
+        } elseif ($this->sortField === 'product_variants_count') {
+            // Sort by the 'product_variants_count' alias without the 'products' prefix
+            $productsQuery = $productsQuery->orderBy('product_variants_count', $sortDirection);
+        } else {
+            // Standard sorting by fields from the Product model
+            $productsQuery = $productsQuery->orderBy('products.' . $this->sortField, $sortDirection); // Explicitly specify that the sorting applies to columns from the products table
+        }
+
+        $products = $productsQuery->paginate(10);
+
 
         $categoryOptions = $this->renderCategoryOptions($this->categories);
 

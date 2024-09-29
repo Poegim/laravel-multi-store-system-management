@@ -94,7 +94,7 @@ class ProductsTableSeeder extends Seeder
             "Asus Zenfone Max Pro M1",
             "Asus Znenfon Go",
             "Asus Znenfon Go 5,5",
-            "BLACBERRY PASSPORT",
+            "BlackBerry PASSPORT",
             "BlackBerry 8520",
             "BlackBerry 9300",
             "BlackBerry 9320 Curve",
@@ -118,13 +118,12 @@ class ProductsTableSeeder extends Seeder
             "CAT B30 Dual Sim",
             "CAT S60",
             "Dodge x5",
-            "Etui UAG Urban Armor Gear Pathfinder Samsung galaxy S22 Ultra",
             "Google Pixel 1",
             "Google Pixel 2",
             "Google Pixel 6",
             "Google Pixel 7 pro",
             "Haier W858",
-            "Hammer Explorer",
+            "MyPhone Hammer Explorer",
             "Honor 10 Lite",
             "Honor 5X",
             "HONOR 6X BLN-L21",
@@ -259,12 +258,8 @@ class ProductsTableSeeder extends Seeder
             "Huawei Y7 Prime 2018 LDN-L21",
             "Huawei Y7 TRT-LX1",
             "Infinix X676B",
-            "Iphone 13 Pro Max",
-            "ipod",
-            "Kiano",
             "Kruger&Matz Live 2 KM0410 Dual Sim",
             "Kruger&Matz Move 5 KM0432 Dual Sim",
-            "LENOVO",
             "Lenovo A2010",
             "Lenovo A2010-a",
             "Lenovo A319 RocStar",
@@ -353,7 +348,7 @@ class ProductsTableSeeder extends Seeder
             "LG X Power",
             "LG X Power 2",
             "LG Zero",
-            "LG-S310",
+            "LG S310",
             "Manta TEL2405 Flip Touch",
             "Maxcom Clasic MM142",
             "Maxcom Classic MK241 4G",
@@ -432,9 +427,9 @@ class ProductsTableSeeder extends Seeder
             "MOBIOLA MB800 DUAL SIM",
             "MOBIOLA PHANTOM",
             "MOBIOLA Z2",
-            "Moto Nexus 6",
-            "MOTO Z PLAY",
-            "Motorol Moto G",
+            "Motorola Nexus 6",
+            "Motorola Moto Z PLAY",
+            "Motorola Moto G",
             "Motorola E20",
             "Motorola E4 Plus",
             "Motorola e40",
@@ -483,7 +478,7 @@ class ProductsTableSeeder extends Seeder
             "Motorola X Style",
             "Motorola XT910",
             "Motorola Z2 play",
-            "My Phone Maestro",
+            "MyPhone Maestro",
             "Myphone 1045 SIMPLY",
             "myphone 1055",
             "Myphone 1062 TALK+",
@@ -631,11 +626,11 @@ class ProductsTableSeeder extends Seeder
             "Nokia Microsoft Lumia RM-1090",
             "Nokia N9",
             "Nokia x6",
-            "One Plus 7T",
-            "ONEPLUS 3T Dual Sim 64GB 6GB RAM",
+            "OnePlus 7T",
+            "ONEPLUS 3T",
             "OnePlus 5",
             "OnePlus 5T",
-            "OnePlus 6T 128GB 6GB RAM Dual Sim",
+            "OnePlus 6T",
             "oppo a12",
             "Oppo A15S",
             "Oppo A31",
@@ -665,19 +660,12 @@ class ProductsTableSeeder extends Seeder
             "Overmax Vertis 5021 AIM",
             "Overmax Vertis 5025 Expi",
             "Overmax Vertis Braver",
-            "Pakiet Telefonów 1",
-            "Pakiet Telefonów 2",
-            "Pakiet Telefonów 3",
-            "Pakiet Telefonów 4",
-            "Pakiet Telefonów 5",
             "Panasonic KX-TU 150EXB",
             "Panasonic KX-TU 150EXC",
             "Panasonic KX-TU 150EXR",
             "Panasonic KX-TU 446EXR",
             "Philips Xenium v377",
             "Prestigio psp3452",
-            "Prom. 2x Apple IPH XR-11-12",
-            "Prom. 2x Apple IPH XS",
             "QSMART model MB5050",
             "Realme 6",
             "Realme 7i",
@@ -687,7 +675,7 @@ class ProductsTableSeeder extends Seeder
             "Realme GT Master Edition",
             "Realme GT Neo 3T",
             "Realme Narzo 50i Prime",
-            "redmi a1",
+            "Xiaomi Redmi a1",
             "Sagem MyX-1twin",
             "samsung a3 A300FU",
             "Samsung Avila S5230",
@@ -877,12 +865,12 @@ class ProductsTableSeeder extends Seeder
             "Samsung Xcover  C3350",
             "Samsung Xcover 2 S7710",
             "Samsung Xcover 5",
-            "Samsunga B5310 Corby PRO",
-            "SGH-J700",
-            "Sony Ericsson J20 Hazel",
-            "Sony Ericsson K300i",
-            "Sony Ericsson W880i",
-            "Sony Ericsson Xperia Arc S",
+            "Samsung B5310 Corby PRO",
+            "Samsung SGH-J700",
+            "SonyEricsson J20 Hazel",
+            "SonyEricsson K300i",
+            "SonyEricsson W880i",
+            "SonyEricsson Xperia Arc S",
             "Sony M4 Aqua E2303",
             "Sony Xperia 1",
             "SONY XPERIA 10",
@@ -962,7 +950,6 @@ class ProductsTableSeeder extends Seeder
             "TP-LINK NEFFOS Y5L",
             "TP-LINK NEFFOS Y5L Sunny Yellow",
             "TP-LINK NEFFOS Y5S",
-            "UŻY PROM. SAM Si21FE X 2 SZT.",
             "Vivo Y11s V2028",
             "VIVO Y33S",
             "WIKO Jerry 5 Dual Sim",
@@ -1045,11 +1032,11 @@ class ProductsTableSeeder extends Seeder
             "Xiaomi Redmi Note 9S",
             "Xiaomi Redmi Pro",
             "Xiaomi Redmi S2",
-            "XiaomiI Mi 5",
-            "xiomi redmi 4s",
-            "xperia go",
-            "Xperia XA F3111",
-            "Zenfone Max Pro M1",
+            "Xiaomi Mi 5",
+            "xiaomi redmi 4s",
+            "Sony xperia go",
+            "Sony Xperia XA F3111",
+            "Asus Zenfone Max Pro M1",
             "ZTE Blade A310",
             "ZTE Blade A452",
             "ZTE Blade L5",
@@ -1058,14 +1045,21 @@ class ProductsTableSeeder extends Seeder
             "ZTE R528 DUAL SIM",
         );
 
-        $updatedDevices = array_map(function ($item) {
-            return Str::after($item, ' ');
-        }, $devices);
+        // $updatedDevices = array_map(function ($item) {
+        //     return Str::after($item, ' ');
+        // }, $devices);
 
-        $others = [
-            "TELEFON KOMÓRKOWY",
-            "Telefon Komórkowy Samsung",
-        ];
+        $updatedDevices = array_reduce($devices, function ($carry, $item) {
+            $key = Str::before($item, ' ');
+            $value = Str::after($item, ' ');
+            $carry[$key] = $value;
+            return $carry;
+        }, []);
+
+        // $others = [
+        //     "TELEFON KOMÓRKOWY",
+        //     "Telefon Komórkowy Samsung",
+        // ];
 
         $words = [
             'Alpha', 'Beta', 'Gamma', 'Delta', 'Echo', 'Foxtrot', 'Golf', 'Hotel', 'India', 'Juliet',
@@ -1106,7 +1100,7 @@ class ProductsTableSeeder extends Seeder
         ];
 
         $categoryIds = DB::table('categories')->pluck('id')->toArray();
-        // $brands = Brand::select(['id', 'name'])->get();
+        $brands = Brand::select(['id', 'name'])->get();
 
         $numberOfProducts = 1000;
 
@@ -1116,14 +1110,14 @@ class ProductsTableSeeder extends Seeder
 
             $categoryId = $categoryIds[array_rand($categoryIds)];
 
-            // $brand = $brands->random();
-            // $brandId = $brand->id;
+            $brand = $brands->random();
+            $brandId = $brand->id;
 
             $productName = $gsmProducts[rand(0, count($gsmProducts) - 1)] . ' ' . $words[rand(0, count($words) - 1)] . ' ' . $words[rand(0, count($words) - 1)] . ' ' . rand(1,100);
             $price = rand(1,3) === 3 ? $this->getRandomPrice() : 0;
             $data[] = [
                 'category_id' => $categoryId,
-                // 'brand_id' => $brandId,
+                'brand_id' => $brandId,
                 'suggested_retail_price' => $price,
                 'name' => $productName,
                 'slug' => Str::slug($productName),
@@ -1135,19 +1129,22 @@ class ProductsTableSeeder extends Seeder
 
         $phones_category_id = Category::where('plural_name', 'Telefony')->first()->id;
 
-        foreach($updatedDevices as $device)
+        foreach($updatedDevices as $brandName => $modelName)
         {
-            if(Str::length($device) < 3) {
-                $slug = Str::slug($device) . (rand(1000,9999));
-            } else {
-                $slug = Str::slug($device);
+
+
+            $slug = Str::slug($brandName) . Str::slug($modelName);
+            $brand = Brand::where('slug', Str::slug($brandName))->first();
+
+            if(!$brand) {
+                dd($brandName);
             }
 
             $data[] = [
                 'category_id' => $phones_category_id,
-                // 'brand_id' => $brandId,
+                'brand_id' => $brand->id,
                 'suggested_retail_price' => 0,
-                'name' => $device,
+                'name' => $modelName,
                 'slug' => $slug,
                 'is_device' => true,
                 'created_at' => now(),

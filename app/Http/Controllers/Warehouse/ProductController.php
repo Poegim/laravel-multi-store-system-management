@@ -31,7 +31,7 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        $product = Product::where('id', $product->id)->with('productVariants.devices')->first();
+        $product = Product::where('id', $product->id)->with(['brand','productVariants.devices'])->first();
         return view('warehouse.product.show', [
             'product' => $product,
         ]);
@@ -72,6 +72,5 @@ class ProductController extends Controller
         session()->flash('flash.bannerStyle', 'success');
         return redirect()->route('product.index');
     }
-
 
 }
