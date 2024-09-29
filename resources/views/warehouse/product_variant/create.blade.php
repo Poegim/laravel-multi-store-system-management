@@ -20,16 +20,16 @@
             </x-lists.errors-list>
             @endif
 
-            <div class="grid md:grid-cols-2 space-x-4">
+            <div class="grid md:grid-cols-2 gap-4 py-2">
 
-                <div class="mt-4 p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
+                <div class="p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
 
                     <label for="name" class="input-label" autofocus>{{__('name')}}</label>
                     @error('name')
                     <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                     @enderror
 
-                    <input wire:model.live="name" type="text" id="name" class="input-text" required autofocus="false" />
+                    <input type="text" id="name" class="input-text" required autofocus="false" />
 
                     <label for="ean" class="input-label">{{__('ean')}}</label>
                     @error('slug')
@@ -40,7 +40,7 @@
                     <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                     @enderror
 
-                    <input wire:model="ean" type="text" id="ean" class="input-text" required autofocus="false" />
+                    <input type="text" id="ean" class="input-text" autofocus="false" />
 
                     <label for="product_id" class="input-label">{{__('product')}}</label>
                     @error('product_id')
@@ -54,9 +54,9 @@
                 </div>
 
 
-                <div class="mt-4 p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
+                <div class=" text-sm p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
                 <fieldset class="">
-                    <legend class="font-semibold text-sm text-gray-800 dark:text-gray-100">{{ __('choose_features') }}:</legend>
+                    <legend class="mb-2 font-semibold text-sm text-gray-800 dark:text-gray-100">{{ __('choose_features') }}:</legend>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
                         @foreach ($features as $feature)
                         <div>
@@ -67,11 +67,11 @@
                     </div>
                 </fieldset>
                 </div>
-                
 
-                <div class="mt-4 p-4 rounded-mid  border border-gray-200 dark:border-gray-700 md:col-span-2">
+
+                <div class="text-sm p-4 rounded-mid  border border-gray-200 dark:border-gray-700 md:col-span-2">
                 <fieldset>
-                    <legend class="font-semibold text-sm text-gray-800 dark:text-gray-100">{{ __('choose_features') }}:</legend>
+                    <legend class="mb-2 font-semibold text-sm text-gray-800 dark:text-gray-100">{{ __('choose_devices') }}:</legend>
                     <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
                         @foreach ($devices as $device)
                         <div>
