@@ -21,42 +21,42 @@ Route::name('store.')->prefix('store')->middleware(['auth', IsAdmin::class])->gr
     Route::get('', [StoreController::class, 'index'])->name('index');
     Route::get('/create', [StoreController::class, 'create'])->name('create');
     Route::post('/store', [StoreController::class, 'store'])->name('store');
-    Route::get('/{store}', [StoreController::class, 'show'])->name('show');
-    Route::get('/{store}/edit', [StoreController::class, 'edit'])->name('edit');
-    Route::put('/{store}/update', [StoreController::class, 'update'])->name('update');
+    Route::get('/show/{store}', [StoreController::class, 'show'])->name('show');
+    Route::get('/edit/{store}', [StoreController::class, 'edit'])->name('edit');
+    Route::put('/update/{store}', [StoreController::class, 'update'])->name('update');
 });
 
 Route::name('category.')->prefix('category')->middleware(['auth', IsAdmin::class])->group(function () {
     Route::get('', [CategoryController::class, 'index'])->name('index');
     Route::get('/create', [CategoryController::class, 'create'])->name('create');
     Route::post('/store', [CategoryController::class, 'store'])->name('store');
-    Route::get('/{category:slug}', [CategoryController::class, 'show'])->name('show');
-    Route::get('/{category:slug}/edit', [CategoryController::class, 'edit'])->name('edit');
-    Route::put('/{category:slug}/update', [CategoryController::class, 'update'])->name('update');
+    Route::get('/show/{category:slug}', [CategoryController::class, 'show'])->name('show');
+    Route::get('/edit/{category:slug}', [CategoryController::class, 'edit'])->name('edit');
+    Route::put('/update{category:slug}', [CategoryController::class, 'update'])->name('update');
 });
 
 Route::name('brand.')->prefix('brand')->middleware(['auth'])->group(function () {
     Route::get('', [BrandController::class, 'index'])->name('index');
     Route::get('/create', [BrandController::class, 'create'])->name('create');
     Route::post('/store', [BrandController::class, 'store'])->name('store');
-    Route::get('/{brand:slug}', [BrandController::class, 'show'])->name('show');
-    Route::get('/{brand:slug}/edit', [BrandController::class, 'edit'])->name('edit');
-    Route::put('/{brand:slug}/update', [BrandController::class, 'update'])->name('update');
+    Route::get('/show/{brand:slug}', [BrandController::class, 'show'])->name('show');
+    Route::get('/edit/{brand:slug}', [BrandController::class, 'edit'])->name('edit');
+    Route::put('/update/{brand:slug}', [BrandController::class, 'update'])->name('update');
 });
 
 Route::name('product.')->prefix('product')->middleware(['auth'])->group(function () {
     Route::get('', [ProductController::class, 'index'])->name('index');
     Route::get('/create', [ProductController::class, 'create'])->name('create');
     Route::post('/store', [ProductController::class, 'store'])->name('store');
-    Route::get('/show/{product:slug}', [ProductController::class, 'show'])->name('show');
-    Route::get('/{product:slug}/edit', [ProductController::class, 'edit'])->name('edit');
-    Route::put('/{product:slug}/update', [ProductController::class, 'update'])->name('update');
+    Route::get('/show/{brand:slug}/{product:slug}', [ProductController::class, 'show'])->name('show');
+    Route::get('/edit/{product:id}/', [ProductController::class, 'edit'])->name('edit');
+    Route::put('/update/{product:id}', [ProductController::class, 'update'])->name('update');
 });
 Route::name('product-variant.')->prefix('product-variant')->middleware(['auth'])->group(function () {
     Route::get('', [ProductVariantController::class, 'index'])->name('index');
     Route::get('/create', [ProductVariantController::class, 'create'])->name('create');
     Route::post('/store', [ProductVariantController::class, 'store'])->name('store');
-    Route::get('/{product:id}', [ProductVariantController::class, 'show'])->name('show');
+    Route::get('/show/{product:id}', [ProductVariantController::class, 'show'])->name('show');
     // Route::get('/{product:slug}/edit', [ProductVariantController::class, 'edit'])->name('edit');
     // Route::put('/{product:slug}/update', [ProductVariantController::class, 'update'])->name('update');
 });
@@ -65,9 +65,9 @@ Route::name('feature.')->prefix('feature')->middleware(['auth'])->group(function
     Route::get('', [FeatureController::class, 'index'])->name('index');
     Route::get('/create', [FeatureController::class, 'create'])->name('create');
     Route::post('/store', [FeatureController::class, 'store'])->name('store');
-    Route::get('/{feature:slug}', [FeatureController::class, 'show'])->name('show');
-    Route::get('/{feature:slug}/edit', [FeatureController::class, 'edit'])->name('edit');
-    Route::put('/{feature:slug}/update', [FeatureController::class, 'update'])->name('update');
+    Route::get('/show/{feature:slug}', [FeatureController::class, 'show'])->name('show');
+    Route::get('/edit/{feature:slug}', [FeatureController::class, 'edit'])->name('edit');
+    Route::put('/update/{feature:slug}', [FeatureController::class, 'update'])->name('update');
 });
 
 Route::name('sale.')->prefix('sale')->middleware(['auth'])->group(function () {
@@ -75,8 +75,8 @@ Route::name('sale.')->prefix('sale')->middleware(['auth'])->group(function () {
     Route::get('/store/{store}/create', [SaleController::class, 'create'])->name('create');
     Route::post('/store', [SaleController::class, 'store'])->name('store');
     Route::get('/show/{sale}', [SaleController::class, 'show'])->name('show');
-    Route::get('/{sale}/edit', [SaleController::class, 'edit'])->name('edit');
-    Route::put('/{sale}/update', [SaleController::class, 'update'])->name('update');
+    Route::get('/edit/{sale}', [SaleController::class, 'edit'])->name('edit');
+    Route::put('/update/{sale}', [SaleController::class, 'update'])->name('update');
 });
 
 Route::name('external-invoice.')->prefix('external-invoice')->middleware(['auth'])->group(function () {
@@ -84,8 +84,8 @@ Route::name('external-invoice.')->prefix('external-invoice')->middleware(['auth'
     Route::get('/store/{store}/create', [ExternalInvoiceController::class, 'create'])->name('create');
     Route::post('/store', [ExternalInvoiceController::class, 'store'])->name('store');
     Route::get('/show/{external-invoice}', [ExternalInvoiceController::class, 'show'])->name('show');
-    Route::get('/{external-invoice}/edit', [ExternalInvoiceController::class, 'edit'])->name('edit');
-    Route::put('/{external-invoice}/update', [ExternalInvoiceController::class, 'update'])->name('update');
+    Route::get('/edit/{external-invoice}', [ExternalInvoiceController::class, 'edit'])->name('edit');
+    Route::put('/update/{external-invoice}', [ExternalInvoiceController::class, 'update'])->name('update');
 });
 
 

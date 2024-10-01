@@ -29,9 +29,9 @@ class ProductController extends Controller
         ]);
     }
 
-    public function show(Product $product)
+    public function show(Brand $brand, Product $product)
     {
-        $product = Product::where('id', $product->id)->with(['brand','productVariants.devices'])->first();
+        // $product = Product::where('id', $product->id)->with(['brand','productVariants.devices'])->first();
         return view('warehouse.product.show', [
             'product' => $product,
         ]);
@@ -53,10 +53,8 @@ class ProductController extends Controller
         return redirect()->route('product.index');
     }
 
-    public function edit(string $slug)
+    public function edit(Product $product)
     {
-        $product = Product::where('slug', $slug)->firstOrFail();
-
         return view('warehouse.product.edit', [
             'categoryOptions' => $this->renderCategoryOptions($this->categoryService->activeTree(), $product->category_id),
             'brands' => Brand::select('id', 'name')->get(),
@@ -64,9 +62,8 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(UpdateProductRequest $request, $slug)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        $product = Product::where('slug', $slug)->firstOrFail();
         $this->productService->update($request->validated(), $product);
         session()->flash('flash.banner', __('Successfully updated!'));
         session()->flash('flash.bannerStyle', 'success');

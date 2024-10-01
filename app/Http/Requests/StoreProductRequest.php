@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Support\Str;
-use App\Models\Warehouse\Brand;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,19 +25,25 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string','min:2','max:255',],
-            'slug' => ['required', 'string','min:2','max:255', Rule::unique('products')],
+            'slug' => [
+                'required',
+                'string',
+                'min:2',
+                'max:255',
+                Rule::unique('products')->where('brand_id', $this->input('brand_id')),
+            ],
             'is_device' => ['required', 'boolean'],
-            // 'brand_id' => ['required', 'exists:App\Models\Warehouse\Brand,id'],
+            'brand_id' => ['required', 'exists:App\Models\Warehouse\Brand,id'],
             'category_id' => ['required', 'exists:App\Models\Warehouse\Category,id'],
         ];
     }
 
-    // public function messages()
-    // {
-    //     return [
-    //         'slug.unique' => 'The combination of name and brand must be unique.',
-    //     ];
-    // }
+    public function messages()
+    {
+        return [
+            'slug.unique' => 'The combination of name and brand must be unique.',
+        ];
+    }
 
     /**
      * Prepare the data for validation.

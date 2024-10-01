@@ -1113,7 +1113,7 @@ class ProductsTableSeeder extends Seeder
             $brand = $brands->random();
             $brandId = $brand->id;
 
-            $productName = $gsmProducts[rand(0, count($gsmProducts) - 1)] . ' ' . $words[rand(0, count($words) - 1)] . ' ' . $words[rand(0, count($words) - 1)] . ' ' . rand(1,100);
+            $productName = $gsmProducts[rand(0, count($gsmProducts) - 1)] . ' ' . $words[rand(0, count($words) - 1)] . ' ' . $words[rand(0, count($words) - 1)];
             $price = rand(1,3) === 3 ? $this->getRandomPrice() : 0;
             $data[] = [
                 'category_id' => $categoryId,
@@ -1133,11 +1133,12 @@ class ProductsTableSeeder extends Seeder
         {
 
 
-            $slug = Str::slug($brandName) . Str::slug($modelName);
+            $slug = Str::slug($modelName);
             $brand = Brand::where('slug', Str::slug($brandName))->first();
 
             if(!$brand) {
-                dd($brandName);
+                abort(403, 'Error, brand slug dont exists');
+                // dd($brandName);
             }
 
             $data[] = [

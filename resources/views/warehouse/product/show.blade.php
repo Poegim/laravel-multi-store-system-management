@@ -9,12 +9,12 @@
                         stroke="currentColor" class="hidden sm:block size-5 my-auto -rotate-90">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                     </svg>
-                    {{__('product')}}: {{ $product->name }}
+                    {{__('product')}}: {{ $product->name }} ({{$product->id}})
                 </div>
             </div>
         </h2>
     </x-slot>
-    
+
     <x-window>
         @foreach ($product->productVariants as $variant)
         <div class="p-4">

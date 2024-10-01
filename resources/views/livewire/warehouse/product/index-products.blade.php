@@ -103,7 +103,7 @@
 
                         <td scope="row" class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <div class="flex">
-                                <a href="{{ route('product.show', $product)}}" class="link my-auto" alt="{{$product->name}}"
+                                <a href="{{ route('product.show', [$product->brand, $product])}}" class="link my-auto" alt="{{$product->name}}"
                                     label="{{$product->name}}">{{Illuminate\Support\Str::limit($product->name, 30, '...')}}</a>
                             </div>
                         </td>
@@ -121,7 +121,7 @@
                         </td>
 
                         <td class="px-6 py-1 flex justify-end">
-                            <a href="{{route('product.edit', $product->slug)}}" wire:navigate>
+                            <a href="{{route('product.edit', $product)}}" wire:navigate>
                                 <x-buttons.edit-button >
                                     Edit
                                 </x-buttons.edit-button>

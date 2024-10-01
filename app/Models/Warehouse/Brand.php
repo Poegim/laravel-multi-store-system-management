@@ -17,4 +17,9 @@ class Brand extends Model
         return $this->hasMany(StockItem::class);
     }
 
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
 }

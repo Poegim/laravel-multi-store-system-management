@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Warehouse\Brand;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -19,23 +20,26 @@ class UpdateProductRequest extends FormRequest
                 'string',
                 'min:2',
                 'max:255',
-                // Rule::unique('products')->where('brand_id', $this->input('brand_id'))->ignore($this->id)
-                Rule::unique('products')->ignore($this->route('product'), 'slug')
+                Rule::unique('products')
+                ->where(function ($query) {
+                    return $query->where('brand_id', $this->input('brand_id'));
+                })
+                ->ignore($this->product, 'slug')
             ],
             'is_device' => ['required', 'boolean'],
-            // 'brand_id' => ['required', 'exists:App\Models\Warehouse\Brand,id'],
+            'brand_id' => ['required', 'exists:App\Models\Warehouse\Brand,id'],
             'category_id' => ['required', 'exists:App\Models\Warehouse\Category,id'],
         ];
     }
 
-    // public function messages()
-    // {
-    //     return [
-    //         'slug.unique' => 'The combination of name and brand must be unique.',
-    //     ];
-    // }
+    public function messages()
+    {
+        return [
+            'slug.unique' => 'The combination of name and brand must be unique.',
+        ];
+    }
 
-    /**
+        /**
      * Prepare the data for validation.
      */
     protected function prepareForValidation(): void
@@ -44,4 +48,5 @@ class UpdateProductRequest extends FormRequest
             'slug' => Str::slug($this->name),
         ]);
     }
+
 }

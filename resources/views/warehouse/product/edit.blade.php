@@ -9,13 +9,13 @@
                         stroke="currentColor" class="hidden sm:block size-5 my-auto -rotate-90">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                     </svg>
-                    {{__('edit product')}}
+                    {{__('edit product')}}: {{ $product->id }}
                 </div>
             </div>
         </h2>
     </x-slot>
 
-    <form action="{{ route('product.update', $product->slug) }}" method="POST">
+    <form action="{{ route('product.update', $product) }}" method="POST">
     @csrf
     @method('PUT')
 
