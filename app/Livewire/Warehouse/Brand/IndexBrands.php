@@ -5,11 +5,12 @@ namespace App\Livewire\Warehouse\Brand;
 use Livewire\Component;
 use App\Traits\HasModal;
 use App\Traits\Sortable;
+use App\Traits\Searchable;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use App\Services\BrandService;
-use App\Models\Warehouse\Brand;
 use App\Traits\HasUpdatedName;
-use App\Traits\Searchable;
+use App\Models\Warehouse\Brand;
 use Illuminate\Validation\Rule;
 use Laravel\Jetstream\InteractsWithBanner;
 
@@ -29,6 +30,12 @@ class IndexBrands extends Component
     public ?string $slug;
 
     protected BrandService $brandService;
+
+    #[On('brand-created')] 
+    public function refreshPage()
+    {
+        $this->resetPage();
+    }
 
     public function hydrate()
     {
@@ -60,7 +67,8 @@ class IndexBrands extends Component
             $this->banner('Successfully updated!');
          } else {
              $this->dangerBanner('An error was encountered while updating.');
-         }
+        }
+        $this->resetPage();
     }
 
     public function edit(Brand $brand)

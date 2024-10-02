@@ -11,12 +11,14 @@ use Laravel\Jetstream\InteractsWithBanner;
 
 class CreateBrand extends Component
 {
-    use HasModal;
+    // use HasModal;
     use InteractsWithBanner;
     use HasUpdatedName;
 
     public ?string $name;
     public ?string $slug;
+    public bool $modalVisibility = false;
+    public string $actionType = '';
 
     protected BrandService $brandService;
 
@@ -37,12 +39,22 @@ class CreateBrand extends Component
     public function boot(BrandService $brandService) {
         $this->brandService = $brandService;
     }
+    
+    public function showModal(string $actionType)
+    {
+        $this->actionType = $actionType;
+        $this->modalVisibility = true;
+        $this->name = '';
+        $this->slug = '';
+        
+    }
 
     public function store() {
         $validated = $this->validate();
         $flag = $this->brandService->store($validated);
         $this->resetVars();
         $this->modalVisibility = false;
+        $this->dispatch('brand-created'); 
         $flag ? $this->banner('Successfully created!') : $this->dangerBanner('An error was encountered while creating.');
     }
 
