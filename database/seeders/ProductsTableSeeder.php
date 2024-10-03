@@ -521,7 +521,6 @@ class ProductsTableSeeder extends Seeder
             "MyPhone L-Line",
             "MyPhone LUNA",
             "MyPhone Luna II",
-            "MYPHONE Maestro",
             "MyPhone Metro",
             "MyPhone MINI DUAL SIM",
             "MyPhone Prime",
@@ -1035,14 +1034,11 @@ class ProductsTableSeeder extends Seeder
             "Xiaomi Mi 5",
             "xiaomi redmi 4s",
             "Sony xperia go",
-            "Sony Xperia XA F3111",
-            "Asus Zenfone Max Pro M1",
             "ZTE Blade A310",
             "ZTE Blade A452",
             "ZTE Blade L5",
             "ZTE Blade V7 Lite",
             "ZTE R528",
-            "ZTE R528 DUAL SIM",
         );
 
         // $updatedDevices = array_map(function ($item) {
@@ -1050,9 +1046,12 @@ class ProductsTableSeeder extends Seeder
         // }, $devices);
 
         $updatedDevices = array_reduce($devices, function ($carry, $item) {
-            $key = Str::before($item, ' ');
-            $value = Str::after($item, ' ');
-            $carry[$key] = $value;
+            $key = Str::before($item, ' ');   // Wyciągnięcie marki (np. Samsung)
+            $value = Str::after($item, ' ');  // Wyciągnięcie modelu (np. Galaxy S21)
+            
+            // Dodajemy nową podtablicę ['brand' => 'model'] jako kolejny element tablicy $carry
+            $carry[] = [$key => $value];
+        
             return $carry;
         }, []);
 
@@ -1129,29 +1128,28 @@ class ProductsTableSeeder extends Seeder
 
         $phones_category_id = Category::where('plural_name', 'Telefony')->first()->id;
 
-        foreach($updatedDevices as $brandName => $modelName)
-        {
-
-
-            $slug = Str::slug($modelName);
-            $brand = Brand::where('slug', Str::slug($brandName))->first();
-
-            if(!$brand) {
-                abort(403, 'Error, brand slug dont exists');
-                // dd($brandName);
+        foreach($updatedDevices as $device) {
+            foreach ($device as $brandName => $modelName) {
+                $slug = Str::slug($modelName);
+                $brand = Brand::where('slug', Str::slug($brandName))->first();
+        
+                if (!$brand) {
+                    abort(403, 'Error, brand slug does not exist');
+                }
+        
+                $data[] = [
+                    'category_id' => $phones_category_id,
+                    'brand_id' => $brand->id,
+                    'suggested_retail_price' => 0,
+                    'name' => $modelName,
+                    'slug' => $slug,
+                    'is_device' => true,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ];
             }
-
-            $data[] = [
-                'category_id' => $phones_category_id,
-                'brand_id' => $brand->id,
-                'suggested_retail_price' => 0,
-                'name' => $modelName,
-                'slug' => $slug,
-                'is_device' => true,
-                'created_at' => now(),
-                'updated_at' => now()
-            ];
         }
+        
 
         DB::table('products')->insert($data);
     }

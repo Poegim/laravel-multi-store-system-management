@@ -44,7 +44,7 @@ class Product extends Model
 
     public function scopeDevices($query)
     {
-        return $query->where('is_device', true);
+        return $query->where('is_device', true)->with('brand');
     }
 
     public function brand(): BelongsTo
