@@ -61,31 +61,48 @@
             </div>
 
 
-            <div class="text-sm p-4 rounded-mid  border border-gray-200 dark:border-gray-700 md:col-span-2" x-data="{  open: @entangle('modelsListVisibility') }" >
+            <div class="text-sm p-4 rounded-mid  border border-gray-200 dark:border-gray-700 md:col-span-2" x-data="{  open: @entangle('modelsListVisibility'), search: @entangle('search') }" >
                 <fieldset>
                     <legend class="mb-2 font-semibold text-sm text-gray-800 dark:text-gray-100">
-                        {{ __('choose_devices') }}:</legend>
-                        
-                    <div class="pb-2 flex">
-                        <x-input id="name" class="w-full" type="text" aria-placeholder="Search model..." placeholder="Search model..." wire:model.debounce.500ms.live="search" />
-                        <x-button type="button" class="px-2" @click="open =! open">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                            class="size-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                            </svg>
-                        </x-button>
-                    </div>    
+                        {{ __('choose_devices') }}:
+                    </legend>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3" x-show="open">
-                        @foreach ($devices as $device)
-                        <div>
-                            <input type="checkbox" id="{{$device->id}}" name="devices[]" value="{{ $device->id }}" />
-                            <label class="text-gray-700 dark:text-gray-300"
-                                for="{{$device->id}}"> {{ $device->brand->name}} {{ $device->name}}</label>
-                        </div>
+                    @if ($hiddenDevices)
+                        @foreach ($hiddenDevices as $device)
+                        <input type="hidden" name="hidden_devices[]" value="{{ $device }}">
+                        {{ $device->name }}
                         @endforeach
+                    @endif
+
+                    <div class="pb-2 flex">
+                        <x-input id="name" class="w-full" type="text" aria-placeholder="Search model..." placeholder="Search model..." wire:model.live.debounce.500ms="search" />
                     </div>
+                    @if ($devices->count() > 0)
+                        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+                            @foreach ($devices as $device)
+                            <div>
+                                <button class="border border-gray-400 rounded p-1 w-full" wire:click="handleDeviceSelect({{$device->id}})" type="button">+/- {{ $device->name}}</button>
+                                {{-- <input 
+                                    type="checkbox" 
+                                    id="device-{{ $device->id }}"
+
+                                    value="{{ $device->id }}"
+                                    wire:click="handleDeviceSelect({{$device->id}})"
+                                    name="devices[]"
+                                />
+                                <label class="text-gray-700 dark:text-gray-300" for="{{ $device->id }}">
+                                    {{ $device->brand->name }} {{ $device->name }}
+                                </label> --}}
+                            </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="text-gray-500">
+                            {{ __('No devices found') }}
+                        </div>
+                    @endif
                 </fieldset>
+                
             </div>
 
         </div>
