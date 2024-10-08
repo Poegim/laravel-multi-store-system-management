@@ -33,14 +33,14 @@ class CreateProductVariant extends Component
         $this->hiddenDevices = Product::devices()->
         whereIn ('id', $this->selectedDevices)->
         get();
-        
+
     }
 
     public function render()
     {
         $products = Product::select('id', 'name')->where('is_device', false)->get();
 
-        $devices = 
+        $devices =
             Product::devices()->
                 where('name', 'like', '%' . $this->search . '%')->
                 whereNotIn ('id', $this->selectedDevices)->

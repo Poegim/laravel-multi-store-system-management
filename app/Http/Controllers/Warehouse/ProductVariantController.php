@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Warehouse;
 
 use Illuminate\Http\Request;
-use App\Models\Warehouse\Feature;
-use App\Models\Warehouse\Product;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Warehouse\ProductVariant;
 
@@ -33,7 +30,7 @@ class ProductVariantController extends Controller
 
     public function store(Request $request)
     {
-        return $request;
+        dd($request);
     }
 
 }
