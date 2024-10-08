@@ -5,17 +5,19 @@ namespace App\Livewire\Warehouse\ProductVariant;
 use Livewire\Component;
 use App\Models\Warehouse\Feature;
 use App\Models\Warehouse\Product;
+use Illuminate\Support\Collection;
 
-/**
- * CreateProductVariant class
- * @param Callection $products
- */
 class CreateProductVariant extends Component
 {
-    public $search = '';
-    public $modelsListVisibility = false;
-    public $selectedDevices = [];
-    public $hiddenDevices;
+    public string $search = '';
+
+    public array $selectedDevices = [];
+
+    public string $name = '';
+    public bool $modelsListVisibility = false;
+    public bool $automatedName = true;
+
+    public ?Collection $hiddenDevices;
 
     public function updatedSearch()
     {
@@ -34,6 +36,20 @@ class CreateProductVariant extends Component
         whereIn ('id', $this->selectedDevices)->
         get();
 
+        $this->generateName();
+
+    }
+
+    public function generateName()
+    {
+        if($this->automatedName)
+        {
+            $this->name = '';
+            foreach($this->hiddenDevices as $device)
+            {
+                $this->name = $this->name . ' ' . $device->name;
+            }
+        }
     }
 
     public function render()
