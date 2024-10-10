@@ -10,9 +10,9 @@
         </x-lists.errors-list>
         @endif
 
-        <div class="grid md:grid-cols-2 gap-4 py-2">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 py-2">
 
-            <div class="p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
+            <div class="p-4 rounded-mid  border border-gray-200 dark:border-gray-700 col-span-1">
 
                 <label for="name" class="input-label" autofocus>{{__('name')}}</label>
                 @error('name')
@@ -41,8 +41,8 @@
 
             </div>
 
-            <div class=" text-sm p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
-                <fieldset class="">
+            <div class="text-sm p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
+                <fieldset>
                     <legend class="mb-2 font-semibold text-sm text-gray-800 dark:text-gray-100">
                         {{ __('choose_features') }}:</legend>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
@@ -57,8 +57,13 @@
                 </fieldset>
             </div>
 
-            <div>
+            <div class="col-span-2 text-sm p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
+                <fieldset>
+                    <legend class="mb-2 font-semibold text-sm text-gray-800 dark:text-gray-100">
+                        {{ __('choose_devices') }}:
+                    </legend>
                 <x-search-multiselect-dropdown :collection="$devices" :inputName="'devices'"/>
+                </fieldset>
             </div>
 
             {{-- <div class="text-sm p-4 rounded-mid  border border-gray-200 dark:border-gray-700 md:col-span-2" x-data="{  open: @entangle('modelsListVisibility'), search: @entangle('search') }" >

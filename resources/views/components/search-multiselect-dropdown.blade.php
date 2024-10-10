@@ -1,11 +1,11 @@
 <div x-data="autocompleteMultiSelect('{{ $inputName }}', '{{ $searchBy }}', '{{ $passedId }}')" @click.away="closeDropdown()" class="relative">
     
     <!-- Wprowadzenie elementów z listy wybranych -->
-    <div class="flex flex-wrap gap-2">
+    <div class="flex flex-wrap gap-2 my-2">
         <template x-for="(selectedItem, index) in selectedItems" :key="index">
             <span class="bg-blue-500 text-white px-2 py-1 rounded-md flex items-center">
                 <span x-text="selectedItem[searchBy]"></span>
-                <button type="button" @click="removeItem(index)" class="ml-2 text-xs">×</button>
+                <button type="button" @click="removeItem(index)" class="text-xs">×</button>
             </span>
         </template>
     </div>
@@ -45,17 +45,16 @@
         <template x-for="(item, index) in filteredData" :key="index">
             <li
                 :class="{
-                    'bg-blue-500 text-white': index === highlightedIndex,
-                    'bg-green-200': isSelected(item)  // Sprawdzamy, czy element jest wybrany
+                    'bg-blue-600 text-white': index === highlightedIndex,
+                    'bg-green-600': isSelected(item)  // Sprawdzamy, czy element jest wybrany
                 }"
                 @click="selectOption(index)"
                 @mouseenter="highlightedIndex = index"
                 class="px-4 py-1 cursor-pointer text-sm flex items-center"
             >
                 <span x-text="item[searchBy]" class="flex-1"></span>
-                <!-- Ikonka potwierdzająca zaznaczenie elementu -->
-                <span x-show="isSelected(item)" class="ml-2 text-green-600">
-                    &#10003; <!-- Używamy symbolu "check" (ptaszek) jako indykatora -->
+                <span x-show="isSelected(item)" class="ml-2 text-green-200">
+                    &#10003;
                 </span>
             </li>
         </template>
@@ -73,7 +72,7 @@
             searchBy: searchBy,
             originalData: @json($collection),
             filteredData: @json($collection),
-            selectedItems: [], // Zmienione na tablicę wybranych elementów
+            selectedItems: [],
             selected: false,
 
             init() {
@@ -89,7 +88,7 @@
                     : this.originalData.filter(item => String(item[this.searchBy]).toLowerCase().includes(search));
                 
                 this.open = this.filteredData.length > 0;
-                this.highlightedIndex = 0; // Resetuj zaznaczenie
+                this.highlightedIndex = 0; // Reset select
             },
 
             moveDown() {
@@ -108,18 +107,18 @@
                 if (this.filteredData.length > 0 && index >= 0 && index < this.filteredData.length) {
                     const selectedItem = this.filteredData[index];
                     
-                    // Sprawdzenie czy element nie jest już wybrany
+                    // Check if its already selected
                     if (!this.selectedItems.find(item => item.id === selectedItem.id)) {
                         this.selectedItems.push(selectedItem); // Dodajemy element do listy wybranych
                     }
 
-                    // Aktualizacja wartości ukrytego inputu jako tablica
+                    // Update hidden input
                     this.$refs.hiddenInput.value = JSON.stringify(this.selectedItems.map(item => item.id));
 
-                    // Czyszczenie pola wyszukiwania po wyborze
-                    this.query = '';
-                    this.filterData();
-                    this.highlightedIndex = 0; 
+                    // Clear search
+                    // this.query = '';
+                    // this.filterData();
+                    // this.highlightedIndex = 0; 
                 }
             },
 
