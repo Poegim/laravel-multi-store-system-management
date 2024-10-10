@@ -56,11 +56,7 @@ class CreateProductVariant extends Component
     {
         $products = Product::select('id', 'name')->where('is_device', false)->get();
 
-        $devices =
-            Product::devices()->
-                where('name', 'like', '%' . $this->search . '%')->
-                whereNotIn ('id', $this->selectedDevices)->
-                get();
+        $devices = Product::devices()->get();
 
         $features = Feature::select(['id', 'name'])->orderBy('name', 'asc')->get();
 

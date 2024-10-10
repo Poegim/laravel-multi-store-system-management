@@ -11,10 +11,9 @@
     </div>
 
     <div class="flex">
-        
         <input
             x-model="query"
-            @input.debounce.300ms="filterData"
+            @input.debounce.200ms="filterData"
             @keydown.arrow-down.prevent="moveDown"
             @keydown.arrow-up.prevent="moveUp"
             @keydown.enter.prevent="handleEnterKey"
@@ -60,6 +59,8 @@
         </template>
     </ul>
 
+
+
     <script>
     function autocompleteMultiSelect(uniqueId, searchBy, passedId = null) {
         return {
@@ -70,25 +71,32 @@
             uniqueId: uniqueId,
             passedId: passedId,
             searchBy: searchBy,
-            originalData: @json($collection),
-            filteredData: @json($collection),
+            originalData: [], // Początkowo pusta kolekcja
+            filteredData: [],
             selectedItems: [],
             selected: false,
+            dataLoaded: false, // Flaga, czy dane zostały załadowane
 
-            init() {
-                if (this.passedId) {
-                    this.selectOptionById(this.passedId);
-                }
+            // Ładowanie danych z API
+            loadData() {
+                fetch(`/api/get-data?search=${this.query}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        this.originalData = data.data;  // Jeśli używasz paginacji, dane będą w obiekcie 'data'
+                        this.filteredData = data.data; // Zaktualizuj listę wyników
+                        this.open = this.filteredData.length > 0; // Otwórz dropdown, jeśli są wyniki
+                    })
+                    .catch(error => console.error('Błąd w ładowaniu danych:', error));
             },
 
             filterData() {
-                const search = this.query.toLowerCase();
-                this.filteredData = search === '' 
-                    ? this.originalData 
-                    : this.originalData.filter(item => String(item[this.searchBy]).toLowerCase().includes(search));
-                
-                this.open = this.filteredData.length > 0;
-                this.highlightedIndex = 0; // Reset select
+                // Użyj debouncing, aby ograniczyć liczbę zapytań
+                this.loadData();
             },
 
             moveDown() {
@@ -106,30 +114,29 @@
             selectOption(index = this.highlightedIndex) {
                 if (this.filteredData.length > 0 && index >= 0 && index < this.filteredData.length) {
                     const selectedItem = this.filteredData[index];
-                    
-                    // Check if its already selected
+
+                    // Sprawdzamy, czy element nie został już wybrany
                     if (!this.selectedItems.find(item => item.id === selectedItem.id)) {
-                        this.selectedItems.push(selectedItem); // Dodajemy element do listy wybranych
+                        this.selectedItems.push(selectedItem); // Dodanie elementu do wybranych
                     }
 
-                    // Update hidden input
+                    // Aktualizacja ukrytego inputu z wybranymi elementami w formie JSON
                     this.$refs.hiddenInput.value = JSON.stringify(this.selectedItems.map(item => item.id));
 
-                    // Clear search
-                    // this.query = '';
-                    // this.filterData();
-                    // this.highlightedIndex = 0; 
+                    // Resetowanie query po wyborze
+                    this.query = '';
+                    this.open = false; // Zamknij dropdown po wyborze
                 }
             },
 
             removeItem(index) {
-                this.selectedItems.splice(index, 1); // Usuwanie z tablicy wybranych
+                this.selectedItems.splice(index, 1); // Usuwanie elementu z wybranych
 
-                // Aktualizacja wartości ukrytego inputu jako tablica
+                // Aktualizacja ukrytego inputu po usunięciu elementu
                 this.$refs.hiddenInput.value = JSON.stringify(this.selectedItems.map(item => item.id));
             },
 
-            // Funkcja do sprawdzania, czy dany element jest już wybrany
+            // Sprawdzanie, czy dany element jest już wybrany
             isSelected(item) {
                 return this.selectedItems.some(selected => selected.id === item.id);
             },
@@ -148,8 +155,10 @@
 
             toggleDropdown() {
                 this.open = !this.open;
-            },
+            }
         };
     }
-    </script>
+
+        </script>
+        
 </div>

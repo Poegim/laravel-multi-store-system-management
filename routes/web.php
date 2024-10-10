@@ -7,6 +7,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\GitHubController;
 use App\Http\Controllers\Commerce\SaleController;
 use App\Http\Controllers\Commerce\ExternalInvoiceController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Warehouse\BrandController;
 use App\Http\Controllers\Warehouse\FeatureController;
 use App\Http\Controllers\Warehouse\ProductController;

@@ -2,7 +2,7 @@
     <div class="flex">
         <input
             x-model="query"
-            @input.debounce.300ms="filterData"
+            @input.debounce.100ms="filterData"
             @keydown.arrow-down.prevent="moveDown"
             @keydown.arrow-up.prevent="moveUp"
             @keydown.enter.prevent="handleEnterKey"
