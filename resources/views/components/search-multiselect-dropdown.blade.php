@@ -1,6 +1,6 @@
 <div x-data="autocompleteMultiSelect('{{ $inputName }}', '{{ $searchBy }}', '{{ $passedId }}')" @click.away="closeDropdown()" class="relative">
     
-    <!-- Wprowadzenie elementów z listy wybranych -->
+    <!-- Show choosen items-->
     <div class="flex flex-wrap gap-2 my-2">
         <template x-for="(selectedItem, index) in selectedItems" :key="index">
             <span class="bg-blue-500 text-white px-2 py-1 rounded-md flex items-center">
@@ -13,7 +13,7 @@
     <div class="flex">
         <input
             x-model="query"
-            @input.debounce.200ms="filterData"
+            @input.debounce.300ms="filterData"
             @keydown.arrow-down.prevent="moveDown"
             @keydown.arrow-up.prevent="moveUp"
             @keydown.enter.prevent="handleEnterKey"
@@ -36,16 +36,16 @@
         </button>
     </div>
 
-    <!-- Ukryte pole na wartości -->
+    <!-- Hidden input storing result array -->
     <input type="hidden" :id="uniqueId" :name="uniqueId" x-ref="hiddenInput" required />
 
-    <!-- Lista wyników wyszukiwania -->
+    <!-- Search list -->
     <ul x-show="open" class="border bg-white dark:bg-gray-800 w-full mt-1 z-90 max-h-48 overflow-y-auto absolute">
         <template x-for="(item, index) in filteredData" :key="index">
             <li
                 :class="{
                     'bg-blue-600 text-white': index === highlightedIndex,
-                    'bg-green-600': isSelected(item)  // Sprawdzamy, czy element jest wybrany
+                    'bg-green-600': isSelected(item) //Check for selection
                 }"
                 @click="selectOption(index)"
                 @mouseenter="highlightedIndex = index"
@@ -59,8 +59,6 @@
         </template>
     </ul>
 
-
-
     <script>
     function autocompleteMultiSelect(uniqueId, searchBy, passedId = null) {
         return {
@@ -71,31 +69,32 @@
             uniqueId: uniqueId,
             passedId: passedId,
             searchBy: searchBy,
-            originalData: [], // Początkowo pusta kolekcja
+            originalData: [],
             filteredData: [],
             selectedItems: [],
             selected: false,
-            dataLoaded: false, // Flaga, czy dane zostały załadowane
+            dataLoaded: false,
 
-            // Ładowanie danych z API
+            // Load data from API.
             loadData() {
+                console.log(this.query);
                 fetch(`/api/get-data?search=${this.query}`)
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error('Network response was not ok');
+                            throw new Error('Network response error.');
                         }
                         return response.json();
                     })
                     .then(data => {
-                        this.originalData = data.data;  // Jeśli używasz paginacji, dane będą w obiekcie 'data'
-                        this.filteredData = data.data; // Zaktualizuj listę wyników
-                        this.open = this.filteredData.length > 0; // Otwórz dropdown, jeśli są wyniki
+                        this.originalData = data.data;  //In case of pagination.
+                        this.filteredData = data.data; // Update list.
+                        this.open = this.filteredData.length > 0; // Open dropdown if there is any results.
                     })
-                    .catch(error => console.error('Błąd w ładowaniu danych:', error));
+                    .catch(error => console.error('Loading data error:', error));
             },
 
             filterData() {
-                // Użyj debouncing, aby ograniczyć liczbę zapytań
+                // Debounce
                 this.loadData();
             },
 
@@ -115,28 +114,28 @@
                 if (this.filteredData.length > 0 && index >= 0 && index < this.filteredData.length) {
                     const selectedItem = this.filteredData[index];
 
-                    // Sprawdzamy, czy element nie został już wybrany
+                    // Is already selected.
                     if (!this.selectedItems.find(item => item.id === selectedItem.id)) {
                         this.selectedItems.push(selectedItem); // Dodanie elementu do wybranych
                     }
 
-                    // Aktualizacja ukrytego inputu z wybranymi elementami w formie JSON
+                    // Update hidden input.
                     this.$refs.hiddenInput.value = JSON.stringify(this.selectedItems.map(item => item.id));
 
-                    // Resetowanie query po wyborze
-                    this.query = '';
-                    this.open = false; // Zamknij dropdown po wyborze
+                    // Reset query.
+                    // this.query = '';
+                    // this.open = false; // Close dropdown after select.
                 }
             },
 
             removeItem(index) {
-                this.selectedItems.splice(index, 1); // Usuwanie elementu z wybranych
+                this.selectedItems.splice(index, 1); // Remove el.
 
-                // Aktualizacja ukrytego inputu po usunięciu elementu
+                // Update hidden input.
                 this.$refs.hiddenInput.value = JSON.stringify(this.selectedItems.map(item => item.id));
             },
 
-            // Sprawdzanie, czy dany element jest już wybrany
+            //Check is selected.
             isSelected(item) {
                 return this.selectedItems.some(selected => selected.id === item.id);
             },
@@ -147,6 +146,7 @@
 
             openDropdown() {
                 this.open = true;
+                this.loadData();
             },
 
             closeDropdown() {
@@ -159,6 +159,6 @@
         };
     }
 
-        </script>
+    </script>
         
 </div>

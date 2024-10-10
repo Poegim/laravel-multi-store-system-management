@@ -2,33 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Warehouse\Product;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
 
 class SearchController extends Controller
 {
+
     public function getData(Request $request)
     {
-        // Rozpocznij zapytanie
+        // Init query.
         $query = Product::devices();
     
-        // Sprawdzanie, czy w żądaniu jest przekazany parametr wyszukiwania
+        //Check for param.
         if ($request->has('search') && $request->input('search') !== '') {
             $search = $request->input('search');
-            
-            // Użycie 'name' lub innego odpowiedniego pola w modelu Product
             $query->where('name', 'like', '%' . $search . '%');
         }
     
-        // Pobranie danych
+        // Get data.
         try {
-            $data = $query->get(); // Pobieramy dane
-            return response()->json(['data' => $data]); // Zwracamy dane w odpowiednim formacie
+            $data = $query->get();
+            return response()->json(['data' => $data]);
         } catch (\Exception $e) {
-            // Logowanie błędu
-            Log::error('Błąd w getData: ' . $e->getMessage());
-            return response()->json(['error' => 'Błąd podczas ładowania danych. Spróbuj ponownie.'], 500);
+
+            // Log errors
+            Log::error('Error in getData: ' . $e->getMessage());
+            return response()->json(['error' => 'Unable to load data, try again.'], 500);
         }
     }
 }
