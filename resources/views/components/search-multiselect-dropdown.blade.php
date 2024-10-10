@@ -77,20 +77,28 @@
 
             // Load data from API.
             loadData() {
-                console.log(this.query);
-                fetch(`/api/get-data?search=${this.query}`)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response error.');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        this.originalData = data.data;  //In case of pagination.
-                        this.filteredData = data.data; // Update list.
-                        this.open = this.filteredData.length > 0; // Open dropdown if there is any results.
-                    })
-                    .catch(error => console.error('Loading data error:', error));
+                const token = @json($token); // Użycie przekazanego tokena
+                console.log(token);
+
+                fetch(`/api/get-data?search=${this.query}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`, // Dodanie tokena do nagłówka autoryzacji
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response error.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    this.originalData = data.data;  // In case of pagination.
+                    this.filteredData = data.data; // Update list.
+                    this.open = this.filteredData.length > 0; // Open dropdown if there are any results.
+                })
+                .catch(error => console.error('Loading data error:', error));
             },
 
             filterData() {
