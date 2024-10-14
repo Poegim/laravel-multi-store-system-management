@@ -19,11 +19,12 @@ class SearchMultiselectDropdown extends Component
         public $passedId = null,
         public string $searchBy = 'name',
         ) {
+            // Get user token.
             $user = auth()->user();
             if ($user) {
-                $this->token = $user->currentAccessToken() ? $user->currentAccessToken()->token : null; // Pobieranie tokena
+                $this->token = $user->tokens()->where('name', 'defaultToken')->first() ? $user->tokens()->where('name', 'defaultToken')->first()->token : null; // Pobieranie tokena
             } else {
-                $this->token = null; // Obsługa przypadku, gdy użytkownik nie jest zalogowany
+                $this->token = null;
             }
         }
 
@@ -32,9 +33,6 @@ class SearchMultiselectDropdown extends Component
      */
     public function render(): View|Closure|string
     {
-
-        dd($this->token);
-
         return view('components.search-multiselect-dropdown', [
             'collection' => $this->collection,
             'inputName' => $this->inputName,

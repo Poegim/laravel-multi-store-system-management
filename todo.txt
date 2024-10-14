@@ -1,7 +1,8 @@
-BUGS
-    - create brand dont refresh index
-    - create brand dont clear inputs
+CHECK IN FUTURE
+    -- Is creating new user creates new personal access toone for multiselect dropdown.
 
+
+BUGS
 
 MODULES AND NECCESSARY FEATURES
    WAREHOUSE

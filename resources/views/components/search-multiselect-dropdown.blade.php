@@ -78,7 +78,7 @@
             // Load data from API.
             loadData() {
                 const token = @json($token); // Użycie przekazanego tokena
-                console.log(token);
+                console.log(`Bearer ${token}`);
 
                 fetch(`/api/get-data?search=${this.query}`, {
                     method: 'GET',
