@@ -1,7 +1,7 @@
 <div x-data="autocompleteMultiSelect('{{ $inputName }}', '{{ $searchBy }}', '{{ $passedId }}')" @click.away="closeDropdown()" class="relative">
 
     <!-- Show choosen items-->
-    <div class="flex flex-wrap gap-2 my-2">
+    <div class="flex flex-wrap gap-1 my-1">
         <template x-for="(selectedItem, index) in selectedItems" :key="index">
             <span class="bg-blue-500 text-white px-2 py-1 rounded-md flex items-center">
                 <span x-text="selectedItem[searchBy]"></span>
@@ -40,7 +40,7 @@
     <input type="hidden" :id="uniqueId" :name="uniqueId" x-ref="hiddenInput" required />
 
     <!-- Search list -->
-    <ul x-show="open" class="border bg-white dark:bg-gray-800 w-full mt-1 z-90 max-h-64 overflow-y-auto absolute">
+    <ul x-show="open" class="border bg-white dark:bg-gray-800 w-full z-90 max-h-64 overflow-y-auto absolute">
         <template x-for="(item, index) in filteredData" :key="index">
             <li
                 :class="{
