@@ -41,7 +41,16 @@
 
             </div>
 
-            <div class="text-sm p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
+            <div class="col-span-1 text-sm p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
+                <fieldset>
+                    <legend class="mb-2 font-semibold text-sm text-gray-800 dark:text-gray-100">
+                        {{ __('choose_devices') }}:
+                    </legend>
+                <x-search-multiselect-dropdown :collection="$devices" :inputName="'devices'"/>
+                </fieldset>
+            </div>
+
+            <div class="col-span-2 text-sm p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
                 <fieldset>
                     <legend class="mb-2 font-semibold text-sm text-gray-800 dark:text-gray-100">
                         {{ __('choose_features') }}:</legend>
@@ -54,15 +63,6 @@
                         </div>
                         @endforeach
                     </div>
-                </fieldset>
-            </div>
-
-            <div class="col-span-2 text-sm p-4 rounded-mid  border border-gray-200 dark:border-gray-700">
-                <fieldset>
-                    <legend class="mb-2 font-semibold text-sm text-gray-800 dark:text-gray-100">
-                        {{ __('choose_devices') }}:
-                    </legend>
-                <x-search-multiselect-dropdown :collection="$devices" :inputName="'devices'"/>
                 </fieldset>
             </div>
 
@@ -104,7 +104,7 @@
                                     {{ $device->name}}
                                 </button>
                             </div>
-                            
+
                             <div>
                                 <button
                                 class="flex justify-end bg-green-100 text-green-800 text-sm font-medium pl-2 rounded-lg hover:bg-green-200 transition duration-200 ease-in-out dark:bg-gray-700 dark:text-green-400 border border-green-400" wire:click="handleDeviceSelect({{$device->id}})" type="button">

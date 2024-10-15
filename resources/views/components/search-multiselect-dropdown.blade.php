@@ -40,7 +40,7 @@
     <input type="hidden" :id="uniqueId" :name="uniqueId" x-ref="hiddenInput" required />
 
     <!-- Search list -->
-    <ul x-show="open" class="border bg-white dark:bg-gray-800 w-full mt-1 z-90 max-h-48 overflow-y-auto absolute">
+    <ul x-show="open" class="border bg-white dark:bg-gray-800 w-full mt-1 z-90 max-h-64 overflow-y-auto absolute">
         <template x-for="(item, index) in filteredData" :key="index">
             <li
                 :class="{

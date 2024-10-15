@@ -11,13 +11,6 @@ use Illuminate\Support\Facades\Hash;
 class SearchController extends Controller
 {
 
-    public function __construct()
-    {
-        if(!auth()->check()) {
-            abort(403);
-        }
-    }
-
     public function getData(Request $request)
     {
         // Init query.
