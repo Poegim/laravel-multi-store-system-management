@@ -17,14 +17,14 @@
                 <div class="text-red-500 dark:text-red-300">{{ $message }}</div>
                 @enderror
 
-                <input type="text" id="name" class="input-text" autofocus="false" wire:model.live="name" />
+                <input type="text" name="name" class="input-text" autofocus="false"/>
 
                 <label for="ean" class="input-label">{{ __('ean') }}</label>
                 @error('ean')
                 <div class="text-red-500 dark:text-red-300">{{ $message }}</div>
                 @enderror
 
-                <input type="text" id="ean" class="input-text" autofocus="false" />
+                <input type="text" id="ean" name="ean" class="input-text" autofocus="false" />
 
                 <label for="product_id" class="input-label">{{ __('product') }}</label>
                 @error('product_id')
