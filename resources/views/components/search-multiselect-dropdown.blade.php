@@ -1,5 +1,5 @@
 <div x-data="autocompleteMultiSelect('{{ $inputName }}', '{{ $searchBy }}', '{{ $passedId }}')" @click.away="closeDropdown()" class="relative">
-    
+
     <!-- Show choosen items-->
     <div class="flex flex-wrap gap-2 my-2">
         <template x-for="(selectedItem, index) in selectedItems" :key="index">
@@ -77,13 +77,12 @@
 
             // Load data from API.
             loadData() {
-                const token = @json($token); // Użycie przekazanego tokena
-                console.log(`Bearer ${token}`);
+                const token = @json($token);
 
                 fetch(`/api/get-data?search=${this.query}`, {
                     method: 'GET',
                     headers: {
-                        'Authorization': `Bearer ${token}`, // Dodanie tokena do nagłówka autoryzacji
+                        'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
                     }
                 })
@@ -168,5 +167,5 @@
     }
 
     </script>
-        
+
 </div>

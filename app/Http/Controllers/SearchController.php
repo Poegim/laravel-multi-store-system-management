@@ -11,17 +11,24 @@ use Illuminate\Support\Facades\Hash;
 class SearchController extends Controller
 {
 
+    public function __construct()
+    {
+        if(!auth()->check()) {
+            abort(403);
+        }
+    }
+
     public function getData(Request $request)
     {
         // Init query.
         $query = Product::devices();
-    
+
         //Check for param.
         if ($request->has('search') && $request->input('search') !== '') {
             $search = $request->input('search');
             $query->where('name', 'like', '%' . $search . '%');
         }
-    
+
         // Get data.
         try {
             $data = $query->get();

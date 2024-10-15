@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Policies\UserPolicy;
 use App\Services\BrandService;
 use App\Services\StoreService;
-use App\Observers\UserObserver;
 use App\Services\FeatureService;
 use App\Services\ProductService;
 use App\Services\CategoryService;
@@ -69,7 +68,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        User::observe(UserObserver::class);
         Gate::policy(User::class, UserPolicy::class);
     }
 }

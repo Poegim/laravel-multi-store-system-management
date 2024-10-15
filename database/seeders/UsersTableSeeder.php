@@ -13,7 +13,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UsersTableSeeder extends Seeder
 {
-    
+
     /**
      * Run the database seeds.
      */
@@ -36,14 +36,6 @@ class UsersTableSeeder extends Seeder
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
-
-        // Pobieranie użytkowników
-        $admin = User::where('email', 'admin@example.com')->first();
-        $jacwin = User::where('email', 'admin2@example.com')->first();
-
-        // Generowanie tokenów API
-        $adminToken = $admin->createToken('DefaultToken')->plainTextToken;
-        $jacwinToken = $jacwin->createToken('DefaultToken')->plainTextToken;
 
         User::factory(10)->create();
 
