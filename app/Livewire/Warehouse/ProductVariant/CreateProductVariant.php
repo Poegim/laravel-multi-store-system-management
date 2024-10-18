@@ -9,55 +9,52 @@ use Illuminate\Support\Collection;
 
 class CreateProductVariant extends Component
 {
-    public string $search = '';
+    
+    // public string $name = '';
+    // public array $selectedDevices = [];
+    // public string $search = '';
+    // public bool $modelsListVisibility = false;
+    // public bool $automatedName = true;
 
-    public array $selectedDevices = [];
+    // public ?Collection $hiddenDevices;
 
-    public string $name = '';
-    public bool $modelsListVisibility = false;
-    public bool $automatedName = true;
+    // public function updatedSearch()
+    // {
+    //     $this->modelsListVisibility = !empty($this->search);
+    // }
 
-    public ?Collection $hiddenDevices;
+    // public function handleDeviceSelect($param)
+    // {
+    //     if (($key = array_search($param, $this->selectedDevices)) !== false) {
+    //         unset($this->selectedDevices[$key]);
+    //     } else {
+    //         $this->selectedDevices[] = $param;
+    //     }
 
-    public function updatedSearch()
-    {
-        $this->modelsListVisibility = !empty($this->search);
-    }
+    //     $this->hiddenDevices = Product::devices()->
+    //     whereIn ('id', $this->selectedDevices)->
+    //     get();
 
-    public function handleDeviceSelect($param)
-    {
-        if (($key = array_search($param, $this->selectedDevices)) !== false) {
-            unset($this->selectedDevices[$key]);
-        } else {
-            $this->selectedDevices[] = $param;
-        }
+    //     $this->generateName();
 
-        $this->hiddenDevices = Product::devices()->
-        whereIn ('id', $this->selectedDevices)->
-        get();
+    // }
 
-        $this->generateName();
-
-    }
-
-    public function generateName()
-    {
-        if($this->automatedName)
-        {
-            $this->name = '';
-            foreach($this->hiddenDevices as $device)
-            {
-                $this->name = $this->name . ' ' . $device->name;
-            }
-        }
-    }
+    // public function generateName()
+    // {
+    //     if($this->automatedName)
+    //     {
+    //         $this->name = '';
+    //         foreach($this->hiddenDevices as $device)
+    //         {
+    //             $this->name = $this->name . ' ' . $device->name;
+    //         }
+    //     }
+    // }
 
     public function render()
     {
         $products = Product::select('id', 'name')->where('is_device', false)->get();
-
         $devices = Product::devices()->get();
-
         $features = Feature::select(['id', 'name'])->orderBy('name', 'asc')->get();
 
         return view('livewire.warehouse.product-variant.create-product-variant', [
