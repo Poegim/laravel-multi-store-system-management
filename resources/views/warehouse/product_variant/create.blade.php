@@ -61,6 +61,9 @@
                         <legend class="font-semibold text-sm text-gray-800 dark:text-gray-100 -mb-1">
                             {{ __('choose_devices') }}:
                         </legend>
+                        @error('devices')
+                        <div class="text-red-500 dark:text-red-300">{{ $message }}</div>
+                        @enderror
                         <x-search-multiselect-dropdown :collection="$devices" :inputName="'devices'" />
                     </fieldset>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Str;
 use App\Models\Warehouse\Feature;
 use App\Models\Warehouse\Product;
 use Illuminate\Foundation\Http\FormRequest;
@@ -34,6 +35,10 @@ class StoreProductVariantRequest extends FormRequest
                 'string', 'max:255', 'min:2', 'nullable',
             ],
             'product_id' => ['exists:products,id', 'required'],
+            'devices' => ['array', 'nullable'],
+            'devices.*' => ['exists:products,id'],
+            'features' => ['nullable', 'array'],
+            'features.*' => ['exists:products,id'],
         ];
     }
 
@@ -51,18 +56,30 @@ class StoreProductVariantRequest extends FormRequest
                 'name' => $this->generateName(),
             ]);
         }
-        dd($this->request);
+
+        if($this->input('name')) {
+            $this->merge([
+                'slug' => Str::slug($this->input('name')),
+            ]);
+        }
     }
 
-    public function generateName()
+    /**
+     * Merging selected feature and device names and return as string.
+     *
+     * @return string
+     */
+    public function generateName(): string
     {
         $name = '';
 
-        if($this->input('devices')) {
+        if(is_array($this->input('devices'))) {
             foreach($this->input('devices') as $deviceId)
             {
                 $device = Product::where('id', $deviceId)->with('brand')->first();
-                $name = $name . $device->brand->name . ' ' . $device->name . ' ';
+                if($device) {
+                    $name = $name . $device->brand->name . ' ' . $device->name . ' ';
+                }
             }
         }
         
@@ -74,7 +91,7 @@ class StoreProductVariantRequest extends FormRequest
             }
         }
 
-        //cut last space and return name
+        //Cut last space and return name
         return substr($name, 0, -1);
     }
 }
