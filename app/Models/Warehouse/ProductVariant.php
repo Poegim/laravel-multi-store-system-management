@@ -22,8 +22,9 @@ class ProductVariant extends Model
 
     public function features(): BelongsToMany
     {
-        return $this->belongsToMany(Feature::class, 'product_variants_features')
-                    ->withPivot('value');
+        return $this
+                ->belongsToMany(Feature::class, 'feature_product_variant', 'product_variant_id', 'feature_id')
+                ->withTimestamps();
     }
 
     public function stockItems()
@@ -33,7 +34,9 @@ class ProductVariant extends Model
 
     public function devices(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'device_product_variant', 'product_variant_id', 'device_id');
+        return $this
+                ->belongsToMany(Product::class, 'device_product_variant', 'product_variant_id', 'device_id')
+                ->withTimestamps();
     }
 
 

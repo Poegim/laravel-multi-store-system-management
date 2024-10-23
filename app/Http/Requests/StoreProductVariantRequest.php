@@ -39,6 +39,7 @@ class StoreProductVariantRequest extends FormRequest
             'devices.*' => ['exists:products,id'],
             'features' => ['nullable', 'array'],
             'features.*' => ['exists:products,id'],
+            'suggested_retail_price' => ['numeric', 'min:1', 'nullable'],
         ];
     }
 

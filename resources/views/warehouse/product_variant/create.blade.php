@@ -38,8 +38,15 @@
                     @error('name')
                     <div class="text-red-500 dark:text-red-300">{{ $message }}</div>
                     @enderror
-    
                     <input type="text" name="name" class="input-text" autofocus="false"/>
+    
+
+                    <label for="suggested_retail_price" class="input-label" autofocus>{{ __('suggested_retail_price') }}</label>
+                    @error('suggested_retail_price')
+                    <div class="text-red-500 dark:text-red-300">{{ $message }}</div>
+                    @enderror
+                    <input type="number" step="0.01" name="suggested_retail_price" class="input-text" autofocus="false"/>
+    
     
                     <label for="ean" class="input-label">{{ __('ean') }}</label>
                     @error('ean')

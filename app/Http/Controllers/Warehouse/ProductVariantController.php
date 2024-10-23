@@ -8,9 +8,14 @@ use App\Models\Warehouse\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductVariantRequest;
 use App\Models\Warehouse\ProductVariant;
+use App\Services\ProductVariantService;
 
 class ProductVariantController extends Controller
 {
+    public function __construct(
+        protected ProductVariantService $productVariantService,
+    ) {}
+
     public function index()
     {
         return view('warehouse.product_variant.index');
@@ -41,7 +46,10 @@ class ProductVariantController extends Controller
 
     public function store(StoreProductVariantRequest $request)
     {
-        //
+        $this->productVariantService->store($request->validated());
+        session()->flash('flash.banner', __('Successfully created!'));
+        session()->flash('flash.bannerStyle', 'success');
+        return redirect()->route('product-variant.index');
     }
 
     public function edit(int $id)

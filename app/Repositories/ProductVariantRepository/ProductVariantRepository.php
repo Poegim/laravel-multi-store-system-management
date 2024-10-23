@@ -9,7 +9,9 @@ class ProductVariantRepository implements ProductVariantRepositoryInterface
     public function store(array $data) {
         $productVariant = new ProductVariant;
         $productVariant = $this->associate($productVariant, $data);
-        return $productVariant->save();
+        $productVariant->save();
+        isset($data['features']) && $productVariant->features()->sync($data['features']);
+        isset($data['devices']) && $productVariant->devices()->sync($data['devices']);
     }
 
     public function update(array $data, ProductVariant $productVariant) {
@@ -20,10 +22,11 @@ class ProductVariantRepository implements ProductVariantRepositoryInterface
     private function associate(ProductVariant $productVariant, array $data)
     {
         $productVariant->name = $data['name'];
-        // $productVariant->slug = $data['slug'];
-        // $productVariant->is_device = $data['is_device'];
-        // $productVariant->category_id = $data['category_id'];
-        // $productVariant->brand_id = $data['brand_id'];
+        $productVariant->slug = $data['slug'];
+        $productVariant->ean = $data['ean'];
+        $productVariant->product_id = $data['product_id'];
+
         return $productVariant;
     }
+
 }

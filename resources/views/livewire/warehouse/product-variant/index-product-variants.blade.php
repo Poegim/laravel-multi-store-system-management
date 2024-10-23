@@ -53,7 +53,7 @@
                         <th scope="col" class="px-6 py-3">
                             <div class="flex cursor-pointer" wire:click="sortBy('suggested_retail_price')">
                                 <span class="uppercase" >
-                                    {{__('suggested_retail_price')}}
+                                    {{__('SRP')}}
                                 </span>
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -68,7 +68,7 @@
                         <th scope="col" class="px-6 py-3">
                             <div class="flex cursor-pointer" wire:click="sortBy('stock_items_count')">
                                 <span class="uppercase" >
-                                    {{__('stock_items_count')}}
+                                    {{__('COUNT')}}
                                 </span>
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -83,10 +83,10 @@
                         <th scope="col" class="px-6 py-3 hidden lg:table-cell">
                         {{__('product name')}}
                         </th>
-                        <th scope="col" class="px-6 py-3 hidden lg:table-cell">
+                        <th scope="col" class="px-6 py-3 hidden xl:table-cell">
                             {{__('product id')}}
                             </th>
-                        <th scope="col" class="px-6 py-3 hidden lg:table-cell">
+                        <th scope="col" class="px-6 py-3 hidden xl:table-cell">
                         {{__('ean')}}
                         </th>
                         <th scope="col" class="px-6 py-3 text-right">
@@ -102,9 +102,9 @@
                                 {{$item->id}}
                         </th>
                         <th scope="row"
-                            class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            class="px-6 py-1 font-medium text-gray-900 dark:text-white">
                             <div class="flex">
-                                <a href="{{route('product-variant.show', $item->id)}}" class="my-auto link">{{$item->name}}</a>
+                                <a href="{{route('product-variant.show', $item->id)}}" label="{{$item->name}}" class="my-auto link">{{Str::limit($item->name, 25, '...')}}</a>
                             </div>
                         </th>
 
@@ -120,10 +120,10 @@
                         <td class="px-6 py-1 hidden lg:table-cell">
                             {{$item->product->name}}
                         </td>
-                        <td class="px-6 py-1 hidden lg:table-cell">
+                        <td class="px-6 py-1 hidden xl:table-cell">
                             {{$item->product->id}}
                         </td>
-                        <td class="px-6 py-1 hidden lg:table-cell">
+                        <td class="px-6 py-1 hidden xl:table-cell">
                             {{$item->ean}}
                         </td>
                         <td class="px-6 py-1 flex justify-end">
