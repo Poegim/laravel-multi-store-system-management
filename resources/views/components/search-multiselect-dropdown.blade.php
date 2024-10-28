@@ -1,4 +1,4 @@
-<div x-data="autocompleteMultiSelect('{{ $inputName }}', '{{ $searchBy }}', '{{ $passedId }}')" @click.away="closeDropdown()" class="relative">
+<div x-data="autocompleteMultiSelect('{{ $inputName }}', '{{ $searchBy }}', '{{ $passedIds }}')" @click.away="closeDropdown()" class="relative">
 
     <!-- Show choosen items-->
     <div class="flex flex-wrap gap-1 my-1">
@@ -60,20 +60,36 @@
     </ul>
 
     <script>
-    function autocompleteMultiSelect(uniqueId, searchBy, passedId = null) {
+    function autocompleteMultiSelect(uniqueId, searchBy, passedIds = null) {
+
+        // Check if `passedIds` is a non-empty string
+        if (typeof passedIds === 'string' && passedIds.trim() !== '') {
+            try {
+                passedIds = JSON.parse(passedIds);  // Attempt to parse `passedIds` into an array
+            } catch (error) {
+                console.error("Nie udało się przekonwertować passedIds na tablicę:", error);
+                passedIds = []; // Set `passedIds` to an empty array if JSON.parse fails
+            }
+        } else {
+            // If `passedIds` is an empty string or null, set it to an empty array
+            passedIds = [];
+        }
+
         return {
             query: '',
             open: false,
             highlightedIndex: 0,
             InputVisibleUniqueId: 'visible_' + uniqueId,
             uniqueId: uniqueId,
-            passedId: passedId,
+            passedIds: passedIds,
             searchBy: searchBy,
             originalData: [],
             filteredData: [],
             selectedItems: [],
             selected: false,
             dataLoaded: false,
+
+
 
             // Load data from API.
             loadData() {
@@ -95,9 +111,16 @@
                 .then(data => {
                     this.originalData = data.data;  // In case of pagination.
                     this.filteredData = data.data; // Update list.
-                    this.open = this.filteredData.length > 0; // Open dropdown if there are any results.
+
+                    // Load selected items based on passedIds directly after fetching data
+                    this.selectedItems = this.originalData.filter(item => this.passedIds.includes(item.id));
+                    this.$refs.hiddenInput.value = JSON.stringify(this.selectedItems.map(item => item.id)); // Update hidden input
                 })
                 .catch(error => console.error('Loading data error:', error));
+            },
+
+            init() {
+                this.loadData();  // Load data on initialization
             },
 
             filterData() {

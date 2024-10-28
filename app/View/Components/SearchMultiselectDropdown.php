@@ -15,7 +15,7 @@ class SearchMultiselectDropdown extends Component
     public function __construct(
         public Collection $collection,
         public string $inputName,
-        public $passedId = null,
+        public $passedIds = null,
         public string $searchBy = 'name',
         ) {
         }
@@ -31,7 +31,7 @@ class SearchMultiselectDropdown extends Component
             'collection' => $this->collection,
             'inputName' => $this->inputName,
             'searchBy' => $this->searchBy,
-            'passedId' => $this->passedId,
+            'passedIds' => $this->passedIds,
             'token' => $token,
         ]);
     }

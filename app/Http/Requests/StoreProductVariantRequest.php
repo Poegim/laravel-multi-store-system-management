@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use App\Models\Warehouse\Feature;
 use App\Models\Warehouse\Product;
 use Illuminate\Foundation\Http\FormRequest;
@@ -29,17 +30,20 @@ class StoreProductVariantRequest extends FormRequest
                 'required', 'string', 'max:255', 'min:2',
             ],
             'slug' => [
-                'required', 'string', 'max:255', 'min:2',
+                'required', 'string', 'max:255', 'min:2', 
+                Rule::unique('product_variants')->where(function ($query) {
+                    return $query->where('product_id', $this->input('product_id'));
+                }),
             ],
             'ean' => [
                 'string', 'max:255', 'min:2', 'nullable',
             ],
-            'product_id' => ['exists:products,id', 'required'],
+            'product_id' => ['required', 'integer', 'exists:products,id'],
             'devices' => ['array', 'nullable'],
             'devices.*' => ['exists:products,id'],
             'features' => ['nullable', 'array'],
             'features.*' => ['exists:products,id'],
-            'suggested_retail_price' => ['numeric', 'min:1', 'nullable'],
+            'suggested_retail_price' => ['numeric', 'min:0.01', 'nullable'],
         ];
     }
 
@@ -94,5 +98,12 @@ class StoreProductVariantRequest extends FormRequest
 
         //Cut last space and return name
         return substr($name, 0, -1);
+    }
+
+    public function messages()
+    {
+        return [
+            'slug.unique' => 'This combination of name and product already exist.',
+        ];
     }
 }

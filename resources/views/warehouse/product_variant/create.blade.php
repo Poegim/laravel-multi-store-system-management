@@ -38,14 +38,14 @@
                     @error('name')
                     <div class="text-red-500 dark:text-red-300">{{ $message }}</div>
                     @enderror
-                    <input type="text" name="name" class="input-text" autofocus="false"/>
+                    <input type="text" name="name" class="input-text" autofocus="false" value="{{ old('name') ? old('name') : '' }}"/>
     
 
-                    <label for="suggested_retail_price" class="input-label" autofocus>{{ __('suggested_retail_price') }}</label>
+                    <label for="suggested_retail_price" class="input-label" >{{ __('suggested_retail_price') }}</label>
                     @error('suggested_retail_price')
                     <div class="text-red-500 dark:text-red-300">{{ $message }}</div>
                     @enderror
-                    <input type="number" step="0.01" name="suggested_retail_price" class="input-text" autofocus="false"/>
+                    <input type="number" step="0.01" min="0.01" name="suggested_retail_price" value="{{ old('suggested_retail_price') ? old('suggested_retail_price') : '' }}" class="input-text" autofocus="false"/>
     
     
                     <label for="ean" class="input-label">{{ __('ean') }}</label>
@@ -53,14 +53,14 @@
                     <div class="text-red-500 dark:text-red-300">{{ $message }}</div>
                     @enderror
     
-                    <input type="text" id="ean" name="ean" class="input-text" autofocus="false" />
+                    <input type="text" id="ean" name="ean" class="input-text" autofocus="false" value="{{ old('ean') ? old('ean') : '' }}"/>
     
                     <label for="product_id" class="input-label">{{ __('product') }}</label>
                     @error('product_id')
                     <div class="text-red-500 dark:text-red-300">{{ $message }}</div>
                     @enderror
     
-                    <x-search-dropdown :collection="$products" :inputName="'product_id'"></x-search-dropdown>
+                    <x-search-dropdown :collection="$products" :inputName="'product_id'" :passedId="old('product_id') ?? null"></x-search-dropdown>
                 </div>
     
                 <div class="col-span-1 text-sm px-4 py-4 rounded-mid border border-gray-200 dark:border-gray-700">
@@ -71,7 +71,7 @@
                         @error('devices')
                         <div class="text-red-500 dark:text-red-300">{{ $message }}</div>
                         @enderror
-                        <x-search-multiselect-dropdown :collection="$devices" :inputName="'devices'" />
+                        <x-search-multiselect-dropdown :collection="$devices" :inputName="'devices'" :passedIds="old('devices') ?? null"/>
                     </fieldset>
                 </div>
     
@@ -82,7 +82,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
                             @foreach ($features as $feature)
                             <div>
-                                <input type="checkbox" id="{{ $feature->id }}" name="features[]" value="{{ $feature->id }}" />
+                                <input type="checkbox" id="{{ $feature->id }}" name="features[]" value="{{ $feature->id }}" {{ in_array($feature->id, old('features', [])) ? 'checked' : '' }}/>
                                 <label class="text-gray-700 dark:text-gray-300" for="{{ $feature->id }}">{{ $feature->name }}</label>
                             </div>
                             @endforeach

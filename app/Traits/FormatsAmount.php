@@ -5,20 +5,41 @@ namespace App\Traits;
 trait FormatsAmount
 {
     /**
-     * Formats a value given in cents (for prices) or as a whole number (for percentages)
-     * to a string with two decimal places.
+     * Convert value from decimal to Integer
      *
-     * @param int $amount Value in cents (for prices) or as a whole number (for percentages)
-     * @return string Formatted value with two decimal places
+     * @param  float  $value  Decimal value (ex. 222.22).
+     * @return int            Integer (ex. 22222).
      */
-    // public function formatAmount(int $amount): string
-    // {
-    //     if ($this->amount === 0) {
-    //         return '0.00';
-    //     }
+    public function decimalToInteger(float $value = 0.00): int
+    {
+        if ($value === 0.00) {
+            return 0;
+        }
 
-    //     // Divide by 100 to convert to a format with two decimal places
-    //     return number_format($amount / 100, 2, '.', '');
-    // }
+        if($value < 0) {
+            abort(403);
+        }
+
+        return (int) round($value * 100);
+    }
+
+    /**
+     * Converts integer to float.
+     *
+     * @param  int    $value  Integer (ex. 22222).
+     * @return float          Float (ex. 222.22).
+     */
+    public function integerToDecimal(int $value = 0): float
+    {
+        if ($this->value === 0) {
+            return 0;
+        }
+
+        if($value < 0) {
+            abort(403);
+        }
+
+        return number_format($value / 100, 2, '.', '');
+    }
 
 }
