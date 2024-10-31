@@ -57,9 +57,9 @@ Route::name('product-variant.')->prefix('product-variant')->middleware(['auth'])
     Route::get('', [ProductVariantController::class, 'index'])->name('index');
     Route::get('/create', [ProductVariantController::class, 'create'])->name('create');
     Route::post('/store', [ProductVariantController::class, 'store'])->name('store');
-    Route::get('/show/{product:id}', [ProductVariantController::class, 'show'])->name('show');
-    // Route::get('/{product:slug}/edit', [ProductVariantController::class, 'edit'])->name('edit');
-    // Route::put('/{product:slug}/update', [ProductVariantController::class, 'update'])->name('update');
+    Route::get('/{product:slug}/{product_variant:slug}/show', [ProductVariantController::class, 'show'])->name('show');
+    Route::get('/{product:slug}/{product_variant:slug}/edit', [ProductVariantController::class, 'edit'])->name('edit');
+    Route::put('/{product:slug}/{product_variant:slug}/update', [ProductVariantController::class, 'update'])->name('update');
 });
 
 Route::name('feature.')->prefix('feature')->middleware(['auth'])->group(function () {

@@ -23,7 +23,6 @@ class ProductVariantController extends Controller
 
     public function show(int $id)
     {
-
         $productVariant = ProductVariant::where('id', $id)->with('stockItems')->first();
 
         return view('warehouse.product_variant.show', [
@@ -36,7 +35,7 @@ class ProductVariantController extends Controller
         $products = Product::select('id', 'name')->where('is_device', false)->get();
         $devices = Product::devices()->get();
         $features = Feature::select(['id', 'name'])->orderBy('name', 'asc')->get();
-        
+
         return view('warehouse.product_variant.create', [
             'products' => $products,
             'devices' => $devices,
