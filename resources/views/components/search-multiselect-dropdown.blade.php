@@ -76,117 +76,100 @@
         }
 
         return {
-            query: '',
-            open: false,
-            highlightedIndex: 0,
-            InputVisibleUniqueId: 'visible_' + uniqueId,
-            uniqueId: uniqueId,
-            passedIds: passedIds,
-            searchBy: searchBy,
-            originalData: [],
-            filteredData: [],
-            selectedItems: [],
-            selected: false,
-            dataLoaded: false,
+    query: '',
+    open: false,
+    highlightedIndex: 0,
+    InputVisibleUniqueId: 'visible_' + uniqueId,
+    uniqueId: uniqueId,
+    passedIds: passedIds,
+    searchBy: searchBy,
+    originalData: [],
+    filteredData: [],
+    selectedItems: [],  // Wybrane elementy
+    selected: false,
+    dataLoaded: false,
 
+    loadData(initializeSelectedItems = false) {
+        const token = @json($token);
 
-
-            // Load data from API.
-            loadData() {
-                const token = @json($token);
-
-                fetch(`/api/get-data?search=${this.query}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response error.');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    this.originalData = data.data;  // In case of pagination.
-                    this.filteredData = data.data; // Update list.
-
-                    // Load selected items based on passedIds directly after fetching data
-                    this.selectedItems = this.originalData.filter(item => this.passedIds.includes(item.id));
-                    this.$refs.hiddenInput.value = JSON.stringify(this.selectedItems.map(item => item.id)); // Update hidden input
-                })
-                .catch(error => console.error('Loading data error:', error));
-            },
-
-            init() {
-                this.loadData();  // Load data on initialization
-            },
-
-            filterData() {
-                // Debounce
-                this.loadData();
-            },
-
-            moveDown() {
-                if (this.highlightedIndex < this.filteredData.length - 1) {
-                    this.highlightedIndex++;
-                }
-            },
-
-            moveUp() {
-                if (this.highlightedIndex > 0) {
-                    this.highlightedIndex--;
-                }
-            },
-
-            selectOption(index = this.highlightedIndex) {
-                if (this.filteredData.length > 0 && index >= 0 && index < this.filteredData.length) {
-                    const selectedItem = this.filteredData[index];
-
-                    // Is already selected.
-                    if (!this.selectedItems.find(item => item.id === selectedItem.id)) {
-                        this.selectedItems.push(selectedItem); // Dodanie elementu do wybranych
-                    }
-
-                    // Update hidden input.
-                    this.$refs.hiddenInput.value = JSON.stringify(this.selectedItems.map(item => item.id));
-
-                    // Reset query.
-                    // this.query = '';
-                    // this.open = false; // Close dropdown after select.
-                }
-            },
-
-            removeItem(index) {
-                this.selectedItems.splice(index, 1); // Remove el.
-
-                // Update hidden input.
-                this.$refs.hiddenInput.value = JSON.stringify(this.selectedItems.map(item => item.id));
-            },
-
-            //Check is selected.
-            isSelected(item) {
-                return this.selectedItems.some(selected => selected.id === item.id);
-            },
-
-            handleEnterKey() {
-                this.selectOption();
-            },
-
-            openDropdown() {
-                this.open = true;
-                this.loadData();
-            },
-
-            closeDropdown() {
-                this.open = false;
-            },
-
-            toggleDropdown() {
-                this.open = !this.open;
+        fetch(`/api/get-data?search=${this.query}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
             }
-        };
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response error.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            this.originalData = data.data;
+            this.filteredData = data.data;
+
+            // Jeśli `initializeSelectedItems` jest ustawione na true,
+            // ustaw `selectedItems` na podstawie `passedIds` tylko raz
+            if (initializeSelectedItems) {
+                this.selectedItems = this.passedIds
+                    .map(id => this.originalData.find(item => item.id === id))
+                    .filter(Boolean); // Usunięcie `null`, jeśli ID nie istnieje
+                this.$refs.hiddenInput.value = JSON.stringify(this.selectedItems.map(item => item.id));
+            }
+        })
+        .catch(error => console.error('Loading data error:', error));
+    },
+
+    init() {
+        // Załaduj dane po raz pierwszy i ustaw `selectedItems` tylko raz
+        this.loadData(true);
+    },
+
+    filterData() {
+        this.loadData(); // Bez inicjalizacji `selectedItems`
+    },
+
+    selectOption(index = this.highlightedIndex) {
+        if (this.filteredData.length > 0 && index >= 0 && index < this.filteredData.length) {
+            const selectedItem = this.filteredData[index];
+
+            if (!this.selectedItems.find(item => item.id === selectedItem.id)) {
+                this.selectedItems.push(selectedItem);
+            }
+
+            this.$refs.hiddenInput.value = JSON.stringify(this.selectedItems.map(item => item.id));
+        }
+    },
+
+    removeItem(index) {
+        this.selectedItems.splice(index, 1);
+        this.$refs.hiddenInput.value = JSON.stringify(this.selectedItems.map(item => item.id));
+    },
+
+    isSelected(item) {
+        return this.selectedItems.some(selected => selected.id === item.id);
+    },
+
+    handleEnterKey() {
+        this.selectOption();
+    },
+
+    openDropdown() {
+        this.open = true;
+        this.loadData();
+    },
+
+    closeDropdown() {
+        this.open = false;
+    },
+
+    toggleDropdown() {
+        this.open = !this.open;
+    }
+};
+
+
     }
 
     </script>

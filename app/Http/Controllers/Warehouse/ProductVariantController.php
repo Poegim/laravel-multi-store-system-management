@@ -6,15 +6,24 @@ use Illuminate\Http\Request;
 use App\Models\Warehouse\Feature;
 use App\Models\Warehouse\Product;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreProductVariantRequest;
-use App\Models\Warehouse\ProductVariant;
 use App\Services\ProductVariantService;
+use App\Models\Warehouse\ProductVariant;
+use App\Http\Requests\StoreProductVariantRequest;
+use App\Http\Requests\UpdateProductVariantRequest;
 
 class ProductVariantController extends Controller
 {
+    private $products;
+    private $devices;
+    private $features;
+
     public function __construct(
         protected ProductVariantService $productVariantService,
-    ) {}
+    ) {         
+        $this->products = Product::select('id', 'name')->where('is_device', false)->get();
+        $this->devices = Product::devices()->get();
+        $this->features = Feature::select(['id', 'name'])->orderBy('name', 'asc')->get();
+    }
 
     public function index()
     {
@@ -24,7 +33,6 @@ class ProductVariantController extends Controller
     public function show(int $id)
     {
         $productVariant = ProductVariant::where('id', $id)->with('stockItems')->first();
-
         return view('warehouse.product_variant.show', [
             'productVariant' => $productVariant,
         ]);
@@ -32,14 +40,10 @@ class ProductVariantController extends Controller
 
     public function create()
     {
-        $products = Product::select('id', 'name')->where('is_device', false)->get();
-        $devices = Product::devices()->get();
-        $features = Feature::select(['id', 'name'])->orderBy('name', 'asc')->get();
-
         return view('warehouse.product_variant.create', [
-            'products' => $products,
-            'devices' => $devices,
-            'features' => $features,
+            'products' => $this->products,
+            'devices' => $this->devices,
+            'features' => $this->features,
         ]);
     }
 
@@ -53,18 +57,21 @@ class ProductVariantController extends Controller
 
     public function edit(int $id)
     {
-        $products = Product::select('id', 'name')->where('is_device', false)->get();
-        $devices = Product::devices()->get();
-        $features = Feature::select(['id', 'name'])->orderBy('name', 'asc')->get();
         $productVariant = ProductVariant::findOrFail($id);
-        $selectedDeivces = null;
-
         return view('warehouse.product_variant.edit', [
             'productVariant' => $productVariant,
-            'products' => $products,
-            'devices' => $devices,
-            'features' => $features,
+            'products' => $this->products,
+            'devices' => $this->devices,
+            'features' => $this->features,
         ]);
+    }
+
+    public function update(ProductVariant $productVariant, UpdateProductVariantRequest $request)
+    {   
+        $this->productVariantService->update($request->validated(), $productVariant);
+        session()->flash('flash.banner', __('Successfully updated! ' . $productVariant->id . ' ' . $productVariant->product->name . ' ' . $productVariant->name));
+        session()->flash('flash.bannerStyle', 'success');
+        return redirect()->route('product-variant.index');
     }
 
 }

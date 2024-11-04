@@ -127,7 +127,7 @@
                             {{$item->ean}}
                         </td>
                         <td class="px-6 py-1 flex justify-end">
-                            <a href="#">
+                            <a href="{{ route('product-variant.edit', $item->id) }}">
                                 <x-buttons.edit-button>
                                     {{__('edit')}}
                                 </x-buttons.edit-button>

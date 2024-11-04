@@ -19,10 +19,12 @@ class ProductVariantRepository implements ProductVariantRepositoryInterface
         isset($data['devices']) && $productVariant->devices()->sync($data['devices']);
     }
 
-    public function update(array $data, ProductVariant $productVariant): bool 
+    public function update(array $data, ProductVariant $productVariant) 
     {
         $productVariant = $this->associate($productVariant, $data);
-        return $productVariant->save();
+        $productVariant->save();
+        isset($data['features']) && $productVariant->features()->sync($data['features']);
+        isset($data['devices']) && $productVariant->devices()->sync($data['devices']);
     }
 
     private function associate(ProductVariant $productVariant, array $data): ProductVariant

@@ -97,7 +97,7 @@ class StoreProductVariantRequest extends FormRequest
         }
 
         //Cut last space and return name
-        return substr($name, 0, -1);
+        return Str::limit(substr($name, 0, -1), 255);
     }
 
     public function messages()

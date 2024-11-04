@@ -39,5 +39,11 @@ class ProductVariant extends Model
                 ->withTimestamps();
     }
 
+    public function devicesIds(): array
+    {
+        return $this->devices()->pluck('device_id')->toArray();
+    }
+
+
 
 }
