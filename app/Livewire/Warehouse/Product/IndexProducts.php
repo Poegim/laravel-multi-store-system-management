@@ -28,15 +28,16 @@ class IndexProducts extends Component
      * Optional params
      */
     public $category_filter;
+    public $brand_filter;
 
     public function reloadProductsIndex()
     {
         $this->resetPage();
     }
 
-    public function mount($category = null) {
+    public function mount($brand = null, $category = null) {
+        $this->brand_filter = $brand;
         $this->category_filter = $category;
-        // $this->categories = $this->categoryService->allTree();
     }
 
     public function render()
@@ -47,11 +48,18 @@ class IndexProducts extends Component
         ->where('products.name', 'like', '%' . $this->search . '%') // Explicitly specify that we're referring to products.name
         ->withCount('productVariants'); // Add the alias 'product_variants_count'
 
-        $count = 0;
+        $category_count = 0;
         //If there is passed category filter id to component
         if($this->category_filter) {
             $productsQuery = $productsQuery->where('category_id', $this->category_filter->id);
-            $count = $this->category_filter->products->count();
+            $category_count = $this->category_filter->products->count();
+        }
+
+        $brand_count = 0;
+        //If there is passed category filter id to component
+        if($this->brand_filter) {
+            $productsQuery = $productsQuery->where('brand_id', $this->brand_filter->id);
+            $brand_count = $this->brand_filter->products->count();
         }
 
 
@@ -69,6 +77,6 @@ class IndexProducts extends Component
 
         $products = $productsQuery->paginate(10, ['*'], 'page_products');
 
-        return view('livewire.warehouse.product.index-products', compact('products', 'count'));
+        return view('livewire.warehouse.product.index-products', compact('products', 'brand_count', 'category_count'));
     }
 }

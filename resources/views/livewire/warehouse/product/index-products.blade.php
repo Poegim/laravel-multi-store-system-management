@@ -1,6 +1,6 @@
 <div >
 
-    @if (!$category_filter)
+    @if ((!$category_filter) || (!$brand_filter))
     <!-- If there was passed category filter dont show create button -->
     <div class="w-full flex justify-end my-1 sm:my-4 h-9 space-x-2 pr-2 sm:pr-0">
         <x-input id="name" type="text" aria-placeholder="Search..." placeholder="Search..." wire:model.debounce.500ms.live="search" />
@@ -17,7 +17,15 @@
         <!-- If there was passed category filter show category name we are filtering -->
         <div class="w-full">
             <h2 class="text-sm px-4 uppercase font-semibold roboto text-gray-700 dark:text-gray-300">
-                Founded {{ $count }} products of category: {{ $category_filter->plural_name}}
+                Founded {{ $category_count }} products of category: {{ $category_filter->plural_name}}
+            </h2>
+        </div>
+        @endif
+        @if ($brand_filter)
+        <!-- If there was passed brand filter show brand name we are filtering -->
+        <div class="w-full">
+            <h2 class="text-sm px-4 uppercase font-semibold roboto text-gray-700 dark:text-gray-300">
+                Founded {{ $brand_count }} products of brand: {{ $brand_filter->name}}
             </h2>
         </div>
         @endif
