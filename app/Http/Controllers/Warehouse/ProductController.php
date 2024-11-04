@@ -31,7 +31,6 @@ class ProductController extends Controller
 
     public function show(Brand $brand, Product $product)
     {
-        // $product = Product::where('id', $product->id)->with(['brand','productVariants.devices'])->first();
         return view('warehouse.product.show', [
             'product' => $product,
         ]);

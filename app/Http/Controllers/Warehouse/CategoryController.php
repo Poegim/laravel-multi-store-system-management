@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Warehouse;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use App\Models\Warehouse\Product;
+use App\Models\Warehouse\Category;
+use Illuminate\Contracts\View\View;
+use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
@@ -13,8 +15,9 @@ class CategoryController extends Controller
         return view('warehouse.category.index');
     }
 
-    public function show($id) 
+    public function show(Category $category) 
     {
-        //
+        $products = Product::where('category_id', $category->id)->paginate(10);
+        return view('warehouse.category.show', compact('category', 'products'));
     }
 }

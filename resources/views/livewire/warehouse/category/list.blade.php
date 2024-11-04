@@ -13,7 +13,7 @@
         <div class="w-full ml-2">
             <div class="px-2 rounded-mid  w-full grid grid-cols-1 xl:grid-cols-2 border-dotted border-b border-gray-500 py-1 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <span class="my-auto flex">
-                    {{ $category['plural_name'] }}
+                    <a class="link" href="{{route('category.show', $category['slug'])}}">{{ $category['plural_name'] }}</a>
                 </span>
 
                 <span class="flex justify-end space-x-2">

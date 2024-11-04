@@ -22,7 +22,6 @@
             <div>
                 Compatibile with devices:
             </div>
-            {{ dump($variant)}}
             <div class="p-2 bg-gray-200 rouded-mid mt-2">
                 @foreach ($variant->devices as $device)
                 <div class="ml-2">

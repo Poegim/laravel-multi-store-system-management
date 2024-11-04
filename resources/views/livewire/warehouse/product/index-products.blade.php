@@ -1,5 +1,7 @@
 <div >
 
+    @if (!$category_filter)
+    <!-- If there was passed category filter dont show create button -->
     <div class="w-full flex justify-end my-1 sm:my-4 h-9 space-x-2 pr-2 sm:pr-0">
         <x-input id="name" type="text" aria-placeholder="Search..." placeholder="Search..." wire:model.debounce.500ms.live="search" />
         <a href="{{route('product.create')}}" wire:navigate>
@@ -8,8 +10,18 @@
             </x-button>
         </a>
     </div>
+    @endif
 
     <x-window>
+        @if ($category_filter)
+        <!-- If there was passed category filter show category name we are filtering -->
+        <div class="w-full">
+            <h2 class="text-sm px-4 uppercase font-semibold roboto text-gray-700 dark:text-gray-300">
+                Founded {{ $count }} products of category: {{ $category_filter->plural_name}}
+            </h2>
+        </div>
+        @endif
+
         <div>
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs uppercase">
@@ -69,7 +81,7 @@
                         <th scope="col" class="px-6 py-3">
                             <div class="flex cursor-pointer" wire:click="sortBy('product_variants_count')">
                                 <span class="uppercase">
-                                    {{__('count')}}
+                                    {{__('variants')}}
                                 </span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                     stroke="currentColor"

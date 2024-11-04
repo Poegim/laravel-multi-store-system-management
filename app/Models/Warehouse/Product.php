@@ -3,7 +3,6 @@
 namespace App\Models\Warehouse;
 
 use App\Models\Warehouse\Category;
-use App\Traits\GetsFormattedAmount;
 use App\Traits\HasFormattedSRP;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\ValidationException;
