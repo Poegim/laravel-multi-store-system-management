@@ -29,8 +29,10 @@ class ProductController extends Controller
         ]);
     }
 
-    public function show(Brand $brand, Product $product)
+    public function show(Brand $brand, string $slug)
     {
+        $product = Product::with('productVariants.stockItems')->where('brand_id', $brand->id)->where('slug', $slug)->firstOrFail();
+
         return view('warehouse.product.show', [
             'product' => $product,
         ]);

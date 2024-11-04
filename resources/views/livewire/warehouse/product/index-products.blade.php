@@ -13,19 +13,11 @@
     @endif
 
     <x-window>
-        @if ($category_filter)
-        <!-- If there was passed category filter show category name we are filtering -->
+        @if (($category_filter) || ($brand_filter))
+        <!-- If there was passed category or brand filter -->
         <div class="w-full">
             <h2 class="text-sm px-4 uppercase font-semibold roboto text-gray-700 dark:text-gray-300">
-                Founded {{ $category_count }} products of category: {{ $category_filter->plural_name}}
-            </h2>
-        </div>
-        @endif
-        @if ($brand_filter)
-        <!-- If there was passed brand filter show brand name we are filtering -->
-        <div class="w-full">
-            <h2 class="text-sm px-4 uppercase font-semibold roboto text-gray-700 dark:text-gray-300">
-                Founded {{ $brand_count }} products of brand: {{ $brand_filter->name}}
+                Filtered Products
             </h2>
         </div>
         @endif
@@ -48,19 +40,6 @@
                             </div>
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex cursor-pointer" wire:click="sortBy('brand')">
-                                <span class="uppercase">
-                                    {{__('brand')}}
-                                </span>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor"
-                                    class="size-4 {{ $sortField === 'brand' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                                </svg>
-                            </div>
-                        </th>
-                        <th scope="col" class="px-6 py-3">
                             <div class="flex cursor-pointer" wire:click="sortBy('name')">
                                 <span class="uppercase">
                                     {{__('name')}}
@@ -68,6 +47,19 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor"
                                     class="size-4 {{ $sortField === 'name' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex cursor-pointer" wire:click="sortBy('brand')">
+                                <span class="uppercase">
+                                    {{__('brand')}}
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="size-4 {{ $sortField === 'brand' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                 </svg>
@@ -116,15 +108,15 @@
 
                         <td scope="row" class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <div class="flex">
-                                <a href="{{ route('brand.show', $product->brand->slug)}}" class="link my-auto" alt="{{$product->brand->name}}"
-                                    label="{{$product->brand->name}}">{{Illuminate\Support\Str::limit($product->brand->name, 30, '...')}}</a>
+                                <a href="{{ route('product.show', [$product->brand, $product]) }}" class="link my-auto" alt="{{$product->name}}"
+                                    label="{{$product->name}}">{{Illuminate\Support\Str::limit($product->name, 30, '...')}}</a>
                             </div>
                         </td>
 
                         <td scope="row" class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <div class="flex">
-                                <a href="{{ route('product.show', [$product->brand, $product])}}" class="link my-auto" alt="{{$product->name}}"
-                                    label="{{$product->name}}">{{Illuminate\Support\Str::limit($product->name, 30, '...')}}</a>
+                                <a href="{{ route('brand.show', $product->brand->slug)}}" class="link my-auto" alt="{{$product->brand->name}}"
+                                    label="{{$product->brand->name}}">{{Illuminate\Support\Str::limit($product->brand->name, 30, '...')}}</a>
                             </div>
                         </td>
 

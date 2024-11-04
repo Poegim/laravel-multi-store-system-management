@@ -22,7 +22,7 @@ class StockItemsTableSeeder extends Seeder
      */
     public function run(): void
     {
-         $numberOfSeeds = 1000;
+         $numberOfSeeds = 100000;
 
         // Array of 30 random colors
         $colors = [
