@@ -7,6 +7,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\GitHubController;
 use App\Http\Controllers\Commerce\SaleController;
 use App\Http\Controllers\Commerce\ExternalInvoiceController;
+use App\Http\Controllers\Contacts\CompanyController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Warehouse\BrandController;
 use App\Http\Controllers\Warehouse\FeatureController;
@@ -72,8 +73,8 @@ Route::name('feature.')->prefix('feature')->middleware(['auth'])->group(function
 });
 
 Route::name('sale.')->prefix('sale')->middleware(['auth'])->group(function () {
-    Route::get('/store/{store:id?}', [SaleController::class, 'index'])->name('index');
-    Route::get('/store/{store}/create', [SaleController::class, 'create'])->name('create');
+    Route::get('/{store:id?}', [SaleController::class, 'index'])->name('index');
+    Route::get('/{store:id}/create', [SaleController::class, 'create'])->name('create');
     Route::post('/store', [SaleController::class, 'store'])->name('store');
     Route::get('/show/{sale}', [SaleController::class, 'show'])->name('show');
     Route::get('/edit/{sale}', [SaleController::class, 'edit'])->name('edit');
@@ -81,13 +82,23 @@ Route::name('sale.')->prefix('sale')->middleware(['auth'])->group(function () {
 });
 
 Route::name('external-invoice.')->prefix('external-invoice')->middleware(['auth'])->group(function () {
-    Route::get('/store/{store:id?}', [ExternalInvoiceController::class, 'index'])->name('index');
-    Route::get('/store/{store}/create', [ExternalInvoiceController::class, 'create'])->name('create');
+    Route::get('/{store:id?}', [ExternalInvoiceController::class, 'index'])->name('index');
+    Route::get('/{store:id}/create', [ExternalInvoiceController::class, 'create'])->name('create');
     Route::post('/store', [ExternalInvoiceController::class, 'store'])->name('store');
-    Route::get('/show/{external-invoice}', [ExternalInvoiceController::class, 'show'])->name('show');
-    Route::get('/edit/{external-invoice}', [ExternalInvoiceController::class, 'edit'])->name('edit');
-    Route::put('/update/{external-invoice}', [ExternalInvoiceController::class, 'update'])->name('update');
+    Route::get('/{external-invoice}/show', [ExternalInvoiceController::class, 'show'])->name('show');
+    Route::get('/{external-invoice}/edit', [ExternalInvoiceController::class, 'edit'])->name('edit');
+    Route::put('/{external-invoice}/update', [ExternalInvoiceController::class, 'update'])->name('update');
 });
+
+Route::name('company.')->prefix('company')->middleware(['auth'])->group(function () {
+    Route::get('/}', [CompanyController::class, 'index'])->name('index');
+    Route::get('/create', [CompanyController::class, 'create'])->name('create');
+    Route::post('/store', [CompanyController::class, 'store'])->name('store');
+    Route::get('/{company}/show', [CompanyController::class, 'show'])->name('show');
+    Route::get('/{company}/edit', [CompanyController::class, 'edit'])->name('edit');
+    Route::put('/{company}/update', [CompanyController::class, 'update'])->name('update');
+});
+
 
 
 Route::middleware([
