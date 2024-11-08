@@ -5,14 +5,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\GitHubController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Commerce\SaleController;
-use App\Http\Controllers\Commerce\ExternalInvoiceController;
-use App\Http\Controllers\Contacts\CompanyController;
-use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Warehouse\BrandController;
 use App\Http\Controllers\Warehouse\FeatureController;
 use App\Http\Controllers\Warehouse\ProductController;
 use App\Http\Controllers\Warehouse\CategoryController;
+use App\Http\Controllers\Commerce\ExternalInvoiceController;
 use App\Http\Controllers\Warehouse\ProductVariantController;
 
 Route::name('user.')->prefix('user')->middleware(['auth', IsAdmin::class])->group(function () {
@@ -90,13 +89,13 @@ Route::name('external-invoice.')->prefix('external-invoice')->middleware(['auth'
     Route::put('/{external-invoice}/update', [ExternalInvoiceController::class, 'update'])->name('update');
 });
 
-Route::name('company.')->prefix('company')->middleware(['auth'])->group(function () {
-    Route::get('/}', [CompanyController::class, 'index'])->name('index');
-    Route::get('/create', [CompanyController::class, 'create'])->name('create');
-    Route::post('/store', [CompanyController::class, 'store'])->name('store');
-    Route::get('/{company}/show', [CompanyController::class, 'show'])->name('show');
-    Route::get('/{company}/edit', [CompanyController::class, 'edit'])->name('edit');
-    Route::put('/{company}/update', [CompanyController::class, 'update'])->name('update');
+Route::name('contact.')->prefix('contact')->middleware(['auth'])->group(function () {
+    Route::get('/', [ContactController::class, 'index'])->name('index');
+    Route::get('/create', [ContactController::class, 'create'])->name('create');
+    Route::post('/store', [ContactController::class, 'store'])->name('store');
+    Route::get('/{contact}/show', [ContactController::class, 'show'])->name('show');
+    Route::get('/{contact}/edit', [ContactController::class, 'edit'])->name('edit');
+    Route::put('/{contact}/update', [ContactController::class, 'update'])->name('update');
 });
 
 

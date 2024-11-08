@@ -13,7 +13,7 @@
 
 .rounded-mid
 {
-    @apply rounded-sm;
+    @apply rounded-md;
 }
 
 .store-dashboard-link
@@ -51,7 +51,7 @@
 
 .link
 {
-    @apply text-blue-700 dark:text-blue-500 underline hover:tracking-wide italic;
+    @apply text-blue-700 dark:text-blue-500 hover:tracking-wide hover:underline italic font-light;
     font-family: "Roboto Condensed", sans-serif;
 }
 

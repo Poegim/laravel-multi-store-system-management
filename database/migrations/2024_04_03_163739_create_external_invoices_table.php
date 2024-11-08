@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->foreignId('store_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('company_id')->constrained();
+            $table->foreignId('contact_id')->constrained();
             $table->integer('price');
             $table->boolean('is_temp')->default(true);
             $table->timestamps();

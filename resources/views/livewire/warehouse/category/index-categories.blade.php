@@ -7,7 +7,7 @@
             </x-button>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-mid ">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-mid">
             <div class="p-4 rounded-mid  shadow-lg">
                 <div class="-ml-12">
                     @foreach ($categories as $categoryName => $category)
@@ -52,7 +52,7 @@
                     class="input-text"
                     required value="{{$plural_name}}" autofocus="false"/>
 
-                <label for="slug" 
+                <label for="slug"
                     class="input-label">{{__('slug')}}</label>
                 @error('slug')
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
