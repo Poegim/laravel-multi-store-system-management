@@ -14,7 +14,7 @@ class Contact extends Model
 
     protected $fillable = [
         'name',
-        'second_name',
+        'surname',
         'indentification_number',
         'type',
         'country',
@@ -36,6 +36,16 @@ class Contact extends Model
 
     public function isCompany() {
         return $this->type === self::COMPANY;
+    }
+
+    public function type(): string {
+        if($this->isCompany()) {
+            return 'company';
+        } elseif($this->isPerson()){
+            return 'person';
+        } else {
+            return '';
+        }
     }
 
 }

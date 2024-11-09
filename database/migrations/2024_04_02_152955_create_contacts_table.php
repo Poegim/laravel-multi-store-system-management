@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('second_name')->default('');
+            $table->string('surname')->default('');
             $table->string('identification_number')->unique();
+            $table->boolean('type');
             $table->string('country')->default('Polska');
             $table->string('city');
             $table->string('postcode');

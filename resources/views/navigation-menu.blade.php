@@ -5,8 +5,8 @@
             <!-- Logo -->
             <div class="shrink-0 flex items-center">
                 <a href="{{ route('dashboard') }}">
-                    {{-- <img src="{{ asset('logo.png') }}" alt="logo"> --}}
-                    <div class="w-full text-center text-lg font-bold italic dark:text-gray-200">LMSSM</div>
+                    <img src="{{ asset('logo.png') }}" alt="logo">
+                    {{-- <div class="w-full text-center text-lg font-bold italic dark:text-gray-200">LMSSM</div> --}}
                 </a>
             </div>
 
