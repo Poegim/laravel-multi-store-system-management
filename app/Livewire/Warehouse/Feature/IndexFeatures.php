@@ -18,9 +18,10 @@ class IndexFeatures extends Component
     {
         $sortDirection = $this->sortAsc ? 'asc' : 'desc';
 
-        $features = Feature::where('name', 'like', '%'.$this->search.'%')
-                    ->orderBy($this->sortField, $sortDirection)
-                    ->paginate(10);
+        $features = 
+            Feature::where('name', 'like', '%'.$this->search.'%')
+            ->orderBy($this->sortField, $sortDirection)
+            ->paginate(10);
 
         return view('livewire.warehouse.feature.index-features', compact('features'));
     }
