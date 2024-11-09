@@ -1152,5 +1152,10 @@ class ProductsTableSeeder extends Seeder
         
 
         DB::table('products')->insert($data);
+
+        $devices = null;
+        $updatedDevices = null;
+        $words = null;
+        $data = null;
     }
 }

@@ -43,5 +43,8 @@ class DeviceProductVariantTableSeeder extends Seeder
         if (!empty($batchData)) {
             DB::table('device_product_variant')->insert($batchData);
         }
+
+        $variants = null;
+        $devices = null;
     }
 }

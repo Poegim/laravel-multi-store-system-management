@@ -54,5 +54,7 @@ class ContactsTableSeeder extends Seeder
         if (!empty($data)) {
             Contact::insert($data);
         }
+
+        $data = null;
     }
 }

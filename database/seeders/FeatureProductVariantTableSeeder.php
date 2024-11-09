@@ -50,5 +50,8 @@ class FeatureProductVariantTableSeeder extends Seeder
                 // Wstawienie wszystkich danych w jednej operacji batch insert
                 DB::table('feature_product_variant')->insert($insertData);
 
+                $productVariants = null;
+                $features = null;
+
     }
 }

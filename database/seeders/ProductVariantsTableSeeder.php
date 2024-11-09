@@ -77,5 +77,7 @@ class ProductVariantsTableSeeder extends Seeder
             DB::table('product_variants')->insert($data);
         }
 
+        $data = null;
+
     }
 }

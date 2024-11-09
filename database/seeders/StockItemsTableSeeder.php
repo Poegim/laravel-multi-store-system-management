@@ -80,5 +80,17 @@ class StockItemsTableSeeder extends Seeder
             $totalInserted += count($batchData);
             echo "Inserted {$totalInserted} stock items into the database.\n";
         }
+
+        $colors = null;
+
+        $productVariants = null;
+        $stores = null;
+        $brands = null;
+
+        $batchSize = null;
+        $totalInserted = null;
+        $batchData = null;
+
+
     }
 }
