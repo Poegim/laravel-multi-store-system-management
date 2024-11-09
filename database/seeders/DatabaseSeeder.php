@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductsTableSeeder::class);
         $this->call(FeaturesTableSeeder::class);
         $this->call(ProductVariantsTableSeeder::class);
-        // $this->call(ContactsTableSeeder::class);
         $this->call(DeviceProductVariantTableSeeder::class);
-        $this->call(StockItemsTableSeeder::class);
         $this->call(FeatureProductVariantTableSeeder::class);
+        $this->call(ContactsTableSeeder::class);
+        $this->call(StockItemsTableSeeder::class);
     }
 }

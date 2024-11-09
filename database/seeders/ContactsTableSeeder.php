@@ -16,7 +16,7 @@ class ContactsTableSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create('pl_PL');
-        $batchSize = 5000;
+        $batchSize = 1000;
         
         $data = [];
         for ($i = 0; $i < 10000; $i++) {
