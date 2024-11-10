@@ -10,13 +10,14 @@ class ProductRepository implements ProductRepositoryInterface
     public function store(array $data) {
         $product = new Product;
         $product = $this->associate($product, $data);
-        
+
         if ($product->save()) {
             $defaultVariant = new ProductVariant;
             $defaultVariant->name = 'Default';
             $defaultVariant->slug = 'default';
             $defaultVariant->product_id = $product->id;
             $defaultVariant->suggested_retail_price =  0;
+            $product->user_id = auth()->user()->id;
             return $defaultVariant->save();
         }
 

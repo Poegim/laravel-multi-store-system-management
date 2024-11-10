@@ -3,6 +3,7 @@
 namespace App\Models\Warehouse;
 
 use App\Models\Warehouse\Category;
+use App\Traits\BelongsToUser;
 use App\Traits\HasFormattedSRP;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\ValidationException;
@@ -14,6 +15,7 @@ class Product extends Model
 {
     use HasFactory;
     use HasFormattedSRP;
+    use BelongsToUser;
 
     public static function boot()
     {

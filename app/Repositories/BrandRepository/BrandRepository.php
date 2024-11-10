@@ -10,6 +10,7 @@ class BrandRepository implements BrandRepositoryInterface
     {
         $brand = new Brand;
         $brand = $this->associate($brand, $data);
+        $brand->user_id = auth()->user()->id;
         return $brand->save();
     }
 

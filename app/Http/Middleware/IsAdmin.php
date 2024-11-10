@@ -19,7 +19,9 @@ class IsAdmin
         $user = Auth::user();
 
         if (!$user || !$user->isAdmin()) {
-            return abort(403);
+            session()->flash('flash.banner', __('You dont have access to this place!'));
+            session()->flash('flash.bannerStyle', 'danger');
+            return redirect()->route('dashboard');
         }
 
         return $next($request);

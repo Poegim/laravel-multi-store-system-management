@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained();
             $table->foreignId('brand_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('name');
             $table->string('slug');
             $table->unique(['slug', 'brand_id']);

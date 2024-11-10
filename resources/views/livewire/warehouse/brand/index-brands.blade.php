@@ -49,6 +49,9 @@
                     <th scope="col" class="px-6 py-3 hidden lg:table-cell">
                         {{__('slug')}}
                     </th>
+                    <th scope="col" class="px-6 py-3 hidden lg:table-cell">
+                        {{__('created_by')}}
+                    </th>
                     <th scope="col" class="px-6 py-3 text-right">
 
                     </th>
@@ -70,6 +73,9 @@
                     </td>
                     <td class="px-6 py-1 hidden lg:table-cell">
                         {{$brand->slug}}
+                    </td>
+                    <td class="px-6 py-1 hidden lg:table-cell">
+                        {{$brand->user->name}}
                     </td>
                     <td class="px-6 py-1 flex justify-end">
                         {{-- @livewire('warehouse.brand.edit-brand', ['brand' => $brand], key($brand->id), ['preserveScroll' => true]) --}}

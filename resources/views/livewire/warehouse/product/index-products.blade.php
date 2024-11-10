@@ -93,6 +93,9 @@
                         <th scope="col" class="px-6 py-3 hidden lg:table-cell">
                             {{__('category')}}
                         </th>
+                        <th scope="col" class="px-6 py-3 hidden lg:table-cell">
+                            {{__('created_by')}}
+                        </th>
                         <th scope="col" class="px-6 py-3 text-right">
 
                         </th>
@@ -130,6 +133,10 @@
 
                         <td class="px-6 py-1 hidden lg:table-cell">
                             {{$product->category->plural_name}}
+                        </td>
+
+                        <td class="px-6 py-1 hidden lg:table-cell">
+                            {{$product->user->name}}
                         </td>
 
                         <td class="px-6 py-1 flex justify-end">

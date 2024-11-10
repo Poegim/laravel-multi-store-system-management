@@ -28,6 +28,7 @@ class Contact extends Model
         'second_phone',
         'www',
         'description',
+        'user_id'
     ];
 
     public function isPerson() {

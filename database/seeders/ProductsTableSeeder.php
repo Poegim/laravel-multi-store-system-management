@@ -1048,10 +1048,10 @@ class ProductsTableSeeder extends Seeder
         $updatedDevices = array_reduce($devices, function ($carry, $item) {
             $key = Str::before($item, ' ');   // Wyciągnięcie marki (np. Samsung)
             $value = Str::after($item, ' ');  // Wyciągnięcie modelu (np. Galaxy S21)
-            
+
             // Dodajemy nową podtablicę ['brand' => 'model'] jako kolejny element tablicy $carry
             $carry[] = [$key => $value];
-        
+
             return $carry;
         }, []);
 
@@ -1117,6 +1117,7 @@ class ProductsTableSeeder extends Seeder
             $data[] = [
                 'category_id' => $categoryId,
                 'brand_id' => $brandId,
+                'user_id' => 1,
                 'suggested_retail_price' => $price,
                 'name' => $productName,
                 'slug' => Str::slug($productName),
@@ -1132,14 +1133,15 @@ class ProductsTableSeeder extends Seeder
             foreach ($device as $brandName => $modelName) {
                 $slug = Str::slug($modelName);
                 $brand = Brand::where('slug', Str::slug($brandName))->first();
-        
+
                 if (!$brand) {
                     abort(403, 'Error, brand slug does not exist');
                 }
-        
+
                 $data[] = [
                     'category_id' => $phones_category_id,
                     'brand_id' => $brand->id,
+                    'user_id' => 1,
                     'suggested_retail_price' => 0,
                     'name' => $modelName,
                     'slug' => $slug,
@@ -1149,7 +1151,7 @@ class ProductsTableSeeder extends Seeder
                 ];
             }
         }
-        
+
 
         DB::table('products')->insert($data);
 

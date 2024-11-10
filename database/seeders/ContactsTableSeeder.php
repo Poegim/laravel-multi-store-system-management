@@ -17,7 +17,7 @@ class ContactsTableSeeder extends Seeder
     {
         $faker = Faker::create('pl_PL');
         $batchSize = 1000;
-        
+
         $data = [];
         for ($i = 0; $i < 10000; $i++) {
 
@@ -41,15 +41,16 @@ class ContactsTableSeeder extends Seeder
                 'street' => $faker->streetName(),
                 'building_number' => rand(1,199),
                 'phone' => $faker->randomNumber(9),
+                'user_id' => 1,
             ];
-        
+
             // Wstaw dane w partiach po 1000
             if (count($data) >= $batchSize) {
                 Contact::insert($data);
                 $data = []; // Opróżnij tablicę po wstawieniu
             }
         }
-        
+
         // Wstaw pozostałe dane, jeśli są
         if (!empty($data)) {
             Contact::insert($data);
