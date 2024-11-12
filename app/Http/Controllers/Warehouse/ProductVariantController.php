@@ -19,8 +19,8 @@ class ProductVariantController extends Controller
 
     public function __construct(
         protected ProductVariantService $productVariantService,
-    ) {         
-        $this->products = Product::select('id', 'name')->where('is_device', false)->get();
+    ) {
+        $this->products = Product::select('id', 'name')->get();
         $this->devices = Product::devices()->get();
         $this->features = Feature::select(['id', 'name'])->orderBy('name', 'asc')->get();
     }
@@ -67,7 +67,7 @@ class ProductVariantController extends Controller
     }
 
     public function update(ProductVariant $productVariant, UpdateProductVariantRequest $request)
-    {   
+    {
         $this->productVariantService->update($request->validated(), $productVariant);
         session()->flash('flash.banner', __('Successfully updated! ' . $productVariant->id . ' ' . $productVariant->product->name . ' ' . $productVariant->name));
         session()->flash('flash.bannerStyle', 'success');

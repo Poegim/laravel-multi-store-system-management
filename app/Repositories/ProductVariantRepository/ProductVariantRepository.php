@@ -10,16 +10,17 @@ class ProductVariantRepository implements ProductVariantRepositoryInterface
 
     use FormatsAmount;
 
-    public function store(array $data) 
+    public function store(array $data)
     {
         $productVariant = new ProductVariant;
         $productVariant = $this->associate($productVariant, $data);
+        $productVariant->user_id = auth()->user()->id;
         $productVariant->save();
         isset($data['features']) && $productVariant->features()->sync($data['features']);
         isset($data['devices']) && $productVariant->devices()->sync($data['devices']);
     }
 
-    public function update(array $data, ProductVariant $productVariant) 
+    public function update(array $data, ProductVariant $productVariant)
     {
         $productVariant = $this->associate($productVariant, $data);
         $productVariant->save();

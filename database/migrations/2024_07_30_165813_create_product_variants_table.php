@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('suggested_retail_price')->default(0);
             $table->string('ean')->nullable();
             $table->foreignId('product_id')->constrained('products');
+            $table->foreignId('user_id')->constrained();
             $table->unique(['slug', 'product_id']);
             $table->timestamps();
         });

@@ -36,6 +36,7 @@ class ProductVariantsTableSeeder extends Seeder
                         'slug' => 'default',
                         'suggested_retail_price' => $price,
                         'product_id' => $product->id,
+                        'user_id' => 1,
                     ];
                 } else {
                     if (rand(1, 2) === 1) {
@@ -47,6 +48,7 @@ class ProductVariantsTableSeeder extends Seeder
                             'slug' => Str::slug($name),
                             'suggested_retail_price' => $price,
                             'product_id' => $product->id,
+                            'user_id' => 1,
                         ];
                     }
                     if (rand(1, 3) === 2) {
@@ -58,6 +60,7 @@ class ProductVariantsTableSeeder extends Seeder
                             'slug' => Str::slug($name),
                             'suggested_retail_price' => $price,
                             'product_id' => $product->id,
+                            'user_id' => 1,
                         ];
                     }
                 }

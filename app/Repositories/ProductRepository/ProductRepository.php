@@ -10,6 +10,7 @@ class ProductRepository implements ProductRepositoryInterface
     public function store(array $data) {
         $product = new Product;
         $product = $this->associate($product, $data);
+        $product->user_id = auth()->user()->id;
 
         if ($product->save()) {
             $defaultVariant = new ProductVariant;
@@ -17,7 +18,8 @@ class ProductRepository implements ProductRepositoryInterface
             $defaultVariant->slug = 'default';
             $defaultVariant->product_id = $product->id;
             $defaultVariant->suggested_retail_price =  0;
-            $product->user_id = auth()->user()->id;
+            $defaultVariant->user_id = auth()->user()->id;
+
             return $defaultVariant->save();
         }
 

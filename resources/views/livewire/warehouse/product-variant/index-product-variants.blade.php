@@ -9,11 +9,11 @@
             <option value="ean">{{__('ean')}}</option>
         </select>
         <x-input id="name" type="text" aria-placeholder="Search..." placeholder="Search..." wire:model.debounce.500ms.live="search" />
-        
+
         <a href="{{route('product-variant.create')}}" wire:navigate>
             <x-button>{{__('create')}}</x-button>
         </a>
-        
+
     </div>
 
     <x-window>
@@ -89,6 +89,9 @@
                         <th scope="col" class="px-6 py-3 hidden xl:table-cell">
                         {{__('ean')}}
                         </th>
+                        <th scope="col" class="px-6 py-3 hidden xl:table-cell">
+                        {{__('created_by')}}
+                        </th>
                         <th scope="col" class="px-6 py-3 text-right">
 
                         </th>
@@ -125,6 +128,9 @@
                         </td>
                         <td class="px-6 py-1 hidden xl:table-cell">
                             {{$item->ean}}
+                        </td>
+                        <td class="px-6 py-1 hidden xl:table-cell">
+                            {{$item->user->name}}
                         </td>
                         <td class="px-6 py-1 flex justify-end">
                             <a href="{{ route('product-variant.edit', $item->id) }}">

@@ -68,9 +68,9 @@
 
             <div class="flex space-x-2">
             <input class="my-auto" type="radio" id="html" name="is_device" value="1" {{ (old('is_device') == 1 || $product->is_device == 1) ? 'checked' : '' }} >
-            <x-label for="html">{{__('yes')}}</x-label>
+            <x-label for="yes">{{__('yes')}}</x-label>
             <input class="my-auto" type="radio" id="css" name="is_device" value="0" {{ (old('is_device') != 1 || $product->is_device != 1) ? 'checked' : '' }} />
-            <x-label for="css">{{__('no')}}</x-label>
+            <x-label for="no">{{__('no')}}</x-label>
             </div>
 
         </div>
