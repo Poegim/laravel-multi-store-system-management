@@ -1,6 +1,6 @@
 CHECK IN FUTURE
     -- Is creating new user creates new personal access toone for multiselect dropdown.
-
+    -- Check all requests validation rules, seems like in store Store request postcode and building numbers are somehow digits forced?
 
 BUGS
 

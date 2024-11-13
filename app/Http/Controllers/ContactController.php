@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\ContactService;
+use App\Http\Requests\StoreContactRequest;
 
 class ContactController extends Controller
 {
+
+    public function __construct(
+        protected ContactService $contactService
+        ) {}
+
     public function index() {
         return view('contacts.index');
     }
@@ -13,4 +20,14 @@ class ContactController extends Controller
     public function create() {
         return view('contacts.create');
     }
+
+    public function store(StoreContactRequest $request)
+    {
+        $this->contactService->store($request->validated());
+        session()->flash('flash.banner', __('contact_successfully_created!'));
+        session()->flash('flash.bannerStyle', 'success');
+        return redirect()->route('contact.index');
+    }
+
+
 }

@@ -22,8 +22,11 @@ use App\Repositories\StoreRepository\StoreRepositoryInterface;
 use App\Repositories\FeatureRepository\FeatureRepositoryInterface;
 use App\Repositories\ProductRepository\ProductRepositoryInterface;
 use App\Repositories\CategoryRepository\CategoryRepositoryInterface;
+use App\Repositories\ContactRepository\ContactRepository;
+use App\Repositories\ContactRepository\ContactRepositoryInterface;
 use App\Repositories\ProductVariantRepository\ProductVariantRepository;
 use App\Repositories\ProductVariantRepository\ProductVariantRepositoryInterface;
+use App\Services\ContactService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -60,6 +63,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(FeatureRepositoryInterface::class, FeatureRepository::class);
         $this->app->bind(FeatureService::class, function ($app) {
             return new FeatureService($app->make(FeatureRepositoryInterface::class));
+        });
+
+        $this->app->bind(ContactRepositoryInterface::class, ContactRepository::class);
+        $this->app->bind(ContactService::class, function ($app) {
+            return new ContactService($app->make(ContactRepositoryInterface::class));
         });
     }
 
