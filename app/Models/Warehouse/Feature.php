@@ -4,11 +4,13 @@ namespace App\Models\Warehouse;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Warehouse\ProductVariant;
+use App\Traits\BelongsToUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Feature extends Model
 {
     use HasFactory;
+    use BelongsToUser;
 
     public function productVariants()
     {

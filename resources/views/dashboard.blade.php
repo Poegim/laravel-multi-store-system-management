@@ -22,7 +22,7 @@
                         @else
                         <div class="">
                             <a href="{{$commit['html_url']}}" target="_blank" class="link">
-                                <span class="text-base font-medium text-indigo-800 dark:text-indigo-200">{{$commit['commit']['message']}}</span>
+                                <span class="link">{{$commit['commit']['message']}}</span>
                             </a>
                             <span class="text-sm text-gray-600 dark:text-gray-400">{{ \Carbon\Carbon::parse($commit['commit']['author']['date'])->diffForHumans() }}</span>
                         </div>

@@ -75,7 +75,13 @@
                         {{$brand->slug}}
                     </td>
                     <td class="px-6 py-1 hidden lg:table-cell">
-                        {{$brand->user->name}}
+                        <div class="flex">
+                            <img src="{{ $brand->user->profile_photo_url }}" alt="{{ $brand->user->name }}"
+                            class="rounded-full w-12 h-12 md:h-8 md:w-8 object-cover mr-2 my-auto mb-4 md:mb-0">
+                            <div class="my-auto">
+                                {{$brand->user->name}}
+                            </div>
+                        </div>
                     </td>
                     <td class="px-6 py-1 flex justify-end">
                         {{-- @livewire('warehouse.brand.edit-brand', ['brand' => $brand], key($brand->id), ['preserveScroll' => true]) --}}

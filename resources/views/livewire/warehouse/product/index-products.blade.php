@@ -136,8 +136,13 @@
                         </td>
 
                         <td class="px-6 py-1 hidden lg:table-cell">
-                            {{$product->user->name}}
-                        </td>
+                            <div class="flex">
+                                <img src="{{ $product->user->profile_photo_url }}" alt="{{ $product->user->name }}"
+                                class="rounded-full w-12 h-12 md:h-8 md:w-8 object-cover mr-2 my-auto mb-4 md:mb-0">
+                                <div class="my-auto">
+                                    {{$product->user->name}}
+                                </div>
+                            </div>                        </td>
 
                         <td class="px-6 py-1 flex justify-end">
                             <a href="{{route('product.edit', $product)}}" wire:navigate>

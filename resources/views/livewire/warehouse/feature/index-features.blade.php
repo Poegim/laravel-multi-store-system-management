@@ -52,6 +52,9 @@
                             <th scope="col" class="px-6 py-3 hidden lg:table-cell">
                             {{__('slug')}}
                             </th>
+                            <th scope="col" class="px-6 py-3 hidden lg:table-cell">
+                            {{__('created_by')}}
+                            </th>
                             <th scope="col" class="px-6 py-3 text-right">
 
                             </th>
@@ -78,6 +81,15 @@
                             </td>
                             <td class="px-6 py-1 hidden lg:table-cell">
                                 {{$feature->slug}}
+                            </td>
+                            <td class="px-6 py-1 hidden lg:table-cell">
+                                <div class="flex">
+                                    <img src="{{ $feature->user->profile_photo_url }}" alt="{{ $feature->user->name }}"
+                                    class="rounded-full w-12 h-12 md:h-8 md:w-8 object-cover mr-2 my-auto mb-4 md:mb-0">
+                                    <div class="my-auto">
+                                        {{$feature->user->name}}
+                                    </div>
+                                </div>
                             </td>
                             <td class="px-6 py-1 flex justify-end">
                                 <a href="{{route('feature.edit', $feature->slug)}}">

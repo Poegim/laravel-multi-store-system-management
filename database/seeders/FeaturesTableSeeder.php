@@ -60,6 +60,7 @@ class FeaturesTableSeeder extends Seeder
                 'name' => $key,
                 'short_name' => $feature !== null ? $feature : null,
                 'slug' => Str::slug($key),
+                'user_id' => rand(1,5),
                 'created_at' => now(),
                 'updated_at' => now()
             ]);

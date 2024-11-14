@@ -41,7 +41,7 @@ class ContactsTableSeeder extends Seeder
                 'street' => $faker->streetName(),
                 'building_number' => rand(1,199),
                 'phone' => $faker->randomNumber(9),
-                'user_id' => 1,
+                'user_id' => rand(1,5),
             ];
 
             // Wstaw dane w partiach po 1000

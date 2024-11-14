@@ -60,7 +60,7 @@ class ProductVariantsTableSeeder extends Seeder
                             'slug' => Str::slug($name),
                             'suggested_retail_price' => $price,
                             'product_id' => $product->id,
-                            'user_id' => 1,
+                            'user_id' => rand(1,5),
                         ];
                     }
                 }

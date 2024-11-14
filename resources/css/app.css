@@ -51,7 +51,7 @@
 
 .link
 {
-    @apply text-blue-700 dark:text-blue-500 hover:tracking-wide hover:underline italic font-light;
+    @apply text-blue-800 dark:text-blue-200 hover:tracking-wide hover:underline hover:decoration-dotted hover:decoration-1 italic font-light;
     font-family: "Roboto Condensed", sans-serif;
 }
 

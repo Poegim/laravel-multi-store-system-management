@@ -252,7 +252,7 @@ class BrandsTableSeeder extends Seeder
             $data[] = [
                 'name' => $brand,
                 'slug' => Str::slug($brand, '-'),
-                'user_id' => 1,
+                'user_id' => rand(1,5),
                 'created_at' => now(),
                 'updated_at' => now()
             ];

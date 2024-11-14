@@ -19,6 +19,7 @@ return new class extends Migration
             ->comment('Short name will be used for receipts that have a limited number of characters');
 
             $table->string('slug')->unique();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

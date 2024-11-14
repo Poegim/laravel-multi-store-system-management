@@ -11,6 +11,7 @@ class FeatureRepository implements FeatureRepositoryInterface
     {
         $feature = new Feature;
         $feature = $this->associate($feature, $data);
+        $feature->user_id = auth()->user()->id;
         return $feature->save();
     }
 

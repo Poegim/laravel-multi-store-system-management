@@ -1141,7 +1141,7 @@ class ProductsTableSeeder extends Seeder
                 $data[] = [
                     'category_id' => $phones_category_id,
                     'brand_id' => $brand->id,
-                    'user_id' => 1,
+                    'user_id' => rand(1,5),
                     'suggested_retail_price' => 0,
                     'name' => $modelName,
                     'slug' => $slug,

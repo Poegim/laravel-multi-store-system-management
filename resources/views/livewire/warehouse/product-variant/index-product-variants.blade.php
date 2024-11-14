@@ -130,7 +130,13 @@
                             {{$item->ean}}
                         </td>
                         <td class="px-6 py-1 hidden xl:table-cell">
-                            {{$item->user->name}}
+                            <div class="flex">
+                                <img src="{{ $item->user->profile_photo_url }}" alt="{{ $item->user->name }}"
+                                class="rounded-full w-12 h-12 md:h-8 md:w-8 object-cover mr-2 my-auto mb-4 md:mb-0">
+                                <div class="my-auto">
+                                    {{$item->user->name}}
+                                </div>
+                            </div>
                         </td>
                         <td class="px-6 py-1 flex justify-end">
                             <a href="{{ route('product-variant.edit', $item->id) }}">
