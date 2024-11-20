@@ -9,7 +9,6 @@ class ContactRepository implements ContactRepositoryInterface
     public function store(array $data) {
         $contact = new Contact();
         $contact = $this->associate($contact, $data);
-        $contact->user_id = auth()->user()->id;
         return $contact->save();
     }
 

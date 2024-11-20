@@ -11,11 +11,12 @@ class ContactService
         protected ContactRepositoryInterface $contactRepository
     ) {}
 
-    public function store(array $data) {
+    public function store(array $data): bool 
+    {
         return $this->contactRepository->store($data);
     }
 
-    public function update(array $data, Contact $contact)
+    public function update(array $data, Contact $contact): bool
     {
         return $this->contactRepository->update($data, $contact);
     }
