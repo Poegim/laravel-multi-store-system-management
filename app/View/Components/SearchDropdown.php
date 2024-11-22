@@ -37,6 +37,7 @@ class SearchDropdown extends Component
         public string $inputName,
         public $passedId = null,
         public string $searchBy = 'name',
+        public string $optionalSearchBy = 'name',
         ) {}
 
     /**
@@ -48,6 +49,7 @@ class SearchDropdown extends Component
             'collection' => $this->collection,
             'inputName' => $this->inputName,
             'searchBy' => $this->searchBy,
+            'optionalSearchBy' => $this->optionalSearchBy,
             'passedId' => $this->passedId,
         ]);
     }

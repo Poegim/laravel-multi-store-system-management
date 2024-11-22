@@ -1,4 +1,4 @@
-<div x-data="autocomplete('{{ $inputName }}', '{{ $searchBy }}', '{{ $passedId }}')" @click.away="closeDropdown()" class="relative">
+<div x-data="autocomplete('{{ $inputName }}', '{{ $searchBy }}', '{{ $optionalSearchBy }}', '{{ $passedId }}')" @click.away="closeDropdown()" class="relative">
     <div class="flex">
         <input
             x-model="query"
@@ -43,13 +43,13 @@
                 @mouseenter="highlightedIndex = index"
                 class="px-4 py-1 cursor-pointer text-sm"
             >
-                <span x-text="item[searchBy]"></span>
-            </li>
+            <span x-text="item[searchBy] === item[optionalSearchBy] ? item[searchBy] : item[searchBy] + ' ' + item[optionalSearchBy]"></span>
+        </li>
         </template>
     </ul>
 
     <script>
-    function autocomplete(uniqueId, searchBy, passedId = null) {
+    function autocomplete(uniqueId, searchBy, optionalSearchBy, passedId = null) {
         return {
             query: '',
             open: false,
@@ -58,8 +58,9 @@
             uniqueId: uniqueId,
             passedId: passedId,
             searchBy: searchBy,
+            optionalSearchBy: optionalSearchBy,
             originalData: @json($collection),
-            filteredData: @json($collection),
+            filteredData: @json($collection).slice(0,100),
             selected: false,
 
             init() {
@@ -72,18 +73,23 @@
             filterData() {
                 // If user starts typing after a selection, deselect the current item
                 this.deselect();
+                const itemsCount = 100;
 
                 const search = this.query.toLowerCase();
                 if (search === '') {
-                    this.filteredData = this.originalData; // Show all items when search is empty
+                    this.filteredData = this.originalData.slice(0, itemsCount); // Limit to 1000 items
                     this.open = this.filteredData.length > 0;
                     return;
                 }
-                this.filteredData = this.originalData.filter(item => {
-                    // Access the dynamic field and convert it to a string
-                    const fieldValue = String(item[this.searchBy]);
-                    return fieldValue.toLowerCase().includes(search);
-                });
+
+                this.filteredData = this.originalData
+                    .filter(item => {
+                        // Access the dynamic field and convert it to a string
+                        const fieldValue = String(item[this.searchBy]);
+                        return fieldValue.toLowerCase().includes(search);
+                    })
+                    .slice(0, itemsCount); // Limit the filtered results to 1000
+
                 this.open = this.filteredData.length > 0;
                 this.highlightedIndex = 0; // Reset highlighted index when filtering
             },

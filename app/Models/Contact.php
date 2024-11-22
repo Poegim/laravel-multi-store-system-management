@@ -31,6 +31,16 @@ class Contact extends Model
         'user_id'
     ];
 
+    public function scopeCompanies($query)
+    {
+        return $query->where('type', self::COMPANY);
+    }
+
+    public function scopePeople($query)
+    {
+        return $query->where('type', self::PERSON);
+    }
+
     public function isPerson() {
         return $this->type === self::PERSON;
     }

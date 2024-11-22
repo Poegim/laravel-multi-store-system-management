@@ -1,3 +1,6 @@
+REQUIRED IMPROVMENTS
+    -- Search Dropdown comoment should be changed to api based, due to slow work with extra long item lists.
+
 CHECK IN FUTURE
     -- Is creating new user creates new personal access toone for multiselect dropdown.
     -- Check all requests validation rules, seems like in store Store request postcode and building numbers are somehow digits forced?
@@ -41,8 +44,6 @@ ADDITIONAL FEATURES
     Price tags generator (with api for phone specs)
 
 REFACTOR
-    -- Replace flowbite buttons
 
 MINOR INFO
-    -- comments in create-products
-    -- comments in seeders
+    -- Remove automated code comments.
