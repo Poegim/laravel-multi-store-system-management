@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Documents;
+namespace App\Models\Commerce;
 
 use App\Traits\BelongsToStore;
 use App\Traits\BelongsToUser;

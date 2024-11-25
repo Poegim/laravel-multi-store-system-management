@@ -6,10 +6,18 @@ use App\Models\Store;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Documents\ExternalInvoice;
+use App\Http\Requests\StoreExternalInvoiceRequest;
+use App\Models\Commerce\ExternalInvoice;
+use App\Services\ExternalInvoiceService;
 
 class ExternalInvoiceController extends Controller
 {
+
+    public function __construct(
+        protected ExternalInvoiceService $externalInvoiceService
+        ) {}
+
+
     public function index(Store $store = null)
     {
         if ($store) {
@@ -26,4 +34,20 @@ class ExternalInvoiceController extends Controller
         $companies = Contact::select('id', 'name', 'identification_number')->companies()->get();
         return view('commerce.external-invoice.create', compact('store', 'companies'));
     }
+
+    public function store(StoreExternalInvoiceRequest $request)
+    {
+        if($this->externalInvoiceService->store($request->validated())) {            
+            session()->flash('flash.banner', __('External invoice has been successfully saved!'));
+            session()->flash('flash.bannerStyle', 'success');
+            return redirect()->route('external-invoice.index', $request->store_id);
+        } else {
+            session()->flash('flash.banner', __('Error saving external invoice!'));
+            session()->flash('flash.bannerStyle', 'warning');
+            return redirect()->route('external-invoice.index', $request->store_id);
+        }
+
+    }
+
+
 }

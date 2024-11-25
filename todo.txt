@@ -1,5 +1,6 @@
 REQUIRED IMPROVMENTS
     -- Search Dropdown comoment should be changed to api based, due to slow work with extra long item lists.
+    -- Show contact and history documents.
 
 CHECK IN FUTURE
     -- Is creating new user creates new personal access toone for multiselect dropdown.
@@ -42,8 +43,10 @@ Approches
 
 ADDITIONAL FEATURES
     Price tags generator (with api for phone specs)
+    *PDF, *DOC documents storage and download section
 
 REFACTOR
+    -- Check timestamps
 
 MINOR INFO
     -- Remove automated code comments.

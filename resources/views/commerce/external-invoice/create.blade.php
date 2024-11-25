@@ -10,8 +10,22 @@
     </x-slot>
 
     <x-window>
-        <form action="{{route('external-invoice.store')}}" method="POST">
-                <div class="space-y-2">
+
+        
+        @if ($errors->any())
+        <x-lists.errors-list>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </x-lists.errors-list>
+        @endif
+
+        
+        <form action="{{route('external-invoice.store', $store->id)}}" method="POST">
+            @csrf
+            @method('POST')
+
+            <div class="space-y-2">
 
                 <x-input
                 name="invoice_number"
@@ -21,9 +35,10 @@
                 maxlength="255"
                 minlength="3"
                 class="w-full"
+                value="{{ old('invoice_number') }}"
                 />
                 
-                <x-search-dropdown :collection="$companies" :inputName="'company_id'" :passedId="old('company_id') ?? null" :optionalSearchBy="'identification_number'" />
+                <x-search-dropdown :collection="$companies" :inputName="'contact_id'" :passedId="old('company_id') ?? null" :optionalSearchBy="'identification_number'" />
                 
                 <x-button type="sumbit">Save and edit</x-button>
             </div>
