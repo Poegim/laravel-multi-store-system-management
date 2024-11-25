@@ -9,6 +9,8 @@
 
     </x-slot>
 
+    @livewire('commerce.external-invoice.index-external-invoices')
+
 
 
 </x-app-layout>

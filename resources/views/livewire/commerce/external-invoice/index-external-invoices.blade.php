@@ -1,14 +1,4 @@
 <div >
-
-    <div class="w-full flex justify-end my-1 sm:my-4 h-9 space-x-2 pr-2 sm:pr-0">
-        <x-input id="name" type="text" aria-placeholder="Search..." placeholder="Search..." wire:model.debounce.500ms.live="search" />
-        <a href="{{route('contact.create')}}" wire:navigate>
-            <x-button>
-                {{ __('CREATE') }}
-            </x-button>
-        </a>
-    </div>
-
     <x-window>
 
         <div>
@@ -29,57 +19,46 @@
                             </div>
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex cursor-pointer" wire:click="sortBy('name')">
+                            <div class="flex cursor-pointer" wire:click="sortBy('invoice_number')">
                                 <span class="uppercase">
-                                    {{__('name')}}
+                                    {{__('invoice_number')}}
                                 </span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor"
-                                    class="size-4 {{ $sortField === 'name' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
+                                    class="size-4 {{ $sortField === 'invoice_number' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                 </svg>
                             </div>
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex cursor-pointer" wire:click="sortBy('surname')">
                                 <span class="uppercase">
-                                    {{__('surname')}}
+                                    {{__('contact')}}
+                                </span>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                                <span class="uppercase">
+                                    {{__('store')}}
+                                </span>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex cursor-pointer">
+                                <span class="uppercase">
+                                    {{__('created_by')}}
+                                </span>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex cursor-pointer" wire:click="sortBy('created_at')">
+                                <span class="uppercase">
+                                    {{__('created_at')}}
                                 </span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor"
-                                    class="size-4 {{ $sortField === 'surname' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
+                                    class="size-4 {{ $sortField === 'created_at' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                 </svg>
-                            </div>
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            <div class="flex cursor-pointer">
-                                <span class="uppercase">
-                                    {{__('identification_number')}}
-                                </span>
-                            </div>
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            <div class="flex cursor-pointer">
-                                <span class="uppercase">
-                                    {{__('type')}}
-                                </span>
-                            </div>
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            <div class="flex cursor-pointer">
-                                <span class="uppercase">
-                                    {{__('email')}}
-                                </span>
-                            </div>
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            <div class="flex cursor-pointer">
-                                <span class="uppercase">
-                                    {{__('phone')}}
-                                </span>
                             </div>
                         </th>
                         <th scope="col" class="px-6 py-3 text-right">
@@ -88,44 +67,41 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($contacts as $contact)
+                    @foreach($externalInvoices as $invoice)
                     <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
-                        wire:key="row-{{ $contact->id }}">
+                        wire:key="row-{{ $invoice->id }}">
                         <td class="px-6 py-1 dark:text-gray-100 font-thin">
-                            {{$contact->id}}
+                            {{$invoice->id}}
                         </td>
 
                         <td scope="row" class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <div class="flex">
-                                <a href="{{ route('contact.show', $contact) }}" class="link my-auto" alt="{{$contact->name}}"
-                                    label="{{$contact->name}}">{{Illuminate\Support\Str::limit($contact->name, 30, '...')}}</a>
+                                <a href="{{ route('external-invoice.show', $invoice->id) }}" class="link my-auto" alt="{{$invoice->invoice_number}}"
+                                    label="{{$invoice->invoice_number}}">{{Illuminate\Support\Str::limit($invoice->invoice_number, 30, '...')}}</a>
                             </div>
                         </td>
+                        
                         <td scope="row" class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <div class="flex">
-                                <a href="{{ route('contact.show', $contact) }}" class="link my-auto" alt="{{$contact->surname}}"
-                                    label="{{$contact->surname}}">{{Illuminate\Support\Str::limit($contact->surname, 30, '...')}}</a>
+                                <a href="{{ route('contact.show', $invoice->contact) }}" class="link my-auto" alt="{{$invoice->contact->name}}"
+                                    label="{{$invoice->contact->name}}">{{Illuminate\Support\Str::limit($invoice->contact->name, 30, '...')}}</a>
                             </div>
                         </td>
 
                         <td scope="row" class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $contact->identification_number}}
+                            {{ $invoice->store->name}}
                         </td>
 
                         <td class="px-6 py-1 hidden lg:table-cell">
-                            {{$contact->type()}}
+                            {{$invoice->user->name}}
                         </td>
 
                         <td class="px-6 py-1 hidden lg:table-cell">
-                            {{$contact->email}}
-                        </td>
-
-                        <td class="px-6 py-1 hidden lg:table-cell">
-                            {{$contact->phone}}
+                            {{$invoice->created_at}}
                         </td>
 
                         <td class="px-6 py-1 flex justify-end">
-                            <a href="{{route('contact.edit', $contact)}}" wire:navigate>
+                            <a href="{{route('external-invoice.edit', $invoice->id)}}" wire:navigate>
                                 <x-buttons.edit-button >
                                     Edit
                                 </x-buttons.edit-button>
@@ -138,7 +114,7 @@
         </div>
 
         <div class=" m-4">
-            {{ $contacts->links() }}
+            {{ $externalInvoices->links() }}
         </div>
     </x-window>
 

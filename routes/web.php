@@ -84,9 +84,9 @@ Route::name('external-invoice.')->prefix('external-invoice')->middleware(['auth'
     Route::get('/{store:id?}', [ExternalInvoiceController::class, 'index'])->name('index');
     Route::get('/{store:id}/create', [ExternalInvoiceController::class, 'create'])->name('create');
     Route::post('/{store:id}/store', [ExternalInvoiceController::class, 'store'])->name('store');
-    Route::get('/{external-invoice}/show', [ExternalInvoiceController::class, 'show'])->name('show');
-    Route::get('/{external-invoice}/edit', [ExternalInvoiceController::class, 'edit'])->name('edit');
-    Route::put('/{external-invoice}/update', [ExternalInvoiceController::class, 'update'])->name('update');
+    Route::get('/show/{external-invoice}', [ExternalInvoiceController::class, 'show'])->name('show');
+    Route::get('/edit/{external-invoice}', [ExternalInvoiceController::class, 'edit'])->name('edit');
+    Route::put('/update/{external-invoice}', [ExternalInvoiceController::class, 'update'])->name('update');
 });
 
 Route::name('contact.')->prefix('contact')->middleware(['auth'])->group(function () {
