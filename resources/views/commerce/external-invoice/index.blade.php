@@ -9,8 +9,6 @@
 
     </x-slot>
 
-    @livewire('commerce.external-invoice.index-external-invoices')
-
-
+    @livewire('commerce.external-invoice.index-external-invoices', ['storeId' => $store ? $store->id : 0])
 
 </x-app-layout>

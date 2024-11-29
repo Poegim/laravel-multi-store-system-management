@@ -61,12 +61,13 @@
                                 </svg>
                             </div>
                         </th>
-                        <th scope="col" class="px-6 py-3 text-right">
+                        {{-- <th scope="col" class="px-6 py-3 text-right">
 
-                        </th>
+                        </th> --}}
                     </tr>
                 </thead>
                 <tbody>
+                    @if ($externalInvoices)
                     @foreach($externalInvoices as $invoice)
                     <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
                         wire:key="row-{{ $invoice->id }}">
@@ -100,15 +101,17 @@
                             {{$invoice->created_at}}
                         </td>
 
-                        <td class="px-6 py-1 flex justify-end">
+                        {{-- <td class="px-6 py-1 flex justify-end">
                             <a href="{{route('external-invoice.edit', $invoice->id)}}" wire:navigate>
                                 <x-buttons.edit-button >
                                     Edit
                                 </x-buttons.edit-button>
                             </a>
-                        </td>
+                        </td> --}}
                     </tr>
                     @endforeach
+                    @endif
+
                 </tbody>
             </table>
         </div>

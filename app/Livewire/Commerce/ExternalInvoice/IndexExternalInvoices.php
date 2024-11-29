@@ -13,12 +13,22 @@ class IndexExternalInvoices extends Component
     use Searchable;
     use Sortable;
     use WithPagination;
+
+    public $storeId;
+
+    public function mount(int $storeId = 0)
+    {
+        $this->storeId = $storeId;
+    }
     
     public function render()
     {
         $sortDirection = $this->sortAsc ? 'asc' : 'desc';
-    
+
         $externalInvoices = ExternalInvoice::query()
+            ->when($this->storeId != 0, function ($query) {
+                $query->where('store_id', $this->storeId);
+            })
             ->where('invoice_number', 'like', '%' . $this->search . '%')
             ->orWhereHas('contact', function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%');
