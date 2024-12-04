@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Commerce\ExternalInvoice;
 use App\Models\Store;
 use App\Models\Warehouse\Brand;
 use Illuminate\Database\Seeder;
@@ -23,6 +24,7 @@ class StockItemsTableSeeder extends Seeder
     public function run(): void
     {
          $numberOfSeeds = 100000;
+         $externalInvoicesCount = ExternalInvoice::count();
 
         // Array of 30 random colors
         $colors = [
@@ -50,6 +52,7 @@ class StockItemsTableSeeder extends Seeder
 
             $batchData[] = [
                 'product_variant_id' => $productVariantId,
+                'external_invoice_id' => rand(1, $externalInvoicesCount),
                 'suggested_retail_price' => $price,
                 'purchase_price_net' => 1000,
                 'purchase_price_gross' => $this->netToGrossConverts(1000, 23),

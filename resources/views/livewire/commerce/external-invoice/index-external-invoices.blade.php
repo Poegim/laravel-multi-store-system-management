@@ -49,16 +49,10 @@
                             </div>
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            <div class="flex cursor-pointer" wire:click="sortBy('created_at')">
+                            <div class="flex cursor-pointer">
                                 <span class="uppercase">
                                     {{__('created_at')}}
                                 </span>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor"
-                                    class="size-4 {{ $sortField === 'created_at' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                                </svg>
                             </div>
                         </th>
                         {{-- <th scope="col" class="px-6 py-3 text-right">
@@ -94,8 +88,13 @@
                         </td>
 
                         <td class="px-6 py-1 hidden lg:table-cell">
-                            {{$invoice->user->name}}
-                        </td>
+                            <div class="flex">
+                                <img src="{{ $invoice->user->profile_photo_url }}" alt="{{ $invoice->user->name }}"
+                                class="rounded-full w-12 h-12 md:h-8 md:w-8 object-cover mr-2 my-auto mb-4 md:mb-0">
+                                <div class="my-auto">
+                                    {{$invoice->user->name}}
+                                </div>
+                            </div>                        </td>
 
                         <td class="px-6 py-1 hidden lg:table-cell">
                             {{$invoice->created_at}}

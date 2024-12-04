@@ -6,13 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('stock_items', function (Blueprint $table) {
+        Schema::create('temporary_external_invoice_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_variant_id')->constrained();
             $table->foreignId('external_invoice_id')->constrained();
@@ -21,8 +20,6 @@ return new class extends Migration
             $table->integer('purchase_price_gross')->nullable();
             $table->foreignId('brand_id')->constrained();
             $table->string('color');
-            $table->integer('status');
-            $table->foreignId('store_id');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stock_items');
+        Schema::dropIfExists('temporary_external_invoice_items');
     }
 };

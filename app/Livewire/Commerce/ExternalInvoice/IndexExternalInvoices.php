@@ -26,15 +26,17 @@ class IndexExternalInvoices extends Component
         $sortDirection = $this->sortAsc ? 'asc' : 'desc';
 
         $externalInvoices = ExternalInvoice::query()
-            ->when($this->storeId != 0, function ($query) {
-                $query->where('store_id', $this->storeId);
-            })
-            ->where('invoice_number', 'like', '%' . $this->search . '%')
-            ->orWhereHas('contact', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-            })
-            ->orderBy($this->sortField, $sortDirection)
-            ->paginate(10);
+        ->when($this->storeId != 0, function ($query) {
+            $query->where('store_id', $this->storeId);
+        })
+        ->where(function ($query) {
+            $query->where('invoice_number', 'like', '%' . $this->search . '%')
+                ->orWhereHas('contact', function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                });
+        })
+        ->orderBy($this->sortField, $sortDirection)
+        ->paginate(10);
     
         return view('livewire.commerce.external-invoice.index-external-invoices', [
             'externalInvoices' => $externalInvoices,

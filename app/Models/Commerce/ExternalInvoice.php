@@ -3,6 +3,7 @@
 namespace App\Models\Commerce;
 
 use App\Models\Contact;
+use App\Models\Warehouse\TemporaryExternalInvoiceItem;
 use App\Traits\BelongsToStore;
 use App\Traits\BelongsToUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +15,8 @@ class ExternalInvoice extends Model
     use HasFactory;
     use BelongsToUser;
     use BelongsToStore;
+
+    public const TEMPORARY = 1;
 
     protected $fillable = [
         'name',
@@ -27,6 +30,16 @@ class ExternalInvoice extends Model
     public function contact(): BelongsTo
     {
         return $this->belongsTo(Contact::class, 'contact_id');
+    }
+
+    public function temporaryExternalInvoiceItems()
+    {
+        return $this->hasMany(TemporaryExternalInvoiceItem::class, 'external_invoice_id');
+    }
+
+    public function isTemp() 
+    {
+        return $this->is_temp === self::TEMPORARY;
     }
 
 
