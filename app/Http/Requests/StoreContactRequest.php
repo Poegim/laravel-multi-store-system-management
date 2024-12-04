@@ -23,7 +23,6 @@ class StoreContactRequest extends FormRequest
     {
         return [
             'name' => 'required|min:2|max:255',
-            'surname' => 'min:2|max:255|nullable',
             'identification_number' => 'required_if:type,2|nullable|unique:contacts,identification_number|min:2|max:30',
             'type' => 'required|integer|min:1|max:2',
             'country' => 'min:3|max:60|nullable',
@@ -47,16 +46,4 @@ class StoreContactRequest extends FormRequest
         ];
     }
 
-    /**
-     * Prepare the data for validation.
-     */
-    protected function prepareForValidation(): void
-    {
-        if($this->input('type') == 2) {
-            $this->merge([
-                'surname' => '',
-            ]);
-        }
-
-    }
 }

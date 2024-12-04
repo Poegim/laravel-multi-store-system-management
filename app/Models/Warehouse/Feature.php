@@ -14,7 +14,7 @@ class Feature extends Model
 
     public function productVariants()
     {
-        return $this->belongsToMany(ProductVariant::class, 'feature_product_variant', 'feature_id', 'product_variant_id');
+        return $this->belongsToMany(ProductVariant::class, 'feature_product_variant', 'feature_id', 'product_variant_id')->withTimestamps();;
     }
 
     public function totalStockItemsCount()

@@ -3,6 +3,7 @@
 namespace App\Repositories\StoreRepository;
 
 use App\Models\Store;
+use Illuminate\Support\Carbon;
 use App\Repositories\StoreRepository\StoreRepositoryInterface;
 
 class  StoreRepository implements StoreRepositoryInterface
@@ -12,13 +13,15 @@ class  StoreRepository implements StoreRepositoryInterface
     {
         $store = new Store;
         $store = $this->associate($store, $data);
+        $store->created_at = Carbon::now()->format('Y-m-d H:i:s');
         return $store->save();
     }
-
+    
     public function update(array $data, int $id): bool
     {
         $store = Store::findOrFail($id);
         $store = $this->associate($store, $data);
+        $store->updated_at = Carbon::now()->format('Y-m-d H:i:s');
         return $store->save();
     }
 

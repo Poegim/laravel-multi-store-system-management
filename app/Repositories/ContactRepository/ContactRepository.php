@@ -3,24 +3,27 @@
 namespace App\Repositories\ContactRepository ;
 
 use App\Models\Contact;
+use Carbon\Carbon;
 
 class ContactRepository implements ContactRepositoryInterface
 {
     public function store(array $data) {
         $contact = new Contact();
         $contact = $this->associate($contact, $data);
+        $contact->created_at = Carbon::now()->format('Y-m-d H:i:s');
+
         return $contact->save();
     }
 
     public function update(array $data, Contact $contact) {
         $contact = $this->associate($contact, $data);
+        $contact->updated_at = Carbon::now()->format('Y-m-d H:i:s');
         return $contact->save();
     }
 
     private function associate(Contact $contact, array $data)
     {
         $contact->name = $data['name'];
-        $contact->surname = $data['surname'];
         $contact->identification_number = $data['identification_number'];
         $contact->type = $data['type'];
         $contact->city = $data['city'];

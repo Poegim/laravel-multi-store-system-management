@@ -2,6 +2,7 @@
 
 namespace App\Repositories\CategoryRepository ;
 
+use Illuminate\Support\Carbon;
 use App\Models\Warehouse\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
@@ -12,24 +13,26 @@ class CategoryRepository implements CategoryRepositoryInterface
     {
         $category = new Category;
         $category = $this->associate($category, $data);
+        $category->created_at = Carbon::now()->format('Y-m-d H:i:s');
         return $category->save();
     }
-
+    
     public function update(array $data, int $id)
     {
         $category = Category::findOrFail($id);
         $category = $this->associate($category, $data);
-
+        
         /**
          *  Set same state fot all children.
          */
         $this->toggleCategoryChildren($category, $category->disabled);
-
+        
         /**
          *  If category has been enabled, then enable parents.
          */
         if ($category->disabled === false) $this->toggleCategoryParent($category);
-
+        
+        $category->updated_at = Carbon::now()->format('Y-m-d H:i:s');
         return $category->save();
     }
 

@@ -23,16 +23,13 @@ class ContactsTableSeeder extends Seeder
 
             $type = rand(1,2);
             if($type === 1) {
-                $name = $faker->firstName();
-                $surname = $faker->lastName();
+                $name = $faker->firstName() . ' ' . $faker->lastName();
             } else {
                 $name = $faker->company();
-                $surname = '';
             }
 
             $data[] = [
                 'name' => $name,
-                'surname' => $surname,
                 'identification_number' => $faker->randomNumber(9),
                 'type' => $type,
                 'country' => 'Polska',

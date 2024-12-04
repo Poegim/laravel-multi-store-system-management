@@ -16,7 +16,6 @@ class UpdateContactRequest extends FormRequest
     {
         return [
             'name' => 'required|min:2|max:255',
-            'surname' => 'min:2|max:255|nullable',
             'identification_number' => [
                 'required_if:type,2', 
                 'nullable', 
@@ -45,16 +44,4 @@ class UpdateContactRequest extends FormRequest
         ];
     }
 
-    /**
-     * Prepare the data for validation.
-     */
-    protected function prepareForValidation(): void
-    {
-        if($this->input('type') == 2) {
-            $this->merge([
-                'surname' => '',
-            ]);
-        }
-
-    }
 }

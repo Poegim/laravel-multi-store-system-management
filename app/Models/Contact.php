@@ -14,7 +14,6 @@ class Contact extends Model
 
     protected $fillable = [
         'name',
-        'surname',
         'indentification_number',
         'type',
         'country',

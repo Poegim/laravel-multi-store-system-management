@@ -2,8 +2,9 @@
 
 namespace App\Repositories\ProductVariantRepository ;
 
-use App\Models\Warehouse\ProductVariant;
 use App\Traits\FormatsAmount;
+use Illuminate\Support\Carbon;
+use App\Models\Warehouse\ProductVariant;
 
 class ProductVariantRepository implements ProductVariantRepositoryInterface
 {
@@ -15,14 +16,16 @@ class ProductVariantRepository implements ProductVariantRepositoryInterface
         $productVariant = new ProductVariant;
         $productVariant = $this->associate($productVariant, $data);
         $productVariant->user_id = auth()->user()->id;
+        $productVariant->created_at = Carbon::now()->format('Y-m-d H:i:s');
         $productVariant->save();
         isset($data['features']) && $productVariant->features()->sync($data['features']);
         isset($data['devices']) && $productVariant->devices()->sync($data['devices']);
     }
-
+    
     public function update(array $data, ProductVariant $productVariant)
     {
         $productVariant = $this->associate($productVariant, $data);
+        $productVariant->updated_at = Carbon::now()->format('Y-m-d H:i:s');
         $productVariant->save();
         isset($data['features']) && $productVariant->features()->sync($data['features']);
         isset($data['devices']) && $productVariant->devices()->sync($data['devices']);

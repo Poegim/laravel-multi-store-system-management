@@ -21,12 +21,12 @@
             @csrf
             @method('PUT')
 
-            <div class="mt-4 p-4 rounded-mid  border border-gray-200 dark:border-gray-700 space-y-2 grid md:grid-cols-2 gap-x-4" x-data="{type: 'person'}">
+            <div class="mt-4 p-4 rounded-mid  border border-gray-200 dark:border-gray-700 space-y-2 grid md:grid-cols-2 gap-x-4" >
 
                 <div class="md:col-span-2">
                     <label for="type" class="input-label">{{__('type')}}</label>
                     <div class="flex space-x-2">
-                        <span @click="type = 'person'" >
+                        <span>
                             <input 
                             class="my-auto" 
                             type="radio" 
@@ -39,7 +39,7 @@
                         />
                         <label for="person">{{__('person')}}</label>
                         </span>
-                        <span  @click="type = 'company'">
+                        <span>
                             <input 
                             class="my-auto" 
                             type="radio" 
@@ -61,14 +61,6 @@
                     <x-input type="text" name="name" id="name" class="w-full" required
                     value="{{ old('name', $contact->name) }}"
                     />
-                </div>
-
-                <div>
-                    <div :class="type == 'person' ? '' : 'hidden'">
-                        <label for="surname" class="input-label">{{__('surname')}}</label>
-                        <x-input type="text" name="surname" id="surname" class="w-full"
-                        value="{{ old('surname', $contact->surname) }}"/>
-                    </div>
                 </div>
 
                 <div class="md:col-span-2">

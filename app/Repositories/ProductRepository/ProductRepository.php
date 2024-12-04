@@ -2,6 +2,7 @@
 
 namespace App\Repositories\ProductRepository ;
 
+use Illuminate\Support\Carbon;
 use App\Models\Warehouse\Product;
 use App\Models\Warehouse\ProductVariant;
 
@@ -11,6 +12,7 @@ class ProductRepository implements ProductRepositoryInterface
         $product = new Product;
         $product = $this->associate($product, $data);
         $product->user_id = auth()->user()->id;
+        $product->created_at = Carbon::now()->format('Y-m-d H:i:s');
 
         if ($product->save()) {
             $defaultVariant = new ProductVariant;
@@ -20,14 +22,16 @@ class ProductRepository implements ProductRepositoryInterface
             $defaultVariant->suggested_retail_price =  0;
             $defaultVariant->user_id = auth()->user()->id;
 
+            $defaultVariant->created_at = Carbon::now()->format('Y-m-d H:i:s');
             return $defaultVariant->save();
         }
-
+        
         abort(403, 'Unknown error while creating product');
     }
-
+    
     public function update(array $data, Product $product) {
         $product = $this->associate($product, $data);
+        $product->updated_at = Carbon::now()->format('Y-m-d H:i:s');
         return $product->save();
     }
 
