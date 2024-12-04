@@ -20,6 +20,7 @@ class IndexContacts extends Component
 
         $contacts = Contact::where('name', 'like', '%'.$this->search.'%')
                     ->orWhere('identification_number', 'like', '%'.$this->search.'%')
+                    ->orWhere('phone', 'like', '%'.$this->search.'%')
                     ->orderBy($this->sortField, $sortDirection)
                     ->paginate(10);
 
