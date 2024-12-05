@@ -37,9 +37,13 @@ class ExternalInvoice extends Model
         return $this->hasMany(TemporaryExternalInvoiceItem::class, 'external_invoice_id');
     }
 
-    public function isTemp() 
+    public function isTemp()
     {
         return $this->is_temp === self::TEMPORARY;
+    }
+
+    public function status() {
+        return $this->isTemp() ? 'pending' : 'added';
     }
 
 

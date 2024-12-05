@@ -32,6 +32,19 @@
                             </div>
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            <div class="flex cursor-pointer" wire:click="sortBy('is_temp')">
+                                <span class="uppercase">
+                                    {{__('status')}}
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="size-4 {{ $sortField === 'is_temp' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                                 <span class="uppercase">
                                     {{__('contact')}}
                                 </span>
@@ -75,7 +88,19 @@
                                     label="{{$invoice->invoice_number}}">{{Illuminate\Support\Str::limit($invoice->invoice_number, 30, '...')}}</a>
                             </div>
                         </td>
-                        
+
+                        <td scope="row" class="font-medium px-6 py-1 italic text-gray-900 whitespace-nowrap dark:text-white">
+                            @if($invoice->isTemp())
+                            <div class="text-center py-0.5 bg-red-100 text-red-800 font-medium rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">
+                                {{ $invoice->status() }}
+                            </div>
+                            @else
+                            <div class="text-center py-0.5 bg-green-100 text-green-800 font-medium rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">
+                                {{ $invoice->status() }}
+                            </div>
+                            @endif
+                        </td>
+
                         <td scope="row" class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <div class="flex">
                                 <a href="{{ route('contact.show', $invoice->contact) }}" class="link my-auto" alt="{{$invoice->contact->name}}"
@@ -84,7 +109,10 @@
                         </td>
 
                         <td scope="row" class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $invoice->store->name}}
+                            <div class="flex">
+                                <a href="{{ route('external-invoice.index', $invoice->store) }}" class="link my-auto" alt="{{$invoice->store->name}}"
+                                    label="{{$invoice->store->name}}">{{Illuminate\Support\Str::limit($invoice->store->name, 30, '...')}}</a>
+                            </div>
                         </td>
 
                         <td class="px-6 py-1 hidden lg:table-cell">

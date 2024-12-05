@@ -36,7 +36,7 @@ class ExternalInvoicesTableSeeder extends Seeder
                 'user_id' => rand(1,5),
                 'contact_id' => rand(1,500),
                 'price' => 0,
-                'is_temp' => 1,
+                'is_temp' => rand(0,1),
                 'created_at' => now(),
                 'updated_at' => now()
             ];
