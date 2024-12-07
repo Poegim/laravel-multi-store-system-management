@@ -64,9 +64,11 @@
             originalData: @json($collection),
             selected: false,
             itemsCountLimit: passedId ? passedId + 1 : 100,
-            filteredData: @json($collection).slice(this.itemsCountLimit-100,this.itemsCountLimit),
+            filteredData: [],
 
             init() {
+                this.filteredData = this.originalData.slice(this.itemsCountLimit - 100, this.itemsCountLimit);
+                console.log(this.itemsCountLimit);
                 // If passedId is provided, select the corresponding option
                 if (this.passedId != null) {
                     this.selectOptionById(this.passedId);
