@@ -2,34 +2,36 @@
 
 namespace App\Providers;
 
+use App\Models\Commerce\ExternalInvoice;
 use App\Models\User;
 use App\Policies\UserPolicy;
 use App\Services\BrandService;
 use App\Services\StoreService;
+use App\Services\ContactService;
 use App\Services\FeatureService;
 use App\Services\ProductService;
 use App\Services\CategoryService;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use App\Services\ProductVariantService;
 use Illuminate\Support\ServiceProvider;
+use App\Services\ExternalInvoiceService;
 use App\Repositories\BrandRepository\BrandRepository;
 use App\Repositories\StoreRepository\StoreRepository;
+use App\Repositories\ContactRepository\ContactRepository;
 use App\Repositories\FeatureRepository\FeatureRepository;
 use App\Repositories\ProductRepository\ProductRepository;
 use App\Repositories\CategoryRepository\CategoryRepository;
 use App\Repositories\BrandRepository\BrandRepositoryInterface;
 use App\Repositories\StoreRepository\StoreRepositoryInterface;
+use App\Repositories\ContactRepository\ContactRepositoryInterface;
 use App\Repositories\FeatureRepository\FeatureRepositoryInterface;
 use App\Repositories\ProductRepository\ProductRepositoryInterface;
 use App\Repositories\CategoryRepository\CategoryRepositoryInterface;
-use App\Repositories\ContactRepository\ContactRepository;
-use App\Repositories\ContactRepository\ContactRepositoryInterface;
-use App\Repositories\ExternalInvoiceRepository\ExternalInvoiceRepository;
-use App\Repositories\ExternalInvoiceRepository\ExternalInvoiceRepositoryInterface;
 use App\Repositories\ProductVariantRepository\ProductVariantRepository;
+use App\Repositories\ExternalInvoiceRepository\ExternalInvoiceRepository;
 use App\Repositories\ProductVariantRepository\ProductVariantRepositoryInterface;
-use App\Services\ContactService;
-use App\Services\ExternalInvoiceService;
+use App\Repositories\ExternalInvoiceRepository\ExternalInvoiceRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {

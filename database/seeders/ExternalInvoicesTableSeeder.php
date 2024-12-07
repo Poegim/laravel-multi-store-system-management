@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Contact;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -28,13 +29,15 @@ class ExternalInvoicesTableSeeder extends Seeder
 
         $data = [];
         $faker = Factory::create();
+        $contacts = Contact::companies()->pluck('id');
+        
 
         for ($i=0; $i < 200; $i++) {
             $data[$i] = [
                 'invoice_number' => 'INV-' . date('Y') . '-' . $faker->unique()->numberBetween(10, 99999),
                 'store_id' => rand(1,5),
                 'user_id' => rand(1,5),
-                'contact_id' => rand(1,500),
+                'contact_id' => $contacts->random(),
                 'price' => 0,
                 'is_temp' => rand(0,1),
                 'created_at' => now(),

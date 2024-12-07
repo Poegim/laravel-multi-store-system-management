@@ -60,8 +60,9 @@
             searchBy: searchBy,
             optionalSearchBy: optionalSearchBy,
             originalData: @json($collection),
-            filteredData: @json($collection).slice(0,100),
             selected: false,
+            itemsCountLimit: passedId ? passedId + 1 : 100,
+            filteredData: @json($collection).slice(this.itemsCountLimit-100,this.itemsCountLimit),
 
             init() {
                 // If passedId is provided, select the corresponding option
@@ -73,11 +74,9 @@
             filterData() {
                 // If user starts typing after a selection, deselect the current item
                 this.deselect();
-                const itemsCount = 100;
-
                 const search = this.query.toLowerCase();
                 if (search === '') {
-                    this.filteredData = this.originalData.slice(0, itemsCount); // Limit to 1000 items
+                    this.filteredData = this.originalData.slice(this.itemsCountLimit-100,this.itemsCountLimit); // Limit to 1000 items
                     this.open = this.filteredData.length > 0;
                     return;
                 }
@@ -88,7 +87,7 @@
                         const fieldValue = String(item[this.searchBy]);
                         return fieldValue.toLowerCase().includes(search);
                     })
-                    .slice(0, itemsCount); // Limit the filtered results to 1000
+                    .slice(this.itemsCountLimit-100,this.itemsCountLimit); // Limit the filtered results to 1000
 
                 this.open = this.filteredData.length > 0;
                 this.highlightedIndex = 0; // Reset highlighted index when filtering
@@ -107,7 +106,6 @@
             },
 
             selectOption(index = this.highlightedIndex) {
-
                 if (this.filteredData.length > 0 && index >= 0 && index < this.filteredData.length) {
                     const selectedItem = this.filteredData[index];
                     this.query = selectedItem[this.searchBy];

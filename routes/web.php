@@ -13,6 +13,7 @@ use App\Http\Controllers\Warehouse\ProductController;
 use App\Http\Controllers\Warehouse\CategoryController;
 use App\Http\Controllers\Commerce\ExternalInvoiceController;
 use App\Http\Controllers\Warehouse\ProductVariantController;
+use App\Models\Commerce\ExternalInvoice;
 
 Route::name('user.')->prefix('user')->middleware(['auth', IsAdmin::class])->group(function () {
     Route::get('', [UserController::class, 'index'])->name('index');
@@ -80,13 +81,13 @@ Route::name('sale.')->prefix('sale')->middleware(['auth'])->group(function () {
     Route::put('/update/{sale}', [SaleController::class, 'update'])->name('update');
 });
 
-Route::name('external-invoice.')->prefix('external-invoice')->middleware(['auth'])->group(function () {
-    Route::get('/{store:id?}', [ExternalInvoiceController::class, 'index'])->name('index');
+Route::name('external-invoice.')->prefix('external_invoice')->middleware(['auth'])->group(function () {
+    Route::get('/store/{store:id?}', [ExternalInvoiceController::class, 'index'])->name('index');
     Route::get('/{store:id}/create', [ExternalInvoiceController::class, 'create'])->name('create');
     Route::post('/{store:id}/store', [ExternalInvoiceController::class, 'store'])->name('store');
-    Route::get('/show/{external-invoice}', [ExternalInvoiceController::class, 'show'])->name('show');
-    Route::get('/edit/{external-invoice}', [ExternalInvoiceController::class, 'edit'])->name('edit');
-    Route::put('/update/{external-invoice}', [ExternalInvoiceController::class, 'update'])->name('update');
+    Route::get('/show/{external_invoice:id}', [ExternalInvoiceController::class, 'show'])->name('show');
+    Route::get('/edit/{external_invoice:id}', [ExternalInvoiceController::class, 'edit'])->name('edit');
+    Route::put('/update/{external_invoice}', [ExternalInvoiceController::class, 'update'])->name('update');
 });
 
 Route::name('contact.')->prefix('contact')->middleware(['auth'])->group(function () {

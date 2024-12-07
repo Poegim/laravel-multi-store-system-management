@@ -55,7 +55,7 @@ class StockItemsTableSeeder extends Seeder
                 'external_invoice_id' => rand(1, $externalInvoicesCount),
                 'suggested_retail_price' => $price,
                 'purchase_price_net' => 1000,
-                'purchase_price_gross' => $this->netToGrossConverts(1000, 23),
+                'purchase_price_gross' => $this->convertNetToGross(1000, 23),
                 'color' => $color,
                 'store_id' => $storeId,
                 'brand_id' => $brandId,

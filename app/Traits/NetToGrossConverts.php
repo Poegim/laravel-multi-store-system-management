@@ -4,8 +4,8 @@ namespace App\Traits;
 
 trait NetToGrossConverts
 {
-    public function netToGrossConverts(int $grossPrice, int $vatRate): int
+    public function convertNetToGross(int $netPrice, int $vatRate): int
     {
-        return (int) round($grossPrice / (1 + $vatRate / 100));
+        return (int) round($netPrice * (1 + $vatRate / 100));
     }
 }

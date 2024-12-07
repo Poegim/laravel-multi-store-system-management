@@ -14,7 +14,7 @@ class ExternalInvoice extends Model
 {
     use HasFactory;
     use BelongsToUser;
-    use BelongsToStore;
+    use BelongsToStore;    
 
     public const TEMPORARY = 1;
 

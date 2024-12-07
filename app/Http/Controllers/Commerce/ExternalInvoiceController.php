@@ -20,12 +20,12 @@ class ExternalInvoiceController extends Controller
 
     public function index(Store $store = null)
     {
+        $contacts = Contact::companies()->pluck('id');
         if ($store) {
             $externalInvoices = ExternalInvoice::where('store_id', $store->id)->get();
         } else {
             $externalInvoices = ExternalInvoice::all();
         }
-
         return view('commerce.external-invoice.index', compact('store', 'externalInvoices'));
     }
 
@@ -48,6 +48,12 @@ class ExternalInvoiceController extends Controller
         }
 
     }
+
+    public function edit(int $id) {
+        $externalInvoice = ExternalInvoice::findOrfail($id);
+        $companies = Contact::select('id', 'name', 'identification_number')->get();
+        return view('commerce.external-invoice.edit', compact(['externalInvoice', 'companies']));
+    } 
 
 
 }

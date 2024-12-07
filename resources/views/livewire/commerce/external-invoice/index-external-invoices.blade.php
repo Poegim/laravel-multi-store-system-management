@@ -68,9 +68,9 @@
                                 </span>
                             </div>
                         </th>
-                        {{-- <th scope="col" class="px-6 py-3 text-right">
+                        <th scope="col" class="px-6 py-3 text-right">
 
-                        </th> --}}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -128,13 +128,13 @@
                             {{$invoice->created_at}}
                         </td>
 
-                        {{-- <td class="px-6 py-1 flex justify-end">
+                        <td class="px-6 py-1 flex justify-end">
                             <a href="{{route('external-invoice.edit', $invoice->id)}}" wire:navigate>
                                 <x-buttons.edit-button >
-                                    Edit
+                                    Editdsfgs
                                 </x-buttons.edit-button>
                             </a>
-                        </td> --}}
+                        </td>
                     </tr>
                     @endforeach
                     @endif
