@@ -43,7 +43,9 @@
                 @mouseenter="highlightedIndex = index"
                 class="px-4 py-1 cursor-pointer text-sm"
             >
-            <span x-text="item[searchBy] === item[optionalSearchBy] ? item[searchBy] : item[searchBy] + ' ' + item[optionalSearchBy]"></span>
+            <span x-text="item[optionalSearchBy] && item[searchBy] !== item[optionalSearchBy]
+            ? item[searchBy] + ' ' + item[optionalSearchBy]
+            : item[searchBy]"></span>
         </li>
         </template>
     </ul>
@@ -72,25 +74,25 @@
             },
 
             filterData() {
-                // If user starts typing after a selection, deselect the current item
                 this.deselect();
                 const search = this.query.toLowerCase();
+
                 if (search === '') {
-                    this.filteredData = this.originalData.slice(this.itemsCountLimit-100,this.itemsCountLimit); // Limit to 1000 items
+                    this.filteredData = this.originalData.slice(this.itemsCountLimit - 100, this.itemsCountLimit);
                     this.open = this.filteredData.length > 0;
                     return;
                 }
 
                 this.filteredData = this.originalData
                     .filter(item => {
-                        // Access the dynamic field and convert it to a string
-                        const fieldValue = String(item[this.searchBy]);
-                        return fieldValue.toLowerCase().includes(search);
+                        const searchByValue = String(item[this.searchBy]).toLowerCase();
+                        const optionalSearchByValue = String(item[this.optionalSearchBy] || '').toLowerCase(); // Dodano walidację na wypadek braku optionalSearchBy
+                        return searchByValue.includes(search) || optionalSearchByValue.includes(search);
                     })
-                    .slice(this.itemsCountLimit-100,this.itemsCountLimit); // Limit the filtered results to 1000
+                    .slice(this.itemsCountLimit - 100, this.itemsCountLimit);
 
                 this.open = this.filteredData.length > 0;
-                this.highlightedIndex = 0; // Reset highlighted index when filtering
+                this.highlightedIndex = 0;
             },
 
             moveDown() {
