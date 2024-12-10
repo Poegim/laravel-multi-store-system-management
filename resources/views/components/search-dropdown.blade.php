@@ -51,123 +51,138 @@
     </ul>
 
     <script>
-    function autocomplete(uniqueId, searchBy, optionalSearchBy, passedId = null) {
-        return {
-            query: '',
-            open: false,
-            highlightedIndex: 0,
-            InputVisibleUniqueId: 'visible_' + uniqueId,
-            uniqueId: uniqueId,
-            passedId: passedId,
-            searchBy: searchBy,
-            optionalSearchBy: optionalSearchBy,
-            originalData: @json($collection),
-            selected: false,
-            itemsCountLimit: passedId ? passedId + 1 : 100,
-            filteredData: [],
+        function autocomplete(uniqueId, searchBy, optionalSearchBy, passedId = null) {
+            return {
+                query: '',
+                open: false,
+                highlightedIndex: 0,
+                InputVisibleUniqueId: 'visible_' + uniqueId,
+                uniqueId: uniqueId,
+                passedId: passedId,
+                searchBy: searchBy,
+                optionalSearchBy: optionalSearchBy,
+                originalData: @json($collection),
+                selected: false,
+                itemsCountLimit: passedId ? parseInt(passedId) + 1 : 100,
+                filteredData: {}, // filteredData is now an object
 
-            init() {
-                this.filteredData = this.originalData.slice(this.itemsCountLimit - 100, this.itemsCountLimit);
-                console.log(this.itemsCountLimit);
-                // If passedId is provided, select the corresponding option
-                if (this.passedId != null) {
-                    this.selectOptionById(this.passedId);
-                }
-            },
+                init() {
+                    this.filteredData = this.originalData
+                        .slice(this.itemsCountLimit - 100, this.itemsCountLimit)
+                        .reduce((acc, item) => {
+                            acc[item.id] = item; // Mapping data to an object with id as the key
+                            return acc;
+                        }, {});
 
-            filterData() {
-                this.deselect();
-                const search = this.query.toLowerCase();
+                    // If passedId is provided, find the item in filteredData
+                    if (this.passedId != null) {
+                        const selectedItem = this.filteredData[this.passedId]; // Accessing the item by id
 
-                if (search === '') {
-                    this.filteredData = this.originalData.slice(this.itemsCountLimit - 100, this.itemsCountLimit);
-                    this.open = this.filteredData.length > 0;
-                    return;
-                }
+                        if (selectedItem) {
+                            this.query = selectedItem[this.searchBy]; // Set the query input field
+                            this.$refs.hiddenInput.value = selectedItem.id; // Set the hidden input field
+                        } else {
+                            console.warn("Item with passedId not found in filteredData");
+                        }
+                    }
+                },
 
-                this.filteredData = this.originalData
-                    .filter(item => {
-                        const searchByValue = String(item[this.searchBy]).toLowerCase();
-                        const optionalSearchByValue = String(item[this.optionalSearchBy] || '').toLowerCase(); // Dodano walidację na wypadek braku optionalSearchBy
-                        return searchByValue.includes(search) || optionalSearchByValue.includes(search);
-                    })
-                    .slice(this.itemsCountLimit - 100, this.itemsCountLimit);
+                filterData() {
+                    this.deselect(); // Reset selection
+                    const search = this.query.toLowerCase();
 
-                this.open = this.filteredData.length > 0;
-                this.highlightedIndex = 0;
-            },
-
-            moveDown() {
-                if (this.highlightedIndex < this.filteredData.length - 1) {
-                    this.highlightedIndex++;
-                }
-            },
-
-            moveUp() {
-                if (this.highlightedIndex > 0) {
-                    this.highlightedIndex--;
-                }
-            },
-
-            selectOption(index = this.highlightedIndex) {
-                if (this.filteredData.length > 0 && index >= 0 && index < this.filteredData.length) {
-                    const selectedItem = this.filteredData[index];
-                    this.query = selectedItem[this.searchBy];
-                    this.$refs.hiddenInput.value = selectedItem.id; // Set the hidden input value to the selected item's id.
-
-                    //In case of passing data from parent fill input.
-                    if(this.passedId != '' ) {
-                        this.$refs.InputVisibleUniqueId.value = selectedItem[this.searchBy];
+                    if (search === '') {
+                        this.filteredData = this.originalData.slice(this.itemsCountLimit - 100, this.itemsCountLimit)
+                            .reduce((acc, item) => {
+                                acc[item.id] = item; // Mapping data to an object with id as the key
+                                return acc;
+                            }, {});
+                        this.open = Object.keys(this.filteredData).length > 0; // Check if there are any filtered results
+                        return;
                     }
 
-                    // Emit an event to the parent component with uniqueId and selected value
-                    this.$dispatch('searchDropdownChange', {
-                        uniqueId: this.uniqueId,
-                        value: selectedItem.id
-                    });
+                    this.filteredData = this.originalData
+                        .filter(item => {
+                            const searchByValue = String(item[this.searchBy]).toLowerCase();
+                            const optionalSearchByValue = String(item[this.optionalSearchBy] || '').toLowerCase();
+                            return searchByValue.includes(search) || optionalSearchByValue.includes(search);
+                        })
+                        .reduce((acc, item) => {
+                            acc[item.id] = item; // Mapping data to an object with id as the key
+                            return acc;
+                        }, {});
 
-                    this.selected = true;
-                    this.open = false;
-                }
-            },
+                    this.open = Object.keys(this.filteredData).length > 0; // Check if there are any filtered results
+                    this.highlightedIndex = 0; // Reset the highlighted index
+                },
 
-            selectOptionById(id) {
-                const index = this.originalData.findIndex(item => item.id == parseInt(id));
-                if (index !== -1) {
-                    this.selectOption(index);
-                }
-            },
+                moveDown() {
+                    const keys = Object.keys(this.filteredData);
+                    if (this.highlightedIndex < keys.length - 1) {
+                        this.highlightedIndex++; // Move down the list
+                    }
+                },
 
-            deselect() {
-                if (this.selected === true) {
+                moveUp() {
+                    if (this.highlightedIndex > 0) {
+                        this.highlightedIndex--; // Move up the list
+                    }
+                },
 
-                    // Clear the hidden input and emit the deselect event
-                    this.$refs.hiddenInput.value = '';
-                    this.$dispatch('searchDropdownChange', {
-                        uniqueId: this.uniqueId,
-                        value: null
-                    });
+                selectOption(id = Object.keys(this.filteredData)[this.highlightedIndex]) {
+                    // Instead of using index, use id to select the option
+                    const selectedItem = this.filteredData[id];
+                    if (selectedItem) {
+                        this.query = selectedItem[this.searchBy]; // Set the query input field
+                        this.$refs.hiddenInput.value = selectedItem.id; // Set the hidden input field
 
-                    this.selected = false; // Reset selected state
-                }
-            },
+                        // In case data is passed from the parent component, fill the input field
+                        if (this.passedId != '') {
+                            this.$refs.InputVisibleUniqueId.value = selectedItem[this.searchBy];
+                        }
 
-            handleEnterKey() {
-                this.selectOption();
-            },
+                        // Emit an event with the uniqueId and selected value
+                        this.$dispatch('searchDropdownChange', {
+                            uniqueId: this.uniqueId,
+                            value: selectedItem.id
+                        });
 
-            openDropdown() {
-                this.open = true;
-            },
+                        this.selected = true;
+                        this.open = false; // Close the dropdown
+                    }
+                },
 
-            closeDropdown() {
-                this.open = false;
-            },
+                deselect() {
+                    if (this.selected === true) {
+                        // Clear the hidden input and emit the deselection event
+                        this.$refs.hiddenInput.value = '';
+                        this.$dispatch('searchDropdownChange', {
+                            uniqueId: this.uniqueId,
+                            value: null
+                        });
 
-            toggleDropdown() {
-                this.open = !this.open;
-            },
-        };
-    }
+                        this.selected = false; // Reset the selection state
+                    }
+                },
+
+                handleEnterKey() {
+                    // Select the option when the Enter key is pressed
+                    const keys = Object.keys(this.filteredData);
+                    this.selectOption(keys[this.highlightedIndex]);
+                },
+
+                openDropdown() {
+                    this.open = true; // Open the dropdown
+                },
+
+                closeDropdown() {
+                    this.open = false; // Close the dropdown
+                },
+
+                toggleDropdown() {
+                    this.open = !this.open; // Toggle the dropdown visibility
+                },
+            };
+        }
     </script>
 </div>
