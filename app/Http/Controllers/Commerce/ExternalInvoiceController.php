@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Commerce;
 use App\Models\Store;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use App\Models\Warehouse\Brand;
+use App\Models\Warehouse\Product;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreExternalInvoiceRequest;
 use App\Models\Commerce\ExternalInvoice;
 use App\Services\ExternalInvoiceService;
+use App\Http\Requests\StoreExternalInvoiceRequest;
 
 class ExternalInvoiceController extends Controller
 {
@@ -51,8 +53,12 @@ class ExternalInvoiceController extends Controller
 
     public function edit(int $id) {
         $externalInvoice = ExternalInvoice::findOrfail($id);
-        $companies = Contact::select('id', 'name', 'identification_number')->get();
-        return view('commerce.external-invoice.edit', compact(['externalInvoice', 'companies']));
+        // $companies = Contact::select('id', 'name', 'identification_number')->get();
+        // $brands = Brand::select('id', 'name')->get();
+        // $products = Product::select('id', 'name')->get();
+        return view('commerce.external-invoice.edit', compact([
+            'externalInvoice'
+        ]));
     } 
 
 

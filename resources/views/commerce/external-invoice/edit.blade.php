@@ -7,30 +7,10 @@
         </h2>
     </x-slot>
 
+    @if($externalInvoice->is_temp)
     <x-window>
-        <form action="{{route('external-invoice.update', $externalInvoice->id)}}" method="POST">
-            @csrf
-            @method('PUT')
-
-            <div class="space-y-2">
-
-                <x-input
-                name="invoice_number"
-                id="invoice_number"
-                placeholder="Enter invoice number"
-                required
-                maxlength="255"
-                minlength="3"
-                class="w-full"
-                value="{{ old('invoice_number') ?? $externalInvoice->invoice_number}}"
-                />
-                
-                <x-search-dropdown :collection="$companies" :inputName="'contact_id'" :passedId="old('company_id') ?? $externalInvoice->contact_id" :optionalSearchBy="'identification_number'" />
-                
-                <x-button type="sumbit">Save and edit</x-button>
-            </div>
-        </form>
+        @livewire('commerce.external-invoice.edit-external-invoice-items', ['externalInvoice' => $externalInvoice])
     </x-window>
-    
+    @endif
 
 </x-app-layout>
