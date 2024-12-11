@@ -7,6 +7,9 @@ use App\Models\Warehouse\Product;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * Backend API for Multiselect Search Dropdown component.
+ */
 class SearchController extends Controller
 {
 

@@ -12,6 +12,7 @@ use App\Http\Controllers\Warehouse\FeatureController;
 use App\Http\Controllers\Warehouse\ProductController;
 use App\Http\Controllers\Warehouse\CategoryController;
 use App\Http\Controllers\Commerce\ExternalInvoiceController;
+use App\Http\Controllers\Warehouse\ColorController;
 use App\Http\Controllers\Warehouse\ProductVariantController;
 use App\Models\Commerce\ExternalInvoice;
 
@@ -97,6 +98,15 @@ Route::name('contact.')->prefix('contact')->middleware(['auth'])->group(function
     Route::get('/{contact}/show', [ContactController::class, 'show'])->name('show');
     Route::get('/{contact}/edit', [ContactController::class, 'edit'])->name('edit');
     Route::put('/{contact}/update', [ContactController::class, 'update'])->name('update');
+});
+
+
+Route::name('color.')->prefix('color')->middleware(['auth'])->group(function () {
+    Route::get('/', [ColorController::class, 'index'])->name('index');
+    Route::get('/create', [ColorController::class, 'create'])->name('create');
+    Route::post('/store', [ColorController::class, 'store'])->name('store');
+    Route::get('/edit/{contact}', [ColorController::class, 'edit'])->name('edit');
+    Route::put('/update', [ColorController::class, 'update'])->name('update');
 });
 
 

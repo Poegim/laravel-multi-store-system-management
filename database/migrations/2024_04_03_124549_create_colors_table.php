@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('value')->unique();
+            $table->foreignId('user_id')->default(1);
+            $table->foreignId('updated_by')->nullable();
             $table->timestamps();
         });
     }

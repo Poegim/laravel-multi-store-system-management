@@ -254,6 +254,8 @@ class ColorsTableSeeder extends Seeder
             $data[] = [
                 'name' => $key,
                 'value' => $value,
+                'user_id' => 1,
+                'updated_by' => null,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ];
