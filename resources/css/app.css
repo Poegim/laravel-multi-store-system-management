@@ -52,8 +52,8 @@
 .link
 {
     /* @apply text-blue-800 dark:text-blue-200 hover:tracking-wide hover:underline hover:decoration-dotted hover:decoration-1 italic font-light; */
-    @apply font-medium text-blue-600 dark:text-blue-500 hover:underline;
-    font-family: "Roboto Condensed", sans-serif;
+    @apply text-blue-600 dark:text-blue-500 hover:underline font-light;
+    font-family: sans-serif;
 }
 
 .accordion-btn

@@ -64,25 +64,25 @@
                 <tbody>
                     @foreach($colors as $color)
                     <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <th scope="row"
-                            class="font-thin px-6 py-1 text-gray-900 whitespace-nowrap dark:text-white">
+                        <td scope="row"
+                            class="px-6 py-1 text-gray-900 whitespace-nowrap dark:text-white">
                                 {{$color->id}}
-                        </th>
-                        <th scope="row"
-                            class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        </td>
+                        <td scope="row"
+                            class="px-6 py-1  text-gray-900 whitespace-nowrap dark:text-white">
                             {{$color->name}}
-                        </th>
-                        <th scope="row"
-                            class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <div class="flex gap-2">
-                                <div class="h-10 w-10 rounded-full" style="background-color: {{$color->value}};">
+                        </td>
+                        <td scope="row"
+                            class="px-6 py-1  text-gray-900 whitespace-nowrap dark:text-white">
+                            <div class="flex gap-x-2">
+                                <div class="h-8 w-8 rounded-full" style="background-color: {{$color->value}};">
 
                                 </div>
                                 <div class="my-auto">
                                     {{$color->value}}
                                 </div>
                             </div>
-                        </th>
+                        </td>
                         <td class="px-6 py-1 hidden lg:table-cell">
                             <div class="flex">
                                 <img src="{{ $color->user->profile_photo_url }}" alt="{{ $color->user->name }}"
@@ -92,10 +92,10 @@
                                 </div>
                             </div>
                         </td>
-                        <th scope="row"
-                        class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <td scope="row"
+                        class="px-6 py-1  text-gray-900 whitespace-nowrap dark:text-white">
                             {{$color->created_at}}
-                        </th>
+                        </td>
                         <td class="px-6 py-1 hidden lg:table-cell">
                             <div class="flex">
                                 @if($color->updatedBy != null)
@@ -107,10 +107,10 @@
                                 @endif
                             </div>
                         </td>
-                        <th scope="row"
-                        class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <td scope="row"
+                        class="px-6 py-1  text-gray-900 whitespace-nowrap dark:text-white">
                             {{$color->updated_at}}
-                        </th>
+                        </td>
                         <td class="px-6 py-1 flex justify-end">
                             <a href="{{route('color.edit', $color->id)}}">
                                 <x-buttons.edit-button>
