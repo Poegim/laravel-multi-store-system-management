@@ -26,7 +26,7 @@
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs uppercase">
                     <tr class="text-black dark:text-white">
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-2 py-1 sm:px-6 sm:py-3">
                             <div class="flex cursor-pointer" wire:click="sortBy('id')">
                                 <span class="uppercase">
                                     {{__('id')}}
@@ -39,7 +39,7 @@
                                 </svg>
                             </div>
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-2 py-1 sm:px-6 sm:py-3">
                             <div class="flex cursor-pointer" wire:click="sortBy('name')">
                                 <span class="uppercase">
                                     {{__('name')}}
@@ -52,7 +52,7 @@
                                 </svg>
                             </div>
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-2 py-1 sm:px-6 sm:py-3">
                             <div class="flex cursor-pointer" wire:click="sortBy('brand')">
                                 <span class="uppercase">
                                     {{__('brand')}}
@@ -65,7 +65,7 @@
                                 </svg>
                             </div>
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-2 py-1 sm:px-6 sm:py-3 hidden lg:table-cell">
                             <div class="flex cursor-pointer" wire:click="sortBy('suggested_retail_price')">
                                 <span class="uppercase">
                                     {{__('SRP')}}
@@ -78,7 +78,7 @@
                                 </svg>
                             </div>
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-2 py-1 sm:px-6 sm:py-3 hidden lg:table-cell">
                             <div class="flex cursor-pointer" wire:click="sortBy('product_variants_count')">
                                 <span class="uppercase">
                                     {{__('variants')}}
@@ -90,52 +90,52 @@
                                 </svg>
                             </div>
                         </th>
-                        <th scope="col" class="px-6 py-3 hidden lg:table-cell">
+                        <th scope="col" class="px-2 py-1 sm:px-6 sm:py-3 hidden lg:table-cell">
                             {{__('category')}}
                         </th>
-                        <th scope="col" class="px-6 py-3 hidden lg:table-cell">
+                        <th scope="col" class="px-2 py-1 sm:px-6 sm:py-3 hidden lg:table-cell">
                             {{__('created_by')}}
                         </th>
-                        <th scope="col" class="px-6 py-3 text-right">
+                        <th scope="col" class="px-2 py-1 sm:px-6 sm:py-3 text-right">
 
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($products as $product)
-                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-xs md:text-base"
                         wire:key="row-{{ $product->id }}">
-                        <td class="px-6 py-1 dark:text-gray-100 font-thin">
+                        <td class="px-2 sm:px-6 py-1 dark:text-gray-100 font-thin">
                             {{$product->id}}
                         </td>
 
-                        <td scope="row" class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <td scope="row" class="px-2 sm:px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <div class="flex">
-                                <a href="{{ route('product.show', [$product->brand, $product]) }}" class="link my-auto" alt="{{$product->name}}"
+                                <a href="{{ route('product.show', [$product->brand, $product]) }}" class="link my-auto text-xs md:text-base" alt="{{$product->name}}"
                                     label="{{$product->name}}">{{Illuminate\Support\Str::limit($product->name, 30, '...')}}</a>
                             </div>
                         </td>
 
-                        <td scope="row" class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <td scope="row" class="px-2 sm:px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <div class="flex">
-                                <a href="{{ route('brand.show', $product->brand->slug)}}" class="link my-auto" alt="{{$product->brand->name}}"
+                                <a href="{{ route('brand.show', $product->brand->slug)}}" class="link my-auto text-xs md:text-base" alt="{{$product->brand->name}}"
                                     label="{{$product->brand->name}}">{{Illuminate\Support\Str::limit($product->brand->name, 30, '...')}}</a>
                             </div>
                         </td>
 
-                        <td class="px-6 py-1 hidden lg:table-cell">
+                        <td class="px-2 sm:px-6 py-1 hidden lg:table-cell">
                             {{$product->formattedSRP()}}
                         </td>
 
-                        <td class="px-6 py-1 hidden lg:table-cell">
+                        <td class="px-2 sm:px-6 py-1 hidden lg:table-cell">
                             {{$product->product_variants_count}}
                         </td>
 
-                        <td class="px-6 py-1 hidden lg:table-cell">
+                        <td class="px-2 sm:px-6 py-1 hidden lg:table-cell">
                             {{$product->category->plural_name}}
                         </td>
 
-                        <td class="px-6 py-1 hidden lg:table-cell">
+                        <td class="px-2 sm:px-6 py-1 hidden lg:table-cell">
                             <div class="flex">
                                 <img src="{{ $product->user->profile_photo_url }}" alt="{{ $product->user->name }}"
                                 class="rounded-full w-12 h-12 md:h-8 md:w-8 object-cover mr-2 my-auto mb-4 md:mb-0">
@@ -144,7 +144,7 @@
                                 </div>
                             </div>                        </td>
 
-                        <td class="px-6 py-1 flex justify-end">
+                        <td class="px-2 sm:px-6 py-1 flex justify-end">
                             <a href="{{route('product.edit', $product)}}" wire:navigate>
                                 <x-buttons.edit-button >
                                     Edit

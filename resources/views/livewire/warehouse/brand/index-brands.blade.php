@@ -37,7 +37,12 @@
                     <th scope="col" class="px-6 py-3">
                         <div class="flex cursor-pointer" wire:click="sortBy('stock_items_count')">
                             <span class="uppercase">
-                                {{__('stock_items_count')}}
+                                <span class="hidden lg:flex">
+                                    {{__('stock_items_count')}}
+                                </span>
+                                <span class="flex lg:hidden">
+                                    {{__('stock')}}
+                                </span>
                             </span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor"
@@ -68,7 +73,7 @@
                             <a href="{{ route('brand.show', $brand->slug) }}" class="my-auto">{{$brand->name}}</a>
                         </div>
                     </th>
-                    <td class="px-6 py-1 hidden lg:table-cell">
+                    <td class="px-6 py-1">
                         {{$brand->stock_items_count}}
                     </td>
                     <td class="px-6 py-1 hidden lg:table-cell">
