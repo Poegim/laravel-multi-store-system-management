@@ -105,8 +105,8 @@ Route::name('color.')->prefix('color')->middleware(['auth'])->group(function () 
     Route::get('/', [ColorController::class, 'index'])->name('index');
     Route::get('/create', [ColorController::class, 'create'])->name('create');
     Route::post('/store', [ColorController::class, 'store'])->name('store');
-    Route::get('/edit/{contact}', [ColorController::class, 'edit'])->name('edit');
-    Route::put('/update', [ColorController::class, 'update'])->name('update');
+    Route::get('/edit/{color}', [ColorController::class, 'edit'])->name('edit');
+    Route::put('/update/{color}', [ColorController::class, 'update'])->name('update');
 });
 
 

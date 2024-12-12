@@ -9,15 +9,14 @@
                         stroke="currentColor" class="hidden sm:block size-5 my-auto -rotate-90">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                     </svg>
-                    {{__('edit_color')}}: {{$color->name}}
+                    {{__('create color')}}
                 </div>
             </div>
         </h2>
     </x-slot>
 
-    <form action="{{ route('color.update', $color) }}" method="POST">
+    <form action="{{ route('color.store') }}" method="POST">
     @csrf
-    @method('PUT')
 
     <x-window>
 
@@ -40,7 +39,7 @@
                 type="text"
                 id="name"
                 class="input-text"
-                required value="{{ old('name') ? old('name') : $color->name }}" />
+                required value="{{ old('name') ? old('name') : ''}}" />
             
             <label for="color" class="input-label">{{__('color')}}</label>
             @error('color')
@@ -53,11 +52,11 @@
                 class="p-1 h-10 w-full block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700" 
                 id="color" 
                 title="Choose your color"
-                value="{{ old('value') ? old('value') : $color->value }}" />
+                value="{{ old('value') ? old('value') : ''}}" />
 
         </div>
 
-        <x-submit-cancel-btns :cancelRoute="'color.index'" :type="'update'" />
+        <x-submit-cancel-btns :cancelRoute="'color.index'" :type="'create'" />
 
     </x-window>
     </form>

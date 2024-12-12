@@ -51,9 +51,6 @@
                         {{__('created_at')}}
                         </th>
                         <th scope="col" class="px-6 py-3 hidden lg:table-cell">
-                        {{__('updated_by')}}
-                        </th>
-                        <th scope="col" class="px-6 py-3 hidden lg:table-cell">
                         {{__('updated_at')}}
                         </th>
                         <th scope="col" class="px-6 py-3 text-right">
@@ -96,23 +93,12 @@
                         class="px-6 py-1  text-gray-900 whitespace-nowrap dark:text-white">
                             {{$color->created_at}}
                         </td>
-                        <td class="px-6 py-1 hidden lg:table-cell">
-                            <div class="flex">
-                                @if($color->updatedBy != null)
-                                <img src="{{ $color->updatedBy->profile_photo_url }}" alt="{{ $color->updatedBy->name }}"
-                                class="rounded-full w-12 h-12 md:h-8 md:w-8 object-cover mr-2 my-auto mb-4 md:mb-0">
-                                <div class="my-auto">
-                                    {{$color->updatedBy->name}}
-                                </div>
-                                @endif
-                            </div>
-                        </td>
                         <td scope="row"
                         class="px-6 py-1  text-gray-900 whitespace-nowrap dark:text-white">
                             {{$color->updated_at}}
                         </td>
                         <td class="px-6 py-1 flex justify-end">
-                            <a href="{{route('color.edit', $color->id)}}">
+                            <a href="{{route('color.edit', $color)}}">
                                 <x-buttons.edit-button>
                                     {{__('edit')}}
                                 </x-buttons.edit-button>
