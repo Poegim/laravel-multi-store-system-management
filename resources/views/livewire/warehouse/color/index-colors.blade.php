@@ -41,7 +41,7 @@
                                 </svg>
                             </div>
                         </th>
-                        <th scope="col" class="px-6 py-3 hidden lg:table-cell">
+                        <th scope="col" class="px-6 py-3">
                         {{__('hex_value')}}
                         </th>
                         <th scope="col" class="px-6 py-3 hidden lg:table-cell">
@@ -90,14 +90,14 @@
                             </div>
                         </td>
                         <td scope="row"
-                        class="px-6 py-1  text-gray-900 whitespace-nowrap dark:text-white">
+                        class="px-6 py-1  text-gray-900 whitespace-nowrap dark:text-white hidden lg:table-cell">
                             {{$color->created_at}}
                         </td>
                         <td scope="row"
-                        class="px-6 py-1  text-gray-900 whitespace-nowrap dark:text-white">
+                        class="px-6 py-1  text-gray-900 whitespace-nowrap dark:text-white hidden lg:table-cell">
                             {{$color->updated_at}}
                         </td>
-                        <td class="px-6 py-1 flex justify-end">
+                        <td class="px-2 sm:px-6 sm:py-1 flex justify-end">
                             <a href="{{route('color.edit', $color)}}">
                                 <x-buttons.edit-button>
                                     {{__('edit')}}
