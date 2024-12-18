@@ -18,30 +18,41 @@ class EditExternalInvoiceItems extends Component
     public $brands;
     public $products;
     public $productVariants;
+    public $devices;
 
     public $brand;
     public $product;
     public $variant;
+    public $device;
 
-    public $search = '';
-    public $collection;
-    public $searchBy = 'name';
-    public $visibleList = false;
-
+    public $searchProduct = '';
+    public $searchDevice = '';
+    
     public $selectedProduct;
-
+    public $selectedDevice;
+    
     public ?ExternalInvoice $externalInvoice = null;
+    
+    // public $visibleList = false;
+    // public $collection;
+    // public $searchBy = 'name';
 
     public function mount(ExternalInvoice $externalInvoice) {
         $this->externalInvoice = $externalInvoice;
         $this->brands = Brand::select('id', 'name')->get();
         $this->products = Product::select('id', 'name')->limit(100)->get();
+        $this->devices = Product::devices()->select('id', 'name')->limit(100)->get();
         $this->colors = Color::all();
     }
 
-    public function updatedSearch()
+    public function updatedSearchProduct()
     {
-        $this->products = Product::select('id', 'name')->where('name', 'like', '%'.$this->search.'%')->limit(500)->get();
+        $this->products = Product::select('id', 'name')->where('name', 'like', '%'.$this->searchProduct.'%')->limit(500)->get();
+    }
+
+    public function updatedSearchDevice()
+    {
+        $this->devices = Product::select('id', 'name')->devices()->where('name', 'like', '%'.$this->searchDevice.'%')->limit(100)->get();
     }
 
     public function updatedSearchColor()
@@ -57,9 +68,16 @@ class EditExternalInvoiceItems extends Component
     public function selectProduct($id)
     {
         $this->selectedProduct = $id;
-        $this->search = $this->products->firstWhere('id', $id)->name;
+        $this->searchProduct = $this->products->firstWhere('id', $id)->name;
         $this->product = Product::findOrFail($id);
         $this->productVariants = $this->product->productVariants;
+    }
+
+    public function selectDevice($id)
+    {
+        $this->selectedDevice = $id;
+        $this->searchDevice = $this->devices->firstWhere('id', $id)->name;
+        $this->device = Product::findOrFail($id);
     }
 
     public function render()
