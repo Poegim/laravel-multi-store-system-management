@@ -24,6 +24,7 @@ class ProductsTableSeeder extends Seeder
     {
 
         $devices = array(
+            "Universal Universal",
             "Acer Liquid Z205",
             "Acer Liquid Z205 Dual Sim",
             "ALCATEL 10.13",

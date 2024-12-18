@@ -15,6 +15,7 @@ class BrandsTableSeeder extends Seeder
     public function run(): void
     {
         $brands = [
+            'Universal',
             '3MK',
             'ACEFAST',
             'Acer',

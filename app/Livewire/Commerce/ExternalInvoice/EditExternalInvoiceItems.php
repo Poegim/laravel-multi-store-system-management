@@ -30,6 +30,8 @@ class EditExternalInvoiceItems extends Component
     
     public $selectedProduct;
     public $selectedDevice;
+
+    public $lockBrand = false;
     
     public ?ExternalInvoice $externalInvoice = null;
     
@@ -71,6 +73,12 @@ class EditExternalInvoiceItems extends Component
         $this->searchProduct = $this->products->firstWhere('id', $id)->name;
         $this->product = Product::findOrFail($id);
         $this->productVariants = $this->product->productVariants;
+        if($this->product->is_device) {
+            $this->brand = $this->product->brand->id;
+            $this->lockBrand = true;
+        } else {
+            $this->lockBrand = false;
+        }
     }
 
     public function selectDevice($id)
