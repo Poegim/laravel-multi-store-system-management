@@ -1,8 +1,5 @@
 <div>
-    <div class="grid grid-cols-3 space-x-4">
-       
-
-        <div class="grid sm:grid-cols-3 gap-2 col-span-2">
+        <div class="grid sm:grid-cols-3 gap-2">
             
             <!-- SELECT BRAND -->
             <div x-data="{ locked: @entangle('lockBrand') }">
@@ -113,7 +110,7 @@
             <!-- SELECT VARIANT -->
             <div>
                 <x-label for="variant_id">{{ __('select_variant') }}</x-label>
-                <select name="variant_id" id="variant_id" class="input-jetstream w-full" wire:model="productVariants">
+                <select name="variant_id" id="variant_id" class="input-jetstream w-full" wire:model="productVariant">
                     @if ($product)
                     @foreach ($productVariants as $variant)
                         <option value="{{ $variant->id }}">{{ $variant->name }}</option>
@@ -214,53 +211,53 @@
             </div>       
             @endif
      
-        </div>
-
-        <div x-data="{ expanded: false }" @click.outside="expanded = false">
-            <!-- COLOR -->
-            <div class="space-y-2">
-                <div class="relative flex space-x-2">
-                    <div>
-                        <x-label for="color">
-                            {{ __('color') }}: 
-                            {{ $decodedColor ? $decodedColor->name : '' }}
-                        </x-label>
-                    <div class="flex">
-                        <input 
-                            @click="expanded = true"
-                            class="w-full rounded-md rounded-r-none border-r-0 border-gray-300 focus:border-gray-300 focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
-                            placeholder="Search..." wire:model.live="searchColor"></input>
-                    <!-- Przycisk rozwijania koloru -->
-                    <button @click="expanded = ! expanded" id="btn_device" 
-                    class="bg-white w-10 border-l-0 rounded-tr-lg rounded-br-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mx-auto w-4 h-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                    </svg>
-                    </button>
-
-                </div>
-                <div 
-                    x-collapse 
-                    x-show="expanded"
-                    
-                    class="absolute mt-2 w-52">
-                    <select id="color_id" name="color_id" size="10" wire:model.live="color"
-                            class="input-text focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                        @foreach ($colors as $color)
-                            <option 
-                            style="background-color: {{ $color->value }};" 
-                            value='@json($color)'
-                            @click="expanded = false"
-                            
-                            >
-                                {{ $color->name }}
-                            </option>
-                        @endforeach
-                    </select>
+            <div x-data="{ expanded: false }" @click.outside="expanded = false">
+                <!-- COLOR -->
+                <div class="space-y-2">
+                    <div class="relative flex space-x-2">
+                        <div>
+                            <x-label for="color">
+                                {{ __('color') }}: 
+                                {{ $decodedColor ? $decodedColor->name : '' }}
+                            </x-label>
+                        <div class="flex">
+                            <input 
+                                @click="expanded = true"
+                                class="w-full rounded-md rounded-r-none border-r-0 border-gray-300 focus:border-gray-300 focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+                                placeholder="Search..." wire:model.live="searchColor"></input>
+                        <!-- Przycisk rozwijania koloru -->
+                        <button @click="expanded = ! expanded" id="btn_device" 
+                        class="bg-white w-10 border-l-0 rounded-tr-lg rounded-br-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mx-auto w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>
+                        </button>
+    
+                    </div>
+                    <div 
+                        x-collapse 
+                        x-show="expanded"
+                        
+                        class="absolute mt-2 w-52">
+                        <select id="color_id" name="color_id" size="10" wire:model.live="color"
+                                class="input-text focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            @foreach ($colors as $color)
+                                <option 
+                                style="background-color: {{ $color->value }};" 
+                                value='@json($color)'
+                                @click="expanded = false"
+                                
+                                >
+                                    {{ $color->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             </div>
+            
         </div>
 
-    </div>
+
 
 </div>

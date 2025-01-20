@@ -65,6 +65,9 @@ class EditExternalInvoiceItems extends Component
     public function updatedColor($value)
     {
         $this->decodedColor = json_decode($value);
+        if (!empty($this->variant)) {
+            $this->variant = $this->variant; // Reassign to preserve state
+        }
     }
 
     public function selectProduct($id)
