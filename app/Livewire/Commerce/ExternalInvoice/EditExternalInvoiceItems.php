@@ -27,14 +27,14 @@ class EditExternalInvoiceItems extends Component
 
     public $searchProduct = '';
     public $searchDevice = '';
-    
+
     public $selectedProduct;
     public $selectedDevice;
 
     public $lockBrand = false;
-    
+
     public ?ExternalInvoice $externalInvoice = null;
-    
+
     // public $visibleList = false;
     // public $collection;
     // public $searchBy = 'name';
@@ -62,12 +62,16 @@ class EditExternalInvoiceItems extends Component
         $this->colors = Color::where('name', 'like', '%'.$this->searchColor.'%')->get();
     }
 
-    public function updatedColor($value)
-    {
-        $this->decodedColor = json_decode($value);
-        if (!empty($this->variant)) {
-            $this->variant = $this->variant; // Reassign to preserve state
-        }
+    // public function updatedColor($value)
+    // {
+    //     $this->decodedColor = json_decode($value);
+    //     if (!empty($this->variant)) {
+    //         $this->variant = $this->variant; // Reassign to preserve state
+    //     }
+    // }
+
+    public function setColor($value) {
+        $this->color = $value;
     }
 
     public function selectProduct($id)

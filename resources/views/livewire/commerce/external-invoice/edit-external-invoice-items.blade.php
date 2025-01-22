@@ -1,14 +1,14 @@
 <div>
         <div class="grid sm:grid-cols-3 gap-2">
-            
+
             <!-- SELECT BRAND -->
             <div x-data="{ locked: @entangle('lockBrand') }">
                 <x-label for="brand_id">{{ __('select_brand') }}</x-label>
-                <select 
-                    class="input-jetstream w-full" 
-                    name="brand_id" 
-                    id="brand_id" 
-                    x-bind:disabled="locked" 
+                <select
+                    class="input-jetstream w-full"
+                    name="brand_id"
+                    id="brand_id"
+                    x-bind:disabled="locked"
                     wire:model="brand">
                     <option value="">{{ __('Wybierz markę') }}</option> <!-- Dla opcji domyślnej -->
                     @foreach ($brands as $brand)
@@ -22,7 +22,7 @@
                 <x-label >{{ __('select_product') }}: {{$product?->name}}</x-label>
                 <div
                     x-data="{
-                        visibleProductsList: false, 
+                        visibleProductsList: false,
                         searchProduct: '',
                         selectedIndex: -1,
                         toggle() {
@@ -59,7 +59,7 @@
                 >
                     <div class="overflow-hidden">
                         <div class="flex">
-                            
+
                             <!-- Input wyszukiwania -->
                             <input type="text" id="search_product_input"
                                 x-model="searchProduct"
@@ -67,10 +67,10 @@
                                 class="w-full rounded-md rounded-r-none border-r-0 border-gray-300 focus:border-gray-300 focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
                                 placeholder="{{ __('Search...') }}"
                             />
-                        
+
 
                             <!-- Przycisk rozwijania -->
-                            <button @click="toggle" id="btn_product" 
+                            <button @click="toggle" id="btn_product"
                                 class="bg-white w-10 border-l-0 rounded-tr-lg rounded-br-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mx-auto w-4 h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -85,13 +85,13 @@
                     </div>
 
                     <!-- Lista rozwijana -->
-                    <ul 
-                        x-show="visibleProductsList" 
+                    <ul
+                        x-show="visibleProductsList"
                         x-transition
                         class="absolute bg-white dark:bg-slate-900 dark:text-gray-400 border rounded mt-1 z-10 max-h-64 w-full overflow-y-auto shadow-lg focus:outline-none"
                     >
                         @foreach ($products as $index => $searchItem)
-                        <li 
+                        <li
                             wire:click="selectProduct({{ $searchItem->id }})"
                             :class="{'bg-gray-200': selectedIndex === {{ $index }}}"
                             class="cursor-pointer hover:bg-gray-200 dark:hover:bg-slate-700 p-2 focus:outline-none focus:bg-gray-500 focus:text-white"
@@ -125,7 +125,7 @@
                 <x-label >{{ __('select_device') }}: {{$device?->name}}</x-label>
                 <div
                     x-data="{
-                        visibleDevicesList: false, 
+                        visibleDevicesList: false,
                         searchDevice: '',
                         selectedIndex: -1,
                         toggle() {
@@ -169,10 +169,10 @@
                                 class="w-full rounded-md rounded-r-none border-r-0 border-gray-300 focus:border-gray-300 focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
                                 placeholder="{{ __('Search...') }}"
                             />
-                        
+
 
                             <!-- Przycisk rozwijania -->
-                            <button @click="toggle" id="btn_device" 
+                            <button @click="toggle" id="btn_device"
                                 class="bg-white w-10 border-l-0 rounded-tr-lg rounded-br-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mx-auto w-4 h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -187,13 +187,13 @@
                     </div>
 
                     <!-- Lista rozwijana -->
-                    <ul 
-                        x-show="visibleDevicesList" 
+                    <ul
+                        x-show="visibleDevicesList"
                         x-transition
                         class="absolute bg-white dark:bg-slate-900 dark:text-gray-400 border rounded mt-1 z-10 max-h-64 w-full overflow-y-auto shadow-lg focus:outline-none"
                     >
                         @foreach ($devices as $index => $searchItem)
-                        <li 
+                        <li
                             wire:click="selectDevice({{ $searchItem->id }})"
                             :class="{'bg-gray-200 dark:bg-slate-700': selectedIndex === {{ $index }}}"
                             class="cursor-pointer hover:bg-gray-200 dark:hover:bg-slate-700 p-2 focus:outline-none focus:bg-gray-500 focus:text-white"
@@ -208,54 +208,72 @@
                     </ul>
 
                 </div>
-            </div>       
+            </div>
             @endif
-     
+
             <div x-data="{ expanded: false }" @click.outside="expanded = false">
                 <!-- COLOR -->
                 <div class="space-y-2">
-                    <div class="relative flex space-x-2">
-                        <div>
-                            <x-label for="color">
-                                {{ __('color') }}: 
+                    <div class="relative">
+
+                        <x-label for="color">
+                                {{ __('color') }}:
                                 {{ $decodedColor ? $decodedColor->name : '' }}
-                            </x-label>
-                        <div class="flex">
-                            <input 
-                                @click="expanded = true"
-                                class="w-full rounded-md rounded-r-none border-r-0 border-gray-300 focus:border-gray-300 focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
-                                placeholder="Search..." wire:model.live="searchColor"></input>
-                        <!-- Przycisk rozwijania koloru -->
-                        <button @click="expanded = ! expanded" id="btn_device" 
-                        class="bg-white w-10 border-l-0 rounded-tr-lg rounded-br-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mx-auto w-4 h-4">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                        </svg>
-                        </button>
-    
+                        </x-label>
+
+
                     </div>
-                    <div 
-                        x-collapse 
-                        x-show="expanded"
-                        
-                        class="absolute mt-2 w-52">
-                        <select id="color_id" name="color_id" size="10" wire:model.live="color"
-                                class="input-text focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                            @foreach ($colors as $color)
-                                <option 
-                                style="background-color: {{ $color->value }};" 
-                                value='@json($color)'
-                                @click="expanded = false"
-                                
-                                >
-                                    {{ $color->name }}
-                                </option>
-                            @endforeach
-                        </select>
+
+                    <div class="flex" x-data="{ expanded: false, selectedColor: null }" >
+
+                        <div class="flex w-full">
+
+                            <input
+                            @click="expanded = true"
+                            class="w-full rounded-md border-gray-300 focus:border-gray-300 focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+                            placeholder="Search..." wire:model.live="searchColor"></input>
+                            {{-- <!-- Przycisk rozwijania koloru -->
+                            <button @click="expanded = ! expanded" id="btn_device"
+                            class="bg-white w-10 border-l-0 rounded-tr-lg rounded-br-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mx-auto w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            </svg>
+                            </button> --}}
+                        </div>
+
+                        <div class="relative w-full h-10">
+
+                            <button
+                                @click="expanded = !expanded"
+                                class="input-text focus:ring-blue-500 focus:border-blue-500 sm:text-sm w-full">
+                                <span x-text="selectedColor ? selectedColor.name : 'Select Color'"></span>
+                            </button>
+
+                            <div
+                                x-show="expanded"
+                                @click.outside="expanded = false"
+                                class="absolute mt-2 w-52 border bg-white shadow-lg z-10 rounded-md">
+                                <ul class="max-h-60 overflow-auto">
+                                    @foreach ($colors as $color)
+                                        <li
+                                            @click="selectedColor = {{ json_encode($color) }}, expanded = false"
+                                            wire:click="setColor({{$color->id}})"
+                                            class="flex items-center p-2 cursor-pointer hover:bg-gray-100"
+                                        >
+                                            <span
+                                                class="w-4 h-4 inline-block rounded-full mr-2"
+                                                style="background-color: {{ $color->value ?? '#000' }};">
+                                            </span>
+                                            {{ $color->name }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
 
