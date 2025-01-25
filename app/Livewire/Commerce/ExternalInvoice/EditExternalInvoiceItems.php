@@ -13,7 +13,6 @@ class EditExternalInvoiceItems extends Component
     public $colors;
     public $searchColor = '';
     public $color;
-    // public $decodedColor;
 
     public $brands;
     public $products;
@@ -24,6 +23,7 @@ class EditExternalInvoiceItems extends Component
     public $product;
     public $variant;
     public $device;
+    public $srp;
 
     public $searchProduct = '';
     public $searchDevice = '';
@@ -35,16 +35,13 @@ class EditExternalInvoiceItems extends Component
 
     public ?ExternalInvoice $externalInvoice = null;
 
-    // public $visibleList = false;
-    // public $collection;
-    // public $searchBy = 'name';
-
     public function mount(ExternalInvoice $externalInvoice) {
         $this->externalInvoice = $externalInvoice;
         $this->brands = Brand::select('id', 'name')->get();
         $this->products = Product::select('id', 'name')->limit(100)->get();
         $this->devices = Product::devices()->select('id', 'name')->limit(100)->get();
         $this->colors = Color::all();
+        $this->srp = 0;
     }
 
     public function updatedSearchProduct()
@@ -61,14 +58,6 @@ class EditExternalInvoiceItems extends Component
     {
         $this->colors = Color::where('name', 'like', '%'.$this->searchColor.'%')->get();
     }
-
-    // public function updatedColor($value)
-    // {
-    //     $this->decodedColor = json_decode($value);
-    //     if (!empty($this->variant)) {
-    //         $this->variant = $this->variant; // Reassign to preserve state
-    //     }
-    // }
 
     public function setColor($color) {
         $this->color = $color;

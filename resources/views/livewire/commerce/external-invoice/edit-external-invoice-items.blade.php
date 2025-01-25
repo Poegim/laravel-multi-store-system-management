@@ -283,6 +283,11 @@
                 </div>
             </div>
 
+            <div>
+                <x-label for="srp">{{ __('srp') }}</x-label>
+                <input wire:model="srp" type="number" step="0.01" min="0" max="99999.99" class="input-jetstream w-full h-10"/>
+            </div>
+            
         </div>
 
 
