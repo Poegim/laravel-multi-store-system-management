@@ -13,7 +13,7 @@ class EditExternalInvoiceItems extends Component
     public $colors;
     public $searchColor = '';
     public $color;
-    public $decodedColor;
+    // public $decodedColor;
 
     public $brands;
     public $products;
@@ -70,8 +70,8 @@ class EditExternalInvoiceItems extends Component
     //     }
     // }
 
-    public function setColor($value) {
-        $this->color = $value;
+    public function setColor($color) {
+        $this->color = $color;
     }
 
     public function selectProduct($id)

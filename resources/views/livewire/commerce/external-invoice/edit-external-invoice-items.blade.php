@@ -218,47 +218,44 @@
 
                         <x-label for="color">
                                 {{ __('color') }}:
-                                {{ $decodedColor ? $decodedColor->name : '' }}
+                                {{ $color ? $color["name"] : '' }}
                         </x-label>
 
 
                     </div>
 
-                    <div class="flex" x-data="{ expanded: false, selectedColor: null }" >
+                    <div class="flex relative" x-data="{ expanded: false }" >
 
-                        <div class="flex w-full">
+                        <div class="flex w-full ">
 
                             <input
                             @click="expanded = true"
-                            class="w-full rounded-md border-gray-300 focus:border-gray-300 focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+                            x-model="selectedColor"
+                            x-ref="inputField"
+                            class="w-full rounded-md rounded-r-none border-gray-300 focus:border-gray-300 border-r-0 focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
                             placeholder="Search..." wire:model.live="searchColor"></input>
-                            {{-- <!-- Przycisk rozwijania koloru -->
-                            <button @click="expanded = ! expanded" id="btn_device"
+                            <button
+                            @click="expanded = !expanded"
                             class="bg-white w-10 border-l-0 rounded-tr-lg rounded-br-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mx-auto w-4 h-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                            </svg>
-                            </button> --}}
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mx-auto w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </span>
+                            </button>
                         </div>
 
-                        <div class="relative w-full h-10">
-
-                            <button
-                                @click="expanded = !expanded"
-                                class="input-text focus:ring-blue-500 focus:border-blue-500 sm:text-sm w-full">
-                                <span x-text="selectedColor ? selectedColor.name : 'Select Color'"></span>
-                            </button>
-
+                        <div class="h-10">
                             <div
                                 x-show="expanded"
                                 @click.outside="expanded = false"
-                                class="absolute mt-2 w-52 border bg-white shadow-lg z-10 rounded-md">
+                                class="absolute top-10 left-0 mt-2 w-full border border-gray-500 bg-white dark:bg-gray-800 shadow-lg z-10 rounded-md">
                                 <ul class="max-h-60 overflow-auto">
                                     @foreach ($colors as $color)
                                         <li
-                                            @click="selectedColor = {{ json_encode($color) }}, expanded = false"
-                                            wire:click="setColor({{$color->id}})"
-                                            class="flex items-center p-2 cursor-pointer hover:bg-gray-100"
+                                            class="flex items-center p-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-200"
+                                            wire:click="setColor({{$color}})"
+                                            @click="$refs.inputField.value = '{{ $color->name }}'; expanded = false;"
                                         >
                                             <span
                                                 class="w-4 h-4 inline-block rounded-full mr-2"
@@ -270,6 +267,7 @@
                                 </ul>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
