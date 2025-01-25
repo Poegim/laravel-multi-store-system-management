@@ -19,7 +19,7 @@
 
             <!-- SELECT PRODUCT -->
             <div>
-                <x-label >{{ __('select_product') }}: {{$product?->name}}</x-label>
+                <x-label >{{ __('select_product') }}</x-label>
                 <div
                     x-data="{
                         visibleProductsList: false,
@@ -56,6 +56,7 @@
                     "
                     class="relative"
                     @keydown.window="handleKeydown($event)"
+                    @click.outside="visibleProductsList = false"
                 >
                     <div class="overflow-hidden">
                         <div class="flex">
@@ -122,7 +123,7 @@
             @if (($product) && (!$product->is_device))
             <!-- SELECT DEVICE -->
             <div>
-                <x-label >{{ __('select_device') }}: {{$device?->name}}</x-label>
+                <x-label >{{ __('select_device') }}</x-label>
                 <div
                     x-data="{
                         visibleDevicesList: false,
@@ -159,6 +160,7 @@
                     "
                     class="relative"
                     @keydown.window="handleKeydown($event)"
+                    @click.outside="visibleDevicesList = false"
                 >
                     <div class="overflow-hidden">
                         <div class="flex">
@@ -215,10 +217,7 @@
                 <!-- COLOR -->
                 <div class="">
                     <div class="relative">
-                        <x-label for="color">
-                                {{ __('color') }}:
-                                {{ $color ? $color["name"] : '' }}
-                        </x-label>
+                        <x-label for="color">{{ __('select_color') }}</x-label>
                     </div>
 
                     <div class="flex relative" x-data="{ expanded: false }" >
