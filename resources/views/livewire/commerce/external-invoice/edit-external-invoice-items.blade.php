@@ -1,4 +1,11 @@
 <div>
+        @if ($errors->any())
+        <x-lists.errors-list>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </x-lists.errors-list>
+        @endif
         <div class="grid sm:grid-cols-3 gap-2">
 
             <!-- SELECT BRAND -->
@@ -113,9 +120,11 @@
                 <x-label for="variant_id">{{ __('select_variant') }}</x-label>
                 <select name="variant_id" id="variant_id" class="input-jetstream w-full" wire:model="productVariant">
                     @if ($product)
-                    @foreach ($productVariants as $variant)
-                        <option value="{{ $variant->id }}">{{ $variant->name }}</option>
-                    @endforeach
+                        @foreach ($productVariants as $index => $variant)
+                            <option value="{{ $variant->id }}" {{ $index == 0 ? 'selected' : '' }}>
+                                {{ $variant->name }} 
+                            </option>
+                        @endforeach
                     @endif
                 </select>
             </div>
@@ -291,9 +300,14 @@
                     <x-label for="srp">{{ __('srp') }}</x-label>
                     <input wire:model="srp" type="number" step="0.01" min="0" max="99999.99" class="input-jetstream h-10 w-48"/>
                 </div>
-                <div>
+                <div x-data="{ locked: @entangle('lockQuantity') }">
                     <x-label for="quantity">{{ __('quantity') }}</x-label>
-                    <input wire:model="quantity" type="number" step="1" min="0" max="99999" class="input-jetstream h-10 w-48"/>
+                    <input 
+                        x-bind:disabled="locked" 
+                        wire:model="quantity" 
+                        type="number" 
+                        step="1" min="0" max="99999" 
+                        class="input-jetstream h-10 w-48"/>
                 </div>
                 <div>
                     <x-label for="net_buy_price">{{ __('net_buy_price') }}</x-label>
@@ -306,12 +320,16 @@
                         <x-label for="imei_number">{{ __('imei_number') }}</x-label>
                         <input wire:model="imei_number" class="input-jetstream h-10 w-full"/>
                     </div>
+                    <div>
+                        <x-label for="serial_number">{{ __('serial_number') }}</x-label>
+                        <input wire:model="serial_number" class="input-jetstream h-10 w-full"/>
+                    </div>
                 @endif
             </div>
         </div>
 
         <div class="mt-6 pt-4 border-t border-gray-500 border-dotted space-y-2">
-            <x-button type="button">
+            <x-button type="button" wire:click="addItems">
                 {{__('add_products')}}
             </x-button>
         </div>
