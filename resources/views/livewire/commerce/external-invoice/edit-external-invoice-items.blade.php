@@ -282,14 +282,39 @@
                     </div>
                 </div>
             </div>
-
-            <div>
-                <x-label for="srp">{{ __('srp') }}</x-label>
-                <input wire:model="srp" type="number" step="0.01" min="0" max="99999.99" class="input-jetstream w-full h-10"/>
-            </div>
             
         </div>
 
+        <div class="mt-6 pt-4 border-t border-gray-500 border-dotted grid sm:grid-cols-3 gap-2">
+            <div class="gap-2">
+                <div>
+                    <x-label for="srp">{{ __('srp') }}</x-label>
+                    <input wire:model="srp" type="number" step="0.01" min="0" max="99999.99" class="input-jetstream h-10 w-48"/>
+                </div>
+                <div>
+                    <x-label for="quantity">{{ __('quantity') }}</x-label>
+                    <input wire:model="quantity" type="number" step="1" min="0" max="99999" class="input-jetstream h-10 w-48"/>
+                </div>
+                <div>
+                    <x-label for="net_buy_price">{{ __('net_buy_price') }}</x-label>
+                    <input wire:model="net_buy_price" type="number" step="0.01" min="0" max="99999.99" class="input-jetstream h-10 w-48"/>
+                </div>
+            </div>
+            <div class="sm:col-span-2 gap-2">
+                @if ($product?->isDevice())
+                    <div>
+                        <x-label for="imei_number">{{ __('imei_number') }}</x-label>
+                        <input wire:model="imei_number" class="input-jetstream h-10 w-full"/>
+                    </div>
+                @endif
+            </div>
+        </div>
 
+        <div class="mt-6 pt-4 border-t border-gray-500 border-dotted space-y-2">
+            <x-button type="button">
+                {{__('add_products')}}
+            </x-button>
+        </div>
 
+            
 </div>

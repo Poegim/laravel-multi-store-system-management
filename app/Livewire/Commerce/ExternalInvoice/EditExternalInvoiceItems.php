@@ -6,11 +6,13 @@ use App\Models\Color;
 use Livewire\Component;
 use App\Models\Warehouse\Brand;
 use App\Models\Warehouse\Product;
+use Illuminate\Support\Collection;
 use App\Models\Commerce\ExternalInvoice;
 
 class EditExternalInvoiceItems extends Component
 {
-    public $colors;
+    public ?Collection $colors;
+    public ?Collection $vatRates;
     public $searchColor = '';
     public $color;
 
@@ -19,11 +21,16 @@ class EditExternalInvoiceItems extends Component
     public $productVariants;
     public $devices;
 
-    public $brand;
-    public $product;
-    public $variant;
-    public $device;
+    //Start of properties
+    public ?int $brand;
+    public ?Product $product;
+    public ?int $variant;
+    public ?Product $device;
     public $srp;
+    public ?string $imei_number;
+    public ?int $quantity;
+    public $net_buy_price;
+    //End of properties
 
     public $searchProduct = '';
     public $searchDevice = '';
@@ -32,6 +39,7 @@ class EditExternalInvoiceItems extends Component
     public $selectedDevice;
 
     public $lockBrand = false;
+    public $lockQuantity = false;
 
     public ?ExternalInvoice $externalInvoice = null;
 
@@ -42,6 +50,9 @@ class EditExternalInvoiceItems extends Component
         $this->devices = Product::devices()->select('id', 'name')->limit(100)->get();
         $this->colors = Color::all();
         $this->srp = 0;
+        $this->imei_number = '';
+        $this->quantity = 0;
+        $this->net_buy_price = 0;
     }
 
     public function updatedSearchProduct()
@@ -59,6 +70,18 @@ class EditExternalInvoiceItems extends Component
         $this->colors = Color::where('name', 'like', '%'.$this->searchColor.'%')->get();
     }
 
+    public function updatedProduct()
+    {
+        if($this->product->is_device) {
+            $this->brand = $this->product->brand->id;
+            $this->lockBrand = true;
+            $this->lockQuantity = true;
+            $this->quantity = 1;
+        } else {
+            $this->lockBrand = false;
+        }
+    }
+
     public function setColor($color) {
         $this->color = $color;
     }
@@ -69,12 +92,6 @@ class EditExternalInvoiceItems extends Component
         $this->searchProduct = $this->products->firstWhere('id', $id)->name;
         $this->product = Product::findOrFail($id);
         $this->productVariants = $this->product->productVariants;
-        if($this->product->is_device) {
-            $this->brand = $this->product->brand->id;
-            $this->lockBrand = true;
-        } else {
-            $this->lockBrand = false;
-        }
     }
 
     public function selectDevice($id)
