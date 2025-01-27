@@ -2,6 +2,7 @@
 
 namespace App\Repositories\TemporaryExternalInvoiceItemRepository;
 
+use App\Models\Warehouse\TemporaryExternalInvoiceItem;
 use Illuminate\Support\Carbon;
 use App\Repositories\TemporaryExternalInvoiceItemRepository\TemporaryExternalInvoiceItemRepositoryInterface;
 
@@ -10,10 +11,11 @@ class  TemporaryExternalInvoiceItemRepository implements TemporaryExternalInvoic
     
     public function store(array $data)
     {
-        // $store = new Store;
-        // $store = $this->associate($store, $data);
-        // $store->created_at = Carbon::now()->format('Y-m-d H:i:s');
-        // return $store->save();
+        $asdf = new TemporaryExternalInvoiceItem();
+        // $asdf = $this->associate($asdf, $data);
+        $asdf->created_at = Carbon::now()->format('Y-m-d H:i:s');
+        dd($asdf);
+        // return $temporaryExternalInvoiceItem->save();
     }
     
     public function update(array $data, int $id)

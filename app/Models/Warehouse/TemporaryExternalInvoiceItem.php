@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class TemporaryExternalInvoiceItem extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'created_at',
+    ];
+
 }

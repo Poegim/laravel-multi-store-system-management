@@ -8,6 +8,7 @@ use App\Models\Warehouse\Brand;
 use App\Models\Warehouse\Product;
 use Illuminate\Support\Collection;
 use App\Models\Commerce\ExternalInvoice;
+use App\Models\Warehouse\TemporaryExternalInvoiceItem;
 use App\Services\TemporaryExternalInvoiceItemService;
 
 class EditExternalInvoiceItems extends Component
@@ -44,7 +45,7 @@ class EditExternalInvoiceItems extends Component
     public $lockQuantity = false;
 
     public ?ExternalInvoice $externalInvoice = null;
-    protected TemporaryExternalInvoiceItemService $temporaryExternalInvoiceItemService
+    protected TemporaryExternalInvoiceItemService $temporaryExternalInvoiceItemService;
 
     protected function rules()
     {
@@ -150,9 +151,8 @@ class EditExternalInvoiceItems extends Component
         //     $this->net_buy_price,
         // ]);
 
-        $x = $this->validate();
-        dd($x);
-
+        $validated = $this->validate();
+        $this->temporaryExternalInvoiceItemService->store($validated);
     }
 
     public function render()
