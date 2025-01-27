@@ -32,6 +32,9 @@ use App\Repositories\ProductVariantRepository\ProductVariantRepository;
 use App\Repositories\ExternalInvoiceRepository\ExternalInvoiceRepository;
 use App\Repositories\ProductVariantRepository\ProductVariantRepositoryInterface;
 use App\Repositories\ExternalInvoiceRepository\ExternalInvoiceRepositoryInterface;
+use App\Repositories\TemporaryExternalInvoiceItemRepository\TemporaryExternalInvoiceItemRepository;
+use App\Repositories\TemporaryExternalInvoiceItemRepository\TemporaryExternalInvoiceItemRepositoryInterface;
+use App\Services\TemporaryExternalInvoiceItemService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -78,6 +81,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ExternalInvoiceRepositoryInterface::class, ExternalInvoiceRepository::class);
         $this->app->bind(ExternalInvoiceService::class, function ($app) {
             return new ExternalInvoiceService($app->make(ExternalInvoiceRepositoryInterface::class));
+        });
+
+        $this->app->bind(TemporaryExternalInvoiceItemRepositoryInterface::class, TemporaryExternalInvoiceItemRepository::class);
+        $this->app->bind(TemporaryExternalInvoiceItemService::class, function ($app) {
+            return new TemporaryExternalInvoiceItemService($app->make(TemporaryExternalInvoiceItemRepository::class));
         });
     }
 

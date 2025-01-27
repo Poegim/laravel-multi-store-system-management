@@ -8,6 +8,7 @@ use App\Models\Warehouse\Brand;
 use App\Models\Warehouse\Product;
 use Illuminate\Support\Collection;
 use App\Models\Commerce\ExternalInvoice;
+use App\Services\TemporaryExternalInvoiceItemService;
 
 class EditExternalInvoiceItems extends Component
 {
@@ -43,6 +44,7 @@ class EditExternalInvoiceItems extends Component
     public $lockQuantity = false;
 
     public ?ExternalInvoice $externalInvoice = null;
+    protected TemporaryExternalInvoiceItemService $temporaryExternalInvoiceItemService
 
     protected function rules()
     {
@@ -64,10 +66,14 @@ class EditExternalInvoiceItems extends Component
             ],
             'imei_number' => ['string', 'max:25'],
             'serial_number' => ['string', 'max:50'],
-            'srp' => ['required', 'numeric', 'min:0.01', 'max:99999.99'],
+            'srp' => ['required', 'numeric', 'min:0', 'max:99999.99'],
             'quantity' => ['required', 'numeric', 'min:1', 'max:99999'],
             'net_buy_price' => ['required', 'numeric', 'min:0.01', 'max:99999.99'],
         ];
+    }
+
+    public function boot(TemporaryExternalInvoiceItemService $temporaryExternalInvoiceItemService) {
+        $this->temporaryExternalInvoiceItemService = $temporaryExternalInvoiceItemService;
     }
 
     public function mount(ExternalInvoice $externalInvoice) {
@@ -118,8 +124,10 @@ class EditExternalInvoiceItems extends Component
         } else {
             $this->lockBrand = false;
             $this->lockQuantity = false;
-            $this->imei_number = '';
         }
+
+        $this->imei_number = '';
+        $this->serial_number = '';
     }
 
     public function selectDevice($id)
@@ -143,8 +151,7 @@ class EditExternalInvoiceItems extends Component
         // ]);
 
         $x = $this->validate();
-
-
+        dd($x);
 
     }
 
