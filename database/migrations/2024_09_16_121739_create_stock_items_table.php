@@ -15,14 +15,17 @@ return new class extends Migration
         Schema::create('stock_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_variant_id')->constrained();
+            $table->foreignId('vat_rate_id')->constrained();
             $table->foreignId('external_invoice_id')->constrained();
+            $table->foreignId('brand_id')->constrained();
+            $table->foreignId('color_id')->constrained();
             $table->integer('suggested_retail_price')->nullable();
             $table->integer('purchase_price_net')->nullable();
             $table->integer('purchase_price_gross')->nullable();
-            $table->foreignId('brand_id')->constrained();
-            $table->string('color');
             $table->integer('status');
             $table->foreignId('store_id');
+            $table->string('imei_number')->nullable();
+            $table->string('serial_number')->nullable();
             $table->timestamps();
         });
     }

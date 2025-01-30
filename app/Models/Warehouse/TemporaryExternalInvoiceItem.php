@@ -2,12 +2,40 @@
 
 namespace App\Models\Warehouse;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Color;
+use App\Models\VatRate;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Commerce\ExternalInvoice;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TemporaryExternalInvoiceItem extends Model
 {
     use HasFactory;
+
+    public function productVariant()
+    {
+        return $this->belongsTo(ProductVariant::class);
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function externalInvoice()
+    {
+        return $this->belongsTo(ExternalInvoice::class);
+    }
+
+    public function color()
+    {
+        return $this->belongsTo(Color::class);
+    }
+
+    public function vatRate()
+    {
+        return $this->belongsTo(VatRate::class);
+    }
 
     protected $fillable = [
         'created_at',

@@ -3,16 +3,20 @@
 namespace App\Livewire\Commerce\ExternalInvoice;
 
 use App\Models\Color;
+use App\Models\VatRate;
 use Livewire\Component;
 use App\Models\Warehouse\Brand;
 use App\Models\Warehouse\Product;
 use Illuminate\Support\Collection;
 use App\Models\Commerce\ExternalInvoice;
-use App\Models\Warehouse\TemporaryExternalInvoiceItem;
 use App\Services\TemporaryExternalInvoiceItemService;
+use App\Models\Warehouse\TemporaryExternalInvoiceItem;
+use App\Traits\FormatsAmount;
 
 class EditExternalInvoiceItems extends Component
 {
+    use FormatsAmount;
+
     public ?Collection $colors;
     public ?Collection $vatRates;
     public $searchColor = '';
@@ -24,6 +28,7 @@ class EditExternalInvoiceItems extends Component
     public $devices;
     public ?Product $device;
     public ?Product $product;
+    public ?int $vatRate;
 
     //Start of properties
     public ?int $brand;
@@ -35,7 +40,10 @@ class EditExternalInvoiceItems extends Component
     public ?string $imei_number;
     public ?string $serial_number;
     public ?int $quantity;
-    public $net_buy_price;
+    public $purchase_price_net;
+    public $purchase_price_gross;
+    public $externalInvoiceId;
+    public ?int $vatRateId;
     //End of properties
 
     public $searchProduct = '';
@@ -53,6 +61,9 @@ class EditExternalInvoiceItems extends Component
             'brand' => [
                 'required', 'exists:brands,id', 
             ],
+            'externalInvoiceId' => [
+                'required', 'exists:external_invoices,id', 
+            ],
             'selectedProduct' => [
                 'required', 'exists:products,id', 
             ],
@@ -68,8 +79,11 @@ class EditExternalInvoiceItems extends Component
             'imei_number' => ['string', 'max:25'],
             'serial_number' => ['string', 'max:50'],
             'srp' => ['required', 'numeric', 'min:0', 'max:99999.99'],
-            'quantity' => ['required', 'numeric', 'min:1', 'max:99999'],
-            'net_buy_price' => ['required', 'numeric', 'min:0.01', 'max:99999.99'],
+            'quantity' => ['required', 'numeric', 'integer', 'min:1', 'max:99999'],
+            'purchase_price_net' => ['required', 'numeric', 'min:0.01', 'max:99999.99'],
+            'purchase_price_gross' => ['required', 'numeric', 'min:0.01', 'max:9999999'],
+            'vatRateId' => ['required', 'exists:vat_rates,id'],
+            'vatRate' => ['required', 'numeric', 'min:0', 'max:99.99'],
         ];
     }
 
@@ -79,6 +93,7 @@ class EditExternalInvoiceItems extends Component
 
     public function mount(ExternalInvoice $externalInvoice) {
         $this->externalInvoice = $externalInvoice;
+        $this->externalInvoiceId = $externalInvoice->id;
         $this->brands = Brand::select('id', 'name')->get();
         $this->products = Product::select('id', 'name')->limit(100)->get();
         $this->devices = Product::devices()->select('id', 'name')->limit(100)->get();
@@ -87,7 +102,19 @@ class EditExternalInvoiceItems extends Component
         $this->imei_number = '';
         $this->serial_number = '';
         $this->quantity = 0;
-        $this->net_buy_price = 0;
+        $this->purchase_price_net = 0;
+        $this->purchase_price_gross = 0;
+        $this->vatRates = VatRate::pluck('rate', 'id');
+        $this->vatRateId = VatRate::getDefault()->id;
+        $this->vatRate = $this->vatRates[$this->vatRateId];
+    }
+
+    public function updatedVatRate($vatRateId) {
+        $this->vatRate = $this->vatRates[$vatRateId]->rate;
+    }
+
+    public function updatedPurchasePriceNet($purchasePriceNet) {
+        $this->purchase_price_gross = $this->decimalToInteger($purchasePriceNet * (1 + $this->vatRate / 100));
     }
 
     public function updatedSearchProduct()
@@ -140,19 +167,14 @@ class EditExternalInvoiceItems extends Component
 
     public function addItems()
     {
-        // dd([
-        //     $this->brand,
-        //     $this->product,
-        //     $this->productVariant,
-        //     $this->device,
-        //     $this->srp,
-        //     $this->imei_number,
-        //     $this->quantity,
-        //     $this->net_buy_price,
-        // ]);
-
         $validated = $this->validate();
-        $this->temporaryExternalInvoiceItemService->store($validated);
+        for ($i = 0; $i < $validated['quantity']; $i++) {
+            try {
+                $this->temporaryExternalInvoiceItemService->store($validated);
+            } catch (\Exception $e) {
+                $this->addError('externalInvoiceId', $e->getMessage());
+            }
+        }
     }
 
     public function render()

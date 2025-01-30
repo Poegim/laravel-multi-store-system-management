@@ -306,14 +306,33 @@
                         x-bind:disabled="locked" 
                         wire:model="quantity" 
                         type="number" 
-                        step="1" min="0" max="99999" 
+                        step="1" min="0" max="99999" pattern="^[0-9]+$"
                         class="input-jetstream h-10 w-48"/>
                 </div>
-                <div>
-                    <x-label for="net_buy_price">{{ __('net_buy_price') }}</x-label>
-                    <input wire:model="net_buy_price" type="number" step="0.01" min="0" max="99999.99" class="input-jetstream h-10 w-48"/>
+                <div class="flex gap-2">
+                    <div>
+                        <x-label for="purchase_price_net">{{ __('purchase_price_net') }}</x-label>
+                        <input wire:model.debounce.500ms.live="purchase_price_net" type="number" step="0.01" min="0" max="99999.99" class="input-jetstream h-10 w-48"/>
+                    </div>
+                    <div>
+                        <x-label for="vat_rate">{{ __('vat_rate') }}</x-label>
+                        <select name="vat_rate" id="vat_rate" wire:model="vatRate" class="input-jetstream h-10">                
+                            @foreach ($vatRates as $key => $vatRate)
+                                <option value="{{$key}}">{{$vatRate}}%</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <x-label for="purchase_price_gross">{{ __('purchase_price_gross') }}</x-label>
+                        <div class="h-10 flex items-center">  <!-- Flex w pionie do wyśrodkowania -->
+                            <span class="text-gray-500 italic">
+                                {{ number_format($purchase_price_gross / 100, 2, '.', '') }}
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
+                
             <div class="sm:col-span-2 gap-2">
                 @if ($product?->isDevice())
                     <div>
@@ -332,6 +351,12 @@
             <x-button type="button" wire:click="addItems">
                 {{__('add_products')}}
             </x-button>
+        </div>
+
+        <div class="mt-12 border border-gray-400 rounded">
+            @foreach ($externalInvoice->temporaryExternalInvoiceItems as $temporaryExternalInvoiceItem)
+                {{ $temporaryExternalInvoiceItem->id }}
+            @endforeach
         </div>
 
             

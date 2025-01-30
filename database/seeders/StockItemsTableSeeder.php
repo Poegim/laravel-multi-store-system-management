@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Color;
 use App\Models\Commerce\ExternalInvoice;
 use App\Models\Store;
+use App\Models\VatRate;
 use App\Models\Warehouse\Brand;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -27,11 +29,7 @@ class StockItemsTableSeeder extends Seeder
          $externalInvoicesCount = ExternalInvoice::count();
 
         // Array of 30 random colors
-        $colors = [
-            'Red', 'Blue', 'Green', 'Yellow', 'Purple', 'Pink', 'Orange', 'Brown', 'Black', 'White',
-            'Gray', 'Violet', 'Cyan', 'Magenta', 'Beige', 'Lavender', 'Gold', 'Silver', 'Teal', 'Maroon',
-            'Navy', 'Olive', 'Lime', 'Indigo', 'Peach', 'Aqua', 'Coral', 'Salmon', 'Turquoise', 'Fuchsia'
-        ];
+        $colors = Color::all()->pluck('id')->toArray();
 
         // Fetch all product variants to randomly assign to stock items
         $productVariants = ProductVariant::all()->pluck('id')->toArray();
@@ -41,6 +39,7 @@ class StockItemsTableSeeder extends Seeder
         $batchSize = 1000; // Define batch size
         $totalInserted = 0; // Counter to track total inserted records
         $batchData = [];
+        $vatRate = VatRate::getDefault()->id;
 
         for ($i = 0; $i < $numberOfSeeds; $i++) { // Adjust loop for desired number of stock items
             // Randomly select a color, store and product_variant_id
@@ -56,7 +55,8 @@ class StockItemsTableSeeder extends Seeder
                 'suggested_retail_price' => $price,
                 'purchase_price_net' => 1000,
                 'purchase_price_gross' => $this->convertNetToGross(1000, 23),
-                'color' => $color,
+                'color_id' => $colors[array_rand($colors)],
+                'vat_rate_id' => $vatRate,
                 'store_id' => $storeId,
                 'brand_id' => $brandId,
                 'status' => rand(1,3),
