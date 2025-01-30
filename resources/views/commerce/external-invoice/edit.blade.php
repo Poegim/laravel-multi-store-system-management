@@ -8,9 +8,7 @@
     </x-slot>
 
     @if($externalInvoice->is_temp)
-    <x-window>
-        @livewire('commerce.external-invoice.edit-external-invoice-items', ['externalInvoice' => $externalInvoice])
-    </x-window>
+    @livewire('commerce.external-invoice.edit-external-invoice-items', ['externalInvoice' => $externalInvoice])
     @endif
 
 </x-app-layout>

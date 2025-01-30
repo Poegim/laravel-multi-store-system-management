@@ -1,4 +1,5 @@
 <div>
+        <x-window>
         @if ($errors->any())
         <x-lists.errors-list>
             @foreach ($errors->all() as $error)
@@ -352,12 +353,166 @@
                 {{__('add_products')}}
             </x-button>
         </div>
+        </x-window>
 
-        <div class="mt-12 border border-gray-400 rounded">
-            @foreach ($externalInvoice->temporaryExternalInvoiceItems as $temporaryExternalInvoiceItem)
-                {{ $temporaryExternalInvoiceItem->id }}
-            @endforeach
+
+        <x-window>
+        <div>
+            
+            <table class="w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs uppercase">
+                    <tr class="text-black dark:text-white">
+                        <th scope="col" class="px-2 py-1">
+                            <div class="flex cursor-pointer" wire:click="sortBy('id')">
+                                <span class="uppercase">
+                                    {{__('id')}}
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="size-4 {{ $sortField === 'id' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-2 py-1">
+                            <div class="flex cursor-pointer" wire:click="sortBy('brand_id')">
+                                <span class="uppercase">
+                                    {{__('brand')}}
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="size-4 {{ $sortField === 'brand_id' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-2 py-1">
+                            {{__('product')}}
+                        </th>
+                        <th scope="col" class="px-2 py-1">
+                            <div class="flex cursor-pointer" wire:click="sortBy('product_variant_id')">
+                                <span class="uppercase">
+                                    {{__('product_variant')}}
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="size-4 {{ $sortField === 'product_variant_id' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-2 py-1 hidden lg:table-cell">
+                            <div class="flex cursor-pointer" wire:click="sortBy('color_id')">
+                                <span class="uppercase">
+                                    {{__('color')}}
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="size-4 {{ $sortField === 'color_id' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-2 py-1 hidden lg:table-cell">
+                            <div class="flex cursor-pointer" wire:click="sortBy('suggested_retail_price')">
+                                <span class="uppercase">
+                                    {{__('srp')}}
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="size-4 {{ $sortField === 'suggested_retail_price' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-2 py-1 hidden lg:table-cell">
+                            <div class="flex cursor-pointer" wire:click="sortBy('purchase_price_net')">
+                                <span class="uppercase">
+                                    {{__('purchase_price_net')}}
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="size-4 {{ $sortField === 'purchase_price_net' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-2 py-1 hidden lg:table-cell">
+                            <div class="flex cursor-pointer" wire:click="sortBy('purchase_price_gross')">
+                                <span class="uppercase">
+                                    {{__('purchase_price_gross')}}
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="size-4 {{ $sortField === 'purchase_price_gross' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-2 py-1 hidden lg:table-cell">
+                            {{__('IMEI/SN')}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($temporaryItems as $temporaryExternalInvoiceItem)
+                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <td scope="row"
+                            class="px-2 py-1 text-gray-900 whitespace-nowrap dark:text-white">
+                            {{$temporaryExternalInvoiceItem->id}}
+                        </td>
+                        <td scope="row"
+                            class="px-2 py-1 text-gray-900 whitespace-nowrap dark:text-white">
+                            {{$temporaryExternalInvoiceItem->brand->name}}
+                        </td>
+                        <td scope="row"
+                            class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white">
+                            {{$temporaryExternalInvoiceItem->productVariant->product->name}}
+                        </td>
+                        <td scope="row"
+                            class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white">
+                            {{$temporaryExternalInvoiceItem->productVariant->name}}
+                        </td>
+                        <td scope="row"
+                            class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white">
+                            <div class="flex gap-x-2">
+                                <div class="h-8 w-8 rounded-full" style="background-color: {{$temporaryExternalInvoiceItem->color->value}};">
+
+                                </div>
+                                <div class="my-auto">
+                                    {{$temporaryExternalInvoiceItem->color->name}}
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-2 py-1 hidden lg:table-cell">
+                            {{ number_format($temporaryExternalInvoiceItem->suggested_retail_price / 100, 2, '.', '') }}
+                        </td>
+                        <td scope="row"
+                        class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white hidden lg:table-cell">
+                        {{ number_format($temporaryExternalInvoiceItem->purchase_price_net / 100, 2, '.', '') }}
+                        </td>
+                        <td scope="row"
+                        class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white hidden lg:table-cell">
+                        {{ number_format($temporaryExternalInvoiceItem->purchase_price_gross / 100, 2, '.', '') }}
+                        </td>
+                        <td scope="row"
+                        class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white hidden lg:table-cell">
+                            {{$temporaryExternalInvoiceItem->imei_number ? $temporaryExternalInvoiceItem->imei_number : $temporaryExternalInvoiceItem->serial_number }}
+                        </td>
+                        <td class="px-2 sm:px-2 sm:py-1 flex justify-end">
+                            <a href="{{route('color.edit', $color)}}">
+                                <x-buttons.edit-button>
+                                    {{__('edit')}}
+                                </x-buttons.edit-button>
+                            </a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
         </div>
+        </x-window>
 
             
 </div>

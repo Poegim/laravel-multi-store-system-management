@@ -12,10 +12,12 @@ use App\Models\Commerce\ExternalInvoice;
 use App\Services\TemporaryExternalInvoiceItemService;
 use App\Models\Warehouse\TemporaryExternalInvoiceItem;
 use App\Traits\FormatsAmount;
+use App\Traits\Sortable;
 
 class EditExternalInvoiceItems extends Component
 {
     use FormatsAmount;
+    use Sortable;
 
     public ?Collection $colors;
     public ?Collection $vatRates;
@@ -51,6 +53,7 @@ class EditExternalInvoiceItems extends Component
 
     public $lockBrand = false;
     public $lockQuantity = false;
+    public $aggregate = false;
 
     public ?ExternalInvoice $externalInvoice = null;
     protected TemporaryExternalInvoiceItemService $temporaryExternalInvoiceItemService;
@@ -146,6 +149,7 @@ class EditExternalInvoiceItems extends Component
         $this->productVariant = $this->productVariants[0]->id;
         if($this->product->is_device) {
             $this->brand = $this->product->brand->id;
+            $this->selectedDevice = $this->product->id;
             $this->lockBrand = true;
             $this->lockQuantity = true;
             $this->quantity = 1;
@@ -179,6 +183,14 @@ class EditExternalInvoiceItems extends Component
 
     public function render()
     {
-        return view('livewire.commerce.external-invoice.edit-external-invoice-items');
+        $sortDirection = $this->sortAsc ? 'asc' : 'desc';
+
+        $temporaryItems = 
+        TemporaryExternalInvoiceItem::where('external_invoice_id', $this->externalInvoiceId)
+        ->orderBy($this->sortField, $sortDirection)->get();
+
+        return view('livewire.commerce.external-invoice.edit-external-invoice-items', [
+            'temporaryItems' => $temporaryItems,
+        ]);
     }
 }
