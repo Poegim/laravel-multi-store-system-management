@@ -79,8 +79,8 @@ class EditExternalInvoiceItems extends Component
             'selectedColor' => [
                 'required', 'exists:colors,id',
             ],
-            'imei_number' => ['string', 'max:25'],
-            'serial_number' => ['string', 'max:50'],
+            'imei_number' => ['string', 'max:25', 'nullable', 'unique:temporary_external_invoice_items,imei_number'],
+            'serial_number' => ['string', 'max:50', 'nullable', 'unique:temporary_external_invoice_items,serial_number'],
             'srp' => ['required', 'numeric', 'min:0', 'max:99999.99'],
             'quantity' => ['required', 'numeric', 'integer', 'min:1', 'max:99999'],
             'purchase_price_net' => ['required', 'numeric', 'min:0.01', 'max:99999.99'],
@@ -172,13 +172,35 @@ class EditExternalInvoiceItems extends Component
     public function addItems()
     {
         $validated = $this->validate();
-        for ($i = 0; $i < $validated['quantity']; $i++) {
-            try {
+
+        try {
+            for ($i = 0; $i < $validated['quantity']; $i++) {
                 $this->temporaryExternalInvoiceItemService->store($validated);
-            } catch (\Exception $e) {
-                $this->addError('externalInvoiceId', $e->getMessage());
             }
+
+            $this->resetVars();
+    
+        } catch (\Exception $e) {
+            $this->addError('externalInvoiceId', $e->getMessage());
         }
+    }
+
+    public function resetVars()
+    {
+        $this->reset([
+            'brand',
+            'productVariant',
+            'selectedProduct',
+            'selectedDevice',
+            'selectedColor',
+            'srp',
+            'imei_number',
+            'serial_number',
+            'quantity',
+            'purchase_price_net',
+            'purchase_price_gross',
+            'vatRateId',
+        ]);
     }
 
     public function render()

@@ -21,8 +21,8 @@ return new class extends Migration
             $table->integer('suggested_retail_price')->nullable();
             $table->integer('purchase_price_net')->nullable();
             $table->integer('purchase_price_gross')->nullable();
-            $table->string('imei_number')->nullable();
-            $table->string('serial_number')->nullable();
+            $table->string('imei_number')->unique()->nullable();
+            $table->string('serial_number')->unique()->nullable();
             $table->timestamps();
         });
     }
