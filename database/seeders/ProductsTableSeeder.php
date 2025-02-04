@@ -1106,28 +1106,6 @@ class ProductsTableSeeder extends Seeder
 
         $data = [];
 
-        for ($i = 0; $i < $numberOfProducts; $i++) {
-
-            $categoryId = $categoryIds[array_rand($categoryIds)];
-
-            $brand = $brands->random();
-            $brandId = $brand->id;
-
-            $productName = $gsmProducts[rand(0, count($gsmProducts) - 1)] . ' ' . $words[rand(0, count($words) - 1)] . ' ' . $words[rand(0, count($words) - 1)];
-            $price = rand(1,3) === 3 ? $this->getRandomPrice() : 0;
-            $data[] = [
-                'category_id' => $categoryId,
-                'brand_id' => $brandId,
-                'user_id' => 1,
-                'suggested_retail_price' => $price,
-                'name' => $productName,
-                'slug' => Str::slug($productName),
-                'is_device' => false,
-                'created_at' => now(),
-                'updated_at' => now()
-            ];
-        }
-
         $phones_category_id = Category::where('plural_name', 'Telefony')->first()->id;
 
         foreach($updatedDevices as $device) {
@@ -1151,6 +1129,28 @@ class ProductsTableSeeder extends Seeder
                     'updated_at' => now()
                 ];
             }
+        }
+
+        for ($i = 0; $i < $numberOfProducts; $i++) {
+
+            $categoryId = $categoryIds[array_rand($categoryIds)];
+
+            $brand = $brands->random();
+            $brandId = $brand->id;
+
+            $productName = $gsmProducts[rand(0, count($gsmProducts) - 1)] . ' ' . $words[rand(0, count($words) - 1)] . ' ' . $words[rand(0, count($words) - 1)];
+            $price = rand(1,3) === 3 ? $this->getRandomPrice() : 0;
+            $data[] = [
+                'category_id' => $categoryId,
+                'brand_id' => $brandId,
+                'user_id' => 1,
+                'suggested_retail_price' => $price,
+                'name' => $productName,
+                'slug' => Str::slug($productName),
+                'is_device' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ];
         }
 
 

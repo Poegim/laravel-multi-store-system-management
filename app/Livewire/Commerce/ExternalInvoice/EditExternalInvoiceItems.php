@@ -99,8 +99,8 @@ class EditExternalInvoiceItems extends Component
     public function mount(ExternalInvoice $externalInvoice) {
         $this->externalInvoice = $externalInvoice;
         $this->externalInvoiceId = $externalInvoice->id;
-        $this->brands = Brand::select('id', 'name')->get();
-        $this->products = Product::select('id', 'name')->limit(100)->get();
+        $this->brands = Brand::select('id', 'name')->orderBy('id')->get();
+        $this->products = Product::select('id', 'name')->inRandomOrder()->limit(200)->get();
         $this->devices = Product::devices()->select('id', 'name')->limit(100)->get();
         $this->colors = Color::all();
         $this->srp = 0;
