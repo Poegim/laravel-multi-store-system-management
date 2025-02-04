@@ -12,12 +12,14 @@ use App\Models\Commerce\ExternalInvoice;
 use App\Services\TemporaryExternalInvoiceItemService;
 use App\Models\Warehouse\TemporaryExternalInvoiceItem;
 use App\Traits\FormatsAmount;
+use App\Traits\NetToGrossConverts;
 use App\Traits\Sortable;
 
 class EditExternalInvoiceItems extends Component
 {
     use FormatsAmount;
     use Sortable;
+    use NetToGrossConverts;
 
     public ?Collection $colors;
     public ?Collection $vatRates;
@@ -62,19 +64,19 @@ class EditExternalInvoiceItems extends Component
     {
         return [
             'brand' => [
-                'required', 'exists:brands,id', 
+                'required', 'exists:brands,id',
             ],
             'externalInvoiceId' => [
-                'required', 'exists:external_invoices,id', 
+                'required', 'exists:external_invoices,id',
             ],
             'selectedProduct' => [
-                'required', 'exists:products,id', 
+                'required', 'exists:products,id',
             ],
             'productVariant' => [
-                'required', 'exists:product_variants,id', 
+                'required', 'exists:product_variants,id',
             ],
             'selectedDevice' => [
-                'required', 'exists:products,id', 
+                'required', 'exists:products,id',
             ],
             'selectedColor' => [
                 'required', 'exists:colors,id',
@@ -117,8 +119,19 @@ class EditExternalInvoiceItems extends Component
     }
 
     public function updatedPurchasePriceNet($purchasePriceNet) {
-        $this->purchase_price_gross = $this->decimalToInteger($purchasePriceNet * (1 + $this->vatRate / 100));
+        // Validate if the input is a numeric value
+        if (!is_numeric($purchasePriceNet)) {
+            $this->purchase_price_gross = 0;
+            return; // Exit the function if the input is invalid
+        }
+
+        // Convert input to a float to ensure correct calculations
+        $purchasePriceNet = (float) $purchasePriceNet;
+
+        // Calculate the gross purchase price
+        $this->purchase_price_gross = $this->convertNetToGross($this->decimalToInteger($purchasePriceNet), $this->vatRate);
     }
+
 
     public function updatedSearchProduct()
     {
@@ -179,7 +192,8 @@ class EditExternalInvoiceItems extends Component
             }
 
             $this->resetVars();
-    
+            $this->dispatch('items-added');
+
         } catch (\Exception $e) {
             $this->addError('externalInvoiceId', $e->getMessage());
         }
@@ -189,6 +203,7 @@ class EditExternalInvoiceItems extends Component
     {
         $this->reset([
             'brand',
+            'color',
             'productVariant',
             'selectedProduct',
             'selectedDevice',
@@ -200,6 +215,8 @@ class EditExternalInvoiceItems extends Component
             'purchase_price_net',
             'purchase_price_gross',
             'vatRateId',
+            'product',
+            'productVariants',
         ]);
     }
 
@@ -207,7 +224,7 @@ class EditExternalInvoiceItems extends Component
     {
         $sortDirection = $this->sortAsc ? 'asc' : 'desc';
 
-        $temporaryItems = 
+        $temporaryItems =
         TemporaryExternalInvoiceItem::where('external_invoice_id', $this->externalInvoiceId)
         ->orderBy($this->sortField, $sortDirection)->get();
 

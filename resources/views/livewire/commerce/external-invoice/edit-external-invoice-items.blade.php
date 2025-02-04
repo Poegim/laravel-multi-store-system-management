@@ -70,7 +70,7 @@
                         <div class="flex">
 
                             <!-- Input search -->
-                            <input type="text" id="search_product_input"
+                            <input type="text" id="search_product_input" name="search_product_input"
                                 x-model="searchProduct"
                                 wire:model.debounce.500ms.live="searchProduct"
                                 class="w-full rounded-md rounded-r-none border-r-0 border-gray-300 focus:border-gray-300 focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
@@ -123,7 +123,7 @@
                     @if ($product)
                         @foreach ($productVariants as $index => $variant)
                             <option value="{{ $variant->id }}" {{ $index == 0 ? 'selected' : '' }}>
-                                {{ $variant->name }} 
+                                {{ $variant->name }}
                             </option>
                         @endforeach
                     @endif
@@ -175,7 +175,7 @@
                     <div class="overflow-hidden">
                         <div class="flex">
                             <!-- Search Input -->
-                            <input type="text" id="search_device_input"
+                            <input type="text" id="search_device_input" name="search_device_input"
                                 x-model="searchDevice"
                                 wire:model.debounce.500ms.live="searchDevice"
                                 class="w-full rounded-md rounded-r-none border-r-0 border-gray-300 focus:border-gray-300 focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
@@ -236,6 +236,8 @@
                             @click="expanded = true"
                             x-model="selectedColor"
                             x-ref="inputField"
+                            id="search_select_color"
+                            name="search_select_color"
                             class="w-full rounded-md rounded-r-none border-gray-300 focus:border-gray-300 border-r-0 focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
                             placeholder="Search..." wire:model.live="searchColor"></input>
                             <button
@@ -247,9 +249,10 @@
                                     </svg>
                                 </span>
                             </button>
-                            
-                            <div 
-                                class="my-auto ml-1 p-1"  
+
+                            <div
+                                class="my-auto ml-1 p-1"
+                                id="colorPreview"
                                 style="
                                     height: 4px;
                                     width: 4px;
@@ -259,9 +262,9 @@
                                 "
                             >
                             </div>
-                            
-                            <div 
-                                class="mx-1 flex text-blue-700 dark:text-green-300 w-[20px] rounded-full" 
+
+                            <div
+                                class="mx-1 flex text-blue-700 dark:text-green-300 w-[20px] rounded-full"
                             >
                                 <svg wire:loading wire:target="setColor" fill="currentColor" class="animate-spin my-auto size-6" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path class="fil0" d="M854.569 841.338c-188.268 189.444 -519.825 171.223 -704.157 -13.109 -190.56 -190.56 -200.048 -493.728 -28.483 -695.516 10.739 -12.623 21.132 -25.234 34.585 -33.667 36.553 -22.89 85.347 -18.445 117.138 13.347 30.228 30.228 35.737 75.83 16.531 111.665 -4.893 9.117 -9.221 14.693 -16.299 22.289 -140.375 150.709 -144.886 378.867 -7.747 516.005 152.583 152.584 406.604 120.623 541.406 -34.133 106.781 -122.634 142.717 -297.392 77.857 -451.04 -83.615 -198.07 -305.207 -291.19 -510.476 -222.476l-.226 -.226c235.803 -82.501 492.218 23.489 588.42 251.384 70.374 166.699 36.667 355.204 -71.697 493.53 -11.48 14.653 -23.724 28.744 -36.852 41.948z"></path></g></svg>
                             </div>
@@ -292,7 +295,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
         <div class="mt-6 pt-4 border-t border-gray-500 border-dotted grid sm:grid-cols-3 gap-2">
@@ -303,10 +306,10 @@
                 </div>
                 <div x-data="{ locked: @entangle('lockQuantity') }">
                     <x-label for="quantity">{{ __('quantity') }}</x-label>
-                    <input 
-                        x-bind:disabled="locked" 
-                        wire:model="quantity" 
-                        type="number" 
+                    <input
+                        x-bind:disabled="locked"
+                        wire:model="quantity"
+                        type="number"
                         step="1" min="0" max="99999" pattern="^[0-9]+$"
                         class="input-jetstream h-10 w-48"/>
                 </div>
@@ -317,7 +320,7 @@
                     </div>
                     <div>
                         <x-label for="vat_rate">{{ __('vat_rate') }}</x-label>
-                        <select name="vat_rate" id="vat_rate" wire:model="vatRate" class="input-jetstream h-10">                
+                        <select name="vat_rate" id="vat_rate" wire:model="vatRate" class="input-jetstream h-10">
                             @foreach ($vatRates as $key => $vatRate)
                                 <option value="{{$key}}">{{$vatRate}}%</option>
                             @endforeach
@@ -333,7 +336,7 @@
                     </div>
                 </div>
             </div>
-                
+
             <div class="sm:col-span-2 gap-2">
                 @if ($product?->isDevice())
                     <div>
@@ -358,7 +361,7 @@
 
         <x-window>
         <div>
-            
+
             <table class="w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs uppercase">
                     <tr class="text-black dark:text-white">
@@ -514,5 +517,20 @@
         </div>
         </x-window>
 
-            
+
+        <script>
+            document.addEventListener('livewire:init', () => {
+               Livewire.on('items-added', () => {
+                   const search_product_input = document.getElementById('search_product_input');
+                   search_product_input.value = '';
+
+                   const search_device_input = document.getElementById('search_device_input');
+                   search_device_input.value = '';
+
+                   const search_select_color = document.getElementById('search_select_color');
+                   search_select_color.value = '';
+               });
+            });
+        </script>
+
 </div>
