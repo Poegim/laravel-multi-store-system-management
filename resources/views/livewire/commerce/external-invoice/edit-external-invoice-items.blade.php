@@ -234,7 +234,6 @@
                         <div class="flex w-full ">
                             <input
                             @click="expanded = true"
-                            x-model="selectedColor"
                             x-ref="inputField"
                             id="search_select_color"
                             name="search_select_color"
@@ -320,7 +319,7 @@
                     </div>
                     <div>
                         <x-label for="vat_rate">{{ __('vat_rate') }}</x-label>
-                        <select name="vat_rate" id="vat_rate" wire:model="vatRate" class="input-jetstream h-10">
+                        <select name="vat_rate" id="vat_rate" wire:model.debounce.500ms.live="vatRateId" class="input-jetstream h-10">
                             @foreach ($vatRates as $key => $vatRate)
                                 <option value="{{$key}}">{{$vatRate}}%</option>
                             @endforeach
@@ -529,6 +528,7 @@
 
                    const search_select_color = document.getElementById('search_select_color');
                    search_select_color.value = '';
+
                });
             });
         </script>

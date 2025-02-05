@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('vat_rates', function (Blueprint $table) {
             $table->id();
             $table->integer('rate');
-            $table->boolean('is_default')->nullable()->unique();
+            $table->boolean('is_default')->nullable();
             $table->timestamps();
         });
     }

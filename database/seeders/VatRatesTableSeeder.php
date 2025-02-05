@@ -14,11 +14,26 @@ class VatRatesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('vat_rates')->insert([
+        DB::table('vat_rates')->insert([[
             'rate' => 23,
             'is_default' => 1,
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-        ]);
+        ], [
+            'rate' => 8,
+            'is_default' => 0,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ], [
+            'rate' => 5,
+            'is_default' => 0,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ], [
+            'rate' => 0,
+            'is_default' => 0,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]]);
     }
 }

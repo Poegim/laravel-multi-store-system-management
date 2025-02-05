@@ -112,10 +112,13 @@ class EditExternalInvoiceItems extends Component
         $this->vatRates = VatRate::pluck('rate', 'id');
         $this->vatRateId = VatRate::getDefault()->id;
         $this->vatRate = $this->vatRates[$this->vatRateId];
+
     }
 
-    public function updatedVatRate($vatRateId) {
-        $this->vatRate = $this->vatRates[$vatRateId]->rate;
+    public function updatedVatRateId($vatRateId) {
+        $this->vatRateId = $vatRateId;
+        $this->vatRate = $this->vatRates[$vatRateId];
+        $this->refreshGrossPurchasePrice();
     }
 
     public function updatedPurchasePriceNet($purchasePriceNet) {
@@ -129,7 +132,7 @@ class EditExternalInvoiceItems extends Component
         $purchasePriceNet = (float) $purchasePriceNet;
 
         // Calculate the gross purchase price
-        $this->purchase_price_gross = $this->convertNetToGross($this->decimalToInteger($purchasePriceNet), $this->vatRate);
+        $this->refreshGrossPurchasePrice($purchasePriceNet);
     }
 
 
@@ -146,6 +149,11 @@ class EditExternalInvoiceItems extends Component
     public function updatedSearchColor()
     {
         $this->colors = Color::where('name', 'like', '%'.$this->searchColor.'%')->get();
+    }
+
+    public function refreshGrossPurchasePrice()
+    {
+        $this->purchase_price_gross = $this->convertNetToGross($this->decimalToInteger($this->purchase_price_net), $this->vatRate);
     }
 
     public function setColor($color) {
@@ -214,7 +222,6 @@ class EditExternalInvoiceItems extends Component
             'quantity',
             'purchase_price_net',
             'purchase_price_gross',
-            'vatRateId',
             'product',
             'productVariants',
         ]);
