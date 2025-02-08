@@ -529,6 +529,8 @@
                    const search_select_color = document.getElementById('search_select_color');
                    search_select_color.value = '';
 
+                   console.log('Items added, inputs cleared.');
+
                });
             });
         </script>
