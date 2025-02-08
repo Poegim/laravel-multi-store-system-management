@@ -204,19 +204,21 @@
                         x-transition
                         class="absolute bg-white dark:bg-slate-900 dark:text-gray-400 border rounded mt-1 z-10 max-h-64 w-full overflow-y-auto shadow-lg focus:outline-none"
                     >
+                        @if($devices)
                         @foreach ($devices as $index => $searchItem)
                         <li
-                            wire:click="selectDevice({{ $searchItem->id }})"
-                            :class="{'bg-gray-200 dark:bg-slate-700': selectedIndex === {{ $index }}}"
-                            class="cursor-pointer hover:bg-gray-200 dark:hover:bg-slate-700 p-2 focus:outline-none focus:bg-gray-500 focus:text-white"
-                            tabindex="0"
-                            @click="visibleDevicesList = false"
-                            @mouseenter="selectedIndex = {{ $index }}"
-                            @mouseleave="selectedIndex = null"
+                        wire:click="selectDevice({{ $searchItem->id }})"
+                        :class="{'bg-gray-200 dark:bg-slate-700': selectedIndex === {{ $index }}}"
+                        class="cursor-pointer hover:bg-gray-200 dark:hover:bg-slate-700 p-2 focus:outline-none focus:bg-gray-500 focus:text-white"
+                        tabindex="0"
+                        @click="visibleDevicesList = false"
+                        @mouseenter="selectedIndex = {{ $index }}"
+                        @mouseleave="selectedIndex = null"
                         >
-                            {{ $searchItem?->name }}
+                        {{ $searchItem?->name }}
                         </li>
                         @endforeach
+                        @endif
                     </ul>
 
                 </div>
@@ -350,17 +352,36 @@
             </div>
         </div>
 
-        <div class="mt-6 pt-4 border-t border-gray-500 border-dotted space-y-2">
+        <div class="mt-6 pt-4 border-t border-gray-500 border-dotted space-y-2 flex space-x-2">
             <x-button type="button" wire:click="addItems">
                 {{__('add_products')}}
             </x-button>
+            <x-action-message class="me-3" on="items-added">
+                asdf
+            </x-action-message>
         </div>
         </x-window>
 
 
         <x-window>
-        <div>
 
+
+        <div>
+            <div class="flex w-full justify-end gap-2">
+                <div class="my-auto">
+                    {{ __('show_per_page') }}
+                </div>
+                <select name="paginatePerPage" id="paginatePerPage" wire:model.live="paginatePerPage" class="input-jetstream h-10">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+            {{ $paginatePerPage }}
             <table class="w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs uppercase">
                     <tr class="text-black dark:text-white">
@@ -430,7 +451,7 @@
                         <th scope="col" class="px-2 py-1 hidden lg:table-cell">
                             <div class="flex cursor-pointer" wire:click="sortBy('purchase_price_net')">
                                 <span class="uppercase">
-                                    {{__('purchase_price_net')}}
+                                    {{__('ppn')}}
                                 </span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                     stroke="currentColor"
@@ -442,7 +463,7 @@
                         <th scope="col" class="px-2 py-1 hidden lg:table-cell">
                             <div class="flex cursor-pointer" wire:click="sortBy('purchase_price_gross')">
                                 <span class="uppercase">
-                                    {{__('purchase_price_gross')}}
+                                    {{__('ppg')}}
                                 </span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                     stroke="currentColor"
@@ -514,20 +535,43 @@
             </table>
 
         </div>
-        </x-window>
+
+
+    </x-window>
+
+    <x-window>
+        {{ $temporaryItems->links(data: ['scrollTo' => false]) }}
+    </x-window>
 
 
         <script>
+
+
             document.addEventListener('livewire:init', () => {
-               Livewire.on('items-added', () => {
+
+                Livewire.on('items-added', () => {
+
+                    console.log('Phone added, inputs cleared.');
+
                    const search_product_input = document.getElementById('search_product_input');
                    search_product_input.value = '';
 
                    const search_device_input = document.getElementById('search_device_input');
-                   search_device_input.value = '';
+                   if(search_device_input)
+                   {
+                       search_device_input.value = '';
+                   }
 
                    const search_select_color = document.getElementById('search_select_color');
                    search_select_color.value = '';
+
+                   let audioContext = new (window.AudioContext || window.webkitAudioContext)(); // Tworzymy kontekst raz
+                   let oscillator = audioContext.createOscillator();
+                   oscillator.type = 'sine';
+                   oscillator.frequency.setValueAtTime(500, audioContext.currentTime);
+                   oscillator.connect(audioContext.destination);
+                   oscillator.start();
+                   oscillator.stop(audioContext.currentTime + 0.2);
 
                    console.log('Items added, inputs cleared.');
 

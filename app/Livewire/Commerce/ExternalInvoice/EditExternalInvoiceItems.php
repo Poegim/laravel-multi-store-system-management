@@ -14,17 +14,21 @@ use App\Models\Warehouse\TemporaryExternalInvoiceItem;
 use App\Traits\FormatsAmount;
 use App\Traits\NetToGrossConverts;
 use App\Traits\Sortable;
+use Livewire\WithPagination;
 
 class EditExternalInvoiceItems extends Component
 {
     use FormatsAmount;
     use Sortable;
     use NetToGrossConverts;
+    use WithPagination;
 
     public ?Collection $colors;
     public ?Collection $vatRates;
     public $searchColor = '';
     public $color;
+
+    public $paginatePerPage = 10;
 
     public $brands;
     public $products;
@@ -100,8 +104,8 @@ class EditExternalInvoiceItems extends Component
         $this->externalInvoice = $externalInvoice;
         $this->externalInvoiceId = $externalInvoice->id;
         $this->brands = Brand::select('id', 'name')->orderBy('id')->get();
-        $this->products = Product::select('id', 'name')->inRandomOrder()->limit(200)->get();
-        $this->devices = Product::devices()->select('id', 'name')->limit(100)->get();
+        $this->products = Product::select('id', 'name')->limit(200)->get();
+        $this->devices = Product::devices()->limit(100)->get();
         $this->colors = Color::all();
         $this->srp = 0;
         $this->imei_number = '';
@@ -209,22 +213,25 @@ class EditExternalInvoiceItems extends Component
 
     public function resetVars()
     {
-        $this->reset([
-            'brand',
-            'color',
-            'productVariant',
-            'selectedProduct',
-            'selectedDevice',
-            'selectedColor',
-            'srp',
-            'imei_number',
-            'serial_number',
-            'quantity',
-            'purchase_price_net',
-            'purchase_price_gross',
-            'product',
-            'productVariants',
-        ]);
+
+        $this->resetErrorBag();
+        $this->brand = null;
+        $this->color = null;
+        $this->productVariant = null;
+        $this->selectedProduct = null;
+        $this->selectedDevice = null;
+        $this->selectedColor = null;
+        $this->srp = 0;
+        $this->imei_number = '';
+        $this->serial_number = '';
+        $this->quantity = 0;
+        $this->purchase_price_net = 0;
+        $this->purchase_price_gross = 0;
+        $this->product = null;
+        $this->productVariants = null;
+        $this->lockBrand = false;
+        $this->lockQuantity = false;
+
     }
 
     public function render()
@@ -232,11 +239,17 @@ class EditExternalInvoiceItems extends Component
         $sortDirection = $this->sortAsc ? 'asc' : 'desc';
 
         $temporaryItems =
-        TemporaryExternalInvoiceItem::where('external_invoice_id', $this->externalInvoiceId)
-        ->orderBy($this->sortField, $sortDirection)->get();
+        TemporaryExternalInvoiceItem::with([
+            'brand',
+            'productVariant',
+            'productVariant.product',
+            'color',
+            'vatRate'
+            ])->where('external_invoice_id', $this->externalInvoiceId)
+            ->orderBy($this->sortField, $sortDirection)->paginate($this->paginatePerPage);
 
-        return view('livewire.commerce.external-invoice.edit-external-invoice-items', [
-            'temporaryItems' => $temporaryItems,
-        ]);
+            return view('livewire.commerce.external-invoice.edit-external-invoice-items', [
+                'temporaryItems' => $temporaryItems,
+            ]);
+        }
     }
-}
