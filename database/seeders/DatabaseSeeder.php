@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ContactsTableSeeder::class);
         $this->call(ExternalInvoicesTableSeeder::class);
         $this->call(StockItemsTableSeeder::class);
+        $this->call(TemporaryExternalInvoiceItemsTableSeeder::class);
     }
 }

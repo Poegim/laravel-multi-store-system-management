@@ -25,8 +25,8 @@ class StockItemsTableSeeder extends Seeder
      */
     public function run(): void
     {
-         $numberOfSeeds = 100000;
-         $externalInvoicesCount = ExternalInvoice::count();
+        $numberOfSeeds = 10000;
+        $externalInvoicesCount = ExternalInvoice::count();
 
         // Array of 30 random colors
         $colors = Color::all()->pluck('id')->toArray();
