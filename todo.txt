@@ -8,6 +8,8 @@ CHECK IN FUTURE
     -- Check all requests validation rules, seems like in store Store request postcode and building numbers are somehow digits forced?
 
 BUGS
+ -- NAV RWD
+
 
 MODULES AND NECCESSARY FEATURES
    WAREHOUSE

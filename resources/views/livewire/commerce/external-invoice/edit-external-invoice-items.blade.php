@@ -543,9 +543,28 @@
         {{ $temporaryItems->links(data: ['scrollTo' => false]) }}
     </x-window>
 
+    <x-window>
+        <div class="flex justify-between">
+            <div class="flex gap-2">
+                <div>
+                    {{ __('net')}}: {{ $net }} {{__('currency')}}
+                </div>
+                <div>
+                    {{ __('gross')}}: {{ $gross }} {{__('currency')}}
+                </div>
 
+            </div>
+            <div>
+                <x-secondary-button type="button" wire:click="cancelInvoice">
+                    {{__('cancel_invoice')}}
+                </x-secondary-button>
+                <x-danger-button type="button" wire:click="confirmInvoice">
+                    {{__('confirm_invoice')}}
+                </x-danger-button>
+            </div>
+        </div>
+    </x-window>
         <script>
-
 
             document.addEventListener('livewire:init', () => {
 

@@ -37,6 +37,8 @@ class EditExternalInvoiceItems extends Component
     public ?Product $device;
     public ?Product $product;
     public ?int $vatRate;
+    public int $net = 0;
+    public int $gross = 0;
 
     //Start of properties
     public ?int $brand;
@@ -117,6 +119,12 @@ class EditExternalInvoiceItems extends Component
         $this->vatRateId = VatRate::getDefault()->id;
         $this->vatRate = $this->vatRates[$this->vatRateId];
 
+    }
+
+    public function calculateTotals()
+    {
+        $this->net = $this->integerToDecimal($this->externalInvoice->temporaryExternalInvoiceItems->sum('purchase_price_net'));
+        $this->gross = $this->integerToDecimal($this->externalInvoice->temporaryExternalInvoiceItems->sum('purchase_price_gross'));
     }
 
     public function updatedVatRateId($vatRateId) {
@@ -213,7 +221,6 @@ class EditExternalInvoiceItems extends Component
 
     public function resetVars()
     {
-
         $this->resetErrorBag();
         $this->brand = null;
         $this->color = null;
@@ -231,7 +238,6 @@ class EditExternalInvoiceItems extends Component
         $this->productVariants = null;
         $this->lockBrand = false;
         $this->lockQuantity = false;
-
     }
 
     public function render()
@@ -247,6 +253,10 @@ class EditExternalInvoiceItems extends Component
             'vatRate'
             ])->where('external_invoice_id', $this->externalInvoiceId)
             ->orderBy($this->sortField, $sortDirection)->paginate($this->paginatePerPage);
+
+            // Calculate the total net and gross purchase price
+            $this->calculateTotals();
+
 
             return view('livewire.commerce.external-invoice.edit-external-invoice-items', [
                 'temporaryItems' => $temporaryItems,
