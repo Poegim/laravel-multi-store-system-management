@@ -29,9 +29,10 @@ trait FormatsAmount
      * @param  int    $value  Integer (ex. 22222).
      * @return float          Float (ex. 222.22).
      */
-    public function integerToDecimal(int $value = 0): float
+    public function integerToDecimal(int $value = 0): string
     {
-        if ($this->value === 0) {
+
+        if ($value === 0) {
             return 0;
         }
 

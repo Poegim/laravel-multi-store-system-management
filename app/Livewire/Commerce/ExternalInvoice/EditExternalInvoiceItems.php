@@ -37,8 +37,8 @@ class EditExternalInvoiceItems extends Component
     public ?Product $device;
     public ?Product $product;
     public ?int $vatRate;
-    public int $net = 0;
-    public int $gross = 0;
+    public $net;
+    public $gross;
 
     //Start of properties
     public ?int $brand;
@@ -146,7 +146,6 @@ class EditExternalInvoiceItems extends Component
         // Calculate the gross purchase price
         $this->refreshGrossPurchasePrice($purchasePriceNet);
     }
-
 
     public function updatedSearchProduct()
     {
