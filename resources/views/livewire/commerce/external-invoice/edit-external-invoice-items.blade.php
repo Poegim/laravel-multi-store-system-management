@@ -1,4 +1,38 @@
 <div>
+    <script>
+
+        document.addEventListener('livewire:init', () => {
+
+            Livewire.on('items-added', () => {
+
+                console.log('Phone added, inputs cleared.');
+
+               const search_product_input = document.getElementById('search_product_input');
+               search_product_input.value = '';
+
+               const search_device_input = document.getElementById('search_device_input');
+               if(search_device_input)
+               {
+                   search_device_input.value = '';
+               }
+
+               const search_select_color = document.getElementById('search_select_color');
+               search_select_color.value = '';
+
+               let audioContext = new (window.AudioContext || window.webkitAudioContext)(); // Tworzymy kontekst raz
+               let oscillator = audioContext.createOscillator();
+               oscillator.type = 'sine';
+               oscillator.frequency.setValueAtTime(500, audioContext.currentTime);
+               oscillator.connect(audioContext.destination);
+               oscillator.start();
+               oscillator.stop(audioContext.currentTime + 0.2);
+
+               console.log('Items added, inputs cleared.');
+
+           });
+        });
+    </script>
+
         <x-window>
         @if ($errors->any())
         <x-lists.errors-list>
@@ -357,7 +391,7 @@
                 {{__('add_products')}}
             </x-button>
             <x-action-message class="me-3" on="items-added">
-                asdf
+                Items added.
             </x-action-message>
         </div>
         </x-window>
@@ -643,12 +677,12 @@
 
     <x-window>
         <div class="flex justify-between">
-            <div class="flex gap-2">
+            <div class="flex gap-2 my-auto text-sm">
                 <div>
-                    {{ __('net')}}: {{ $net }} {{__('currency')}}
+                    {{ __('net')}}: <span class="font-bold italic">{{ $net }}</span> {{__('currency')}},
                 </div>
                 <div>
-                    {{ __('gross')}}: {{ $gross }} {{__('currency')}}
+                    {{ __('gross')}}: <span class="font-bold italic">{{ $gross }}</span> {{__('currency')}}
                 </div>
 
             </div>
@@ -688,38 +722,6 @@
 
 
 
-    <script>
 
-        document.addEventListener('livewire:init', () => {
-
-            Livewire.on('items-added', () => {
-
-                console.log('Phone added, inputs cleared.');
-
-               const search_product_input = document.getElementById('search_product_input');
-               search_product_input.value = '';
-
-               const search_device_input = document.getElementById('search_device_input');
-               if(search_device_input)
-               {
-                   search_device_input.value = '';
-               }
-
-               const search_select_color = document.getElementById('search_select_color');
-               search_select_color.value = '';
-
-               let audioContext = new (window.AudioContext || window.webkitAudioContext)(); // Tworzymy kontekst raz
-               let oscillator = audioContext.createOscillator();
-               oscillator.type = 'sine';
-               oscillator.frequency.setValueAtTime(500, audioContext.currentTime);
-               oscillator.connect(audioContext.destination);
-               oscillator.start();
-               oscillator.stop(audioContext.currentTime + 0.2);
-
-               console.log('Items added, inputs cleared.');
-
-           });
-        });
-    </script>
 
 </div>

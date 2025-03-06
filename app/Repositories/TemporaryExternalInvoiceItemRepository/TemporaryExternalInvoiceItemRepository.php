@@ -32,6 +32,7 @@ class  TemporaryExternalInvoiceItemRepository implements TemporaryExternalInvoic
     {
         $temporaryExternalInvoiceItem->product_variant_id = $data['productVariant'];
         $temporaryExternalInvoiceItem->external_invoice_id = $data['externalInvoiceId'];
+        $temporaryExternalInvoiceItem->device_id = $data['selectedDevice'];
         $temporaryExternalInvoiceItem->color_id = $data['selectedColor'];
         $temporaryExternalInvoiceItem->brand_id = $data['brand'];
         $temporaryExternalInvoiceItem->vat_rate_id = $data['vatRateId'];
