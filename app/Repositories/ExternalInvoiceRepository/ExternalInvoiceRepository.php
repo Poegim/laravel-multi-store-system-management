@@ -23,6 +23,15 @@ class ExternalInvoiceRepository implements ExternalInvoiceRepositoryInterface
         return $externalInvoice->save();
     }
 
+    public function destroy(int $id) {
+        $externalInvoice = ExternalInvoice::findOrFail($id);
+        if($externalInvoice->is_temp) {
+            return $externalInvoice->delete();
+        } else {
+            abort(403, 'You cannot delete this invoice');
+        }
+    }
+
     private function associate(ExternalInvoice $externalInvoice, array $data)
     {
         $externalInvoice->invoice_number = $data['invoice_number'];

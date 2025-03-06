@@ -40,7 +40,7 @@ class TemporaryExternalInvoiceItemsTableSeeder extends Seeder
             $totalInserted = 0; // Counter to track total inserted records
             $batchData = [];
 
-            for ($i = 0; $i < rand(5,100); $i++) { // Adjust loop for desired number of stock items
+            for ($i = 0; $i < rand(1,3); $i++) { // Adjust loop for desired number of stock items
                 // Randomly select a color, store and product_variant_id
                 $color = $colors[array_rand($colors)];
                 $productVariantId = $productVariants[array_rand($productVariants)];

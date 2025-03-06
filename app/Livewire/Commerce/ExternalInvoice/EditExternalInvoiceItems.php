@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 use App\Models\Commerce\ExternalInvoice;
 use App\Services\TemporaryExternalInvoiceItemService;
 use App\Models\Warehouse\TemporaryExternalInvoiceItem;
+use App\Services\ExternalInvoiceService;
 use App\Traits\FormatsAmount;
 use App\Traits\NetToGrossConverts;
 use App\Traits\Sortable;
@@ -62,9 +63,11 @@ class EditExternalInvoiceItems extends Component
     public $lockBrand = false;
     public $lockQuantity = false;
     public $aggregate = false;
+    public bool $confirmCancelModal = false;
 
     public ?ExternalInvoice $externalInvoice = null;
     protected TemporaryExternalInvoiceItemService $temporaryExternalInvoiceItemService;
+    protected ExternalInvoiceService $externalInvoiceService;
 
     protected function rules()
     {
@@ -98,8 +101,9 @@ class EditExternalInvoiceItems extends Component
         ];
     }
 
-    public function boot(TemporaryExternalInvoiceItemService $temporaryExternalInvoiceItemService) {
+    public function boot(TemporaryExternalInvoiceItemService $temporaryExternalInvoiceItemService, ExternalInvoiceService $externalInvoiceService) {
         $this->temporaryExternalInvoiceItemService = $temporaryExternalInvoiceItemService;
+        $this->externalInvoiceService = $externalInvoiceService;
     }
 
     public function mount(ExternalInvoice $externalInvoice) {
@@ -237,6 +241,20 @@ class EditExternalInvoiceItems extends Component
         $this->productVariants = null;
         $this->lockBrand = false;
         $this->lockQuantity = false;
+    }
+
+    public function confirmCancel()
+    {
+        try {
+            $this->externalInvoiceService->destroy($this->externalInvoiceId);
+            session()->flash('flash.banner', __('Invoice {$this->externalInvoiceId} has been deleted!'));
+            session()->flash('flash.bannerStyle', 'success');
+            return redirect()->route('external-invoice.index');
+        } catch (\Exception $e) {
+            $this->addError('externalInvoiceId', $e->getMessage());
+        }
+        $this->confirmCancelModal = false;
+
     }
 
     public function render()

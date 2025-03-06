@@ -19,4 +19,9 @@ class ExternalInvoiceService
         return $this->externalInvoiceRepository->update($data, $id);
     }
 
+    public function destroy(int $id)
+    {
+        return $this->externalInvoiceRepository->destroy($id);
+    }
+
 }

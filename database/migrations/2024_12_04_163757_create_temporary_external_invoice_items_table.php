@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('temporary_external_invoice_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_variant_id')->constrained();
-            $table->foreignId('external_invoice_id')->constrained();
+            $table->foreignId('external_invoice_id')->constrained()->onDelete('cascade');
             $table->foreignId('vat_rate_id')->constrained();
             $table->foreignId('brand_id')->constrained();
             $table->foreignId('color_id')->constrained();

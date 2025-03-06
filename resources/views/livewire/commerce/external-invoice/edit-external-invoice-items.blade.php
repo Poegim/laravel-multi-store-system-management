@@ -555,7 +555,7 @@
 
             </div>
             <div>
-                <x-secondary-button type="button" wire:click="cancelInvoice">
+                <x-secondary-button type="button" wire:click="$toggle('confirmCancelModal')">
                     {{__('cancel_invoice')}}
                 </x-secondary-button>
                 <x-danger-button type="button" wire:click="confirmInvoice">
@@ -564,38 +564,64 @@
             </div>
         </div>
     </x-window>
-        <script>
 
-            document.addEventListener('livewire:init', () => {
+    <!-- Delete Invoice Modal -->
+    <x-confirmation-modal wire:model.live="confirmCancelModal">
+        <x-slot name="title">
+            {{ __('Delete Invoice') }}
+        </x-slot>
 
-                Livewire.on('items-added', () => {
+        <x-slot name="content">
+            {{ __('Are you sure you want to delete this invoice? This action cannot be undone!') }}
+        </x-slot>
 
-                    console.log('Phone added, inputs cleared.');
+        <x-slot name="footer">
+            <x-secondary-button wire:click="$toggle('confirmCancelModal')" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-secondary-button>
 
-                   const search_product_input = document.getElementById('search_product_input');
-                   search_product_input.value = '';
+            <x-danger-button class="ms-3" wire:click="confirmCancel" wire:loading.attr="disabled">
+                {{ __('Delete') }}
+            </x-danger-button>
+        </x-slot>
+    </x-confirmation-modal>
 
-                   const search_device_input = document.getElementById('search_device_input');
-                   if(search_device_input)
-                   {
-                       search_device_input.value = '';
-                   }
 
-                   const search_select_color = document.getElementById('search_select_color');
-                   search_select_color.value = '';
 
-                   let audioContext = new (window.AudioContext || window.webkitAudioContext)(); // Tworzymy kontekst raz
-                   let oscillator = audioContext.createOscillator();
-                   oscillator.type = 'sine';
-                   oscillator.frequency.setValueAtTime(500, audioContext.currentTime);
-                   oscillator.connect(audioContext.destination);
-                   oscillator.start();
-                   oscillator.stop(audioContext.currentTime + 0.2);
 
-                   console.log('Items added, inputs cleared.');
 
-               });
-            });
-        </script>
+    <script>
+
+        document.addEventListener('livewire:init', () => {
+
+            Livewire.on('items-added', () => {
+
+                console.log('Phone added, inputs cleared.');
+
+               const search_product_input = document.getElementById('search_product_input');
+               search_product_input.value = '';
+
+               const search_device_input = document.getElementById('search_device_input');
+               if(search_device_input)
+               {
+                   search_device_input.value = '';
+               }
+
+               const search_select_color = document.getElementById('search_select_color');
+               search_select_color.value = '';
+
+               let audioContext = new (window.AudioContext || window.webkitAudioContext)(); // Tworzymy kontekst raz
+               let oscillator = audioContext.createOscillator();
+               oscillator.type = 'sine';
+               oscillator.frequency.setValueAtTime(500, audioContext.currentTime);
+               oscillator.connect(audioContext.destination);
+               oscillator.start();
+               oscillator.stop(audioContext.currentTime + 0.2);
+
+               console.log('Items added, inputs cleared.');
+
+           });
+        });
+    </script>
 
 </div>
