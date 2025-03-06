@@ -62,9 +62,9 @@ class EditExternalInvoiceItems extends Component
 
     public $lockBrand = false;
     public $lockQuantity = false;
-    public $aggregate = false;
+    public $aggregate = true;
     public bool $confirmCancelModal = false;
-
+    
     public ?ExternalInvoice $externalInvoice = null;
     protected TemporaryExternalInvoiceItemService $temporaryExternalInvoiceItemService;
     protected ExternalInvoiceService $externalInvoiceService;
@@ -123,6 +123,11 @@ class EditExternalInvoiceItems extends Component
         $this->vatRateId = VatRate::getDefault()->id;
         $this->vatRate = $this->vatRates[$this->vatRateId];
 
+    }
+
+    public function aggragateItems() {
+        $this->aggregate = !$this->aggregate;
+        $this->resetPage();
     }
 
     public function calculateTotals()
@@ -261,22 +266,50 @@ class EditExternalInvoiceItems extends Component
     {
         $sortDirection = $this->sortAsc ? 'asc' : 'desc';
 
-        $temporaryItems =
-        TemporaryExternalInvoiceItem::with([
-            'brand',
-            'productVariant',
-            'productVariant.product',
-            'color',
-            'vatRate'
-            ])->where('external_invoice_id', $this->externalInvoiceId)
-            ->orderBy($this->sortField, $sortDirection)->paginate($this->paginatePerPage);
+        if($this->aggregate) {
 
-            // Calculate the total net and gross purchase price
-            $this->calculateTotals();
-
-
-            return view('livewire.commerce.external-invoice.edit-external-invoice-items', [
-                'temporaryItems' => $temporaryItems,
-            ]);
+            $temporaryItems = TemporaryExternalInvoiceItem::selectRaw('
+            brand_id,
+            product_variant_id,
+            device_id,
+            color_id,
+            suggested_retail_price,
+            purchase_price_net,
+            purchase_price_gross,
+            imei_number,
+            serial_number,
+            vat_rate_id,
+            SUM(purchase_price_net) as total_price,
+            COUNT(*) as total_quantity
+            ')
+            ->with([
+                'brand',
+                'productVariant',
+                'productVariant.product',
+                'color',
+                'vatRate'
+            ])
+            ->where('external_invoice_id', $this->externalInvoiceId)
+            ->groupBy('brand_id', 'product_variant_id', 'device_id', 'color_id', 'suggested_retail_price', 'purchase_price_net' , 'purchase_price_gross', 'imei_number', 'serial_number', 'vat_rate_id')
+            ->paginate($this->paginatePerPage);
+        } else {
+            $temporaryItems =
+            TemporaryExternalInvoiceItem::with([
+                'brand',
+                'productVariant',
+                'productVariant.product',
+                'color',
+                'vatRate',
+                'device'
+                ])->where('external_invoice_id', $this->externalInvoiceId)
+                ->orderBy($this->sortField, $sortDirection)->paginate($this->paginatePerPage);
         }
+
+        // Calculate the total net and gross purchase price
+        $this->calculateTotals();
+
+        return view('livewire.commerce.external-invoice.edit-external-invoice-items', [
+            'temporaryItems' => $temporaryItems,
+        ]);
     }
+}

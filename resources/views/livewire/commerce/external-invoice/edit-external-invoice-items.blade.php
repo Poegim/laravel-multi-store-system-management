@@ -367,25 +367,58 @@
 
 
         <div>
-            <div class="flex w-full justify-end gap-2">
-                <div class="my-auto">
-                    {{ __('show_per_page') }}
+            <div class="flex w-full justify-between gap-2 text-sm">
+                <div class="flex gap-2" x-data="{ aggregate: @entangle('aggregate') }">
+                    <div class="my-auto">
+                        {{ __('aggregate') }}
+                    </div>
+                    <button type="button" x-bind:class="aggregate ? 'bg-green-200' : 'bg-green-900'"
+                        wire:click='aggragateItems()'
+                        class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer my-auto rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-gray-200 focus:ring-offset-2 hover:bg-green-500"
+                        role="switch" aria-checked="false">
+                        <span class="sr-only">mode toggle</span>
+
+                        <span x-bind:class="aggregate ? 'translate-x-5 bg-green-400' : 'translate-x-0 bg-black'"
+                            class="pointer-events-none relative inline-block h-5 w-5 transform rounded-full shadow ring-0 transition duration-200 ease-in-out">
+                            <span
+                                x-bind:class="aggregate ? 'opacity-0 ease-out duration-100' : 'opacity-100 ease-in duration-200'"
+                                class="absolute inset-0 flex h-full w-full items-center justify-center transition-opacity"
+                                aria-hidden="true">
+                                <svg fill="white" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M213.333 960c0-167.36 56-321.707 149.44-446.4L1406.4 1557.227c-124.693 93.44-279.04 149.44-446.4 149.44-411.627 0-746.667-335.04-746.667-746.667m1493.334 0c0 167.36-56 321.707-149.44 446.4L513.6 362.773c124.693-93.44 279.04-149.44 446.4-149.44 411.627 0 746.667 335.04 746.667 746.667M960 0C429.76 0 0 429.76 0 960s429.76 960 960 960 960-429.76 960-960S1490.24 0 960 0" fill-rule="evenodd"></path> </g></svg>
+                            </span>
+                            <span
+                                x-bind:class="aggregate ?  'opacity-100 ease-in duration-200' : 'opacity-0 ease-out duration-100'"
+                                class="absolute inset-0 flex h-full w-full items-center justify-center transition-opacity"
+                                aria-hidden="true">
+                                <svg fill="#000000" version="1.1" id="Layer_1" xmlns:x="&amp;ns_extend;" xmlns:i="&amp;ns_ai;" xmlns:graph="&amp;ns_graphs;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <metadata> <sfw xmlns="&amp;ns_sfw;"> <slices> </slices> <slicesourcebounds width="505" height="984" bottomleftorigin="true" x="0" y="-984"> </slicesourcebounds> </sfw> </metadata> <g> <g> <g> <path d="M12,24C5.4,24,0,18.6,0,12S5.4,0,12,0s12,5.4,12,12S18.6,24,12,24z M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10 S17.5,2,12,2z"></path> </g> </g> <g> <g> <path d="M11,16c-0.3,0-0.5-0.1-0.7-0.3l-3-3c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l3,3c0.4,0.4,0.4,1,0,1.4C11.5,15.9,11.3,16,11,16z "></path> </g> </g> <g> <g> <path d="M11,16c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l6-6c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-6,6C11.5,15.9,11.3,16,11,16z "></path> </g> </g> </g> </g></svg>
+                            </span>
+                        </span>
+                    </button>
                 </div>
-                <select name="paginatePerPage" id="paginatePerPage" wire:model.live="paginatePerPage" class="input-jetstream h-10">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="15">15</option>
-                    <option value="20">20</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
+                <div class="flex gap-2">
+                    <div class="my-auto">
+                        {{ __('show_per_page') }}
+                    </div>
+                    <select name="paginatePerPage" id="paginatePerPage" wire:model.live="paginatePerPage" class="input-jetstream h-10">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
             </div>
-            {{ $paginatePerPage }}
             <table class="w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs uppercase">
                     <tr class="text-black dark:text-white">
                         <th scope="col" class="px-2 py-1">
+                            @if($aggregate)
+                                <span class="uppercase">
+                                    {{__('qnt')}}
+                                </span>
+                            @else
                             <div class="flex cursor-pointer" wire:click="sortBy('id')">
                                 <span class="uppercase">
                                     {{__('id')}}
@@ -396,8 +429,14 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                 </svg>
                             </div>
+                            @endif
                         </th>
                         <th scope="col" class="px-2 py-1">
+                            @if($aggregate)
+                            <span class="uppercase">
+                                {{__('brand')}}
+                            </span>
+                            @else
                             <div class="flex cursor-pointer" wire:click="sortBy('brand_id')">
                                 <span class="uppercase">
                                     {{__('brand')}}
@@ -408,11 +447,17 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                 </svg>
                             </div>
+                            @endif
                         </th>
                         <th scope="col" class="px-2 py-1">
                             {{__('product')}}
                         </th>
                         <th scope="col" class="px-2 py-1">
+                            @if($aggregate)
+                            <span class="uppercase">
+                                {{__('product_variant')}}
+                            </span>
+                            @else
                             <div class="flex cursor-pointer" wire:click="sortBy('product_variant_id')">
                                 <span class="uppercase">
                                     {{__('product_variant')}}
@@ -423,8 +468,32 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                 </svg>
                             </div>
+                            @endif
+                        </th>
+                        <th scope="col" class="px-2 py-1">
+                            @if($aggregate)
+                            <span class="uppercase">
+                                {{__('device')}}
+                            </span>
+                            @else
+                            <div class="flex cursor-pointer" wire:click="sortBy('device_id')">
+                                <span class="uppercase">
+                                    {{__('device')}}
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="size-4 {{ $sortField === 'device_id' ? ($sortAsc == false ? 'rotate-180' : 'rotate-0') : '' }}">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </div>
+                            @endif
                         </th>
                         <th scope="col" class="px-2 py-1 hidden lg:table-cell">
+                            @if($aggregate)
+                            <span class="uppercase">
+                                {{__('color')}}
+                            </span>
+                            @else
                             <div class="flex cursor-pointer" wire:click="sortBy('color_id')">
                                 <span class="uppercase">
                                     {{__('color')}}
@@ -435,8 +504,14 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                 </svg>
                             </div>
+                            @endif
                         </th>
                         <th scope="col" class="px-2 py-1 hidden lg:table-cell">
+                            @if($aggregate)
+                            <span class="uppercase">
+                                {{__('srp')}}
+                            </span>
+                            @else
                             <div class="flex cursor-pointer" wire:click="sortBy('suggested_retail_price')">
                                 <span class="uppercase">
                                     {{__('srp')}}
@@ -447,8 +522,14 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                 </svg>
                             </div>
+                            @endif
                         </th>
                         <th scope="col" class="px-2 py-1 hidden lg:table-cell">
+                            @if($aggregate)
+                            <span class="uppercase">
+                                {{__('ppn')}}
+                            </span>
+                            @else
                             <div class="flex cursor-pointer" wire:click="sortBy('purchase_price_net')">
                                 <span class="uppercase">
                                     {{__('ppn')}}
@@ -459,8 +540,14 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                 </svg>
                             </div>
+                            @endif
                         </th>
                         <th scope="col" class="px-2 py-1 hidden lg:table-cell">
+                            @if($aggregate)
+                            <span class="uppercase">
+                                {{__('ppg')}}
+                            </span>
+                            @else
                             <div class="flex cursor-pointer" wire:click="sortBy('purchase_price_gross')">
                                 <span class="uppercase">
                                     {{__('ppg')}}
@@ -471,6 +558,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                 </svg>
                             </div>
+                            @endif
                         </th>
                         <th scope="col" class="px-2 py-1 hidden lg:table-cell">
                             {{__('IMEI/SN')}}
@@ -482,7 +570,11 @@
                     <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
                         <td scope="row"
                             class="px-2 py-1 text-gray-900 whitespace-nowrap dark:text-white">
+                            @if($aggregate)
+                            {{ $temporaryExternalInvoiceItem->total_quantity }}
+                            @else
                             {{$temporaryExternalInvoiceItem->id}}
+                            @endif
                         </td>
                         <td scope="row"
                             class="px-2 py-1 text-gray-900 whitespace-nowrap dark:text-white">
@@ -495,6 +587,10 @@
                         <td scope="row"
                             class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white">
                             {{$temporaryExternalInvoiceItem->productVariant->name}}
+                        </td>
+                        <td scope="row"
+                            class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white">
+                            {{$temporaryExternalInvoiceItem->device->name}}
                         </td>
                         <td scope="row"
                             class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white">
@@ -539,9 +635,11 @@
 
     </x-window>
 
+    @if($temporaryItems->hasPages())
     <x-window>
         {{ $temporaryItems->links(data: ['scrollTo' => false]) }}
     </x-window>
+    @endif
 
     <x-window>
         <div class="flex justify-between">

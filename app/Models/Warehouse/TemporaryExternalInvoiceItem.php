@@ -6,11 +6,13 @@ use App\Models\Color;
 use App\Models\VatRate;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Commerce\ExternalInvoice;
+use App\Traits\BelongsToDevice;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TemporaryExternalInvoiceItem extends Model
 {
     use HasFactory;
+    use BelongsToDevice;
 
     public function productVariant()
     {
