@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Commerce;
 
+use Exception;
 use App\Models\Store;
 use App\Models\Contact;
 use Illuminate\Http\Request;
@@ -39,15 +40,16 @@ class ExternalInvoiceController extends Controller
 
     public function store(StoreExternalInvoiceRequest $request)
     {
-        if($this->externalInvoiceService->store($request->validated())) {            
+        try {
+            $externalInvoiceId = $this->externalInvoiceService->store($request->validated());
             session()->flash('flash.banner', __('External invoice has been successfully saved!'));
             session()->flash('flash.bannerStyle', 'success');
-            return redirect()->route('external-invoice.index', $request->store_id);
-        } else {
+        } catch (Exception $e) {
             session()->flash('flash.banner', __('Error saving external invoice!'));
             session()->flash('flash.bannerStyle', 'warning');
-            return redirect()->route('external-invoice.index', $request->store_id);
         }
+        
+        return redirect()->route('external-invoice.edit', $externalInvoiceId);
 
     }
 

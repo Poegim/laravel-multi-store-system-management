@@ -12,7 +12,8 @@ class ExternalInvoiceRepository implements ExternalInvoiceRepositoryInterface
         $externalInvoice = new ExternalInvoice();
         $externalInvoice = $this->associate($externalInvoice, $data);
         $externalInvoice->created_at = Carbon::now()->format('Y-m-d H:i:s');
-        return $externalInvoice->save();
+        $externalInvoice->save();
+        return $externalInvoice->id;
     }
     
     public function update(array $data, ExternalInvoice $externalInvoice) {
