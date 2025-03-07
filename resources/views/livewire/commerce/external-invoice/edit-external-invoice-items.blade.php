@@ -653,11 +653,9 @@
                             {{$temporaryExternalInvoiceItem->imei_number ? $temporaryExternalInvoiceItem->imei_number : $temporaryExternalInvoiceItem->serial_number }}
                         </td>
                         <td class="px-2 sm:px-2 sm:py-1 flex justify-end">
-                            <a href="{{route('color.edit', $color)}}">
-                                <x-buttons.edit-button>
-                                    {{__('edit')}}
-                                </x-buttons.edit-button>
-                            </a>
+                            <x-buttons.delete-button wire:click="showRemoveItemModal({{$temporaryExternalInvoiceItem->id}})">
+                                {{__('delete')}}
+                            </x-buttons.delete-button>
                         </td>
                     </tr>
                     @endforeach
@@ -700,23 +698,44 @@
     <!-- Delete Invoice Modal -->
     <x-confirmation-modal wire:model.live="confirmCancelModal">
         <x-slot name="title">
-            {{ __('Delete Invoice') }}
+            {{ __('delete_invoice') }}
         </x-slot>
 
         <x-slot name="content">
-            {{ __('Are you sure you want to delete this invoice? This action cannot be undone!') }}
+            {{ __('are_you_sure_you_want_to_delete_this_invoice?_this_action_cannot_be_undone!') }}
         </x-slot>
 
         <x-slot name="footer">
             <x-secondary-button wire:click="$toggle('confirmCancelModal')" wire:loading.attr="disabled">
-                {{ __('Cancel') }}
+                {{ __('abort') }}
             </x-secondary-button>
 
             <x-danger-button class="ms-3" wire:click="confirmCancel" wire:loading.attr="disabled">
-                {{ __('Delete') }}
+                {{ __('delete_invoice') }}
             </x-danger-button>
         </x-slot>
     </x-confirmation-modal>
+
+        <!-- Delete Item Modal -->
+        <x-confirmation-modal wire:model.live="removeItemModal">
+            <x-slot name="title">
+                {{ __('delete_item') }}
+            </x-slot>
+    
+            <x-slot name="content">
+                {{ __('are_you_sure_you_want_to_delete_this_item?_this_action_cannot_be_undone!') }}
+            </x-slot>
+    
+            <x-slot name="footer">
+                <x-secondary-button wire:click="$toggle('removeItemModal')" wire:loading.attr="disabled">
+                    {{ __('cancel') }}
+                </x-secondary-button>
+    
+                <x-danger-button class="ms-3" wire:click="removeItem" wire:loading.attr="disabled">
+                    {{ __('delete') }}
+                </x-danger-button>
+            </x-slot>
+        </x-confirmation-modal>
 
 
 

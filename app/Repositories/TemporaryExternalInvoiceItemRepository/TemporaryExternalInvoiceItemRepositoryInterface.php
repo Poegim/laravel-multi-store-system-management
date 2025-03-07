@@ -6,4 +6,5 @@ interface TemporaryExternalInvoiceItemRepositoryInterface
 {
     public function store(array $data);
     public function update(array $data, int $id);
+    public function destroy($id);
 }

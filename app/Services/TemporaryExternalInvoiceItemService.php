@@ -19,4 +19,9 @@ class TemporaryExternalInvoiceItemService
         return $this->TemporaryExternalInvoiceItemRepository->update($data, $id);
     }
 
+    public function destroy($id)
+    {
+        return $this->TemporaryExternalInvoiceItemRepository->destroy($id);
+    }
+
 }

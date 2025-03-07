@@ -23,12 +23,13 @@ class EditExternalInvoiceItems extends Component
     use Sortable;
     use NetToGrossConverts;
     use WithPagination;
-
+    
     public ?Collection $colors;
     public ?Collection $vatRates;
     public $searchColor = '';
     public $color;
-
+    
+    public ?int $selectedRemoveItem = null;
     public $paginatePerPage = 10;
 
     public $brands;
@@ -60,9 +61,10 @@ class EditExternalInvoiceItems extends Component
     public $searchProduct = '';
     public $searchDevice = '';
 
-    public $lockBrand = false;
-    public $lockQuantity = false;
-    public $aggregate = true;
+    public bool $lockBrand = false;
+    public bool $lockQuantity = false;
+    public bool $aggregate = true;
+    public bool $removeItemModal = false;
     public bool $confirmCancelModal = false;
     
     public ?ExternalInvoice $externalInvoice = null;
@@ -252,14 +254,36 @@ class EditExternalInvoiceItems extends Component
     {
         try {
             $this->externalInvoiceService->destroy($this->externalInvoiceId);
-            session()->flash('flash.banner', __('Invoice {$this->externalInvoiceId} has been deleted!'));
+            session()->flash('flash.banner', __("Invoice {$this->externalInvoiceId} has been deleted!")); 
             session()->flash('flash.bannerStyle', 'success');
             return redirect()->route('external-invoice.index');
         } catch (\Exception $e) {
             $this->addError('externalInvoiceId', $e->getMessage());
         }
+        
+        // Ensure the modal is closed even if an error occurs
         $this->confirmCancelModal = false;
 
+    }
+
+    public function showRemoveItemModal($id)
+    {
+        $this->removeItemModal = true;
+        $this->selectedRemoveItem = $id;
+    }
+
+    public function removeItem()
+    {
+        try {
+            $this->temporaryExternalInvoiceItemService->destroy($this->selectedRemoveItem);
+            session()->flash('flash.banner', __("temporary_item_of_id:_{$this->selectedRemoveItem}_has_been_deleted!")); 
+            session()->flash('flash.bannerStyle', 'success');
+        } catch (\Exception $e) {
+            $this->addError('externalInvoiceId', $e->getMessage());
+        }
+        
+        // Ensure the modal is closed even if an error occurs
+        $this->removeItemModal = false;
     }
 
     public function render()

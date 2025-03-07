@@ -1,7 +1,7 @@
 <button
     {{
     $attributes->merge([
-        'type' => 'submit',
+        'type' => 'button',
         'class' => 'flex justify-start transition-colors duration-300 bg-blue-700 hover:bg-blue-500 dark:hover:bg-blue-900 p-1 sm:px-2 sm:py-1 rounded-mid text-white'
         ])
     }}>

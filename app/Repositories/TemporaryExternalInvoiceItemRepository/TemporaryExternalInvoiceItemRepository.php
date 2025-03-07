@@ -28,6 +28,17 @@ class  TemporaryExternalInvoiceItemRepository implements TemporaryExternalInvoic
         //
     }
 
+    public function destroy($id)
+    {
+        try {
+            TemporaryExternalInvoiceItem::destroy($id);
+            return true;
+        } catch (\Exception $e) {
+            abort(403, $e->getMessage());
+        }
+        
+    }
+
     private function associate($temporaryExternalInvoiceItem, $data) 
     {
         $temporaryExternalInvoiceItem->product_variant_id = $data['productVariant'];
