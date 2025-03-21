@@ -66,6 +66,7 @@ class EditExternalInvoiceItems extends Component
     public bool $aggregate = true;
     public bool $removeItemModal = false;
     public bool $confirmCancelModal = false;
+    public bool $confirmInvoiceModal = false;
     
     public ?ExternalInvoice $externalInvoice = null;
     protected TemporaryExternalInvoiceItemService $temporaryExternalInvoiceItemService;
@@ -284,6 +285,28 @@ class EditExternalInvoiceItems extends Component
         
         // Ensure the modal is closed even if an error occurs
         $this->removeItemModal = false;
+    }
+
+
+    public function showConfirmInvoiceModal()
+    {
+        $this->confirmInvoiceModal = true;
+        dd($this->confirmInvoiceModal);
+    }
+
+    public function confirmInvoice()
+    {
+        try {
+            $this->externalInvoiceService->confirm($this->externalInvoice);
+            session()->flash('flash.banner', __("Invoice {$this->externalInvoiceId} has been confirmed!")); 
+            session()->flash('flash.bannerStyle', 'success');
+            return redirect()->route('external-invoice.index');
+        } catch (\Exception $e) {
+            $this->addError('externalInvoiceId', $e->getMessage());
+        }
+        
+        return redirect()->route('external-invoice.show', $this->externalInvoiceId);
+
     }
 
     public function render()

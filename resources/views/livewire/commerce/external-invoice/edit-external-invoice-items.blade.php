@@ -688,7 +688,7 @@
                 <x-secondary-button type="button" wire:click="$toggle('confirmCancelModal')">
                     {{__('cancel_invoice')}}
                 </x-secondary-button>
-                <x-danger-button type="button" wire:click="confirmInvoice">
+                <x-danger-button type="button" wire:click="showConfirmInvoiceModal">
                     {{__('confirm_invoice')}}
                 </x-danger-button>
             </div>
@@ -707,7 +707,7 @@
 
         <x-slot name="footer">
             <x-secondary-button wire:click="$toggle('confirmCancelModal')" wire:loading.attr="disabled">
-                {{ __('abort') }}
+                {{ __('abort_this_action') }}
             </x-secondary-button>
 
             <x-danger-button class="ms-3" wire:click="confirmCancel" wire:loading.attr="disabled">
@@ -716,26 +716,52 @@
         </x-slot>
     </x-confirmation-modal>
 
-        <!-- Delete Item Modal -->
-        <x-confirmation-modal wire:model.live="removeItemModal">
-            <x-slot name="title">
-                {{ __('delete_item') }}
-            </x-slot>
-    
-            <x-slot name="content">
-                {{ __('are_you_sure_you_want_to_delete_this_item?_this_action_cannot_be_undone!') }}
-            </x-slot>
-    
-            <x-slot name="footer">
-                <x-secondary-button wire:click="$toggle('removeItemModal')" wire:loading.attr="disabled">
-                    {{ __('cancel') }}
-                </x-secondary-button>
-    
-                <x-danger-button class="ms-3" wire:click="removeItem" wire:loading.attr="disabled">
-                    {{ __('delete') }}
-                </x-danger-button>
-            </x-slot>
-        </x-confirmation-modal>
+    <!-- Delete Item Modal -->
+    <x-confirmation-modal wire:model.live="removeItemModal">
+        <x-slot name="title">
+            {{ __('delete_item') }}
+        </x-slot>
+
+        <x-slot name="content">
+            {{ __('are_you_sure_you_want_to_delete_this_item?_this_action_cannot_be_undone!') }}
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-secondary-button wire:click="$toggle('removeItemModal')" wire:loading.attr="disabled">
+                {{ __('cancel') }}
+            </x-secondary-button>
+
+            <x-danger-button class="ms-3" wire:click="removeItem" wire:loading.attr="disabled">
+                {{ __('delete') }}
+            </x-danger-button>
+        </x-slot>
+    </x-confirmation-modal>
+
+    <!-- Confirm Invoice Modal -->
+    <x-confirmation-modal wire:model.live="showConfirmInvoiceModal">
+        <x-slot name="title">
+            {{ __('delete_item') }}
+        </x-slot>
+
+        <x-slot name="content">
+            <p>
+                {{ __('do_you_want_to_confirm_this_invoice?_this_action_cannot_be_undone!') }}
+            </p>
+            <p>
+                {{ __('after_confirming_the_invoice_you_will_not_be_able_to_edit_it_anymore_and_items_will_be_added_to_the_stock!') }}
+            </p>
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-secondary-button wire:click="$toggle('showConfirmInvoiceModal')" wire:loading.attr="disabled">
+                {{ __('cancel') }}
+            </x-secondary-button>
+
+            <x-danger-button class="ms-3" wire:click="confirmInvoice" wire:loading.attr="disabled">
+                {{ __('confirm_invoice') }}
+            </x-danger-button>
+        </x-slot>
+    </x-confirmation-modal>
 
 
 

@@ -23,6 +23,12 @@ class ExternalInvoiceRepository implements ExternalInvoiceRepositoryInterface
         return $externalInvoice->save();
     }
 
+    public function confirm(ExternalInvoice $externalInvoice) {
+        $externalInvoice->is_temp = false;
+        $this->moveTemporaryItemsToStock($externalInvoice);
+        return $externalInvoice->save();
+    }
+
     public function destroy(int $id) {
         $externalInvoice = ExternalInvoice::findOrFail($id);
         if($externalInvoice->is_temp) {
@@ -30,6 +36,11 @@ class ExternalInvoiceRepository implements ExternalInvoiceRepositoryInterface
         } else {
             abort(403, 'You cannot delete this invoice');
         }
+    }
+
+    private function moveTemporaryItemsToStock(ExternalInvoice $externalInvoice)
+    {
+        dd($externalInvoice->temporaryExternalInvoiceItems);
     }
 
     private function associate(ExternalInvoice $externalInvoice, array $data)
