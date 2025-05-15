@@ -31,6 +31,7 @@ class EditExternalInvoiceItems extends Component
     
     public ?int $selectedRemoveItem = null;
     public $paginatePerPage = 10;
+    private $aggragateIds;
 
     public $brands;
     public $products;
@@ -273,7 +274,7 @@ class EditExternalInvoiceItems extends Component
             $this->removeItemModal = true;
             $this->selectedRemoveItem = $temporaryExternalInvoiceItem['id'];
         } else {
-            Tempora
+
         }
     }
 
@@ -320,18 +321,17 @@ class EditExternalInvoiceItems extends Component
         if($this->aggregate) {
 
             $temporaryItems = TemporaryExternalInvoiceItem::selectRaw('
-            brand_id,
-            product_variant_id,
-            device_id,
-            color_id,
-            suggested_retail_price,
-            purchase_price_net,
-            purchase_price_gross,
-            imei_number,
-            serial_number,
-            vat_rate_id,
-            SUM(purchase_price_net) as total_price,
-            COUNT(*) as total_quantity
+                brand_id,
+                product_variant_id,
+                device_id,
+                color_id,
+                suggested_retail_price,
+                purchase_price_net,
+                purchase_price_gross,
+                vat_rate_id,
+                SUM(purchase_price_net) as total_price,
+                COUNT(*) as total_quantity,
+                GROUP_CONCAT(id) as item_ids
             ')
             ->with([
                 'brand',
@@ -341,8 +341,20 @@ class EditExternalInvoiceItems extends Component
                 'vatRate'
             ])
             ->where('external_invoice_id', $this->externalInvoiceId)
-            ->groupBy('brand_id', 'product_variant_id', 'device_id', 'color_id', 'suggested_retail_price', 'purchase_price_net' , 'purchase_price_gross', 'imei_number', 'serial_number', 'vat_rate_id')
+            ->groupBy(
+                'brand_id',
+                'product_variant_id',
+                'device_id',
+                'color_id',
+                'suggested_retail_price',
+                'purchase_price_net',
+                'purchase_price_gross',
+                'vat_rate_id'
+            )
             ->paginate($this->paginatePerPage);
+
+
+
         } else {
             $temporaryItems =
             TemporaryExternalInvoiceItem::with([
