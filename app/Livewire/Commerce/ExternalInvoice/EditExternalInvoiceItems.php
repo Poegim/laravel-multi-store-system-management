@@ -267,10 +267,14 @@ class EditExternalInvoiceItems extends Component
 
     }
 
-    public function showRemoveItemModal($id)
+    public function showRemoveItemModal($temporaryExternalInvoiceItem)
     {
-        $this->removeItemModal = true;
-        $this->selectedRemoveItem = $id;
+        if(array_key_exists('id', $temporaryExternalInvoiceItem)) {
+            $this->removeItemModal = true;
+            $this->selectedRemoveItem = $temporaryExternalInvoiceItem['id'];
+        } else {
+            Tempora
+        }
     }
 
     public function removeItem()

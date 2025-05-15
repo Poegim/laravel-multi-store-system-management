@@ -396,9 +396,10 @@
         </div>
         </x-window>
 
+        <div>
 
-        <x-window>
-
+    <div class="max-w-full overflow-x-auto">
+    <x-window>
 
         <div>
             <div class="flex w-full justify-between gap-2 text-sm">
@@ -444,7 +445,8 @@
                     </select>
                 </div>
             </div>
-            <table class="w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
+            <table class="min-w-max w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs uppercase">
                     <tr class="text-black dark:text-white">
                         <th scope="col" class="px-2 py-1">
@@ -522,7 +524,7 @@
                             </div>
                             @endif
                         </th>
-                        <th scope="col" class="px-2 py-1 hidden lg:table-cell">
+                        <th scope="col" class="px-2 py-1 hidden 2xl:table-cell">
                             @if($aggregate)
                             <span class="uppercase">
                                 {{__('color')}}
@@ -601,7 +603,7 @@
                 </thead>
                 <tbody>
                     @foreach ($temporaryItems as $temporaryExternalInvoiceItem)
-                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 w-full">
                         <td scope="row"
                             class="px-2 py-1 text-gray-900 whitespace-nowrap dark:text-white">
                             @if($aggregate)
@@ -627,7 +629,7 @@
                             {{$temporaryExternalInvoiceItem->device->name}}
                         </td>
                         <td scope="row"
-                            class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white">
+                            class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white hidden 2xl:table-cell">
                             <div class="flex gap-x-2">
                                 <div class="h-8 w-8 rounded-full" style="background-color: {{$temporaryExternalInvoiceItem->color->value}};">
 
@@ -653,7 +655,7 @@
                             {{$temporaryExternalInvoiceItem->imei_number ? $temporaryExternalInvoiceItem->imei_number : $temporaryExternalInvoiceItem->serial_number }}
                         </td>
                         <td class="px-2 sm:px-2 sm:py-1 flex justify-end">
-                            <x-buttons.delete-button wire:click="showRemoveItemModal({{$temporaryExternalInvoiceItem->id}})">
+                            <x-buttons.delete-button wire:click="showRemoveItemModal({{ $temporaryExternalInvoiceItem }})">
                                 {{__('delete')}}
                             </x-buttons.delete-button>
                         </td>
@@ -666,7 +668,7 @@
 
 
     </x-window>
-
+    </div>
     @if($temporaryItems->hasPages())
     <x-window>
         {{ $temporaryItems->links(data: ['scrollTo' => false]) }}
