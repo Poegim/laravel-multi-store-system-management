@@ -612,19 +612,6 @@
                             {{$temporaryExternalInvoiceItem->id}}
                             @endif
                         </td>
-                        @if($aggregate)
-                        <td scope="row"
-                            class="px-2 py-1 text-gray-900 whitespace-nowrap dark:text-white">
-                            @php
-                                $ids = explode(',', $temporaryExternalInvoiceItem->item_ids);
-                            @endphp
-
-                            @foreach($ids as $id)
-                            {{ $id }},
-                            @endforeach
-
-                        </td>
-                        @endif
 
                         <td scope="row"
                             class="px-2 py-1 text-gray-900 whitespace-nowrap dark:text-white">
@@ -677,9 +664,7 @@
                     @endforeach
                 </tbody>
             </table>
-
         </div>
-
 
     </x-window>
     </div>
@@ -778,11 +763,5 @@
             </x-danger-button>
         </x-slot>
     </x-confirmation-modal>
-
-
-
-
-
-
 
 </div>

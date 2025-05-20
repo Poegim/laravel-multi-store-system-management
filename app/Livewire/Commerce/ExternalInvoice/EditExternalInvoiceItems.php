@@ -29,7 +29,7 @@ class EditExternalInvoiceItems extends Component
     public $searchColor = '';
     public $color;
     
-    public ?int $selectedRemoveItem = null;
+    public int|null|array $selectedRemoveItem = null;
     public $paginatePerPage = 10;
     private $aggragateIds;
 
@@ -270,22 +270,43 @@ class EditExternalInvoiceItems extends Component
 
     public function showRemoveItemModal($temporaryExternalInvoiceItem)
     {
-        if(array_key_exists('id', $temporaryExternalInvoiceItem)) {
-            $this->removeItemModal = true;
-            $this->selectedRemoveItem = $temporaryExternalInvoiceItem['id'];
-        } else {
 
+        if(array_key_exists('id', $temporaryExternalInvoiceItem)) {
+            $this->selectedRemoveItem = $temporaryExternalInvoiceItem['id'];
+            $this->removeItemModal = true;
+        } elseif(array_key_exists('item_ids', $temporaryExternalInvoiceItem)) {
+            $this->removeItemModal = true;
+            $this->selectedRemoveItem = $temporaryExternalInvoiceItem['item_ids'];
         }
+
     }
 
     public function removeItem()
     {
-        try {
-            $this->temporaryExternalInvoiceItemService->destroy($this->selectedRemoveItem);
-            session()->flash('flash.banner', __("temporary_item_of_id:_{$this->selectedRemoveItem}_has_been_deleted!")); 
+        if(is_array($this->selectedRemoveItem)) {
+            foreach($this->selectedRemoveItem as $itemId) {
+                try {
+                    $this->temporaryExternalInvoiceItemService->destroy($itemId);
+                } catch (\Exception $e) {
+                    $this->addError('externalInvoiceId', $e->getMessage());
+                }
+            }
+            $ids = implode(',', $this->selectedRemoveItem);
+
+            session()->flash(
+                'flash.banner',
+                __("temporary_items_of_ids:_{$ids}_have_been_deleted!")
+            );
+
             session()->flash('flash.bannerStyle', 'success');
-        } catch (\Exception $e) {
-            $this->addError('externalInvoiceId', $e->getMessage());
+        } else {
+            try {
+                $this->temporaryExternalInvoiceItemService->destroy($this->selectedRemoveItem);
+                session()->flash('flash.banner', __("temporary_item_of_id:_{$this->selectedRemoveItem}_has_been_deleted!")); 
+                session()->flash('flash.bannerStyle', 'success');
+            } catch (\Exception $e) {
+                $this->addError('externalInvoiceId', $e->getMessage());
+            }
         }
         
         // Ensure the modal is closed even if an error occurs
@@ -353,7 +374,10 @@ class EditExternalInvoiceItems extends Component
             )
             ->paginate($this->paginatePerPage);
 
-
+            $temporaryItems->getCollection()->transform(function ($item) {
+                $item->item_ids = explode(',', $item->item_ids);
+                return $item;
+            });
 
         } else {
             $temporaryItems =
