@@ -21,7 +21,7 @@ class ExternalInvoiceController extends Controller
         ) {}
 
 
-    public function index(Store $store = null)
+    public function index(?Store $store = null)
     {
         $contacts = Contact::companies()->pluck('id');
         if ($store) {
@@ -42,11 +42,11 @@ class ExternalInvoiceController extends Controller
     {
         try {
             $externalInvoiceId = $this->externalInvoiceService->store($request->validated());
-            session()->flash('flash.banner', __('External invoice has been successfully saved!'));
-            session()->flash('flash.bannerStyle', 'success');
         } catch (Exception $e) {
-            session()->flash('flash.banner', __('Error saving external invoice!'));
-            session()->flash('flash.bannerStyle', 'warning');
+            session()->flash('flash.banner', 'Error: ' . $e->getMessage());
+            session()->flash('flash.bannerStyle', 'danger');
+        
+            return redirect()->route('external-invoice.index');
         }
         
         return redirect()->route('external-invoice.edit', $externalInvoiceId);
