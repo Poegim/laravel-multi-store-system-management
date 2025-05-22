@@ -5,17 +5,18 @@ namespace App\Livewire\Commerce\ExternalInvoice;
 use App\Models\Color;
 use App\Models\VatRate;
 use Livewire\Component;
-use App\Models\Warehouse\Brand;
-use App\Models\Warehouse\Product;
-use Illuminate\Support\Collection;
-use App\Models\Commerce\ExternalInvoice;
-use App\Services\TemporaryExternalInvoiceItemService;
-use App\Models\Warehouse\TemporaryExternalInvoiceItem;
-use App\Services\ExternalInvoiceService;
-use App\Traits\FormatsAmount;
-use App\Traits\NetToGrossConverts;
 use App\Traits\Sortable;
 use Livewire\WithPagination;
+use App\Traits\FormatsAmount;
+use App\Models\Warehouse\Brand;
+use App\Models\Warehouse\Product;
+use App\Traits\NetToGrossConverts;
+use Illuminate\Support\Collection;
+use App\Models\Commerce\ExternalInvoice;
+use App\Services\ExternalInvoiceService;
+use Laravel\Jetstream\InteractsWithBanner;
+use App\Services\TemporaryExternalInvoiceItemService;
+use App\Models\Warehouse\TemporaryExternalInvoiceItem;
 
 class EditExternalInvoiceItems extends Component
 {
@@ -23,6 +24,7 @@ class EditExternalInvoiceItems extends Component
     use Sortable;
     use NetToGrossConverts;
     use WithPagination;
+    use InteractsWithBanner;
     
     public ?Collection $colors;
     public ?Collection $vatRates;
@@ -293,17 +295,15 @@ class EditExternalInvoiceItems extends Component
             }
             $ids = implode(',', $this->selectedRemoveItem);
 
-            session()->flash(
-                'flash.banner',
-                __("temporary_items_of_ids:_{$ids}_have_been_deleted!")
+            $this->banner(
+                __("temporary_items_of_ids:_{$ids}_has_been_deleted!")
             );
 
             session()->flash('flash.bannerStyle', 'success');
         } else {
             try {
                 $this->temporaryExternalInvoiceItemService->destroy($this->selectedRemoveItem);
-                session()->flash('flash.banner', __("temporary_item_of_id:_{$this->selectedRemoveItem}_has_been_deleted!")); 
-                session()->flash('flash.bannerStyle', 'success');
+                $this->banner(__("temporary_item_of_id:_{$this->selectedRemoveItem}_has_been_deleted!")); 
             } catch (\Exception $e) {
                 $this->addError('externalInvoiceId', $e->getMessage());
             }

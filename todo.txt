@@ -9,7 +9,6 @@ CHECK IN FUTURE
 
 BUGS
  -- NAV RWD
- -- No flash after detroing items in invoice edit
 
 
 MODULES AND NECCESSARY FEATURES
