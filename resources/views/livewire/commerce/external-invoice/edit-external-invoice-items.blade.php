@@ -739,9 +739,9 @@
     </x-confirmation-modal>
 
     <!-- Confirm Invoice Modal -->
-    <x-confirmation-modal wire:model.live="showConfirmInvoiceModal">
+    <x-confirmation-modal wire:model.live="confirmInvoiceModal">
         <x-slot name="title">
-            {{ __('delete_item') }}
+            {{ __('confirm_incvoice') }}
         </x-slot>
 
         <x-slot name="content">
@@ -749,12 +749,15 @@
                 {{ __('do_you_want_to_confirm_this_invoice?_this_action_cannot_be_undone!') }}
             </p>
             <p>
-                {{ __('after_confirming_the_invoice_you_will_not_be_able_to_edit_it_anymore_and_items_will_be_added_to_the_stock!') }}
+                {{ __('after_confirming_the_invoice_you_will_not_be_able_to_edit_it_anymore!') }}
+            </p>
+            <p>
+                {{ __('all_items_will_be_added_permanently_to_the_stock!!') }}
             </p>
         </x-slot>
 
         <x-slot name="footer">
-            <x-secondary-button wire:click="$toggle('showConfirmInvoiceModal')" wire:loading.attr="disabled">
+            <x-secondary-button wire:click="$toggle('confirmInvoiceModal')" wire:loading.attr="disabled">
                 {{ __('cancel') }}
             </x-secondary-button>
 

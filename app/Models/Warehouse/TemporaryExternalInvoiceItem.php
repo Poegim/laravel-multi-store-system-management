@@ -7,10 +7,16 @@ use App\Models\VatRate;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Commerce\ExternalInvoice;
 use App\Traits\BelongsToDevice;
+use App\Traits\BelongsToStore;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TemporaryExternalInvoiceItem extends Model
 {
+        protected $fillable = [
+        'created_at',
+    ];
+
+
     use HasFactory;
     use BelongsToDevice;
 
@@ -39,8 +45,6 @@ class TemporaryExternalInvoiceItem extends Model
         return $this->belongsTo(VatRate::class);
     }
 
-    protected $fillable = [
-        'created_at',
-    ];
+
 
 }

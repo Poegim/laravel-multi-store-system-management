@@ -67,7 +67,8 @@ class TemporaryExternalInvoiceItemsTableSeeder extends Seeder
                 if (count($batchData) >= $batchSize) {
                     DB::table('temporary_external_invoice_items')->insert($batchData);
                     $batchData = []; // Reset the array after the batch insert
-                    $totalInserted += $batchSize;                }
+                    $totalInserted += $batchSize;
+                }
             }
 
             // Insert any remaining data that didn't reach the batch size

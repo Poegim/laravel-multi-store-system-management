@@ -4,7 +4,7 @@ namespace App\Repositories\ExternalInvoiceRepository ;
 
 use Illuminate\Support\Carbon;
 use App\Models\Commerce\ExternalInvoice;
-
+use Illuminate\Support\Facades\DB;
 
 class ExternalInvoiceRepository implements ExternalInvoiceRepositoryInterface
 {
@@ -40,6 +40,30 @@ class ExternalInvoiceRepository implements ExternalInvoiceRepositoryInterface
 
     private function moveTemporaryItemsToStock(ExternalInvoice $externalInvoice)
     {
+        $storeId = $externalInvoice->store_id;
+        $batchData = [];
+        foreach ($externalInvoice->temporaryExternalInvoiceItems as $item) {
+            $batchData[] = [
+                'product_variant_id' => $item->product_variant_id,
+                'external_invoice_id' => $externalInvoice->id,
+                'suggested_retail_price' => $item->suggested_retail_price,
+                'purchase_price_net' => $item->purchase_price_net,
+                'purchase_price_gross' => $item->purchase_price_gross,
+                'color_id' => $item->color_id,
+                'vat_rate_id' => $item->vat_rate_id,
+                'brand_id' => $item->brand_id,
+                'store_id' => $storeId,
+            ];
+        }
+
+        // Insert the batch data into the stock_items table
+        DB::table('stock_items')->insert($batchData);
+
+        // Delete the temporary items
+        foreach ($externalInvoice->temporaryExternalInvoiceItems as $item) {
+            $item->delete();
+        }
+
         dd($externalInvoice->temporaryExternalInvoiceItems);
     }
 

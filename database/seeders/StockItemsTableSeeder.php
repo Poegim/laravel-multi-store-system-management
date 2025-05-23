@@ -57,9 +57,9 @@ class StockItemsTableSeeder extends Seeder
                 'purchase_price_gross' => $this->convertNetToGross(1000, 23),
                 'color_id' => $colors[array_rand($colors)],
                 'vat_rate_id' => $vatRate,
-                'store_id' => $storeId,
                 'brand_id' => $brandId,
                 'status' => rand(1,3),
+                'store_id' => $storeId,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];

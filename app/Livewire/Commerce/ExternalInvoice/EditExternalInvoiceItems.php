@@ -104,6 +104,7 @@ class EditExternalInvoiceItems extends Component
             'purchase_price_gross' => ['required', 'numeric', 'min:0.01', 'max:9999999'],
             'vatRateId' => ['required', 'exists:vat_rates,id'],
             'vatRate' => ['required', 'numeric', 'min:0', 'max:99.99'],
+
         ];
     }
 
@@ -252,6 +253,7 @@ class EditExternalInvoiceItems extends Component
         $this->productVariants = null;
         $this->lockBrand = false;
         $this->lockQuantity = false;
+        $this->selectedRemoveItem = null;
     }
 
     public function confirmCancel()
@@ -263,6 +265,7 @@ class EditExternalInvoiceItems extends Component
             return redirect()->route('external-invoice.index');
         } catch (\Exception $e) {
             $this->addError('externalInvoiceId', $e->getMessage());
+            throw $e;
         }
         
         // Ensure the modal is closed even if an error occurs
@@ -291,6 +294,7 @@ class EditExternalInvoiceItems extends Component
                     $this->temporaryExternalInvoiceItemService->destroy($itemId);
                 } catch (\Exception $e) {
                     $this->addError('externalInvoiceId', $e->getMessage());
+                    throw $e;
                 }
             }
             $ids = implode(',', $this->selectedRemoveItem);
@@ -306,6 +310,7 @@ class EditExternalInvoiceItems extends Component
                 $this->banner(__("temporary_item_of_id:_{$this->selectedRemoveItem}_has_been_deleted!")); 
             } catch (\Exception $e) {
                 $this->addError('externalInvoiceId', $e->getMessage());
+                throw $e;
             }
         }
         
@@ -317,7 +322,6 @@ class EditExternalInvoiceItems extends Component
     public function showConfirmInvoiceModal()
     {
         $this->confirmInvoiceModal = true;
-        dd($this->confirmInvoiceModal);
     }
 
     public function confirmInvoice()
@@ -329,9 +333,9 @@ class EditExternalInvoiceItems extends Component
             return redirect()->route('external-invoice.index');
         } catch (\Exception $e) {
             $this->addError('externalInvoiceId', $e->getMessage());
+            throw $e;
         }
         
-        return redirect()->route('external-invoice.show', $this->externalInvoiceId);
 
     }
 
