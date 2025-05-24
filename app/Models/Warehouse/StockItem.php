@@ -15,6 +15,13 @@ class StockItem extends Model
     use HasFormattedSRP;
     use GetsFormattedAmount;
 
+    public const AVAILABLE = 0;
+    public const SOLD = 1;
+    public const MISSING = 2;
+    public const IN_TRANSFER = 3;
+    public const IN_REPAIR = 4;
+
+
     public function formattedPurchasePriceNet()
     {
         return $this->getFormattedAmount($this->purchase_price_net);
@@ -33,5 +40,17 @@ class StockItem extends Model
     public function store(): BelongsTo
     {
         return $this->belongsTo(Store::class);
+    }
+
+    public function status() 
+    {
+        return match ($this->status) {
+            self::AVAILABLE => 'Available',
+            self::SOLD => 'Sold',
+            self::MISSING => 'Missing',
+            self::IN_TRANSFER => 'In Transfer',
+            self::IN_REPAIR => 'In Repair',
+            default => 'Unknown Status',
+        };
     }
 }

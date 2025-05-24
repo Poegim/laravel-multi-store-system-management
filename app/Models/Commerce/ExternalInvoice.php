@@ -3,12 +3,14 @@
 namespace App\Models\Commerce;
 
 use App\Models\Contact;
-use App\Models\Warehouse\TemporaryExternalInvoiceItem;
-use App\Traits\BelongsToStore;
 use App\Traits\BelongsToUser;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\BelongsToStore;
+use App\Models\Warehouse\StockItem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Warehouse\TemporaryExternalInvoiceItem;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ExternalInvoice extends Model
 {
@@ -35,6 +37,11 @@ class ExternalInvoice extends Model
     public function temporaryExternalInvoiceItems()
     {
         return $this->hasMany(TemporaryExternalInvoiceItem::class, 'external_invoice_id');
+    }
+
+    public function stockItems(): HasMany
+    {
+        return $this->hasMany(StockItem::class, 'external_invoice_id');
     }
 
     public function isTemp()

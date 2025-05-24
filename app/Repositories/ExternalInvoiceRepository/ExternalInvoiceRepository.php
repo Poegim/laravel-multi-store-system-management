@@ -25,6 +25,7 @@ class ExternalInvoiceRepository implements ExternalInvoiceRepositoryInterface
 
     public function confirm(ExternalInvoice $externalInvoice) {
         $externalInvoice->is_temp = false;
+        $externalInvoice->price = $externalInvoice->stockItems->sum('purchase_price_net');
         $this->moveTemporaryItemsToStock($externalInvoice);
         return $externalInvoice->save();
     }
@@ -53,6 +54,7 @@ class ExternalInvoiceRepository implements ExternalInvoiceRepositoryInterface
                 'vat_rate_id' => $item->vat_rate_id,
                 'brand_id' => $item->brand_id,
                 'store_id' => $storeId,
+                'status' => \App\Models\Warehouse\StockItem::AVAILABLE,
             ];
         }
 
@@ -63,8 +65,6 @@ class ExternalInvoiceRepository implements ExternalInvoiceRepositoryInterface
         foreach ($externalInvoice->temporaryExternalInvoiceItems as $item) {
             $item->delete();
         }
-
-        dd($externalInvoice->temporaryExternalInvoiceItems);
     }
 
     private function associate(ExternalInvoice $externalInvoice, array $data)
