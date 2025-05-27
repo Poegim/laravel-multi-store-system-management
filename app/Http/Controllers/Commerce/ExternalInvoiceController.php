@@ -61,7 +61,12 @@ class ExternalInvoiceController extends Controller
         return view('commerce.external-invoice.edit', compact([
             'externalInvoice'
         ]));
-    } 
+    }
+
+    public function show(int $id) {
+        $externalInvoice = ExternalInvoice::with('contact', 'stockItems', 'store')->findOrfail($id);
+        return view('commerce.external-invoice.show', compact('externalInvoice'));
+    }
 
 
 }
