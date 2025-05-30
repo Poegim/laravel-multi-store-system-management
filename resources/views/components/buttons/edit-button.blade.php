@@ -2,7 +2,7 @@
     {{
     $attributes->merge([
         'type' => 'button',
-        'class' => 'flex justify-start transition-colors duration-300 bg-blue-700 hover:bg-blue-500 dark:hover:bg-blue-900 p-1 sm:px-2 sm:py-1 rounded-mid text-white'
+        'class' => 'flex justify-start transition-colors duration-300 bg-blue-700 hover:bg-blue-500 dark:hover:bg-blue-900 p-1 rounded-mid text-white'
         ])
     }}>
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">

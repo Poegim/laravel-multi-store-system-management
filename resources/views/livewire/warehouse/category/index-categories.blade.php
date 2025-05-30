@@ -1,7 +1,7 @@
 <div class="py-2 sm:py-4 text-gray-800 dark:text-gray-200">
     <div class="">
 
-        <div class="w-full flex justify-end my-1 sm:my-4 h-9 space-x-2 pr-2 sm:pr-0">
+        <div class="index-create-btn-div">
             <x-button wire:click="create()">
                 {{ __('CREATE') }}
             </x-button>

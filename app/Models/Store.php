@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Color;
-use App\Models\Documents\ExternalInvoice;
+use App\Models\Commerce\ExternalInvoice;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -48,7 +48,12 @@ class Store extends Model
 
     public function storeBgColor(): String
     {
-        return 'bg-'.$this->color->name;
+        if($this->color) {
+
+            return 'bg-'.$this->color->name;
+        } else {
+            return '';
+        }
     }
 
     public function fillColor(): String
@@ -72,6 +77,6 @@ class Store extends Model
 
     public function externalInvoices(): HasMany
     {
-        return $this->hasMany(ExternalInvoice::class);
+        return $this->hasMany(ExternalInvoice::class, 'store_id');
     }
 }

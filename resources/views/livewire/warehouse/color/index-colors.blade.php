@@ -1,6 +1,6 @@
 <div >
 
-    <div class="w-full flex justify-end my-1 sm:my-4 h-9 space-x-2 pr-2 sm:pr-0">
+    <div class="index-create-btn-div">
         <x-input id="name" type="text" aria-placeholder="Search..." placeholder="Search..." wire:model.debounce.500ms.live="search" />
         <a href="{{ route('color.create')}}">
             <x-button>{{__('create')}}</x-button>
@@ -97,7 +97,7 @@
                         class="px-6 py-1  text-gray-900 whitespace-nowrap dark:text-white hidden lg:table-cell">
                             {{$color->updated_at}}
                         </td>
-                        <td class="px-2 sm:px-6 sm:py-1 flex justify-end">
+                        <td class="px-1 sm:px-2 sm:py-1 flex justify-end">
                             <a href="{{route('color.edit', $color)}}">
                                 <x-buttons.edit-button>
                                     {{__('edit')}}

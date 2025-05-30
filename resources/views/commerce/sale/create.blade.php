@@ -1,8 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="breadcrumb text-xl text-gray-800 dark:text-gray-200 leading-tight lowercase">
-            <div class="sm:flex py-6 px-4 {{$store->storeBgColor() }}">
-                <a class="link rounded-l pl-2 bg-white dark:bg-slate-800" href="{{route('store.show', $store)}}" wire:navigate>{{__('back to:')}} {{ $store->name }}</a>
+            <div class="top-header-breadcrumb-title {{$store->storeBgColor() }}">
+                <a class="link rounded-l pl-2 bg-white dark:bg-slate-800" href="{{route('store.show', $store)}}" wire:navigate>{{ $store->name }}</a>
                 <div class="flex space-x-2 rounded-r pr-2 bg-white dark:bg-slate-800">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="hidden sm:block size-5 my-auto -rotate-90">

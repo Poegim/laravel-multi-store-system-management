@@ -1,8 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="breadcrumb text-xl text-gray-800 dark:text-gray-200 leading-tight lowercase">
-            <div class="sm:flex py-6 px-4">
-                <a class="link" href="{{ route('product.index') }} " wire:navigate>{{__('back to:')}}
+            <div class="top-header-breadcrumb-title">
+                <a class="link" href="{{ route('product.index') }} " wire:navigate>
                     {{ __('products') }}</a>
                 <div class="flex space-x-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
