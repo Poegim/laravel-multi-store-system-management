@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\BelongsToUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
+    use BelongsToUser;
     use HasFactory;
 
     public const PERSON = 1;
@@ -29,6 +31,11 @@ class Contact extends Model
         'description',
         'user_id'
     ];
+
+    public function externalInvoices()
+    {
+        return $this->hasMany(ExternalInvoice::class);
+    }
 
     public function scopeCompanies($query)
     {

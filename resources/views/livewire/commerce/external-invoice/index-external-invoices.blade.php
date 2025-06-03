@@ -110,7 +110,7 @@
 
                         <td scope="row" class="px-1 lg:px-2 2xl:px-4 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white hidden lg:table-cell">
                             <div class="flex">
-                                <a href="{{ route('external-invoice.index', $invoice->store) }}" class="link my-auto" alt="{{$invoice->store->name}}"
+                                <a href="{{ route('store.show', $invoice->store) }}" class="link my-auto" alt="{{$invoice->store->name}}"
                                     label="{{$invoice->store->name}}">{{Illuminate\Support\Str::limit($invoice->store->name, 30, '...')}}</a>
                             </div>
                         </td>

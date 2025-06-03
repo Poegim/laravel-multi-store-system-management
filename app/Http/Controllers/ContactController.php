@@ -19,6 +19,10 @@ class ContactController extends Controller
         return view('contacts.index');
     }
 
+    public function show(Contact $contact) {
+        return view('contacts.show', compact('contact'));
+    }
+
     public function create() {
         return view('contacts.create');
     }
