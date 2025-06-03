@@ -3,18 +3,19 @@
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Models\Commerce\ExternalInvoice;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\GitHubController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Commerce\SaleController;
 use App\Http\Controllers\Warehouse\BrandController;
+use App\Http\Controllers\Warehouse\ColorController;
 use App\Http\Controllers\Warehouse\FeatureController;
 use App\Http\Controllers\Warehouse\ProductController;
 use App\Http\Controllers\Warehouse\CategoryController;
+use App\Http\Controllers\Warehouse\StockItemController;
 use App\Http\Controllers\Commerce\ExternalInvoiceController;
-use App\Http\Controllers\Warehouse\ColorController;
 use App\Http\Controllers\Warehouse\ProductVariantController;
-use App\Models\Commerce\ExternalInvoice;
 
 Route::name('user.')->prefix('user')->middleware(['auth', IsAdmin::class])->group(function () {
     Route::get('', [UserController::class, 'index'])->name('index');
@@ -27,6 +28,15 @@ Route::name('store.')->prefix('store')->middleware(['auth', IsAdmin::class])->gr
     Route::get('/show/{store}', [StoreController::class, 'show'])->name('show');
     Route::get('/edit/{store}', [StoreController::class, 'edit'])->name('edit');
     Route::put('/update/{store}', [StoreController::class, 'update'])->name('update');
+});
+
+Route::name('stock.')->prefix('stock')->middleware(['auth', IsAdmin::class])->group(function () {
+    Route::get('{store?}', [StockItemController::class, 'index'])->name('index');
+    Route::get('/create', [StockItemController::class, 'create'])->name('create');
+    Route::post('/store', [StockItemController::class, 'store'])->name('store');
+    Route::get('/show/{stock}', [StockItemController::class, 'show'])->name('show');
+    Route::get('/edit/{stock}', [StockItemController::class, 'edit'])->name('edit');
+    Route::put('/update/{stock}', [StockItemController::class, 'update'])->name('update');
 });
 
 Route::name('category.')->prefix('category')->middleware(['auth', IsAdmin::class])->group(function () {

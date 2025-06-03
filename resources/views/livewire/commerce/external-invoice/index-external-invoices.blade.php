@@ -103,14 +103,14 @@
 
                         <td scope="row" class="px-1 lg:px-2 2xl:px-4 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white hidden lg:table-cell">
                             <div class="flex">
-                                <a href="{{ route('contact.show', $invoice->contact) }}" class="link my-auto hidden lg:table-cell" alt="{{$invoice->contact->name}}"
+                                <a wire:navigate href="{{ route('contact.show', $invoice->contact) }}" class="link my-auto hidden lg:table-cell" alt="{{$invoice->contact->name}}"
                                     label="{{$invoice->contact->name}}">{{Illuminate\Support\Str::limit($invoice->contact->name, 30, '...')}}</a>
                             </div>
                         </td>
 
                         <td scope="row" class="px-1 lg:px-2 2xl:px-4 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white hidden lg:table-cell">
                             <div class="flex">
-                                <a href="{{ route('store.show', $invoice->store) }}" class="link my-auto" alt="{{$invoice->store->name}}"
+                                <a wire:navigate href="{{ route('store.show', $invoice->store) }}" class="link my-auto" alt="{{$invoice->store->name}}"
                                     label="{{$invoice->store->name}}">{{Illuminate\Support\Str::limit($invoice->store->name, 30, '...')}}</a>
                             </div>
                         </td>
