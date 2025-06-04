@@ -1,0 +1,3 @@
+<div>
+    {{ dd($stockItems) }}
+</div>
