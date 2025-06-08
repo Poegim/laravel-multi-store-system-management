@@ -9,6 +9,6 @@
         </h2>
     </x-slot>
 
-    @livewire('warehouse.stock-item.index-stock-items', ['store' => $store], key($store->id));
+    @livewire('warehouse.stock-item.index-stock-items', ['store' => $store], key($store->id))
 
 </x-app-layout>

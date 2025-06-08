@@ -3,11 +3,12 @@
 namespace App\Models\Warehouse;
 
 use App\Models\Store;
-use App\Traits\GetsFormattedAmount;
+use App\Models\VatRate;
 use App\Traits\HasFormattedSRP;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\GetsFormattedAmount;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class StockItem extends Model
 {
@@ -40,6 +41,16 @@ class StockItem extends Model
     public function store(): BelongsTo
     {
         return $this->belongsTo(Store::class);
+    }
+
+    public function productVariant(): BelongsTo
+    {
+        return $this->belongsTo(ProductVariant::class);
+    }
+
+    public function vatRate(): BelongsTo
+    {
+        return $this->belongsTo(VatRate::class);
     }
 
     public function status() 

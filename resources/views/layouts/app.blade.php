@@ -40,21 +40,37 @@
     $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))" x-cloak>
 
     @props(['headerBgColor' => 'bg-white dark:bg-gray-800'])
+
     <div x-bind:class="{'dark' : darkMode === false}">
 
         <x-banner />
 
-        <div class="bg-gray-100 dark:bg-gray-900 lg:flex h-full min-h-screen">
+        @php
+            use App\Models\Store;
 
-            <div class="lg:hidden">
+            $storeId = request()->route('store');
+            $store = $storeId ? Store::find($storeId) : null;
+        @endphp
+
+        @if($store)
+            {{ dd($store) }}
+        @endif
+
+        <div class="bg-gray-100 dark:bg-gray-900 h-full min-h-screen">
+
+
+
+            {{-- <div class="lg:hidden">
                 @livewire('navigation-menu')
             </div>
 
             <div class="hidden lg:block">
                 <x-sidebar />
-            </div>
+            </div> --}}
 
+            
             <div class="w-full">
+                <x-navigation-top-menu />
                 <!-- Page Heading -->
                 @if (isset($header))
                 <header class="shadow {{ $headerBgColor }}">

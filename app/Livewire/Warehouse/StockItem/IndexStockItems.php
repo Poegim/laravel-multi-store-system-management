@@ -26,8 +26,8 @@ class IndexStockItems extends Component
     {
         $stockItems = StockItem::when($this->store?->id, function ($query, $storeId) {
             return $query->where('store_id', $storeId);
-            })->get();
-            
+            })->with(['productVariant.product.brand', 'vatRate', 'brand'])->get();
+
         return view('livewire.warehouse.stock-item.index-stock-items', compact('stockItems'));
     }
 }
