@@ -45,17 +45,6 @@
 
         <x-banner />
 
-        @php
-            use App\Models\Store;
-
-            $storeId = request()->route('store');
-            $store = $storeId ? Store::find($storeId) : null;
-        @endphp
-
-        @if($store)
-            {{ dd($store) }}
-        @endif
-
         <div class="bg-gray-100 dark:bg-gray-900 h-full min-h-screen">
 
 

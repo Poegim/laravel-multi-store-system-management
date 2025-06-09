@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Warehouse\Brand;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -11,7 +10,6 @@ class UpdateProductRequest extends FormRequest
 {
     public function rules(): array
     {
-        // dd($this->route(), $this->input('id'));
         return [
             'name' => ['required', 'string','min:2','max:255',],
             'slug' =>

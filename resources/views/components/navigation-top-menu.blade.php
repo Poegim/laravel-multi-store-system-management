@@ -17,6 +17,8 @@
                     </a>
                 </div>
 
+                
+
                 <!-- Navigation Links -->
                 <div class="hidden space-x-2 ml-2 sm:flex">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" @click="setLastClicked('dashboard')">
@@ -28,8 +30,24 @@
                 </div>
             </div>
 
+
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <div class="my-auto" data-tooltip-target="tooltip-mode">
+
+                @php
+                    $routeStore = request()->route('store');
+                @endphp
+    
+                @if(isset($routeStore))
+                    <div class="rounded-lg px-2 mx-2 text-gray-900  font-semibold italic">
+                        {{ $routeStore?->name }}
+                    </div>
+                @else
+                    <div class="rounded-lg mx-2 px-2 bg-white dark:bg-gray-700">
+                        Error: Unknown Store
+                    </div>
+                @endif
+
+                <div class="my-auto mt-2" data-tooltip-target="tooltip-mode">
                     <button type="button" x-bind:class="darkMode ? 'bg-sky-200' : 'bg-sky-900'"
                         x-on:click="darkMode = !darkMode"
                         class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-gray-200 focus:ring-offset-2 hover:bg-sky-500"
