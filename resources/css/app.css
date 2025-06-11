@@ -8,7 +8,7 @@
 
 .index-create-btn-div
 {
-    @apply w-full flex justify-end h-7 space-x-2 pr-2 sm:pr-0
+    @apply w-full flex justify-end space-x-2 mb-2 pr-2 sm:pr-0
 }
 
 .top-header-breadcrumb-title
