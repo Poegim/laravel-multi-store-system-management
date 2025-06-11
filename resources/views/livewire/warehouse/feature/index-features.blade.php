@@ -7,11 +7,12 @@
             </a>
         </div>
 
-        <x-window>
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs uppercase">
-                        <tr class="text-black dark:text-white">
-                            <th scope="col" class="px-6 py-3">
+<x-window>
+    <div class="overflow-x-auto">
+        <table class="rounded-2xl overflow-hidden min-w-full text-xs text-left text-gray-700 dark:text-gray-300 border dark:border-gray-700">
+            <thead class="uppercase bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                <tr>
+                    <th class="px-4 py-2 cursor-pointer">
                                 <div class="flex cursor-pointer" wire:click="sortBy('id')">
                                     <span class="uppercase">
                                         {{__('id')}}
@@ -62,27 +63,27 @@
                     </thead>
                     <tbody>
                         @foreach($features as $feature)
-                        <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <th scope="row"
-                                class="font-thin px-6 py-1 text-gray-900 whitespace-nowrap dark:text-white">
+                <tr class="bg-white dark:bg-gray-800 border-t hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                            <td scope="row"
+                                class="font-thin px-4 py-2 text-gray-900 whitespace-nowrap dark:text-white">
                                     {{$feature->id}}
-                            </th>
-                            <th scope="row"
-                                class="px-6 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            </td>
+                            <td scope="row"
+                                class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <div class="flex">
                                     <a href="{{ route('feature.show', $feature->slug) }}" class="link my-auto">{{$feature->name}}</a>
                                 </div>
-                            </th>
-                            <td class="px-6 py-1 hidden lg:table-cell">
+                            </td>
+                            <td class="px-4 py-2 hidden lg:table-cell">
                                 {{$feature->short_name}}
                             </td>
-                            <td class="px-6 py-1 hidden lg:table-cell">
+                            <td class="px-4 py-2 hidden lg:table-cell">
                                 {{ $feature->totalStockItemsCount() }}
                             </td>
-                            <td class="px-6 py-1 hidden lg:table-cell">
+                            <td class="px-4 py-2 hidden lg:table-cell">
                                 {{$feature->slug}}
                             </td>
-                            <td class="px-6 py-1 hidden lg:table-cell">
+                            <td class="px-4 py-2 hidden lg:table-cell">
                                 <div class="flex">
                                     <img src="{{ $feature->user->profile_photo_url }}" alt="{{ $feature->user->name }}"
                                     class="rounded-full w-12 h-12 md:h-8 md:w-8 object-cover mr-2 my-auto mb-4 md:mb-0">
@@ -91,7 +92,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-1 flex justify-end">
+                            <td class="px-4 py-2 flex justify-end">
                                 <a href="{{route('feature.edit', $feature->slug)}}">
                                     <x-buttons.edit-button>
                                         {{__('edit')}}
@@ -104,7 +105,7 @@
                 </table>
 
             <div class=" m-4">
-                {{ $features->links() }}
+                {{ $features->links(data: ['scrollTo' => false]) }}
             </div>
         </x-window>
 </div>

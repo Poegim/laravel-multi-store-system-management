@@ -59,12 +59,19 @@
     font-family: "Roboto Condensed", sans-serif;
 }
 
-.link
-{
-    /* @apply text-blue-800 dark:text-blue-200 hover:tracking-wide hover:underline hover:decoration-dotted hover:decoration-1 italic font-light; */
-    @apply text-blue-600 dark:text-blue-500 hover:underline font-light;
-    font-family: sans-serif;
+.link {
+    @apply relative text-gray-800 dark:text-gray-200 font-medium transition-all duration-200;
 }
+
+.link::after {
+    content: '';
+    @apply absolute left-0 -bottom-0.5 w-0 h-[1.5px] bg-current transition-all duration-300;
+}
+
+.link:hover::after {
+    @apply w-full;
+}
+
 
 .accordion-btn
 {

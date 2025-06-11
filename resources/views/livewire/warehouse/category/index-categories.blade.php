@@ -1,14 +1,12 @@
-<div class="py-2 sm:py-4 text-gray-800 dark:text-gray-200">
-    <div class="">
-
+<div>
         <div class="index-create-btn-div">
             <x-button wire:click="create()">
                 {{ __('CREATE') }}
             </x-button>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-mid">
-            <div class="p-4 rounded-mid  shadow-lg">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-2xl">
+            <div class="p-2 rounded-md shadow-lg">
                 <div class="-ml-12">
                     @foreach ($categories as $categoryName => $category)
                         @include('livewire.warehouse.category.list', ['name' => $categoryName, 'category' => $category,
@@ -16,7 +14,6 @@
                     @endforeach
                 </div>
             </div>
-        </div>
     </div>
 
     <!-- Show Edit Modal -->

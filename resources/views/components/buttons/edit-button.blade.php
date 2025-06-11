@@ -2,13 +2,12 @@
     {{
     $attributes->merge([
         'type' => 'button',
-        'class' => 'flex justify-start transition-colors duration-300 bg-blue-700 hover:bg-blue-500 dark:hover:bg-blue-900 p-1 rounded-mid text-white'
-        ])
+        'class' => 'roboto italic inline-flex items-center gap-2 px-4 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-md shadow hover:bg-blue-500 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 transition-colors'
+    ])
     }}>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+    <svg viewBox="0 0 24 24" class="h-5 w-5 fill-white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <path d="M20.1497 7.93997L8.27971 19.81C7.21971 20.88 4.04971 21.3699 3.27971 20.6599C2.50971 19.9499 3.06969 16.78 4.12969 15.71L15.9997 3.84C16.5478 3.31801 17.2783 3.03097 18.0351 3.04019C18.7919 3.04942 19.5151 3.35418 20.0503 3.88938C20.5855 4.42457 20.8903 5.14781 20.8995 5.90463C20.9088 6.66146 20.6217 7.39189 20.0997 7.93997H20.1497Z" stroke="none" />
+        <path d="M21 21H12" stroke="none" />
     </svg>
-    {{-- <div class="uppercase font-light sm:font-normal tracking-widest sm:tracking-normal text-xs text-center my-auto px-2 py-[1.5px] sm:px-0">
-        {{__('edit')}}
-    </div> --}}
+    <span>{{ __('Edit') }}</span>
 </button>
