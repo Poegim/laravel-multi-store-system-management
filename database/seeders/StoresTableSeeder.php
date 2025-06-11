@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Color;
 use App\Models\Store;
 use Faker\Factory as Faker;
+use Illuminate\Support\Arr;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -18,6 +19,7 @@ class StoresTableSeeder extends Seeder
         // Store::factory(5)->create();
 
         $faker = Faker::create('pl_PL');
+        $shade = Arr::random(['200', '300', '400']);
 
         $stores = [
             [
@@ -30,7 +32,11 @@ class StoresTableSeeder extends Seeder
                 'street' => $faker->streetName(),
                 'building_number' => rand(1,200),
                 'apartment_number' => rand(1,99),
-                'color_id' => Color::inRandomOrder()->first()->id,
+                'color_id' => optional(
+                    Color::inRandomOrder()
+                        ->where('name', 'like', "%-$shade")
+                        ->first()
+                )->id,
                 'contracts_prefix' => 'BRW',
                 'invoices_prefix' => 'BRW',
                 'margin_invoices_prefix' => 'BRW',
@@ -55,8 +61,11 @@ class StoresTableSeeder extends Seeder
                 'street' => $faker->streetName(),
                 'building_number' => rand(1,200),
                 'apartment_number' => rand(1,99),
-                'color_id' => Color::inRandomOrder()->first()->id,
-                'contracts_prefix' => 'BRS',
+                'color_id' => optional(
+                    Color::inRandomOrder()
+                        ->where('name', 'like', "%-$shade")
+                        ->first()
+                )->id,                'contracts_prefix' => 'BRS',
                 'invoices_prefix' => 'BRS',
                 'margin_invoices_prefix' => 'BRS',
                 'proforma_invoices_prefix' => 'BRS',
@@ -80,8 +89,11 @@ class StoresTableSeeder extends Seeder
                 'street' => $faker->streetName(),
                 'building_number' => rand(1,200),
                 'apartment_number' => rand(1,99),
-                'color_id' => Color::inRandomOrder()->first()->id,
-                'contracts_prefix' => 'GJA',
+                'color_id' => optional(
+                    Color::inRandomOrder()
+                        ->where('name', 'like', "%-$shade")
+                        ->first()
+                )->id,                'contracts_prefix' => 'GJA',
                 'invoices_prefix' => 'GJA',
                 'margin_invoices_prefix' => 'GJA',
                 'proforma_invoices_prefix' => 'GJA',
@@ -105,8 +117,11 @@ class StoresTableSeeder extends Seeder
                 'street' => $faker->streetName(),
                 'building_number' => rand(1,200),
                 'apartment_number' => rand(1,99),
-                'color_id' => Color::inRandomOrder()->first()->id,
-                'contracts_prefix' => 'IA',
+                'color_id' => optional(
+                    Color::inRandomOrder()
+                        ->where('name', 'like', "%-$shade")
+                        ->first()
+                )->id,                'contracts_prefix' => 'IA',
                 'invoices_prefix' => 'IA',
                 'margin_invoices_prefix' => 'IA',
                 'proforma_invoices_prefix' => 'IA',
@@ -130,8 +145,11 @@ class StoresTableSeeder extends Seeder
                 'street' => $faker->streetName(),
                 'building_number' => rand(1,200),
                 'apartment_number' => rand(1,99),
-                'color_id' => Color::inRandomOrder()->first()->id,
-                'contracts_prefix' => 'ET',
+                'color_id' => optional(
+                    Color::inRandomOrder()
+                        ->where('name', 'like', "%-$shade")
+                        ->first()
+                )->id,                'contracts_prefix' => 'ET',
                 'invoices_prefix' => 'ET',
                 'margin_invoices_prefix' => 'ET',
                 'proforma_invoices_prefix' => 'ET',

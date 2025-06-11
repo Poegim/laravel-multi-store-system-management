@@ -41,7 +41,8 @@
 
     @props(['headerBgColor' => 'bg-white dark:bg-gray-800'])
 
-    <div x-bind:class="{'dark' : darkMode === false}">
+    {{-- <div x-bind:class="{'dark' : darkMode === false}"> --}}
+    <div>
 
         <x-banner />
 
@@ -62,7 +63,7 @@
                 <x-navigation-top-menu />
                 <!-- Page Heading -->
                 @if (isset($header))
-                <header class="shadow {{ $headerBgColor }}">
+                <header class="shadow px-3 {{ $headerBgColor }}">
                     <div class="mx-auto">
                         {{ $header }}
                     </div>

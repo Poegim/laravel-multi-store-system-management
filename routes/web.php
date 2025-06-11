@@ -39,14 +39,18 @@ Route::name('stock.')->prefix('stock')->middleware(['auth', IsAdmin::class])->gr
     Route::put('/update/{stock}', [StockItemController::class, 'update'])->name('update');
 });
 
-Route::name('category.')->prefix('category')->middleware(['auth', IsAdmin::class])->group(function () {
-    Route::get('', [CategoryController::class, 'index'])->name('index');
-    Route::get('/create', [CategoryController::class, 'create'])->name('create');
-    Route::post('/store', [CategoryController::class, 'store'])->name('store');
-    Route::get('/show/{category:slug}', [CategoryController::class, 'show'])->name('show');
-    Route::get('/edit/{category:slug}', [CategoryController::class, 'edit'])->name('edit');
-    Route::put('/update{category:slug}', [CategoryController::class, 'update'])->name('update');
+Route::prefix('repository')->group(function () {
+    Route::name('category.')->prefix('category')->middleware(['auth', IsAdmin::class])->group(function () {
+        Route::get('', [CategoryController::class, 'index'])->name('index');
+        Route::get('/create', [CategoryController::class, 'create'])->name('create');
+        Route::post('/store', [CategoryController::class, 'store'])->name('store');
+        Route::get('/show/{category:slug}', [CategoryController::class, 'show'])->name('show');
+        Route::get('/edit/{category:slug}', [CategoryController::class, 'edit'])->name('edit');
+        Route::put('/update{category:slug}', [CategoryController::class, 'update'])->name('update');
+    });
 });
+
+
 
 Route::name('brand.')->prefix('brand')->middleware(['auth'])->group(function () {
     Route::get('', [BrandController::class, 'index'])->name('index');
