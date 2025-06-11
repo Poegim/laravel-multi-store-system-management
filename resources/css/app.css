@@ -13,7 +13,7 @@
 
 .top-header-breadcrumb-title
 {
-    @apply sm:flex py-2 px-2;
+    @apply sm:flex p-1 sm:py-2 sm:px-2;
 }
 
 .input-jetstream
@@ -68,7 +68,7 @@
 
 .accordion-btn
 {
-    @apply text-blue-700 dark:text-blue-400 text-xl flex px-4 py-2 w-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-150;
+    @apply text-blue-700 dark:text-blue-400 text-xl flex px-1 py-1 sm:px-4 sm:py-2 w-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-150;
     font-family: "Roboto Condensed", sans-serif;
 }
 
@@ -79,11 +79,11 @@
 
 .input-label
 {
-    @apply block mb-1 text-sm font-medium text-gray-900 dark:text-white;
+    @apply block sm:mb-1 text-sm font-medium text-gray-600 dark:text-gray-300;
 }
 
 .input-text
 {
-    @apply mb-4 border border-indigo-300 text-gray-900 text-sm rounded-md block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white;
+    @apply mb-2 border border-indigo-300 text-gray-900 text-sm rounded-md block w-full p-1 sm:p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white;
 }
 

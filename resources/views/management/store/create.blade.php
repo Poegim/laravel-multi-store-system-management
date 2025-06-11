@@ -1,13 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="breadcrumb text-xl text-gray-800 dark:text-gray-200 leading-tight lowercase">
+        <h2 class="breadcrumb md:text-xl text-gray-800 dark:text-gray-200 leading-tight">
             <div class="top-header-breadcrumb-title">
-                <a class="link" href="{{route('store.index')}}" wire:navigate>{{ __('stores') }}</a>
                 <div class="flex space-x-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="hidden sm:block size-5 my-auto -rotate-90">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                    </svg>
                     {{__('create store')}}
                 </div>
             </div>
@@ -27,217 +22,219 @@
             </x-lists.errors-list>
             @endif
 
-            <div x-data="{ open: true}"
-                class="border border-gray-200 dark:border-gray-600 rounded-mid  my-2 overflow-hidden">
-                <button type="button" class="accordion-btn" x-on:click="open = !open"
-                    :class="!open ? '' : 'bg-gray-200 dark:bg-gray-900'">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-5 my-auto transition-transform duration-75"
-                        :class="!open ? '' : 'rotate-180'">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                    </svg>
-                    <span class="ml-1">
-                        {{__('basic')}}
-                    </span>
-                </button>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
                 <!-- Basic tab -->
-                <div class="p-4" x-show="open">
+                <div x-data="{ open: true}"
+                    class="border border-gray-200 dark:border-gray-600 rounded-2xl my-2 overflow-hidden">
+                    <button type="button" class="accordion-btn" x-on:click="open = !open"
+                        :class="!open ? '' : 'bg-gray-200 dark:bg-gray-900'">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-5 my-auto transition-transform duration-75"
+                            :class="!open ? '' : 'rotate-180'">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                        <span class="ml-1">
+                            {{__('basic')}}
+                        </span>
+                    </button>
 
-                    <label for="name"
-                        class="input-label">{{__('name')}}</label>
-                    @error('name')
-                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                    @enderror
-                    <input type="text" id="name" name="name"
-                        class="input-text"
-                        required value="{{ old('name') ? old('name') : ''}}" />
+                    <div class="p-2 sm:p-4" x-show="open">
 
-                    <label for="order"
-                        class="input-label">{{ __('order')}}</label>
-                    @error('order')
-                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                    @enderror
-                    <input type="number" id="order" name="order"
-                        class="input-text"
-                        required value="{{old('order') ? old('order') : 0 }}" />
+                        <label for="name"
+                            class="input-label">{{__('name')}}</label>
+                        @error('name')
+                        <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
+                        <input type="text" id="name" name="name"
+                            class="input-text"
+                            required value="{{ old('name') ? old('name') : ''}}" />
 
-                    <label for="color_id"
-                        class="input-label">{{ __('select color')}}:</label>
-                    @error('color_id')
-                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                    @enderror
+                        <label for="order"
+                            class="input-label">{{ __('order')}}</label>
+                        @error('order')
+                        <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
+                        <input type="number" id="order" name="order"
+                            class="input-text"
+                            required value="{{old('order') ? old('order') : 0 }}" />
 
-                    <select id="color_id" name="color_id"
-                        class="input-text focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                        <option value=""></option>
-                        @foreach ($colors as $color)
-                        <option style="background-color: {{$color->value}} ;" value="{{$color->id}}"
-                            @if(old('color_id')==$color->id) selected @endif>{{ $color->name }}</option>
-                        @endforeach
-                    </select>
+                        <label for="color_id"
+                            class="input-label">{{ __('select color')}}:</label>
+                        @error('color_id')
+                        <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
 
-                    <label for="email"
-                        class="input-label">{{__('email')}}</label>
-                    @error('email')
-                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                    @enderror
-                    <input type="email" id="email" name="email"
-                        class=" input-text"
-                        required value="{{ old('email') ? old('email') : ''}}" />
+                        <select id="color_id" name="color_id"
+                            class="input-text focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <option value=""></option>
+                            @foreach ($colors as $color)
+                            <option style="background-color: {{$color->value}} ;" value="{{$color->id}}"
+                                @if(old('color_id')==$color->id) selected @endif>{{ $color->name }}</option>
+                            @endforeach
+                        </select>
 
-                    <label for="phone"
-                        class="input-label">{{__('phone')}}</label>
-                    @error('phone')
-                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                    @enderror
-                    <input type="text" id="phone" name="phone"
-                        class=" input-text"
-                        required value="{{old('phone') ? old('phone') : null }}" />
+                        <label for="email"
+                            class="input-label">{{__('email')}}</label>
+                        @error('email')
+                        <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
+                        <input type="email" id="email" name="email"
+                            class=" input-text"
+                            required value="{{ old('email') ? old('email') : ''}}" />
 
+                        <label for="phone"
+                            class="input-label">{{__('phone')}}</label>
+                        @error('phone')
+                        <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
+                        <input type="text" id="phone" name="phone"
+                            class=" input-text"
+                            required value="{{old('phone') ? old('phone') : null }}" />
+
+                    </div>
                 </div>
-            </div>
-
-            <!-- Address tab -->
-            <div x-data="{ open: true}"
-                class="border border-gray-200 dark:border-gray-600 rounded-mid  my-2 overflow-hidden">
-                <button type="button" class="accordion-btn" x-on:click="open = !open"
-                    :class="!open ? '' : 'bg-gray-200 dark:bg-gray-900'">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-5 my-auto transition-transform duration-75"
-                        :class="!open ? '' : 'rotate-180'">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                    </svg>
-                    <span class="ml-1">
-                        {{__('address')}}
-                    </span>
-                </button>
 
                 <!-- Address tab -->
-                <div class="p-4" x-show="open">
-                    <label for="city"
-                        class="input-label">{{__('city')}}</label>
-                    @error('city')
-                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                    @enderror
-                    <input type="text" id="city" name="city"
-                        class=" input-text"
-                        required value="{{old('city') ? old('city') : ''}}" />
+                <div x-data="{ open: true}"
+                    class="border border-gray-200 dark:border-gray-600 rounded-2xl  my-2 overflow-hidden">
+                    <button type="button" class="accordion-btn" x-on:click="open = !open"
+                        :class="!open ? '' : 'bg-gray-200 dark:bg-gray-900'">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-5 my-auto transition-transform duration-75"
+                            :class="!open ? '' : 'rotate-180'">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                        <span class="ml-1">
+                            {{__('address')}}
+                        </span>
+                    </button>
 
-                    <label for="postcode"
-                        class="input-label">{{__('postcode')}}</label>
-                    @error('postcode')
-                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                    @enderror
-                    <input type="text" id="postcode" name="postcode"
-                        class=" input-text"
-                        required value="{{old('postcode') ? old('postcode') : null}}" />
+                    <!-- Address tab -->
+                    <div class="p-4" x-show="open">
+                        <label for="city"
+                            class="input-label">{{__('city')}}</label>
+                        @error('city')
+                        <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
+                        <input type="text" id="city" name="city"
+                            class=" input-text"
+                            required value="{{old('city') ? old('city') : ''}}" />
 
-                    <label for="street"
-                        class="input-label">{{__('street')}}</label>
-                    @error('street')
-                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                    @enderror
-                    <input type="text" id="street" name="street"
-                        class=" input-text"
-                        required value="{{old('street') ? old('street') : ''}}" />
+                        <label for="postcode"
+                            class="input-label">{{__('postcode')}}</label>
+                        @error('postcode')
+                        <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
+                        <input type="text" id="postcode" name="postcode"
+                            class=" input-text"
+                            required value="{{old('postcode') ? old('postcode') : null}}" />
 
-                    <label for="building_number"
-                        class="input-label">{{__('building_number')}}</label>
-                    @error('building_number')
-                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                    @enderror
-                    <input type="text" id="building_number" name="building_number"
-                        class=" input-text"
-                        required value="{{old('building_number') ? old('building_number') : ''}}" />
+                        <label for="street"
+                            class="input-label">{{__('street')}}</label>
+                        @error('street')
+                        <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
+                        <input type="text" id="street" name="street"
+                            class=" input-text"
+                            required value="{{old('street') ? old('street') : ''}}" />
 
-                    <label for="apartment_number"
-                        class="input-label">{{__('apartment_number')}}</label>
-                    @error('apartment_number')
-                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                    @enderror
-                    <input type="text" id="apartment_number" name="apartment_number"
-                        class=" input-text"
-                        required value="{{old('apartment_number') ? old('apartment_number') : ''}}" />
+                        <label for="building_number"
+                            class="input-label">{{__('building_number')}}</label>
+                        @error('building_number')
+                        <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
+                        <input type="text" id="building_number" name="building_number"
+                            class=" input-text"
+                            required value="{{old('building_number') ? old('building_number') : ''}}" />
+
+                        <label for="apartment_number"
+                            class="input-label">{{__('apartment_number')}}</label>
+                        @error('apartment_number')
+                        <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
+                        <input type="text" id="apartment_number" name="apartment_number"
+                            class=" input-text"
+                            required value="{{old('apartment_number') ? old('apartment_number') : ''}}" />
+                    </div>
                 </div>
-            </div>
-
-            <!-- Prefixes tab -->
-            <div x-data="{ open: true}"
-                class="border border-gray-200 dark:border-gray-600 rounded-mid  my-2 overflow-hidden">
-                <button type="button" class="accordion-btn" x-on:click="open = !open"
-                    :class="!open ? '' : 'bg-gray-200 dark:bg-gray-900'">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-5 my-auto transition-transform duration-75"
-                        :class="!open ? '' : 'rotate-180'">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                    </svg>
-                    <span class="ml-1">
-                        {{__('prefixes')}}
-                    </span>
-                </button>
 
                 <!-- Prefixes tab -->
-                <div class="p-4" x-show="open">
-                    <label for="contracts_prefix"
-                        class="input-label">{{__('contracts_prefix')}}</label>
-                    @error('contracts_prefix')
-                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                    @enderror
-                    <input type="text" id="contracts_prefix" name="contracts_prefix"
-                        class=" input-text"
-                        required value="{{old('contracts_prefix') ? old('contracts_prefix') : ''}}" />
+                <div x-data="{ open: true}"
+                    class="border border-gray-200 dark:border-gray-600 rounded-2xl  my-2 overflow-hidden">
+                    <button type="button" class="accordion-btn" x-on:click="open = !open"
+                        :class="!open ? '' : 'bg-gray-200 dark:bg-gray-900'">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-5 my-auto transition-transform duration-75"
+                            :class="!open ? '' : 'rotate-180'">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                        <span class="ml-1">
+                            {{__('prefixes')}}
+                        </span>
+                    </button>
 
-                    <label for="invoices_prefix"
-                        class="input-label">{{__('invoices_prefix')}}</label>
-                    @error('invoices_prefix')
-                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                    @enderror
-                    <input type="text" id="invoices_prefix" name="invoices_prefix"
-                        class=" input-text"
-                        required value="{{old('invoices_prefix') ? old('invoices_prefix') : ''}}" />
+                    <!-- Prefixes tab -->
+                    <div class="p-4" x-show="open">
+                        <label for="contracts_prefix"
+                            class="input-label">{{__('contracts_prefix')}}</label>
+                        @error('contracts_prefix')
+                        <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
+                        <input type="text" id="contracts_prefix" name="contracts_prefix"
+                            class=" input-text"
+                            required value="{{old('contracts_prefix') ? old('contracts_prefix') : ''}}" />
 
-                    <label for="margin_invoices_prefix"
-                        class="input-label">{{__('margin_invoices_prefix')}}</label>
-                    @error('margin_invoices_prefix')
-                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                    @enderror
-                    <input type="text" id="margin_invoices_prefix" name="margin_invoices_prefix"
-                        class=" input-text"
-                        required value="{{old('margin_invoices_prefix') ? old('margin_invoices_prefix') : ''}}" />
+                        <label for="invoices_prefix"
+                            class="input-label">{{__('invoices_prefix')}}</label>
+                        @error('invoices_prefix')
+                        <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
+                        <input type="text" id="invoices_prefix" name="invoices_prefix"
+                            class=" input-text"
+                            required value="{{old('invoices_prefix') ? old('invoices_prefix') : ''}}" />
 
-                    <label for="proforma_invoices_prefix"
-                        class="input-label">{{__('proforma_invoices_prefix')}}</label>
-                    @error('proforma_invoices_prefix')
-                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                    @enderror
-                    <input type="text" id="proforma_invoices_prefix" name="proforma_invoices_prefix"
-                        class=" input-text"
-                        required value="{{old('proforma_invoices_prefix') ? old('proforma_invoices_prefix') : ''}}" />
+                        <label for="margin_invoices_prefix"
+                            class="input-label">{{__('margin_invoices_prefix')}}</label>
+                        @error('margin_invoices_prefix')
+                        <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
+                        <input type="text" id="margin_invoices_prefix" name="margin_invoices_prefix"
+                            class=" input-text"
+                            required value="{{old('margin_invoices_prefix') ? old('margin_invoices_prefix') : ''}}" />
 
-                    <label for="internal_servicing_prefix"
-                        class="input-label">{{__('internal_servicing_prefix')}}</label>
-                    @error('internal_servicing_prefix')
-                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                    @enderror
-                    <input type="text" id="internal_servicing_prefix" name="internal_servicing_prefix"
-                        class=" input-text"
-                        required value="{{old('internal_servicing_prefix') ? old('internal_servicing_prefix') : ''}}" />
+                        <label for="proforma_invoices_prefix"
+                            class="input-label">{{__('proforma_invoices_prefix')}}</label>
+                        @error('proforma_invoices_prefix')
+                        <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
+                        <input type="text" id="proforma_invoices_prefix" name="proforma_invoices_prefix"
+                            class=" input-text"
+                            required value="{{old('proforma_invoices_prefix') ? old('proforma_invoices_prefix') : ''}}" />
 
-                    <label for="external_servicing_prefix"
-                        class="input-label">{{__('external_servicing_prefix')}}</label>
-                    @error('external_servicing_prefix')
-                    <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
-                    @enderror
-                    <input type="text" id="external_servicing_prefix" name="external_servicing_prefix"
-                        class=" input-text"
-                        required value="{{old('external_servicing_prefix') ? old('external_servicing_prefix') : ''}}" />
+                        <label for="internal_servicing_prefix"
+                            class="input-label">{{__('internal_servicing_prefix')}}</label>
+                        @error('internal_servicing_prefix')
+                        <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
+                        <input type="text" id="internal_servicing_prefix" name="internal_servicing_prefix"
+                            class=" input-text"
+                            required value="{{old('internal_servicing_prefix') ? old('internal_servicing_prefix') : ''}}" />
+
+                        <label for="external_servicing_prefix"
+                            class="input-label">{{__('external_servicing_prefix')}}</label>
+                        @error('external_servicing_prefix')
+                        <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
+                        @enderror
+                        <input type="text" id="external_servicing_prefix" name="external_servicing_prefix"
+                            class=" input-text"
+                            required value="{{old('external_servicing_prefix') ? old('external_servicing_prefix') : ''}}" />
+                    </div>
                 </div>
-            </div>
 
-            <!-- Indexes tab -->
-            <div x-data="{ open: true}"
-                class="border border-gray-200 dark:border-gray-600 rounded-mid  my-2 overflow-hidden">
+                <!-- Indexes tab -->
+                <div x-data="{ open: true}"
+                class="border border-gray-200 dark:border-gray-600 rounded-2xl  my-2 overflow-hidden">
                 <button type="button" class="accordion-btn" x-on:click="open = !open"
                     :class="!open ? '' : 'bg-gray-200 dark:bg-gray-900'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -312,9 +309,12 @@
                 </div>
             </div>
 
+            </div>
+
+
             <!-- Description tab -->
             <div x-data="{ open: true}"
-                class="border border-gray-200 dark:border-gray-600 rounded-mid  my-2 overflow-hidden">
+                class="border border-gray-200 dark:border-gray-600 rounded-2xl  my-2 overflow-hidden">
                 <button type="button" class="accordion-btn" x-on:click="open = !open"
                     :class="!open ? '' : 'bg-gray-200 dark:bg-gray-900'">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
