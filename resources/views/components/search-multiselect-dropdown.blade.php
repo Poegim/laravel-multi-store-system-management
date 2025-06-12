@@ -3,7 +3,7 @@
     <!-- Show choosen items-->
     <div class="flex flex-wrap gap-1 my-1">
         <template x-for="(selectedItem, index) in selectedItems" :key="index">
-            <span class="bg-blue-500 text-white px-2 py-1 rounded-md flex items-center">
+            <span class="bg-blue-500 text-white px-4 py-2 rounded-md flex items-center">
                 <span x-text="selectedItem[searchBy]"></span>
                 <button type="button" @click="removeItem(index)" class="text-xs">×</button>
             </span>

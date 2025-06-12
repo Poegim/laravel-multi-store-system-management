@@ -449,7 +449,7 @@
             <table class="min-w-max w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs uppercase">
                     <tr class="text-black dark:text-white">
-                        <th scope="col" class="px-2 py-1">
+                        <th scope="col" class="px-4 py-2">
                             @if($aggregate)
                                 <span class="uppercase">
                                     {{__('qnt')}}
@@ -467,7 +467,7 @@
                             </div>
                             @endif
                         </th>
-                        <th scope="col" class="px-2 py-1">
+                        <th scope="col" class="px-4 py-2">
                             @if($aggregate)
                             <span class="uppercase">
                                 {{__('brand')}}
@@ -485,10 +485,10 @@
                             </div>
                             @endif
                         </th>
-                        <th scope="col" class="px-2 py-1">
+                        <th scope="col" class="px-4 py-2">
                             {{__('product')}}
                         </th>
-                        <th scope="col" class="px-2 py-1">
+                        <th scope="col" class="px-4 py-2">
                             @if($aggregate)
                             <span class="uppercase">
                                 {{__('product_variant')}}
@@ -506,7 +506,7 @@
                             </div>
                             @endif
                         </th>
-                        <th scope="col" class="px-2 py-1">
+                        <th scope="col" class="px-4 py-2">
                             @if($aggregate)
                             <span class="uppercase">
                                 {{__('device')}}
@@ -524,7 +524,7 @@
                             </div>
                             @endif
                         </th>
-                        <th scope="col" class="px-2 py-1 hidden 2xl:table-cell">
+                        <th scope="col" class="px-4 py-2 hidden 2xl:table-cell">
                             @if($aggregate)
                             <span class="uppercase">
                                 {{__('color')}}
@@ -542,7 +542,7 @@
                             </div>
                             @endif
                         </th>
-                        <th scope="col" class="px-2 py-1 hidden lg:table-cell">
+                        <th scope="col" class="px-4 py-2 hidden lg:table-cell">
                             @if($aggregate)
                             <span class="uppercase">
                                 {{__('srp')}}
@@ -560,7 +560,7 @@
                             </div>
                             @endif
                         </th>
-                        <th scope="col" class="px-2 py-1 hidden lg:table-cell">
+                        <th scope="col" class="px-4 py-2 hidden lg:table-cell">
                             @if($aggregate)
                             <span class="uppercase">
                                 {{__('ppn')}}
@@ -578,7 +578,7 @@
                             </div>
                             @endif
                         </th>
-                        <th scope="col" class="px-2 py-1 hidden lg:table-cell">
+                        <th scope="col" class="px-4 py-2 hidden lg:table-cell">
                             @if($aggregate)
                             <span class="uppercase">
                                 {{__('ppg')}}
@@ -596,7 +596,7 @@
                             </div>
                             @endif
                         </th>
-                        <th scope="col" class="px-2 py-1 hidden lg:table-cell">
+                        <th scope="col" class="px-4 py-2 hidden lg:table-cell">
                             {{__('IMEI/SN')}}
                         </th>
                     </tr>
@@ -605,7 +605,7 @@
                     @foreach ($temporaryItems as $temporaryExternalInvoiceItem)
                     <tr class="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 w-full">
                         <td scope="row"
-                            class="px-2 py-1 text-gray-900 whitespace-nowrap dark:text-white">
+                            class="px-4 py-2 text-gray-900 whitespace-nowrap dark:text-white">
                             @if($aggregate)
                             {{ $temporaryExternalInvoiceItem->total_quantity }}
                             @else
@@ -614,23 +614,23 @@
                         </td>
 
                         <td scope="row"
-                            class="px-2 py-1 text-gray-900 whitespace-nowrap dark:text-white">
+                            class="px-4 py-2 text-gray-900 whitespace-nowrap dark:text-white">
                             {{$temporaryExternalInvoiceItem->brand->name}}
                         </td>
                         <td scope="row"
-                            class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white">
+                            class="px-4 py-2  text-gray-900 whitespace-nowrap dark:text-white">
                             {{$temporaryExternalInvoiceItem->productVariant->product->name}}
                         </td>
                         <td scope="row"
-                            class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white">
+                            class="px-4 py-2  text-gray-900 whitespace-nowrap dark:text-white">
                             {{$temporaryExternalInvoiceItem->productVariant->name}}
                         </td>
                         <td scope="row"
-                            class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white">
+                            class="px-4 py-2  text-gray-900 whitespace-nowrap dark:text-white">
                             {{$temporaryExternalInvoiceItem->device->name}}
                         </td>
                         <td scope="row"
-                            class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white hidden 2xl:table-cell">
+                            class="px-4 py-2  text-gray-900 whitespace-nowrap dark:text-white hidden 2xl:table-cell">
                             <div class="flex gap-x-2">
                                 <div class="h-8 w-8 rounded-full" style="background-color: {{$temporaryExternalInvoiceItem->color->value}};">
 
@@ -640,19 +640,19 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="px-2 py-1 hidden lg:table-cell">
+                        <td class="px-4 py-2 hidden lg:table-cell">
                             {{ number_format($temporaryExternalInvoiceItem->suggested_retail_price / 100, 2, '.', '') }}
                         </td>
                         <td scope="row"
-                        class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white hidden lg:table-cell">
+                        class="px-4 py-2  text-gray-900 whitespace-nowrap dark:text-white hidden lg:table-cell">
                         {{ number_format($temporaryExternalInvoiceItem->purchase_price_net / 100, 2, '.', '') }}
                         </td>
                         <td scope="row"
-                        class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white hidden lg:table-cell">
+                        class="px-4 py-2  text-gray-900 whitespace-nowrap dark:text-white hidden lg:table-cell">
                         {{ number_format($temporaryExternalInvoiceItem->purchase_price_gross / 100, 2, '.', '') }}
                         </td>
                         <td scope="row"
-                        class="px-2 py-1  text-gray-900 whitespace-nowrap dark:text-white hidden lg:table-cell">
+                        class="px-4 py-2  text-gray-900 whitespace-nowrap dark:text-white hidden lg:table-cell">
                             {{$temporaryExternalInvoiceItem->imei_number ? $temporaryExternalInvoiceItem->imei_number : $temporaryExternalInvoiceItem->serial_number }}
                         </td>
                         <td class="px-2 sm:px-2 sm:py-1 flex justify-end">

@@ -38,9 +38,9 @@
                     <x-nav-btn  @click="setLastClicked('repository')" :active="request()->routeIs('category.*') || request()->routeIs('color.*') || request()->routeIs('brand.*') || request()->routeIs('product.*') || request()->routeIs('product-variant.*') || request()->routeIs('feature.*')">
                         {{ __('Repository') }}
                     </x-nav-btn>
-                    <x-nav-btn  @click="setLastClicked('stock')" :active="request()->routeIs('stock.show')">
+                    <x-nav-link href="{{ route('stock.index') }}" @click="setLastClicked('stock')" :active="request()->routeIs('stock.show')">
                         {{ __('Stock') }}
-                    </x-nav-btn>
+                    </x-nav-link>
                     <x-nav-btn  @click="setLastClicked('documents')" :active="request()->routeIs('documents.*')">
                         {{ __('Documents') }}
                     </x-nav-btn>

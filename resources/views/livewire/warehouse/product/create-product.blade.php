@@ -61,7 +61,7 @@
                 <div class="text-red-500 dark:text-red-300 ">{{ $message }}</div>
                 @enderror
 
-                <div class="w-full rounded-t-lg border-t border-l border-r border-gray-200 text-xs px-2 py-1">
+                <div class="w-full rounded-t-lg border-t border-l border-r border-gray-200 text-xs px-4 py-2">
                     Selected: {{$brand?->name}} ID: [{{$brand_id}}]
                     <div wire:loading wire:target="brand_id" class="bg-green-300 px-4">
                         Changing...

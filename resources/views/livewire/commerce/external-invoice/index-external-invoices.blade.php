@@ -5,7 +5,7 @@
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs uppercase">
                     <tr class="text-black dark:text-white">
-                        <th scope="col" class="px-2 py-1 lg:px-2 2xl:px-4 sm:py-3">
+                        <th scope="col" class="px-4 py-2 lg:px-2 2xl:px-4 sm:py-3">
                             <div class="flex cursor-pointer" wire:click="sortBy('id')">
                                 <span class="uppercase">
                                     {{__('id')}}
@@ -18,7 +18,7 @@
                                 </svg>
                             </div>
                         </th>
-                        <th scope="col" class="px-2 py-1 lg:px-2 2xl:px-4 sm:py-3">
+                        <th scope="col" class="px-4 py-2 lg:px-2 2xl:px-4 sm:py-3">
                             <div class="flex cursor-pointer" wire:click="sortBy('invoice_number')">
                                 <span class="uppercase">
                                     {{__('invoice_number')}}
@@ -31,7 +31,7 @@
                                 </svg>
                             </div>
                         </th>
-                        <th scope="col" class="px-2 py-1 lg:px-2 2xl:px-4 sm:py-3">
+                        <th scope="col" class="px-4 py-2 lg:px-2 2xl:px-4 sm:py-3">
                             <div class="flex cursor-pointer" wire:click="sortBy('is_temp')">
                                 <span class="uppercase">
                                     {{__('status')}}
@@ -44,31 +44,31 @@
                                 </svg>
                             </div>
                         </th>
-                        <th scope="col" class="px-2 py-1 lg:px-2 2xl:px-4 sm:py-3 hidden lg:table-cell">
+                        <th scope="col" class="px-4 py-2 lg:px-2 2xl:px-4 sm:py-3 hidden lg:table-cell">
                                 <span class="uppercase">
                                     {{__('contact')}}
                                 </span>
                         </th>
-                        <th scope="col" class="px-2 py-1 lg:px-2 2xl:px-4 sm:py-3 hidden lg:table-cell">
+                        <th scope="col" class="px-4 py-2 lg:px-2 2xl:px-4 sm:py-3 hidden lg:table-cell">
                                 <span class="uppercase">
                                     {{__('store')}}
                                 </span>
                         </th>
-                        <th scope="col" class="px-2 py-1 lg:px-2 2xl:px-4 sm:py-3 hidden xl:table-cell">
+                        <th scope="col" class="px-4 py-2 lg:px-2 2xl:px-4 sm:py-3 hidden xl:table-cell">
                             <div class="flex cursor-pointer">
                                 <span class="uppercase">
                                     {{__('created_by')}}
                                 </span>
                             </div>
                         </th>
-                        <th scope="col" class="px-2 py-1 lg:px-2 2xl:px-4 sm:py-3 hidden xl:table-cell">
+                        <th scope="col" class="px-4 py-2 lg:px-2 2xl:px-4 sm:py-3 hidden xl:table-cell">
                             <div class="flex cursor-pointer">
                                 <span class="uppercase">
                                     {{__('created_at')}}
                                 </span>
                             </div>
                         </th>
-                        <th scope="col" class="px-2 py-1 lg:px-2 2xl:px-4 sm:py-3 text-right">
+                        <th scope="col" class="px-4 py-2 lg:px-2 2xl:px-4 sm:py-3 text-right">
 
                         </th>
                     </tr>

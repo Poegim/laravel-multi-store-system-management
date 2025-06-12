@@ -28,6 +28,11 @@ class StockItem extends Model
         return $this->getFormattedAmount($this->purchase_price_net);
     }
 
+    public function formattedSuggestedRetailPrice()
+    {
+        return $this->getFormattedAmount($this->suggested_retail_price);
+    }
+
     public function formattedPurchasePriceGross()
     {
         return $this->getFormattedAmount($this->purchase_price_gross);

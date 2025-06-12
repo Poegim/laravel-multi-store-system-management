@@ -41,7 +41,9 @@ class GitHubController extends Controller
 
         $url = "https://api.github.com/repos/{$owner}/{$repo}/commits";
 
-        $response = Http::get($url);
+        $response = Http::get($url, [
+            'per_page' => 10,
+        ]);
 
         return $response;
     }
