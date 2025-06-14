@@ -48,13 +48,18 @@ class StockItemsTableSeeder extends Seeder
             $storeId = $stores[array_rand($stores)];
             $brandId = $brands[array_rand($brands)];
             $price = rand(1,5) === 1 ? 0 : $this->getRandomPrice();
+            $randomNetPrice = rand(100, 5000); // Random net price between 100 and 5000
+
+            while (($randomNetPrice > $price) && ($price > 0)) {
+                $randomNetPrice = rand(100, 5000); // Ensure net price is not greater than the suggested retail price
+            }
 
             $batchData[] = [
                 'product_variant_id' => $productVariantId,
                 'external_invoice_id' => rand(1, $externalInvoicesCount),
                 'suggested_retail_price' => $price,
-                'purchase_price_net' => 1000,
-                'purchase_price_gross' => $this->convertNetToGross(1000, 23),
+                'purchase_price_net' => $randomNetPrice,
+                'purchase_price_gross' => $this->convertNetToGross($randomNetPrice, 23),
                 'color_id' => $colors[array_rand($colors)],
                 'vat_rate_id' => $vatRate,
                 'brand_id' => $brandId,
