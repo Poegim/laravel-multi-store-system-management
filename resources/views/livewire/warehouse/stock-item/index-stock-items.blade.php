@@ -12,6 +12,14 @@
                     @endforeach
                     @endif
                 </div>
+                <!-- Input search -->
+                <input type="text" id="search" name="search"
+                    
+                    wire:model.debounce.500ms.live="search"
+                    class="rounded-lg border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-300 h-10 w-full sm:w-64 px-3 text-sm"
+                    placeholder="{{ __('Search...') }}"
+                />
+
                 <div class="flex gap-2">
                     <div class="my-auto text-sm text-gray-600 dark:text-gray-300">
                         {{ __('show_per_page') }}

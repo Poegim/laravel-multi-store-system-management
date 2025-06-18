@@ -64,7 +64,14 @@ class IndexStockItems extends Component
         $sortDirection = $this->sortAsc ? 'asc' : 'desc';
 
         $stockItemsQuery = StockItem::with(['productVariant.product.brand', 'vatRate', 'brand'])
-            ->where('stock_items.id', 'like', '%' . $this->search . '%')
+            ->where(function ($query) {
+                $query->where('stock_items.id', 'like', '%' . $this->search . '%')
+                      ->orWhereHas('productVariant.product', function ($q) {
+                          $q->where('name', 'like', '%' . $this->search . '%');
+                      })->orWhereHas('brand', function ($q) {
+                          $q->where('name', 'like', '%' . $this->search . '%');
+                      });
+            })
             ->orderBy('stock_items.' . $this->sortField, $sortDirection);
 
         // If there is a filter applied
