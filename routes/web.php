@@ -34,9 +34,9 @@ Route::name('stock.')->prefix('stock')->middleware(['auth', IsAdmin::class])->gr
     Route::get('{store?}', [StockItemController::class, 'index'])->name('index');
     Route::get('/create', [StockItemController::class, 'create'])->name('create');
     Route::post('/store', [StockItemController::class, 'store'])->name('store');
-    Route::get('/show/{stock}', [StockItemController::class, 'show'])->name('show');
-    Route::get('/edit/{stock}', [StockItemController::class, 'edit'])->name('edit');
-    Route::put('/update/{stock}', [StockItemController::class, 'update'])->name('update');
+    Route::get('/show/{stock_item}', [StockItemController::class, 'show'])->name('show');
+    Route::get('/edit/{stock_item}', [StockItemController::class, 'edit'])->name('edit');
+    Route::put('/update/{stock_item}', [StockItemController::class, 'update'])->name('update');
 });
 
 Route::prefix('repository')->group(function () {
@@ -50,13 +50,11 @@ Route::prefix('repository')->group(function () {
     });
 });
 
-
-
 Route::name('brand.')->prefix('brand')->middleware(['auth'])->group(function () {
     Route::get('', [BrandController::class, 'index'])->name('index');
     Route::get('/create', [BrandController::class, 'create'])->name('create');
     Route::post('/store', [BrandController::class, 'store'])->name('store');
-    Route::get('/show/{brand:slug}', [BrandController::class, 'show'])->name('show');
+    Route::get('/show/{brand:slug}/{store?}', [BrandController::class, 'show'])->name('show');
     Route::get('/edit/{brand:slug}', [BrandController::class, 'edit'])->name('edit');
     Route::put('/update/{brand:slug}', [BrandController::class, 'update'])->name('update');
 });

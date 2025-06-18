@@ -11,7 +11,7 @@
         @endif
 
         <div class="w-full ml-2">
-            <div class="px-2 rounded-mid  w-full grid grid-cols-1 lg:grid-cols-2 border-dotted border-b border-gray-500 mt-1 hover:bg-gray-100 dark:hover:bg-gray-700">
+            <div class="px-2 rounded-mid  w-full grid grid-cols-1 lg:grid-cols-2 border-dotted border py-0.5 border-gray-200 mt-1 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <span class="my-auto flex">
                     <a class="link" href="{{route('category.show', $category['slug'])}}">{{ $category['plural_name'] }}</a>
                 </span>
