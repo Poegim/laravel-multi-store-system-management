@@ -49,14 +49,23 @@
                     </th>
                     <th class="px-4 py-1 sm:py-2">{{ __('Item Name') }}</th>
                     <th class="px-4 py-1 sm:py-2 hidden lg:table-cell">{{ __('Variant') }}</th>
-                    <th class="px-4 py-1 sm:py-2 cursor-pointer" wire:click="sortBy('purchase_price_net')">{{ __('Price Net') }}
+                    <th class="px-4 py-1 sm:py-2 cursor-pointer" wire:click="sortBy('store_id')">{{ __('Store') }}
+                        <x-sort-icon field="store_id" :sortField="$sortField" :sortAsc="$sortAsc" />
+                    </th>
+                    <th class="px-4 py-1 sm:py-2">{{ __('Purchase') }}</th>
+                    <th class="px-4 py-1 sm:py-2 cursor-pointer whitespace-nowrap" wire:click="sortBy('purchase_price_net')">
+                        {{ __('Price Net') }}
                         <x-sort-icon field="purchase_price_net" :sortField="$sortField" :sortAsc="$sortAsc" />
                     </th>
-                    <th class="px-4 py-1 sm:py-2">{{ __('Price Gross') }}</th>
-                    <th class="px-4 py-1 sm:py-2 cursor-pointer" wire:click="sortBy('suggested_retail_price')">{{ __('SRP') }}
+                    <th class="px-4 py-1 sm:py-2 whitespace-nowrap">{{ __('Price Gross') }}</th>
+                    <th class="px-4 py-1 sm:py-2 cursor-pointer whitespace-nowrap" wire:click="sortBy('suggested_retail_price')">{{ __('SRP') }}
                         <x-sort-icon field="suggested_retail_price" :sortField="$sortField" :sortAsc="$sortAsc" />
                     </th>
-                    <th class="px-4 py-1 sm:py-2 hidden lg:table-cell">{{ __('VAT ') }}</th>
+                    <th class="px-4 py-1 sm:py-2 hidden lg:table-cell whitespace-nowrap" wire:click="sortBy('updated_at')">
+                        {{ __('DSNP') }}
+                        <x-sort-icon field="updated_at" :sortField="$sortField" :sortAsc="$sortAsc" />
+                    </th>
+                    <th class="px-4 py-1 sm:py-2 hidden lg:table-cell whitespace-nowrap">{{ __('VAT') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,9 +75,20 @@
                         <td class="px-4 py-2 sm:py-2"><button class="link" wire:click="filterByBrand({{ $item->brand }})">{{ $item->brand->name }}</button></td>
                         <td class="px-4 py-2 sm:py-2"><button class="link" wire:click="filterByProduct({{ $item->productVariant->product }})">{{ $item->productVariant->product->name }}</button></td>
                         <td class="px-4 py-2 sm:py-2 hidden lg:table-cell">{{ $item->productVariant->name }}</td>
+                        <td class="px-4 py-2 sm:py-2">
+                            <a href="{{ route('store.show', $item->store) }}" class="link" wire:navigate>
+                                {{ $item->store->invoices_prefix }}
+                            </a>
+                        </td>
+                        <td class="px-4 py-2 sm:py-2">
+                            <a href="{{ route('external-invoice.show', $item->externalInvoice) }}" class="link" wire:navigate>
+                                {{ $item->externalInvoice->invoice_number }}
+                            </a>
+                        </td>
                         <td class="px-4 py-2 sm:py-2">{{ $item->formattedPurchasePriceNet() }}</td>
                         <td class="px-4 py-2 sm:py-2">{{ $item->formattedPurchasePriceGross() }}</td>
                         <td class="px-4 py-2 sm:py-2">{{ $item->formattedSuggestedRetailPrice() }}</td>
+                        <td class="px-4 py-2 sm:py-2">{{ $item->DSI() }}</td>
                         <td class="px-4 py-2 sm:py-2 hidden lg:table-cell">{{ $item->vatRate->rate }}%</td>
                     </tr>
                 @endforeach

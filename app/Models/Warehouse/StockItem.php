@@ -4,9 +4,11 @@ namespace App\Models\Warehouse;
 
 use App\Models\Store;
 use App\Models\VatRate;
+use Illuminate\Support\Carbon;
 use App\Traits\HasFormattedSRP;
 use App\Traits\GetsFormattedAmount;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Commerce\ExternalInvoice;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -33,6 +35,11 @@ class StockItem extends Model
         return $this->getFormattedAmount($this->suggested_retail_price);
     }
 
+    public function externalInvoice()
+    {
+        return $this->belongsTo(ExternalInvoice::class, 'external_invoice_id');
+    }
+
     public function formattedPurchasePriceGross()
     {
         return $this->getFormattedAmount($this->purchase_price_gross);
@@ -56,6 +63,11 @@ class StockItem extends Model
     public function vatRate(): BelongsTo
     {
         return $this->belongsTo(VatRate::class);
+    }
+
+    public function DSI()
+    {
+        return (int) $this->updated_at->diffInDays(now());
     }
 
     public function status() 
