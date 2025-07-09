@@ -63,7 +63,8 @@ class StockItemsTableSeeder extends Seeder
                 'color_id' => $colors[array_rand($colors)],
                 'vat_rate_id' => $vatRate,
                 'brand_id' => $brandId,
-                'status' => rand(1,3),
+                'status' => 0,
+                'sale_id' => null,
                 'store_id' => $storeId,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -98,7 +99,6 @@ class StockItemsTableSeeder extends Seeder
         $batchSize = null;
         $totalInserted = null;
         $batchData = null;
-
 
     }
 }

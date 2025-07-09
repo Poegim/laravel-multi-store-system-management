@@ -67,7 +67,7 @@ public function filterByProduct($product)
     {   
         $sortDirection = $this->sortAsc ? 'asc' : 'desc';
 
-        $stockItemsQuery = StockItem::with(['productVariant.product.brand', 'vatRate', 'brand', 'externalInvoice'])
+        $stockItemsQuery = StockItem::available()->with(['productVariant.product.brand', 'vatRate', 'brand', 'externalInvoice'])
             ->where(function ($query) {
                 $query->where('stock_items.id', 'like', '%' . $this->search . '%')
                       ->orWhereHas('productVariant.product', function ($q) {

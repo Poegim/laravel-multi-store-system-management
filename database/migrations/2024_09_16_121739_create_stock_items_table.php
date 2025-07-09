@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('suggested_retail_price')->nullable();
             $table->integer('purchase_price_net')->nullable();
             $table->integer('purchase_price_gross')->nullable();
+            $table->foreignId('sale_id')->nullable()->constrained();
             $table->integer('status');
             $table->foreignId('store_id');
             $table->string('imei_number')->nullable();

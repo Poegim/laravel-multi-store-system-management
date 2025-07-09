@@ -24,6 +24,31 @@ class StockItem extends Model
     public const IN_TRANSFER = 3;
     public const IN_REPAIR = 4;
 
+    public function scopeAvailable($query)
+    {
+        return $query->where('status', self::AVAILABLE);
+    }
+
+    public function scopeSold($query)
+    {
+        return $query->where('status', self::SOLD);
+    }
+
+    public function scopeMissing($query)
+    {
+        return $query->where('status', self::MISSING);
+    }
+
+    public function scopeInTransfer($query)
+    {
+        return $query->where('status', self::IN_TRANSFER);
+    }
+
+    public function scopeInRepair($query)
+    {
+        return $query->where('status', self::IN_REPAIR);
+    }
+
 
     public function formattedPurchasePriceNet()
     {
@@ -80,5 +105,10 @@ class StockItem extends Model
             self::IN_REPAIR => 'In Repair',
             default => 'Unknown Status',
         };
+    }
+
+    public function isAvailable(): bool
+    {
+        return $this->status === self::AVAILABLE;
     }
 }

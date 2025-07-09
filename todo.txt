@@ -2,6 +2,7 @@ REQUIRED IMPROVMENTS
     -- Search Dropdown comoment should be changed to api based, due to slow work with extra long item lists.
     -- Show contact and history documents.
     -- Implement Try Catch everywhere error bag exists.
+    -- Filter by feature in stock index
 
 CHECK IN FUTURE
     -- Is creating new user creates new personal access toone for multiselect dropdown.
