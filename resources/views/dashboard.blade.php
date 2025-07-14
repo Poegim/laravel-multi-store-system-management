@@ -48,4 +48,8 @@
             </div>
         </div>
     </div>
+
+    <x-window>
+            <livewire:log-viewer />
+    </x-window>
 </x-app-layout>
