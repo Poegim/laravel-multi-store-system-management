@@ -9,6 +9,6 @@
         </h2>
     </x-slot>
 
-    <livewire:commerce.sale.create-sale :store="$store" />
+    <livewire:commerce.sale.create-sale :store="$store" :sale="$sale" />
 
 </x-app-layout>

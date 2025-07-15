@@ -4,6 +4,7 @@ namespace App\Models\Warehouse;
 
 use App\Models\Store;
 use App\Models\VatRate;
+use App\Models\Commerce\Sale;
 use Illuminate\Support\Carbon;
 use App\Traits\HasFormattedSRP;
 use App\Traits\GetsFormattedAmount;
@@ -21,8 +22,6 @@ class StockItem extends Model
     public const AVAILABLE = 0;
     public const SOLD = 1;
     public const MISSING = 2;
-    public const IN_TRANSFER = 3;
-    public const IN_REPAIR = 4;
 
     public function scopeAvailable($query)
     {
@@ -37,16 +36,6 @@ class StockItem extends Model
     public function scopeMissing($query)
     {
         return $query->where('status', self::MISSING);
-    }
-
-    public function scopeInTransfer($query)
-    {
-        return $query->where('status', self::IN_TRANSFER);
-    }
-
-    public function scopeInRepair($query)
-    {
-        return $query->where('status', self::IN_REPAIR);
     }
 
 
@@ -90,19 +79,22 @@ class StockItem extends Model
         return $this->belongsTo(VatRate::class);
     }
 
-    public function DSI()
+    /**
+     * Days spent in inventory.
+     *
+     * @return int
+     */
+    public function DSI() : int
     {
         return (int) $this->updated_at->diffInDays(now());
     }
 
-    public function status() 
+    public function status() : string
     {
         return match ($this->status) {
             self::AVAILABLE => 'Available',
             self::SOLD => 'Sold',
             self::MISSING => 'Missing',
-            self::IN_TRANSFER => 'In Transfer',
-            self::IN_REPAIR => 'In Repair',
             default => 'Unknown Status',
         };
     }
@@ -110,5 +102,10 @@ class StockItem extends Model
     public function isAvailable(): bool
     {
         return $this->status === self::AVAILABLE;
+    }
+
+    public function sale()
+    {
+        return $this->belongsTo(Sale::class, 'sale_id');
     }
 }

@@ -16,17 +16,10 @@ class CreateSale extends Component
     public $searchItem = '';
     
 
-    public function mount(Store $store, ?Sale $sale = null)
+    public function mount(Store $store, Sale $sale)
     {
         $this->store = $store;
-        $sale ? $this->sale = $sale : $this->sale = new Sale();
-        if($this->sale->store_id) {
-            if($this->sale->store_id != $this->store->id) {
-                abort(403, 'Unauthorized action, this sale does not belong to the selected store.');
-            }
-        } else {
-            $this->sale->store_id = $this->store->id;
-        }
+        $this->sale = $sale; 
     }
 
     public function addItem()
@@ -51,12 +44,21 @@ class CreateSale extends Component
         $item = StockItem::available()
             ->where('store_id', $this->store->id)
             ->where('id', $this->searchItem)
-            ->first();
-
+            ->where(function ($query) {
+                $query->whereNull('sale_id')
+                      ->orWhere('sale_id', $this->sale->id);
+            })
+        ->first();
+        
         if ($item) {
-            $this->resetErrorBag();
-            dd($item);
-            $this->sale->items()->attach($item->id);
+            if ($this->sale->items->contains($item->id)) {
+            $this->addError('searchItem', "This item is already added to the on-going sale id:{$item->sale->id} of user {$item->sale->user->name}.");
+            } else {
+                $this->resetErrorBag();
+                $this->sale->items()->save($item);
+                $this->searchItem = '';
+                $this->dispatch('item-added');
+            }
         } else {
             Log::error('Item not found in the selected store', [
                 'store_id' => $this->store->id,
@@ -68,6 +70,8 @@ class CreateSale extends Component
 
     public function render()
     {
-        return view('livewire.commerce.sale.create-sale');
+        return view('livewire.commerce.sale.create-sale', [
+            'saleItems' => $this->sale->items()->get(),
+        ]);
     }
 }

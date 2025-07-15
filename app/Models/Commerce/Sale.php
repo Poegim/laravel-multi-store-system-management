@@ -26,7 +26,7 @@ class Sale extends Model
 
     public function items()
     {
-        return $this->belongsToMany(StockItem::class, 'sale_id');
+        return $this->hasMany(StockItem::class);
     }
 
     public function scopeCompleted($query)
@@ -42,6 +42,21 @@ class Sale extends Model
     public function scopeCancelled($query)
     {
         return $query->where('status', self::CANCELLED);
+    }
+
+    public function isCompleted(): bool
+    {
+        return $this->status === self::COMPLETED;
+    }
+
+    public function isPending(): bool
+    {
+        return $this->status === self::PENDING;
+    }
+
+    public function isCancelled(): bool
+    {
+        return $this->status === self::CANCELLED;
     }
 
     public function status(): string

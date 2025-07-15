@@ -1,4 +1,4 @@
-<div>
+<div class="space-y-4">
     <x-window>
         @error('searchItem')
         <div class="mb-2 bg-red-900 text-white tex-sm p-1 px-2 w-full rounded-lg flex items-center">
@@ -10,9 +10,50 @@
         {{ $message }}
         </div>
         @enderror
+
+        
+        
         <div class="flex items-center gap-2">
             <input class="border border-gray-300 p-1 rounded-lg text-sm" type="text" placeholder="{{ __('Search for a item') }}" wire:model="searchItem" />
             <button class="bg-blue-500 text-white text-sm p-1 px-2 rounded-lg" wire:click="addItem">Add</button>
+            <x-action-message class="me-3 px-4 py-1 bg-green-200 font-bold" on="item-added">
+                {{ __('Item added!') }}
+            </x-action-message>
         </div>
+
+
     </x-window>
+    <x-window>
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">{{ __('Id') }}</th>
+                    <th scope="col" class="px-6 py-3">{{ __('Item Name') }}</th>
+                    <th scope="col" class="px-6 py-3">{{ __('Variant') }}</th>
+                    <th scope="col" class="px-6 py-3">{{ __('Price Net') }}</th>
+                    <th scope="col" class="px-6 py-3">{{ __('Price Gross') }}</th>
+                    <th scope="col" class="px-6 py-3">{{ __('Actions') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+             
+            @if(!$saleItems->isEmpty())
+            @foreach ($saleItems as $sale)
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td class="px-6 py-4">{{ $sale->id }}</td>
+                    <td class="px-6 py-4">{{ $sale->name }}</td>
+                    <td class="px-6 py-4">{{ $sale->variant }}</td>
+                    <td class="px-6 py-4">{{ $sale->purchase_price_net }}</td>
+                    <td class="px-6 py-4">{{ $sale->purchase_price_gross }}</td>
+                    <td class="px-6 py-4">
+                        <button class="text-red-600 hover:text-red-900" wire:click="removeItem({{ $sale->id }})">{{ __('Remove') }}</button>
+                    </td>
+                </tr>
+                
+            @endforeach
+            @endif
+            </tbody>
+        </table>
+    </x-window>
+
 </div>

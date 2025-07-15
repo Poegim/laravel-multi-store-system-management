@@ -16,7 +16,7 @@
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">
                 <div>
-                    <a href="{{route('sale.create', $store)}}" class="store-dashboard-link" wire:navigate>
+                    <a href="{{route('sale.create', $store)}}" class="store-dashboard-link">
                         <div class="mx-auto flex items-center gap-1">
                             <svg class="store-dashboard-icon fill-amber-500 dark:fill-amber-400 m-auto"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
