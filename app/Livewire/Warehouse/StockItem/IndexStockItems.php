@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Traits\Sortable;
 use App\Traits\Searchable;
 use Livewire\WithPagination;
+use App\Models\Commerce\Sale;
 use Illuminate\Support\Collection;
 use App\Models\Warehouse\StockItem;
 
@@ -60,6 +61,43 @@ public function filterByProduct($product)
     {
         $this->filters = null;
         $this->resetPage();
+    }
+
+    public function addToSale($item)
+    {
+        $sale = Sale::firstOrCreate([
+            'store_id' => $this->store->id,
+            'user_id' => auth()->id(),
+            'status' => Sale::PENDING,
+        ], [
+            'store_id' => $this->store->id,
+            'user_id' => auth()->id(),
+            'status' => Sale::PENDING,
+        ]);
+
+        $stockItem = StockItem::where('id', $item['id'])->where('store_id', $this->store->id)
+            ->where(function ($query) use ($sale) {
+                $query->whereNull('sale_id')
+                      ->orWhere('sale_id', $sale->id);
+            })
+            ->where('status', StockItem::AVAILABLE)
+            ->first();
+
+        if (!$stockItem) {
+            $this->addError('searchItem', 'This item is not available for sale in the selected store.');
+            return;
+        } else {
+            if ($sale->items->contains($stockItem->id)) {
+                $this->addError('searchItem', "This item is already added to the on-going sale id:{$stockItem->sale->id} of user {$stockItem->sale->user->name}.");
+            } else {
+                $this->resetErrorBag();
+                $sale->items()->save($stockItem);
+                $this->dispatch('item-added');
+            }
+        }
+
+        $this->resetPage();
+
     }
 
 

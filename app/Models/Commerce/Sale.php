@@ -5,6 +5,9 @@ namespace App\Models\Commerce;
 use App\Models\Warehouse\StockItem;
 use App\Traits\BelongsToStore;
 use App\Traits\BelongsToUser;
+use App\Traits\FormatsAmount;
+use App\Traits\GetsFormattedAmount;
+use App\Traits\HasFormattedSRP;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,6 +16,8 @@ class Sale extends Model
     use HasFactory;
     use BelongsToUser;
     use BelongsToStore;
+    use GetsFormattedAmount;
+    use HasFormattedSRP;
 
     public const PENDING = 0;
     public const COMPLETED = 1;
@@ -68,5 +73,17 @@ class Sale extends Model
             default => 'Unknown',
         };
     }
+
+    public function formattedPurchasePriceNet(): string
+    {
+        return $this->getFormattedAmount($this->purchase_price_net);
+    }
+
+    public function formattedPurchasePriceGross(): string
+    {
+        return $this->getFormattedAmount($this->purchase_price_gross);
+    }
+
+
 
 }

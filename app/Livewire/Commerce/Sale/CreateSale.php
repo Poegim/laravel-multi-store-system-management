@@ -14,12 +14,37 @@ class CreateSale extends Component
     public Store $store;
     public ?Sale $sale;
     public $searchItem = '';
-    
+    public $editedItem = null;
+    public  bool $editSoldPriceModal = false;
 
     public function mount(Store $store, Sale $sale)
     {
         $this->store = $store;
-        $this->sale = $sale; 
+        $this->sale = $sale;
+        foreach ($this->sale->items as $item) {
+            $item->sold_price = $item->suggested_retail_price; // Initialize sold_price with suggested_retail_price
+        }
+    }
+
+    public function editSoldPrice(StockItem $item)
+    {
+        $this->editedItem = $item;
+        $this->editSoldPriceModal = true;
+    }
+
+    public function updateSoldPrice()
+    {
+        dd($this->editedItem->suggested_retail_price);
+
+        $this->validate([
+            'editedItem.suggested_retail_price' => 'required|numeric|min:0.01|max:100000',
+        ]);
+
+        $this->editedItem->sold_price = $this->decimalToInteger(round((float) $this->editedItem->suggested_retail_price, 2));
+
+        $this->editedItem->save();
+        $this->editSoldPriceModal = false;
+        $this->dispatch('sold-price-updated');
     }
 
     public function addItem()
@@ -68,10 +93,23 @@ class CreateSale extends Component
         }
     }
 
+    public function removeItem(StockItem $item)
+    {
+        if($item->status !== StockItem::AVAILABLE) {
+            $this->addError('searchItem', 'This item is not available for removal.');
+            return;
+        } else {
+
+            $item->sale_id = null;
+            $item->save();
+            $this->sale->refresh();
+        }
+    }    
+
     public function render()
     {
         return view('livewire.commerce.sale.create-sale', [
-            'saleItems' => $this->sale->items()->get(),
+            'saleItems' => $this->sale->items()->with(['brand', 'productVariant.product'])->get(),
         ]);
     }
 }

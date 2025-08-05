@@ -101,7 +101,7 @@
                               T-
                             </button>
                             @else
-                            <button type="button" class="p-2 w-10 rounded-lg border border-green-500 bg-green-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
+                            <button wire:click="addToSale({{$item}})" type="button" class="p-2 w-10 rounded-lg border border-green-500 bg-green-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
                               S+
                             </button>
                             <button type="button" class="p-2 rounded-lg border border-blue-500 bg-blue-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
