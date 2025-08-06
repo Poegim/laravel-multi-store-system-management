@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert([
             'name' => 'jacwin',
-            'role' => 2,
+            'role' => 1,
             'email' => 'admin2@example.com',
             'password' => Hash::make('password'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),

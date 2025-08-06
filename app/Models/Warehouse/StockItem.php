@@ -22,6 +22,9 @@ class StockItem extends Model
     public const AVAILABLE = 0;
     public const SOLD = 1;
     public const MISSING = 2;
+    public const IN_PENDING_SALE = 3;
+    public const IN_REPAIR = 4;
+    public const IN_TRANSIT = 5;
 
     public function scopeAvailable($query)
     {
@@ -114,4 +117,5 @@ class StockItem extends Model
     {
         return $this->belongsTo(Sale::class, 'sale_id');
     }
+
 }

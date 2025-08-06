@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\Commerce\Sale;
 use Illuminate\Validation\Rule;
 use App\Models\Warehouse\StockItem;
+use App\Traits\ReturnItemStatusInfo;
 use Illuminate\Support\Facades\Log;
 
 class CreateSale extends Component
@@ -16,6 +17,8 @@ class CreateSale extends Component
     public $searchItem = '';
     public $editedItem = null;
     public  bool $editSoldPriceModal = false;
+
+    use ReturnItemStatusInfo;
 
     public function mount(Store $store, Sale $sale)
     {
@@ -66,31 +69,46 @@ class CreateSale extends Component
         );
 
 
-        $item = StockItem::available()
-            ->where('store_id', $this->store->id)
-            ->where('id', $this->searchItem)
-            ->where(function ($query) {
-                $query->whereNull('sale_id')
-                      ->orWhere('sale_id', $this->sale->id);
-            })
-        ->first();
+
+        // $item = StockItem::available()
+        //     ->where('store_id', $this->store->id)
+        //     ->where('id', $this->searchItem)
+        //     ->where(function ($query) {
+        //         $query->whereNull('sale_id')
+        //               ->orWhere('sale_id', $this->sale->id);
+        //     })
+        // ->first();
+
         
-        if ($item) {
-            if ($this->sale->items->contains($item->id)) {
-            $this->addError('searchItem', "This item is already added to the on-going sale id:{$item->sale->id} of user {$item->sale->user->name}.");
-            } else {
-                $this->resetErrorBag();
-                $this->sale->items()->save($item);
-                $this->searchItem = '';
-                $this->dispatch('item-added');
-            }
-        } else {
-            Log::error('Item not found in the selected store', [
-                'store_id' => $this->store->id,
-                'item_id' => $this->searchItem,
-            ]);
-            abort(404, 'Item not found in the selected store, contact support.');
+        // if ($item) {
+            //     if ($this->sale->items->contains($item->id)) {
+                //     $this->addError('searchItem', "This item is already added to the on-going sale id:{$item->sale->id} of user {$item->sale->user->name}.");
+                //     } else {
+                    //         $item()->status = StockItem::IN_PENDING_SALE;
+        //         $item->save();
+        //         $this->resetErrorBag();
+        //         $this->sale->items()->save($item);
+        //         $this->searchItem = '';
+        //         $this->dispatch('item-added');
+        //     }
+        // } else {
+            //     $this->addError('searchItem', 'This item is not available for sale or does not exist.');
+            // }
+
+        $item = StockItem::find($this->searchItem);
+
+        if ($item && $item->status !== StockItem::AVAILABLE) {
+            $this->addError('searchItem', $this->returnItemStatusInfo($item->id));
+            return;
         }
+        if (!$item) {
+            $this->addError('searchItem', 'This item does not exist.');
+            return;
+        }
+
+        dd($item->status());
+
+        
     }
 
     public function removeItem(StockItem $item)
@@ -99,8 +117,8 @@ class CreateSale extends Component
             $this->addError('searchItem', 'This item is not available for removal.');
             return;
         } else {
-
             $item->sale_id = null;
+            $item->status = StockItem::AVAILABLE; // Reset status to AVAILABLE 
             $item->save();
             $this->sale->refresh();
         }
