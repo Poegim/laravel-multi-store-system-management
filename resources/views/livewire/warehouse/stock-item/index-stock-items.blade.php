@@ -66,7 +66,9 @@
                         <x-sort-icon field="updated_at" :sortField="$sortField" :sortAsc="$sortAsc" />
                     </th>
                     <th class="px-4 py-1 sm:py-2 hidden lg:table-cell whitespace-nowrap">{{ __('VAT') }}</th>
+                    @if ($store)
                     <th class="px-4 py-1 sm:py-2 hidden lg:table-cell whitespace-nowrap">{{ __('Action')}}</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -91,22 +93,24 @@
                         <td class="px-4 py-2 sm:py-2">{{ $item->formattedSuggestedRetailPrice() }}</td>
                         <td class="px-4 py-2 sm:py-2">{{ $item->DSI() }}</td>
                         <td class="px-4 py-2 sm:py-2 hidden lg:table-cell">{{ $item->vatRate->rate }}%</td>
-                        <td class="flex gap-1">
+                        <td class="flex space-x-1">
+                            @if ($store)                                
                             @if($item->sale_id != null)
-                            <button type="button" class="p-2 w-10 rounded-lg border border-red-500 bg-red-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
+                            <button type="button" class="p-1 w-7 mt-2 text-xs rounded-lg border border-red-500 bg-red-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
                               S-
                             </button>
                             @elseif($item->transfer_id != null)
-                            <button type="button" class="p-2 w-10 rounded-lg border border-blue-500 bg-blue-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
+                            <button type="button" class="p-1 w-7 mt-2 text-xs rounded-lg border border-blue-500 bg-blue-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
                               T-
                             </button>
                             @else
-                            <button wire:click="addToSale({{$item}})" type="button" class="p-2 w-10 rounded-lg border border-green-500 bg-green-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
+                            <button wire:click="addToSale({{$item}})" type="button" class="p-1 w-7 mt-2 text-xs rounded-lg border border-green-500 bg-green-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
                               S+
                             </button>
-                            <button type="button" class="p-2 rounded-lg border border-blue-500 bg-blue-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
+                            <button type="button" class="p-1 w-7 mt-2 text-xs rounded-lg border border-blue-500 bg-blue-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
                               T+
                             </button>
+                            @endif
                             @endif
                             
                         </td>
