@@ -10,7 +10,7 @@ trait ReturnItemStatusInfo
     {
         $status = '';
 
-        $item = StockItem::find($id);
+        $item = StockItem::findOrFail($id);
         if (!$item) {
             return 'Item not found';
         } else {
@@ -30,8 +30,8 @@ trait ReturnItemStatusInfo
                 case StockItem::IN_REPAIR:
                     $status = 'In Repair' . ' at store ' . $item->store->name;
                     break;
-                case StockItem::IN_TRANSIT:
-                    $status = 'In Transit' . ' at store ' . $item->store->name;
+                case StockItem::IN_TRANSFER:
+                    $status = 'In Transfer' . ' at store ' . $item->store->name;
                     break;
                 default:
                     $status = 'Unknown Status';

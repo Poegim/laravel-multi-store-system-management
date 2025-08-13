@@ -24,7 +24,7 @@ class StockItem extends Model
     public const MISSING = 2;
     public const IN_PENDING_SALE = 3;
     public const IN_REPAIR = 4;
-    public const IN_TRANSIT = 5;
+    public const IN_TRANSFER = 5;
 
     public function scopeAvailable($query)
     {
@@ -104,6 +104,9 @@ class StockItem extends Model
             self::AVAILABLE => 'Available',
             self::SOLD => 'Sold',
             self::MISSING => 'Missing',
+            self::IN_PENDING_SALE => 'In Pending Sale',
+            self::IN_REPAIR => 'In Repair',
+            self::IN_TRANSFER => 'In Transfer',
             default => 'Unknown Status',
         };
     }
@@ -112,6 +115,30 @@ class StockItem extends Model
     {
         return $this->status === self::AVAILABLE;
     }
+
+    public function isSold(): bool
+    {
+        return $this->status === self::SOLD;
+    }
+
+    public function isMissing(): bool
+    {
+        return $this->status === self::MISSING;
+    }
+
+    public function isInPendingSale(): bool
+    {
+        return $this->status === self::IN_PENDING_SALE;
+    }
+    public function isInRepair(): bool
+    {
+        return $this->status === self::IN_REPAIR;
+    }
+    public function isInTransfer(): bool
+    {
+        return $this->status === self::IN_TRANSFER;
+    }
+    
 
     public function sale()
     {

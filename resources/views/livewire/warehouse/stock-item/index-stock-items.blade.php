@@ -95,22 +95,27 @@
                         <td class="px-4 py-2 sm:py-2 hidden lg:table-cell">{{ $item->vatRate->rate }}%</td>
                         <td class="flex space-x-1">
                             @if ($store)                                
-                            @if($item->sale_id != null)
-                            <button type="button" class="p-1 w-7 mt-2 text-xs rounded-lg border border-red-500 bg-red-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
-                              S-
-                            </button>
-                            @elseif($item->transfer_id != null)
-                            <button type="button" class="p-1 w-7 mt-2 text-xs rounded-lg border border-blue-500 bg-blue-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
-                              T-
-                            </button>
-                            @else
-                            <button wire:click="addToSale({{$item}})" type="button" class="p-1 w-7 mt-2 text-xs rounded-lg border border-green-500 bg-green-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
-                              S+
-                            </button>
-                            <button type="button" class="p-1 w-7 mt-2 text-xs rounded-lg border border-blue-500 bg-blue-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
-                              T+
-                            </button>
-                            @endif
+                                
+                                @if((($item->sale_id != null) || ($item->isInPendingSale())) && ($item->sale->user_id === auth()->id()))
+                                    <button wire:click="removeStockItemFromSale({{$item}})" type="button" class="p-1 w-7 mt-2 text-xs rounded-lg border border-red-500 bg-red-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
+                                      S-
+                                    </button>
+                                @elseif($item->isAvailable())
+                                    <button wire:click="addToSale({{$item}})" type="button" class="p-1 w-7 mt-2 text-xs rounded-lg border border-green-500 bg-green-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
+                                        S+
+                                    </button>
+                                @endif
+
+                                @if(($item->transfer_id != null) || ($item->isInTransfer()))
+                                    <button type="button" class="p-1 w-7 mt-2 text-xs rounded-lg border border-blue-500 bg-blue-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
+                                      T-
+                                    </button>
+                                @elseif($item->isAvailable())
+                                    <button type="button" class="p-1 w-7 mt-2 text-xs rounded-lg border border-blue-500 bg-blue-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
+                                      T+
+                                    </button>
+                                @endif
+                            
                             @endif
                             
                         </td>

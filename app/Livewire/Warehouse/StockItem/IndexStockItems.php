@@ -10,12 +10,19 @@ use Livewire\WithPagination;
 use App\Models\Commerce\Sale;
 use Illuminate\Support\Collection;
 use App\Models\Warehouse\StockItem;
+use App\Services\SaleService;
+use App\Services\StockItemService;
+use App\Traits\ReturnItemStatusInfo;
 
 class IndexStockItems extends Component
 {
     use Searchable;
     use Sortable;
     use WithPagination;
+    use ReturnItemStatusInfo;
+
+    protected StockItemService $stockItemService;
+    protected SaleService $saleService;
 
     protected $queryString = [
         'filters' => ['except' => null],  // synchronizuje $filters z query stringiem, ale nie pokazuje gdy null
@@ -29,22 +36,29 @@ class IndexStockItems extends Component
     public int $perPage = 10;
     public $filters = null;
 
+    public function boot(StockItemService $stockItemService, SaleService $saleService)
+    {
+        $this->stockItemService = $stockItemService;
+        $this->saleService = $saleService;
+
+    }
+
     public function mount($store = null)
     {
         $this->store = $store;
     }
 
     public function filterByBrand($brand)
-{
-    $this->filters['brand_id'] = $brand;
-    $this->resetPage();
-}
+    {
+        $this->filters['brand_id'] = $brand;
+        $this->resetPage();
+    }
 
-public function filterByProduct($product)
-{
-    $this->filters['product_id'] = $product;
-    $this->resetPage();
-}
+    public function filterByProduct($product)
+    {
+        $this->filters['product_id'] = $product;
+        $this->resetPage();
+    }
 
     public function removeFilter($key)
     {
@@ -65,15 +79,7 @@ public function filterByProduct($product)
 
     public function addToSale($item)
     {
-        $sale = Sale::firstOrCreate([
-            'store_id' => $this->store->id,
-            'user_id' => auth()->id(),
-            'status' => Sale::PENDING,
-        ], [
-            'store_id' => $this->store->id,
-            'user_id' => auth()->id(),
-            'status' => Sale::PENDING,
-        ]);
+        $sale = $this->saleService->getActiveSale($this->store->id);
 
         $stockItem = StockItem::where('id', $item['id'])->where('store_id', $this->store->id)
             ->where(function ($query) use ($sale) {
@@ -84,14 +90,15 @@ public function filterByProduct($product)
             ->first();
 
         if (!$stockItem) {
-            $this->addError('searchItem', 'This item is not available for sale in the selected store.');
+            $this->addError('searchItem', $this->returnItemStatusInfo($item['id']));
             return;
         } else {
             if ($sale->items->contains($stockItem->id)) {
                 $this->addError('searchItem', "This item is already added to the on-going sale id:{$stockItem->sale->id} of user {$stockItem->sale->user->name}.");
             } else {
                 $this->resetErrorBag();
-                $sale->items()->save($stockItem);
+                // $sale->items()->save($stockItem);
+                $this->stockItemService->assignToSale($stockItem, $this->store, $sale->id);
                 $this->dispatch('item-added');
             }
         }
@@ -100,12 +107,30 @@ public function filterByProduct($product)
 
     }
 
+    public function removeStockItemFromSale($item)
+    {
+        $stockItem = StockItem::find($item['id']);
+
+        if (!$stockItem) {
+            $this->addError('searchItem', 'This item does not exist.');
+            return;
+        }
+
+        if ($stockItem->status !== StockItem::IN_PENDING_SALE) {
+            $this->addError('searchItem', $this->returnItemStatusInfo($stockItem->id));
+            return;
+        }
+
+        $this->stockItemService->removeFromSale($stockItem);
+        $this->dispatch('item-removed');
+    }
+
 
     public function render()
     {   
         $sortDirection = $this->sortAsc ? 'asc' : 'desc';
 
-        $stockItemsQuery = StockItem::available()->with(['productVariant.product.brand', 'vatRate', 'brand', 'externalInvoice'])
+        $stockItemsQuery = StockItem::with(['productVariant.product.brand', 'vatRate', 'brand', 'externalInvoice', 'sale'])
             ->where(function ($query) {
                 $query->where('stock_items.id', 'like', '%' . $this->search . '%')
                       ->orWhereHas('productVariant.product', function ($q) {

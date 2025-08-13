@@ -7,8 +7,8 @@ use Livewire\Component;
 use App\Models\Commerce\Sale;
 use Illuminate\Validation\Rule;
 use App\Models\Warehouse\StockItem;
+use App\Services\StockItemService;
 use App\Traits\ReturnItemStatusInfo;
-use Illuminate\Support\Facades\Log;
 
 class CreateSale extends Component
 {
@@ -17,8 +17,15 @@ class CreateSale extends Component
     public $searchItem = '';
     public $editedItem = null;
     public  bool $editSoldPriceModal = false;
+    
+    protected StockItemService $stockItemService;
 
     use ReturnItemStatusInfo;
+
+    public function boot(StockItemService $stockItemService)
+    {
+        $this->stockItemService = $stockItemService;
+    }
 
     public function mount(Store $store, Sale $sale)
     {
@@ -92,8 +99,8 @@ class CreateSale extends Component
         //         $this->dispatch('item-added');
         //     }
         // } else {
-            //     $this->addError('searchItem', 'This item is not available for sale or does not exist.');
-            // }
+        //     $this->addError('searchItem', 'This item is not available for sale or does not exist.');
+        // }
 
         $item = StockItem::find($this->searchItem);
 
@@ -113,7 +120,7 @@ class CreateSale extends Component
 
     public function removeItem(StockItem $item)
     {
-        if($item->status !== StockItem::AVAILABLE) {
+        if($item->status !== StockItem::IN_PENDING_SALE) {
             $this->addError('searchItem', 'This item is not available for removal.');
             return;
         } else {
