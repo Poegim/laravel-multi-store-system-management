@@ -2,13 +2,10 @@
 
 namespace App\Livewire\Warehouse\StockItem;
 
-use App\Models\Store;
 use Livewire\Component;
 use App\Traits\Sortable;
 use App\Traits\Searchable;
 use Livewire\WithPagination;
-use App\Models\Commerce\Sale;
-use Illuminate\Support\Collection;
 use App\Models\Warehouse\StockItem;
 use App\Services\SaleService;
 use App\Services\StockItemService;
@@ -90,7 +87,7 @@ class IndexStockItems extends Component
             ->first();
 
         if (!$stockItem) {
-            $this->addError('searchItem', $this->returnItemStatusInfo($item['id']));
+            $this->addError('searchItem', 'This item is not available for sale or does not exist.');
             return;
         } else {
             if ($sale->items->contains($stockItem->id)) {
@@ -98,13 +95,10 @@ class IndexStockItems extends Component
             } else {
                 $this->resetErrorBag();
                 // $sale->items()->save($stockItem);
-                $this->stockItemService->assignToSale($stockItem, $this->store, $sale->id);
+                $this->stockItemService->assignToSale($stockItem, $sale->id);
                 $this->dispatch('item-added');
             }
         }
-
-        $this->resetPage();
-
     }
 
     public function removeStockItemFromSale($item)
@@ -157,7 +151,7 @@ class IndexStockItems extends Component
                         });
                         break;
 
-                    // Dodaj inne przypadki jeśli pojawią się nowe filtry
+                    // Add more cases for other filters as needed
                     default:
                         $stockItemsQuery->where($key, $value);
                         break;
@@ -173,12 +167,7 @@ class IndexStockItems extends Component
 
         // Paginate the results
         $stockItemsQuery = $stockItemsQuery->paginate($this->perPage);
-
-        // If store is set, fetch stock items for that store
-        // Otherwise, fetch all stock items
         $stockItems = $stockItemsQuery;
-
-        // dd($stockItems);
 
         return view('livewire.warehouse.stock-item.index-stock-items', compact('stockItems'));
     }
