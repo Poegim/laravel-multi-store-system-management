@@ -93,7 +93,15 @@ class CreateSale extends Component
             $this->searchItem = '';
             $this->dispatch('item-added');
         } else {
-            $this->addError('searchItem', 'Unknown error.');
+            $checkItem = StockItem::where('id', $this->searchItem)->first();
+            if($checkItem) {
+                $this->addError(
+                    'searchItem',
+                    'Item #' . $checkItem->id . ' | ' . $this->returnItemStatusInfo($checkItem->id)
+                );
+            } else {
+                $this->addError('searchItem', 'This item does not exist.');
+            }
         }
     }
 

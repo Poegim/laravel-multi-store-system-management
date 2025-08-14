@@ -87,8 +87,12 @@ class IndexStockItems extends Component
             ->first();
 
         if (!$stockItem) {
-            $this->addError('searchItem', 'This item is not available for sale or does not exist.');
-            return;
+            $checkItem = StockItem::where('id', $item['id'])->first();
+            if ($checkItem) {
+                $this->addError('searchItem', 'Item #' . $checkItem->id . ' | ' . $this->returnItemStatusInfo($checkItem->id));
+            } else {
+                $this->addError('searchItem', 'This item does not exist.');
+            }
         } else {
             if ($sale->items->contains($stockItem->id)) {
                 $this->addError('searchItem', "This item is already added to the on-going sale id:{$stockItem->sale->id} of user {$stockItem->sale->user->name}.");

@@ -25,7 +25,7 @@ trait ReturnItemStatusInfo
                     $status = 'Missing';
                     break;
                 case StockItem::IN_PENDING_SALE:
-                    $status = 'In Pending Sale' . ' (Sale ID: ' . $item->sale->id . ')' . ' by ' . $item->sale->user->name . ' at store ' . $item->store->name;
+                    $status = 'Currently in Pending Sale' . ' (Sale ID: ' . $item->sale->id . ')' . ' by ' . $item->sale->user->name . ' at store ' . $item->store->name;
                     break;
                 case StockItem::IN_REPAIR:
                     $status = 'In Repair' . ' at store ' . $item->store->name;

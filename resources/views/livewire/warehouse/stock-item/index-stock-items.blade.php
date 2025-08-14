@@ -1,6 +1,13 @@
 <x-window x-data="{ fullScreen: false }">
     <div :class="fullScreen ? 'absolute top-0 left-0 right-0 bottom-0 bg-white p-2 sm:p-4' : ''">
         <div>
+            @if ($errors->any())
+            <x-lists.errors-list title="{{ __('Errors detected!') }}">
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </x-lists.errors-list>
+            @endif
             <div class="flex justify-end items-center mb-2 gap-2">
                 <div>
                     @if ($filters)                        

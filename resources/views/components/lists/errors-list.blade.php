@@ -6,7 +6,7 @@
     </svg>
     <span class="sr-only">{{__('Errors detected!')}}</span>
     <div>
-        <span class="font-medium">Ensure that these requirements are met:</span>
+        <span class="font-medium">{{ $title ?? __('Ensure that these requirements are met:') }}</span>        
         <ul class="mt-1.5 list-disc list-inside">
             {{ $slot }}
         </ul>
