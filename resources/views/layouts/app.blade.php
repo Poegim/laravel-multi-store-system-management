@@ -61,13 +61,19 @@
             
             <div class="w-full">
                 <x-navigation-top-menu />
+                @php
+                    $routeStore = request()->route('store');
+                @endphp
+
                 <!-- Page Heading -->
-                @if (isset($header))
+                @if (isset($header) && $routeStore === null)
                 <header class="shadow px-3 {{ $headerBgColor }}">
                     <div class="mx-auto">
                         {{ $header }}
                     </div>
                 </header>
+                @elseif($routeStore !== null)
+                <x-store-nav :storeId="$routeStore->id" />
                 @endif
 
                 <!-- Page Content -->

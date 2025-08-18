@@ -49,7 +49,36 @@ class StockItem extends Model
 
     public function formattedSuggestedRetailPrice()
     {
-        return $this->getFormattedAmount($this->suggested_retail_price);
+            if ($this->suggested_retail_price > 0) {
+                return $this->getFormattedAmount($this->suggested_retail_price);
+            }
+
+            if ($this->productVariant->suggested_retail_price > 0) {
+                return $this->getFormattedAmount($this->productVariant->suggested_retail_price);
+            }
+
+            if ($this->productVariant->product->suggested_retail_price > 0) {
+                return $this->getFormattedAmount($this->productVariant->product->suggested_retail_price);
+            }
+
+            return $this->getFormattedAmount($this->suggested_retail_price);
+    }
+
+    public function suggestedRetailPrice(): int
+    {
+        if ($this->suggested_retail_price > 0) {
+            return $this->suggested_retail_price;
+        }
+
+        if ($this->productVariant->suggested_retail_price > 0) {
+            return $this->productVariant->suggested_retail_price;
+        }
+
+        if ($this->productVariant->product->suggested_retail_price > 0) {
+            return $this->productVariant->product->suggested_retail_price;
+        }
+
+        return $this->suggested_retail_price;
     }
 
     public function externalInvoice()
