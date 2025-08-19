@@ -168,10 +168,11 @@ class StockItem extends Model
         return $this->status === self::IN_TRANSFER;
     }
     
-
-    public function sale()
+    public function sales()
     {
-        return $this->belongsTo(Sale::class, 'sale_id');
+        return $this->belongsToMany(Sale::class)
+                    ->withPivot(['price'])
+                    ->withTimestamps();
     }
 
 }

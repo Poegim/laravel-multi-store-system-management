@@ -29,9 +29,11 @@ class Sale extends Model
         'status',
     ];
 
-    public function items()
+    public function stockItems()
     {
-        return $this->hasMany(StockItem::class);
+        return $this->belongsToMany(StockItem::class)
+                    ->withPivot(['price'])
+                    ->withTimestamps();
     }
 
     public function scopeCompleted($query)

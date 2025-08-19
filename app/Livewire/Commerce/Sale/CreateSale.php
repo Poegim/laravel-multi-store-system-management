@@ -34,7 +34,7 @@ class CreateSale extends Component
     {
         $this->store = $store;
         $this->sale = $sale;
-        foreach ($this->sale->items as $item) {
+        foreach ($this->sale->stockItems as $item) {
             $item->sold_price = $item->suggested_retail_price; // Initialize sold_price with suggested_retail_price
         }
     }
@@ -89,7 +89,7 @@ class CreateSale extends Component
 
         if($item)
         {
-            $this->stockItemService->assignToSale($item, $this->sale->id);
+            $this->stockItemService->assignToSale($item, $this->sale);
             $this->searchItem = '';
             $this->dispatch('item-added');
         } else {
@@ -111,7 +111,7 @@ class CreateSale extends Component
             $this->addError('searchItem', 'This item is not available for removal.');
             return;
         } else {
-            $this->stockItemService->removeFromSale($item);
+            $this->stockItemService->removeFromSale($item, $this->sale);
             $this->sale->refresh();
         }
     }    
@@ -119,7 +119,7 @@ class CreateSale extends Component
     public function render()
     {
         return view('livewire.commerce.sale.create-sale', [
-            'saleItems' => $this->sale->items()->with(['brand', 'productVariant.product'])->get(),
+            'saleItems' => $this->sale->stockItems()->with(['brand', 'productVariant.product'])->get(),
         ]);
     }
 }

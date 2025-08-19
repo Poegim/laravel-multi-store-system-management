@@ -6,9 +6,10 @@ use Livewire\Component;
 use App\Traits\Sortable;
 use App\Traits\Searchable;
 use Livewire\WithPagination;
-use App\Models\Warehouse\StockItem;
+use App\Models\Commerce\Sale;
 use App\Services\SaleService;
 use App\Services\StockItemService;
+use App\Models\Warehouse\StockItem;
 use App\Traits\ReturnItemStatusInfo;
 
 class IndexStockItems extends Component
@@ -78,36 +79,42 @@ class IndexStockItems extends Component
     {
         $sale = $this->saleService->getActiveSale($this->store->id);
 
-        $stockItem = StockItem::where('id', $item['id'])->where('store_id', $this->store->id)
-            ->where(function ($query) use ($sale) {
-                $query->whereNull('sale_id')
-                      ->orWhere('sale_id', $sale->id);
-            })
+        // znajdź item tylko w tym sklepie
+        $stockItem = StockItem::where('id', $item)
+            ->where('store_id', $this->store->id)
             ->where('status', StockItem::AVAILABLE)
             ->first();
 
         if (!$stockItem) {
-            $checkItem = StockItem::where('id', $item['id'])->first();
+            // item nie znaleziony albo niedostępny
+            $checkItem = StockItem::find($item);
             if ($checkItem) {
                 $this->addError('searchItem', 'Item #' . $checkItem->id . ' | ' . $this->returnItemStatusInfo($checkItem->id));
             } else {
                 $this->addError('searchItem', 'This item does not exist.');
             }
-        } else {
-            if ($sale->items->contains($stockItem->id)) {
-                $this->addError('searchItem', "This item is already added to the on-going sale id:{$stockItem->sale->id} of user {$stockItem->sale->user->name}.");
-            } else {
-                $this->resetErrorBag();
-                // $sale->items()->save($stockItem);
-                $this->stockItemService->assignToSale($stockItem, $sale->id);
-                $this->dispatch('item-added');
-            }
+            return;
         }
+
+        // sprawdź, czy już jest w tej sprzedaży (pivot)
+        if ($sale->stockItems()->where('stock_item_id', $stockItem->id)->exists()) {
+            $this->addError(
+                'searchItem', 
+                "This item is already added to the on-going sale id: {$sale->id} of user {$sale->user->name}."
+            );
+            return;
+        }
+
+        // przypisz do sprzedaży
+        $this->resetErrorBag();
+        $this->stockItemService->assignToSale($stockItem, $sale);
+        $this->dispatch('item-added');
     }
 
-    public function removeStockItemFromSale($item)
+
+    public function removeStockItemFromSale($item, $saleId)
     {
-        $stockItem = StockItem::find($item['id']);
+        $stockItem = StockItem::find($item);
 
         if (!$stockItem) {
             $this->addError('searchItem', 'This item does not exist.');
@@ -119,7 +126,17 @@ class IndexStockItems extends Component
             return;
         }
 
-        $this->stockItemService->removeFromSale($stockItem);
+        $sale = Sale::find($saleId);
+        if (!$sale) {
+            $this->addError('searchItem', 'The sale does not exist.');
+            return;
+        }
+
+        $sale->stockItems()->detach($stockItem->id);
+
+        $stockItem->status = StockItem::AVAILABLE;
+        $stockItem->save();
+
         $this->dispatch('item-removed');
     }
 
@@ -128,7 +145,7 @@ class IndexStockItems extends Component
     {   
         $sortDirection = $this->sortAsc ? 'asc' : 'desc';
 
-        $stockItemsQuery = StockItem::with(['productVariant.product.brand', 'vatRate', 'brand', 'externalInvoice', 'sale'])
+        $stockItemsQuery = StockItem::with(['productVariant.product.brand', 'vatRate', 'brand', 'externalInvoice', 'sales'])
             ->where(function ($query) {
                 $query->where('stock_items.id', 'like', '%' . $this->search . '%')
                       ->orWhereHas('productVariant.product', function ($q) {
