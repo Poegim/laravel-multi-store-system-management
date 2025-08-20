@@ -79,13 +79,6 @@
                 </tr>
             </thead>
 
-            @php
-                // Szukamy bieżącej sprzedaży użytkownika
-                $userSale = App\Models\Commerce\Sale::where('status', App\Models\Commerce\Sale::PENDING)
-                    ->where('user_id', auth()->id())
-                    ->first();
-            @endphp
-
             <tbody>
                 @foreach($stockItems as $item)
                      <tr class="bg-white dark:bg-gray-800 border-t hover:bg-gray-100 dark:hover:bg-gray-700 transition">
@@ -111,9 +104,9 @@
                         <td class="flex space-x-1">
                         @if ($store)
 
-                        @if($userSale && $item->sales->contains($userSale->id))
+                        @if($userPendingSale && $item->sales->contains($userPendingSale->id))
                             <button 
-                                wire:click="removeStockItemFromSale({{ $item->id }}, {{ $userSale->id }})" 
+                                wire:click="removeStockItemFromSale({{ $item->id }}, {{ $userPendingSale->id }})" 
                                 type="button" 
                                 class="p-1 w-7 mt-2 text-xs rounded-lg border border-red-500 bg-red-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
                               S-

@@ -190,6 +190,8 @@ class IndexStockItems extends Component
         $stockItemsQuery = $stockItemsQuery->paginate($this->perPage);
         $stockItems = $stockItemsQuery;
 
-        return view('livewire.warehouse.stock-item.index-stock-items', compact('stockItems'));
+        $userPendingSale = auth()->user()->pendingSale($this->store->id)->first();
+
+        return view('livewire.warehouse.stock-item.index-stock-items', compact('stockItems', 'userPendingSale'));
     }
 }

@@ -59,14 +59,19 @@
                     <div class="flex mb-2 space-x-1">
                         <div>Łączna cena sprzedaży:</div>
                         <div class="text-right">
-                            {{  number_format($saleItems->sum('sold_price') / 100, 2, ',', ' ') }}
+                            {{ number_format($saleItems->sum(fn($item) => $item->soldPrice()) / 100, 2, ',', ' ') }}
                         </div>
                     </div>
 
                     <div class="flex mb-2 space-x-1">
                         <div>Zysk brutto:</div>
                         <div class="text-right">
-                            {{  number_format($saleItems->sum('sold_price') / 100 - $saleItems->sum('purchase_price_gross') / 100, 2, ',', ' ') }}
+                            {{ number_format(
+                                ($saleItems->sum(fn($item) => $item->soldPrice()) - $saleItems->sum('purchase_price_gross')) / 100,
+                                2,
+                                ',',
+                                ' '
+                            ) }}                        
                         </div>
                     </div>
                 </div>
@@ -100,7 +105,7 @@
                     <th scope="col" class="p-2">{{ __('PPG') }}</th>
                     <th scope="col" class="p-2">{{ __('Actions') }}</th>
                     <th scope="col" class="p-2">{{ __('SRP')}}</th>
-                    <th scope="col" class="p-2">{{ __('Sold Price')}}</th>
+                    <th scope="col" class="p-2">{{ __('Edit Price') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -124,8 +129,10 @@
                     <td class="p-2">
                         {{ $saleItem->formattedSRP() }}
                     </td>
-                    <td>
-                        <input class="input-text mt-1 h-6" wire:model.live="saleItems.{{ $saleItem->id }}">
+                    <td class="p-2">
+                        <button wire:click="showEditSoldPriceModal({{ $saleItem->id }})" class="text-blue-600 hover:text-blue-900">
+                            {{ __('Edit') }}
+                        </button>
                     </td>
                 </tr>
                 
@@ -134,6 +141,32 @@
             </tbody>
         </table>
     </x-window>
+
+
+    <x-dialog-modal wire:model.live="editSoldPriceModal">
+        <x-slot name="title">
+            {{-- Edit {{ $editedItem?->id }} - {{ $editedItem?->productVariant->product->name }} - {{ $editedItem?->productVariant->name }} --}}
+        </x-slot>
+
+        <x-slot name="content">
+            {{-- <div class="mt-4">
+                <x-input type="number" min="0.01" max="100000" class="mt-1 block w-3/4" placeholder="{{ __('Suggested Retail Price') }}"
+                            wire:model="editedItem.sold_price" />
+                <x-input-error for="editedItem.sold_price" class="mt-2" />
+            </div> --}}
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-secondary-button wire:click="$toggle('editSoldPriceModal')">
+                {{ __('Cancel') }}
+            </x-secondary-button>
+
+            <x-button class="ms-3" wire:click="updateSoldPrice" wire:loading.attr="disabled">
+                {{ __('Update') }}
+            </x-button>
+        </x-slot>
+    </x-dialog-modal>
+
 
 
 </div>

@@ -64,8 +64,12 @@ class StockItem extends Model
             return $this->getFormattedAmount($this->suggested_retail_price);
     }
 
-    public function suggestedRetailPrice(): int
+    public function soldPrice(): int
     {
+        if ($this->sold_price > 0) {
+            return $this->sold_price;
+        }
+
         if ($this->suggested_retail_price > 0) {
             return $this->suggested_retail_price;
         }
@@ -78,7 +82,7 @@ class StockItem extends Model
             return $this->productVariant->product->suggested_retail_price;
         }
 
-        return $this->suggested_retail_price;
+        return 0;
     }
 
     public function externalInvoice()

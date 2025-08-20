@@ -34,30 +34,40 @@ class CreateSale extends Component
     {
         $this->store = $store;
         $this->sale = $sale;
-        foreach ($this->sale->stockItems as $item) {
-            $item->sold_price = $item->suggested_retail_price; // Initialize sold_price with suggested_retail_price
-        }
+
     }
 
-    public function editSoldPrice(StockItem $item)
+    public function editSoldPrice(int $id)
     {
-        $this->editedItem = $item;
+        $this->editedItem = StockItem::find($id);
         $this->editSoldPriceModal = true;
+    }
+
+    public function showEditSoldPriceModal($stockItemId)
+    {
+        $this->editedItem = StockItem::find($stockItemId);
+        $this->editSoldPriceModal = true;
+
+    }
+
+    public function hideEditSoldPrice()
+    {
+        dd('hideEditSoldPrice called');
+        $this->editSoldPriceModal = false;
     }
 
     public function updateSoldPrice()
     {
-        dd($this->editedItem->suggested_retail_price);
-
         $this->validate([
-            'editedItem.suggested_retail_price' => 'required|numeric|min:0.01|max:100000',
+            'editedItem.sold_price' => 'required|numeric|min:0.01|max:100000',
         ]);
 
-        $this->editedItem->sold_price = $this->decimalToInteger(round((float) $this->editedItem->suggested_retail_price, 2));
+        $this->editedItem->sold_price = $this->decimalToInteger(round((float) $this->editedItem->sold_price, 2));
 
         $this->editedItem->save();
         $this->editSoldPriceModal = false;
         $this->dispatch('sold-price-updated');
+        $this->sale->refresh();
     }
 
     public function addItem()
@@ -119,7 +129,7 @@ class CreateSale extends Component
     public function render()
     {
         return view('livewire.commerce.sale.create-sale', [
-            'saleItems' => $this->sale->stockItems()->with(['brand', 'productVariant.product'])->get(),
+            'saleItems' => $this->sale->stockItems()->with(['brand', 'productVariant.product'])->get()
         ]);
     }
 }
