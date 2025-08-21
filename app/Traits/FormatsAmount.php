@@ -31,14 +31,8 @@ trait FormatsAmount
      */
     public function integerToDecimal(int $value = 0): string
     {
-
-        if ($value === 0) {
-            return 0;
-        }
-
-        if($value < 0) {
-            abort(403);
-        }
+        if ($value === 0) return '0.00';
+        if ($value < 0) abort(403);
 
         return number_format($value / 100, 2, '.', '');
     }

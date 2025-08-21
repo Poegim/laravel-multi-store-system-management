@@ -45,35 +45,31 @@
                     <div class="flex mb-2 space-x-1">
                         <div>Łączna cena zakupu netto:</div>
                         <div class="text-right">
-                            {{  number_format($saleItems->sum('purchase_price_net') / 100, 2, ',', ' ') }}
+                            {{ number_format($totalPurchaseNet / 100, 2, '.', ' ') }}
                         </div>
                     </div>
 
                     <div class="flex mb-2 space-x-1">
                         <div>Łączna cena zakupu brutto:</div>
                         <div class="text-right">
-                            {{  number_format($saleItems->sum('purchase_price_gross') / 100, 2, ',', ' ') }}
+                            {{ number_format($totalPurchaseGross / 100, 2, '.', ' ') }}
+                        </div>
+                    </div>
+                    
+                    <div class="flex mb-2 space-x-1">
+                        <div>Zysk brutto:</div>
+                        <div class="text-right {{ $totalSoldPrice - $totalPurchaseGross < 0 ? 'text-red-600' : 'text-green-600' }} font-bold flex">
+                            {{ number_format(($totalSoldPrice - $totalPurchaseGross) / 100, 2, '.', ' ') }}
                         </div>
                     </div>
 
                     <div class="flex mb-2 space-x-1">
                         <div>Łączna cena sprzedaży:</div>
-                        <div class="text-right">
-                            {{ number_format($saleItems->sum(fn($item) => $item->soldPrice()) / 100, 2, ',', ' ') }}
+                        <div class="text-right font-bold">
+                            {{ number_format($totalSoldPrice / 100, 2, '.', ' ') }}
                         </div>
                     </div>
 
-                    <div class="flex mb-2 space-x-1">
-                        <div>Zysk brutto:</div>
-                        <div class="text-right">
-                            {{ number_format(
-                                ($saleItems->sum(fn($item) => $item->soldPrice()) - $saleItems->sum('purchase_price_gross')) / 100,
-                                2,
-                                ',',
-                                ' '
-                            ) }}                        
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="flex justify-end">
@@ -103,9 +99,9 @@
                     <th scope="col" class="p-2">{{ __('Variant') }}</th>
                     <th scope="col" class="p-2">{{ __('PPN') }}</th>
                     <th scope="col" class="p-2">{{ __('PPG') }}</th>
-                    <th scope="col" class="p-2">{{ __('Actions') }}</th>
                     <th scope="col" class="p-2">{{ __('SRP')}}</th>
-                    <th scope="col" class="p-2">{{ __('Edit Price') }}</th>
+                    <th scope="col" class="p-2">{{ __('Remove') }}</th>
+                    <th scope="col" class="p-2">{{ __('Final Price') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -119,6 +115,9 @@
                     <td class="p-2">{{ $saleItem->formattedPurchasePriceNet() }}</td>
                     <td class="p-2">{{ $saleItem->formattedPurchasePriceGross() }}</td>
                     <td class="p-2">
+                        {{ $saleItem->formattedSRP() }}
+                    </td>
+                    <td class="p-2">
                             <button class="flex gap-1 hover:fill-red-500 text-red-600 hover:text-red-900" wire:click="removeItem({{ $saleItem->id }})" wire:click="removeItem({{ $saleItem }})">
                                 <svg fill="#currentColor" class="size-6" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>remove</title> <path d="M11.188 4.781c6.188 0 11.219 5.031 11.219 11.219s-5.031 11.188-11.219 11.188-11.188-5-11.188-11.188 5-11.219 11.188-11.219zM11.25 17.625l3.563 3.594c0.438 0.438 1.156 0.438 1.594 0 0.406-0.406 0.406-1.125 0-1.563l-3.563-3.594 3.563-3.594c0.406-0.438 0.406-1.156 0-1.563-0.438-0.438-1.156-0.438-1.594 0l-3.563 3.594-3.563-3.594c-0.438-0.438-1.156-0.438-1.594 0-0.406 0.406-0.406 1.125 0 1.563l3.563 3.594-3.563 3.594c-0.406 0.438-0.406 1.156 0 1.563 0.438 0.438 1.156 0.438 1.594 0z"></path> </g></svg>
                                 <div class="my-auto">
@@ -127,9 +126,7 @@
                             </button>
                     </td>
                     <td class="p-2">
-                        {{ $saleItem->formattedSRP() }}
-                    </td>
-                    <td class="p-2">
+                        {{ number_format($saleItem->pivot->price / 100, 2, '.', ' ') }}
                         <button wire:click="showEditSoldPriceModal({{ $saleItem->id }})" class="text-blue-600 hover:text-blue-900">
                             {{ __('Edit') }}
                         </button>
@@ -145,15 +142,16 @@
 
     <x-dialog-modal wire:model.live="editSoldPriceModal">
         <x-slot name="title">
-            {{-- Edit {{ $editedItem?->id }} - {{ $editedItem?->productVariant->product->name }} - {{ $editedItem?->productVariant->name }} --}}
+            Edit {{ $editedItem?->id }} - {{ $editedItem?->productVariant->product->name }} - {{ $editedItem?->productVariant->name }}
         </x-slot>
 
         <x-slot name="content">
-            {{-- <div class="mt-4">
-                <x-input type="number" min="0.01" max="100000" class="mt-1 block w-3/4" placeholder="{{ __('Suggested Retail Price') }}"
-                            wire:model="editedItem.sold_price" />
-                <x-input-error for="editedItem.sold_price" class="mt-2" />
-            </div> --}}
+            <div class="mt-4">
+                {{ $editedPrice }}
+                <x-input type="number" min="0.01" max="100000" class="mt-1 block w-3/4"
+                            wire:model="editedPrice" />
+                <x-input-error for="editedPrice" class="mt-2" />
+            </div>
         </x-slot>
 
         <x-slot name="footer">
