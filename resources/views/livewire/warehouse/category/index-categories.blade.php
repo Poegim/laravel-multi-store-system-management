@@ -5,8 +5,8 @@
             </x-button>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-2xl">
-            <div class="p-2 rounded-md shadow-lg">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded">
+            <div class="p-2 rounded shadow-lg">
                 <div class="-ml-12">
                     @foreach ($categories as $categoryName => $category)
                         @include('livewire.warehouse.category.list', ['name' => $categoryName, 'category' => $category,

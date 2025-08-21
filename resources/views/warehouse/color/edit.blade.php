@@ -50,7 +50,7 @@
             <input name="value"
                 type="color"
                 id="value"
-                class="p-1 h-10 w-full block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700" 
+                class="p-1 h-10 w-full block bg-white border border-gray-200 cursor-pointer rounded disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700" 
                 id="color" 
                 title="Choose your color"
                 value="{{ old('value') ? old('value') : $color->value }}" />

@@ -23,12 +23,12 @@
 
 .rounded-mid
 {
-    @apply rounded-md;
+    @apply rounded;
 }
 
 .store-dashboard-link
 {
-    @apply h-full flex bg-slate-100 dark:bg-slate-900 text-gray-700 dark:text-gray-100 hover:bg-slate-300 dark:hover:bg-slate-950 rounded-2xl shadow-sm p-2 w-full;
+    @apply h-full flex bg-slate-100 dark:bg-slate-900 text-gray-700 dark:text-gray-100 hover:bg-slate-300 dark:hover:bg-slate-950 rounded shadow-sm p-2 w-full;
 }
 
 .store-dashboard-icon
@@ -91,6 +91,6 @@
 
 .input-text
 {
-    @apply mb-2 border border-indigo-300 text-gray-900 text-sm rounded-md block w-full p-1 sm:p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white;
+    @apply mb-2 border border-indigo-300 text-gray-900 text-sm rounded block w-full p-1 sm:p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white;
 }
 

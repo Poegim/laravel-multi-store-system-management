@@ -2,7 +2,7 @@
     {{
     $attributes->merge([
         'type' => 'button',
-        'class' => 'roboto italic inline-flex items-center gap-2 px-4 py-0.5 bg-blue-600 text-white text-sm font-medium rounded-md shadow hover:bg-blue-500 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 transition-colors'
+        'class' => 'roboto italic inline-flex items-center gap-2 px-4 py-0.5 bg-blue-600 text-white text-sm font-medium rounded shadow hover:bg-blue-500 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 transition-colors'
     ])
     }}>
     <svg viewBox="0 0 24 24" class="h-5 w-5 fill-white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">

@@ -2,7 +2,7 @@
     <!-- Create Button -->
     <div class="index-create-btn-div">
         <a href="{{ route('store.create') }}" wire:navigate>
-            <x-button class="px-6 py-2 text-sm font-semibold rounded-xl shadow-md bg-primary-600 text-white hover:bg-primary-700 transition">
+            <x-button class="px-6 py-2 text-sm font-semibold rounded shadow-md bg-primary-600 text-white hover:bg-primary-700 transition">
                 {{ __('Create Store') }}
             </x-button>
         </a>

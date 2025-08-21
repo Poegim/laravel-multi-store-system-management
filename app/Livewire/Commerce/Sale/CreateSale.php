@@ -17,7 +17,10 @@ class CreateSale extends Component
     public Store $store;
     public ?Sale $sale;
     public $searchItem = '';
-    public  bool $editSoldPriceModal = false;
+    public bool $editSoldPriceModal = false;
+    public bool $finalizeSaleModal = false;
+    public bool $receiptWithNIP = false;
+    public int $nipNumber = 0;
 
     public $editedPrice = null;
     public $editedItemId = null;
@@ -55,6 +58,11 @@ class CreateSale extends Component
         $this->editedPrice =  $this->integerToDecimal($this->editedItem->pivot->price);
         $this->editSoldPriceModal = true;
 
+    }
+
+    public function showFinalizeSaleModal()
+    {
+        $this->finalizeSaleModal = true;
     }
 
 

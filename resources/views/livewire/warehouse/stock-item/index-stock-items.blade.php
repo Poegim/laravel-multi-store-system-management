@@ -23,7 +23,7 @@
                 <input type="text" id="search" name="search"
                     
                     wire:model.debounce.500ms.live="search"
-                    class="rounded-lg border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-300 h-10 w-full sm:w-64 px-3 text-sm"
+                    class="rounded border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-300 h-10 w-full sm:w-64 px-3 text-sm"
                     placeholder="{{ __('Search...') }}"
                 />
 
@@ -45,7 +45,7 @@
                     <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M14 3.414L9.414 8 14 12.586v-2.583h2V16h-6v-1.996h2.59L8 9.414l-4.59 4.59H6V16H0v-5.997h2v2.583L6.586 8 2 3.414v2.588H0V0h16v6.002h-2V3.414zm-1.415-1.413H10V0H6v2H3.415L8 6.586 12.585 2z" fill-rule="evenodd"></path> </g></svg>
                 </x-secondary-button>
             </div>
-            <table class="rounded-2xl overflow-hidden min-w-full text-xs text-left text-gray-700 dark:text-gray-300 border dark:border-gray-700">
+            <table class="rounded overflow-hidden min-w-full text-xs text-left text-gray-700 dark:text-gray-300 border dark:border-gray-700">
                 <thead class="uppercase bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
                 <tr>
                     <th class="px-4 py-1 sm:py-2 cursor-pointer" wire:click="sortBy('id')">{{ __('Id') }}
@@ -108,14 +108,14 @@
                             <button 
                                 wire:click="removeStockItemFromSale({{ $item->id }}, {{ $userPendingSale->id }})" 
                                 type="button" 
-                                class="p-1 w-7 mt-2 text-xs rounded-lg border border-red-500 bg-red-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
+                                class="p-1 w-7 mt-2 text-xs rounded border border-red-500 bg-red-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
                               S-
                             </button>
                         @elseif($item->isAvailable())
                             <button 
                                 wire:click="addToSale({{ $item->id }})" 
                                 type="button" 
-                                class="p-1 w-7 mt-2 text-xs rounded-lg border border-green-500 bg-green-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
+                                class="p-1 w-7 mt-2 text-xs rounded border border-green-500 bg-green-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
                                 S+
                             </button>
                         @endif
@@ -126,13 +126,13 @@
                             @if($item->transfer_id != null || $item->isInTransfer())
                                 <button 
                                     type="button" 
-                                    class="p-1 w-7 mt-2 text-xs rounded-lg border border-blue-500 bg-blue-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
+                                    class="p-1 w-7 mt-2 text-xs rounded border border-blue-500 bg-blue-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
                                   T-
                                 </button>
                             @elseif($item->isAvailable())
                                 <button 
                                     type="button" 
-                                    class="p-1 w-7 mt-2 text-xs rounded-lg border border-blue-500 bg-blue-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
+                                    class="p-1 w-7 mt-2 text-xs rounded border border-blue-500 bg-blue-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
                                   T+
                                 </button>
                             @endif

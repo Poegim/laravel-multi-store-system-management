@@ -54,7 +54,7 @@
 
 <x-window>
     <div class="overflow-x-auto">
-        <table class="rounded-2xl overflow-hidden min-w-full text-xs text-left text-gray-700 dark:text-gray-300 border dark:border-gray-700">
+        <table class="rounded overflow-hidden min-w-full text-xs text-left text-gray-700 dark:text-gray-300 border dark:border-gray-700">
             <thead class="uppercase bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
                     <tr class="text-black dark:text-white">
                         <th scope="col" class="px-4 py-2 ">

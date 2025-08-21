@@ -8,7 +8,7 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 text-sm">
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded">
             <div class="p-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                 <div class="flex flex-col space-y-4">
                     <div class="font-semibold text-gray-900 dark:text-white">
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <div class="mt-2 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="mt-2 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded">
             <div class="p-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                 <div class="font-semibold text-gray-900 dark:text-white mb-4">
                     {{ __('Related External Invoices') }}

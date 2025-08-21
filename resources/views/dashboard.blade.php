@@ -9,7 +9,7 @@
 
     <div class="py-2 sm:py-4">
         <div class="">
-            <div class="bg-white dark:bg-gray-800 sm:rounded-2xl  shadow-lg overflow-hidden">
+            <div class="bg-white dark:bg-gray-800 sm:rounded  shadow-lg overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
                     <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">Latest Code Changes</h3>
                 </div>
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <x-window>
+    {{-- <x-window>
             <livewire:log-viewer />
-    </x-window>
+    </x-window> --}}
 </x-app-layout>

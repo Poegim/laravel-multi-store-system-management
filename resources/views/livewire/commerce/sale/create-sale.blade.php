@@ -12,13 +12,13 @@
         
         <div class="flex items-center gap-2">
             <input 
-            class="border border-gray-300 p-1 rounded-lg text-sm" 
+            class="border border-gray-300 p-1 rounded text-sm" 
             type="text" placeholder="{{ __('Search for a item') }}" 
             wire:model="searchItem" 
             wire:keydown.enter="addItem"
             />
             <button 
-                class="bg-blue-500 text-white text-sm p-1 px-2 rounded-lg" 
+                class="bg-blue-500 text-white text-sm p-1 px-2 rounded" 
                 wire:click="addItem"
                 >
                 Add
@@ -35,36 +35,36 @@
         <div class="text-sm text-gray-800 grid grid-cols-2">
             <div>
 
-                <h2 class="text-lg font-semibold mb-2">Podsumowanie sprzedaży</h2>
+                <h2 class="text-lg font-semibold mb-2">Sale summary</h2>
                 <div class="">
                     <div class="flex mb-2 space-x-1">
-                        <div>Liczba przedmiotów:</div>
+                        <div>Items count:</div>
                         <div class="text-right">{{ $saleItems->count() }}</div>
                     </div>
 
                     <div class="flex mb-2 space-x-1">
-                        <div>Łączna cena zakupu netto:</div>
+                        <div>Cost of purchase NET:</div>
                         <div class="text-right">
                             {{ number_format($totalPurchaseNet / 100, 2, '.', ' ') }}
                         </div>
                     </div>
 
                     <div class="flex mb-2 space-x-1">
-                        <div>Łączna cena zakupu brutto:</div>
+                        <div>Cost of purchase GROSS:</div>
                         <div class="text-right">
                             {{ number_format($totalPurchaseGross / 100, 2, '.', ' ') }}
                         </div>
                     </div>
                     
                     <div class="flex mb-2 space-x-1">
-                        <div>Zysk brutto:</div>
+                        <div>Gross profit:</div>
                         <div class="text-right {{ $totalSoldPrice - $totalPurchaseGross < 0 ? 'text-red-600' : 'text-green-600' }} font-bold flex">
                             {{ number_format(($totalSoldPrice - $totalPurchaseGross) / 100, 2, '.', ' ') }}
                         </div>
                     </div>
 
                     <div class="flex mb-2 space-x-1">
-                        <div>Łączna cena sprzedaży:</div>
+                        <div>Total price:</div>
                         <div class="text-right font-bold">
                             {{ number_format($totalSoldPrice / 100, 2, '.', ' ') }}
                         </div>
@@ -76,9 +76,9 @@
                 <button 
                     class="bg-green-600 hover:bg-green-700 active:bg-green-800 
                            text-white font-semibold text-sm md:text-base 
-                           px-4 py-2 rounded-xl shadow-md hover:shadow-lg 
+                           px-4 py-2 rounded shadow-md hover:shadow-lg 
                            transition-all duration-200 ease-in-out flex items-center gap-2"
-                    wire:click="finalizeSale"
+                    wire:click="showFinalizeSaleModal"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4-4m5 2a9 9 0 11-18 0a9 9 0 0118 0z"/>
@@ -162,6 +162,26 @@
             <x-button class="ms-3" wire:click="updateSoldPrice" wire:loading.attr="disabled">
                 {{ __('Update') }}
             </x-button>
+        </x-slot>
+    </x-dialog-modal>
+
+    <x-dialog-modal wire:model.live="finalizeSaleModal">
+        <x-slot name="title">
+            {{ __('Finalize Sale') }}: {{$sale?->store?->name}} {{ $sale?->id }}
+        </x-slot>
+
+        <x-slot name="content">
+
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-secondary-button wire:click="$toggle('finalizeSaleModal')">
+                {{ __('Cancel') }}
+            </x-secondary-button>
+
+            <x-danger-button class="ms-3" wire:click="finalieSale" wire:loading.attr="disabled">
+                {{ __('Finalize') }}
+            </x-danger-button>
         </x-slot>
     </x-dialog-modal>
 

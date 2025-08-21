@@ -186,7 +186,7 @@
 
             <!-- Store Info -->
             <div>
-                <div class="items-center justify-between px-4 py-2 bg-white dark:bg-gray-800 shadow sm:rounded-2xl">
+                <div class="items-center justify-between px-4 py-2 bg-white dark:bg-gray-800 shadow sm:rounded">
                     <div class="flex items-center space-x-4">
 
 
@@ -204,10 +204,10 @@
                     </div>
 
                     <div class="flex items-center space-x-4 mt-4">
-                        <button class="bg-blue-700 text-white px-4 py-2 rounded-md text-xs">{{ __('Ongoing Sales') }} (0)</button>
-                        <button class="bg-yellow-700 text-white px-4 py-2 rounded-md text-xs">{{ __('Ongoing Purchases') }} (0)</button>
-                        <button class="bg-pink-700 text-white px-4 py-2 rounded-md text-xs">{{ __('Incoming Transfers') }} (0)</button>
-                        <button class="bg-green-700 text-white px-4 py-2 rounded-md text-xs">{{ __('Outgoing Transfers') }} (0)</button>
+                        <button class="bg-blue-700 text-white px-4 py-2 rounded text-xs">{{ __('Ongoing Sales') }} (0)</button>
+                        <button class="bg-yellow-700 text-white px-4 py-2 rounded text-xs">{{ __('Ongoing Purchases') }} (0)</button>
+                        <button class="bg-pink-700 text-white px-4 py-2 rounded text-xs">{{ __('Incoming Transfers') }} (0)</button>
+                        <button class="bg-green-700 text-white px-4 py-2 rounded text-xs">{{ __('Outgoing Transfers') }} (0)</button>
                         
                     </div>
 

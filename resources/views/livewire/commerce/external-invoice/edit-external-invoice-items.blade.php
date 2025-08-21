@@ -107,7 +107,7 @@
                             <input type="text" id="search_product_input" name="search_product_input"
                                 x-model="searchProduct"
                                 wire:model.debounce.500ms.live="searchProduct"
-                                class="w-full rounded-md rounded-r-none border-r-0 border-gray-300 focus:border-gray-300 focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+                                class="w-full rounded rounded-r-none border-r-0 border-gray-300 focus:border-gray-300 focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
                                 placeholder="{{ __('Search...') }}"
                             />
 
@@ -212,7 +212,7 @@
                             <input type="text" id="search_device_input" name="search_device_input"
                                 x-model="searchDevice"
                                 wire:model.debounce.500ms.live="searchDevice"
-                                class="w-full rounded-md rounded-r-none border-r-0 border-gray-300 focus:border-gray-300 focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+                                class="w-full rounded rounded-r-none border-r-0 border-gray-300 focus:border-gray-300 focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
                                 placeholder="{{ __('Search...') }}"
                             />
 
@@ -273,7 +273,7 @@
                             x-ref="inputField"
                             id="search_select_color"
                             name="search_select_color"
-                            class="w-full rounded-md rounded-r-none border-gray-300 focus:border-gray-300 border-r-0 focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+                            class="w-full rounded rounded-r-none border-gray-300 focus:border-gray-300 border-r-0 focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
                             placeholder="Search..." wire:model.live="searchColor"></input>
                             <button
                             @click="expanded = !expanded"
@@ -309,7 +309,7 @@
                             <div
                                 x-show="expanded"
                                 @click.outside="expanded = false"
-                                class="absolute top-10 left-0 mt-2 w-full border border-gray-500 bg-white dark:bg-gray-800 shadow-lg z-10 rounded-md">
+                                class="absolute top-10 left-0 mt-2 w-full border border-gray-500 bg-white dark:bg-gray-800 shadow-lg z-10 rounded">
                                 <ul class="max-h-60 overflow-auto">
                                     @foreach ($colors as $color)
                                         <li

@@ -42,7 +42,7 @@
             <input type="text" id="search_input"
                 x-model="search"
                 wire:model.debounce.500ms.live="search"
-                class="w-full rounded-md rounded-r-none border-r-0 border-gray-300 focus:border-gray-300 focus:ring-0"
+                class="w-full rounded rounded-r-none border-r-0 border-gray-300 focus:border-gray-300 focus:ring-0"
                 placeholder="{{ __('Search...') }}"
             />
         
