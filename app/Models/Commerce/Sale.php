@@ -2,14 +2,15 @@
 
 namespace App\Models\Commerce;
 
-use App\Models\Warehouse\StockItem;
-use App\Traits\BelongsToStore;
+use App\Models\Contact;
 use App\Traits\BelongsToUser;
 use App\Traits\FormatsAmount;
-use App\Traits\GetsFormattedAmount;
+use App\Traits\BelongsToStore;
 use App\Traits\HasFormattedSRP;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Warehouse\StockItem;
+use App\Traits\GetsFormattedAmount;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Sale extends Model
 {
@@ -23,11 +24,28 @@ class Sale extends Model
     public const COMPLETED = 1;
     public const CANCELLED = 2;
 
+    public const RECEIPT = 0;
+    public const RECEIPT_NIP = 1;
+    public const INVOICE = 2;
+
     protected $fillable = [
         'store_id',
         'user_id',
         'status',
     ];
+
+    public function documentType(): string {
+        return match ($this->document_type) {
+            self::RECEIPT => 'receipt',
+            self::RECEIPT_NIP => 'receipt_nip',
+            self::INVOICE => 'invoice',
+        };
+    }
+
+    public function contact()
+    {
+        return $this->belongsTo(Contact::class);
+    }
 
     public function stockItems()
     {

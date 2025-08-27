@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use App\Traits\BelongsToUser;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Commerce\ExternalInvoice;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Contact extends Model
 {
@@ -56,13 +57,7 @@ class Contact extends Model
     }
 
     public function type(): string {
-        if($this->isCompany()) {
-            return 'company';
-        } elseif($this->isPerson()){
-            return 'person';
-        } else {
-            return '';
-        }
+        return $this->type === self::PERSON ? 'Person' : 'Company';
     }
 
 }

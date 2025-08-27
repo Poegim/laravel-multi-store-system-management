@@ -5,22 +5,31 @@ namespace App\Livewire\Commerce\Sale;
 use App\Models\Store;
 use Livewire\Component;
 use App\Models\Commerce\Sale;
+use App\Models\Contact;
 use Illuminate\Validation\Rule;
 use App\Models\Warehouse\StockItem;
 use App\Services\SaleService;
 use App\Services\StockItemService;
 use App\Traits\FormatsAmount;
 use App\Traits\ReturnItemStatusInfo;
+use Illuminate\Support\Facades\DB;
 
 class CreateSale extends Component
 {
+    public ?Contact $selectedContact = null;
+    public $contacts = null;
+
     public Store $store;
     public ?Sale $sale;
     public $searchItem = '';
     public bool $editSoldPriceModal = false;
     public bool $finalizeSaleModal = false;
-    public bool $receiptWithNIP = false;
+    public int $contactType = 1; // 1 = customer, 2 = company
+
+    public string $receiptType = 'receipt'; // receipt, receipt_nip, invoice
+
     public int $nipNumber = 0;
+    public string $searchContact = '';
 
     public $editedPrice = null;
     public $editedItemId = null;
@@ -46,6 +55,38 @@ class CreateSale extends Component
     {
         $this->store = $store;
         $this->sale = $sale;
+        $this->contacts = Contact::orderBy('name')->where('type', $this->contactType)->limit(100)->get();
+    }
+
+    public function updatedSearchContact()
+    {
+        if($this->searchContact != '') {
+            $this->contacts = Contact::where('name', 'like', "%{$this->searchContact}%")
+                ->where('type', $this->contactType)
+                ->orWhere('identification_number', 'like', "%{$this->searchContact}%")
+                ->orderBy('name')
+                ->limit(100)
+                ->get();
+        } else {
+            $this->contacts = Contact::orderBy('name')->where('type', $this->contactType)->limit(100)->get();
+        }
+    }
+
+    public function updatedReceiptType($value)
+    {
+        if ($value === 'receipt') {
+            $this->nipNumber = 0; // clear nipNumber
+            $this->selectedContact = null; // clear selected contact
+        }
+
+        if ($value === 'receipt_nip') {
+            // keep nipNumber, user should fill it
+            $this->selectedContact = null; // clear selected contact
+        }
+
+        if ($value === 'invoice') {
+            $this->nipNumber = 0; // clear nipNumber
+        }
     }
 
 
@@ -63,6 +104,23 @@ class CreateSale extends Component
     public function showFinalizeSaleModal()
     {
         $this->finalizeSaleModal = true;
+    }
+
+    public function finalizeSale()
+    {
+        $this->validate([
+            'receiptWithNIPRequest' => 'boolean',
+            'nipNumber' => 'nullable|digits:10',
+        ]);
+
+        if($this->receiptWithNIPRequest && !$this->nipNumber) {
+            $this->addError('nipNumber', 'NIP number is required when receipt with NIP is selected.');
+            return;
+        }
+
+        $this->saleService->finalizeSale($this->sale, $this->receiptWithNIPRequest, $this->invoiceRequest, $this->nipNumber);
+
+        return redirect()->route('commerce.sales.show', ['store' => $this->store->id, 'sale' => $this->sale->id]);
     }
 
 
@@ -152,9 +210,11 @@ class CreateSale extends Component
 
     public function render()
     {
+
+
         $this->calculateTotals();
         return view('livewire.commerce.sale.create-sale', [
-            'saleItems' => $this->sale->stockItems()->with(['brand', 'productVariant.product'])->orderByPivot('created_at', 'desc')->get()
+            'saleItems' => $this->sale->stockItems()->with(['brand', 'productVariant.product'])->orderByPivot('created_at', 'desc')->get(),
         ]);
     }
 }

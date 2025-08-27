@@ -32,44 +32,104 @@
     </x-window>
 
         <x-window>
-        <div class="text-sm text-gray-800 grid grid-cols-2">
-            <div>
+        <div class="text-sm text-gray-800 grid grid-cols-3 gap-2">
+            <div class="bg-white shadow-md rounded p-4 border border-gray-200">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Sale summary</h2>
 
-                <h2 class="text-lg font-semibold mb-2">Sale summary</h2>
-                <div class="">
-                    <div class="flex mb-2 space-x-1">
-                        <div>Items count:</div>
-                        <div class="text-right">{{ $saleItems->count() }}</div>
+                <dl class="space-y-3">
+                    <!-- Items count -->
+                    <div class="flex justify-between text-gray-700">
+                        <dt class="font-medium">Items count</dt>
+                        <dd>{{ $saleItems->count() }}</dd>
                     </div>
 
-                    <div class="flex mb-2 space-x-1">
-                        <div>Cost of purchase NET:</div>
-                        <div class="text-right">
-                            {{ number_format($totalPurchaseNet / 100, 2, '.', ' ') }}
-                        </div>
+                    <!-- Cost of purchase NET -->
+                    <div class="flex justify-between text-gray-700">
+                        <dt class="font-medium">Cost of purchase NET</dt>
+                        <dd>{{ number_format($totalPurchaseNet / 100, 2, '.', ' ') }}</dd>
                     </div>
 
-                    <div class="flex mb-2 space-x-1">
-                        <div>Cost of purchase GROSS:</div>
-                        <div class="text-right">
-                            {{ number_format($totalPurchaseGross / 100, 2, '.', ' ') }}
-                        </div>
+                    <!-- Cost of purchase GROSS -->
+                    <div class="flex justify-between text-gray-700">
+                        <dt class="font-medium">Cost of purchase GROSS</dt>
+                        <dd>{{ number_format($totalPurchaseGross / 100, 2, '.', ' ') }}</dd>
                     </div>
-                    
-                    <div class="flex mb-2 space-x-1">
-                        <div>Gross profit:</div>
-                        <div class="text-right {{ $totalSoldPrice - $totalPurchaseGross < 0 ? 'text-red-600' : 'text-green-600' }} font-bold flex">
+
+                    <!-- Gross profit -->
+                    <div class="flex justify-between">
+                        <dt class="font-medium text-gray-700">Gross profit</dt>
+                        <dd class="font-bold {{ $totalSoldPrice - $totalPurchaseGross < 0 ? 'text-red-600' : 'text-green-600' }}">
                             {{ number_format(($totalSoldPrice - $totalPurchaseGross) / 100, 2, '.', ' ') }}
-                        </div>
+                        </dd>
                     </div>
 
-                    <div class="flex mb-2 space-x-1">
-                        <div>Total price:</div>
-                        <div class="text-right font-bold">
+                    <!-- Total price -->
+                    <div class="flex justify-between border-t border-gray-200 pt-3">
+                        <dt class="font-semibold text-gray-900">Total price</dt>
+                        <dd class="font-bold text-gray-900">
                             {{ number_format($totalSoldPrice / 100, 2, '.', ' ') }}
-                        </div>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+
+            <div class="bg-white shadow-md rounded p-4 border border-gray-200">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Document type: {{ $receiptType }}</h2>
+                <div class="flex gap-2">
+                    <div>
+                        <select wire:model.live="receiptType" class="input-text min-w-36">
+                            <option value="receipt">{{ __('Receipt') }}</option>
+                            <option value="receipt_nip">{{ __('Receipt with NIP')}}</option>
+                            <option value="invoice">{{ __('Invoice') }}</option>
+                        </select>
+                    </div>
+                    @if($receiptType === 'invoice')
+                    <div >
+                        <select wire:model.live="contactType" class="input-text min-w-28">
+                            <option value="1">{{ __('Customer') }}</option>
+                            <option value="2">{{ __('Company')}}</option>
+                        </select>
                     </div>
 
+                    <div>
+                        <div class="relative" x-data="{ open: false }">
+                            <!-- input that toggles the dropdown -->
+                            <input 
+                            type="text" wire:model.live="searchContact"
+                                @click="open = !open" 
+                                class="border p-2 w-full input-text"
+                                placeholder="Search..."
+                            >
+
+                            <!-- dropdown list -->
+                            <div 
+                                x-show="open" 
+                                @click.outside="open = false"
+                                x-transition
+                                class="absolute z-10 border border-gray-300 rounded max-h-48 overflow-y-auto mt-1 bg-white w-full shadow-lg"
+                            >
+                                @foreach ($contacts as $contact)
+                                    <div 
+                                        class="p-1 hover:bg-gray-200 cursor-pointer"
+                                        @click="open = false; $wire.selectContact({{ $contact->id }})"
+                                    >
+                                        [{{$contact->type()}}] {{ $contact->name }} ({{ $contact->identification_number }})
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                    @if($receiptType === 'receipt_nip')
+                    <div>
+                        <input 
+                            type="text" 
+                            wire:model.live="nipNumber" 
+                            class="input-text" 
+                            placeholder="{{ __('NIP Number') }}"
+                        >
+                    </div>
+                    @endif
                 </div>
             </div>
             <div class="flex justify-end">
@@ -171,7 +231,7 @@
         </x-slot>
 
         <x-slot name="content">
-
+            
         </x-slot>
 
         <x-slot name="footer">
