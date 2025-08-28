@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('document_type')->default(0); // receipt, receipt_nip, invoice, see app/Models/Commerce/Sale.php
             $table->foreignId('contact_id')->nullable()->constrained()->onDelete('set null');
             $table->string('nip_number')->default('');
+            $table->timestamp('sold_at')->nullable();
             $table->timestamps();
         });
     }

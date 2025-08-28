@@ -3,20 +3,22 @@
 namespace App\Livewire\Commerce\Sale;
 
 use App\Models\Store;
+use App\Models\Contact;
+use App\Rules\ValidNip;
 use Livewire\Component;
 use App\Models\Commerce\Sale;
-use App\Models\Contact;
-use Illuminate\Validation\Rule;
-use App\Models\Warehouse\StockItem;
 use App\Services\SaleService;
-use App\Services\StockItemService;
 use App\Traits\FormatsAmount;
-use App\Traits\ReturnItemStatusInfo;
+use Illuminate\Validation\Rule;
+use App\Services\StockItemService;
 use Illuminate\Support\Facades\DB;
+use App\Models\Warehouse\StockItem;
+use App\Traits\ReturnItemStatusInfo;
 
 class CreateSale extends Component
 {
     public ?Contact $selectedContact = null;
+    public ?int $selectedContactId = null;
     public $contacts = null;
 
     public Store $store;
@@ -28,7 +30,7 @@ class CreateSale extends Component
 
     public string $receiptType = 'receipt'; // receipt, receipt_nip, invoice
 
-    public int $nipNumber = 0;
+    public string $nipNumber = '';
     public string $searchContact = '';
 
     public $editedPrice = null;
@@ -75,23 +77,25 @@ class CreateSale extends Component
     public function updatedReceiptType($value)
     {
         if ($value === 'receipt') {
-            $this->nipNumber = 0; // clear nipNumber
+            $this->nipNumber = ''; // clear nipNumber
             $this->selectedContact = null; // clear selected contact
         }
 
         if ($value === 'receipt_nip') {
             // keep nipNumber, user should fill it
             $this->selectedContact = null; // clear selected contact
+            $this->selectedContactId = null;
         }
 
         if ($value === 'invoice') {
-            $this->nipNumber = 0; // clear nipNumber
+            $this->nipNumber = ''; // clear nipNumber
         }
     }
 
     public function selectContact(Contact $contact)
     {
         $this->selectedContact = $contact;
+        $this->selectedContactId = $contact->id;
         $this->receiptType = 'invoice';
         $this->searchContact = $contact->name;
         $this->contacts = collect([$contact]);
@@ -121,18 +125,15 @@ class CreateSale extends Component
         
             $this->validate([
             'receiptType' => ['required', Rule::in(['receipt', 'receipt_nip', 'invoice'])],
-            'nipNumber'   => ['required', 'regex:/^[0-9]{10,11}$/'],
-            ], [
-                'nipNumber.required' => 'Please provide an identification number for the receipt with NIP.',
-                'nipNumber.regex'    => 'The NIP number must be 10 or 11 digits.',
+            'nipNumber' => ['required', new ValidNip()],
             ]);
 
         } elseif ($this->receiptType === 'invoice') {
             $this->validate([
                 'receiptType'     => ['required', Rule::in(['receipt', 'receipt_nip', 'invoice'])],
-                'selectedContact' => ['required', 'exists:contacts,id'],
+                'selectedContactId' => ['required', 'exists:contacts,id'],
             ], [
-                'selectedContact.required' => 'Please select a contact for the invoice.',
+                'selectedContactId.required' => 'Please select a contact for the invoice.',
             ]);
         } else {
             $this->validate([
@@ -140,7 +141,13 @@ class CreateSale extends Component
             ]);
         }
 
-        $sale_status = $this->saleService->finalizeSale($this->sale, $this->nipNumber, $this->selectedContact, $this->receiptType);
+        if($this->sale->stockItems->count() == 0) {
+            $this->addError('finalizeSale', 'Cannot finalize an empty sale. Please add at least one item.');
+            return;
+        }
+
+        $sale_status = $this->saleService->finalizeSale($this->sale, $this->nipNumber, $this->selectedContactId, $this->receiptType);
+        
         if (! $sale_status) {
             $this->addError('finalizeSale', 'An error occurred while finalizing the sale. Please try again.');
             return;
@@ -148,6 +155,7 @@ class CreateSale extends Component
         {
             return redirect()->route('sale.show', $this->sale);
         }
+
     }
 
 
@@ -237,8 +245,6 @@ class CreateSale extends Component
 
     public function render()
     {
-
-
         $this->calculateTotals();
         return view('livewire.commerce.sale.create-sale', [
             'saleItems' => $this->sale->stockItems()->with(['brand', 'productVariant.product'])->orderByPivot('created_at', 'desc')->get(),
