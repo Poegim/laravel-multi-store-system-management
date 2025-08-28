@@ -75,7 +75,7 @@
 
             <div class="bg-white shadow-md rounded p-4 border border-gray-200">
                 <h2 class="text-xl font-semibold mb-4 text-gray-800">Document type: {{ $receiptType }}</h2>
-                <div class="flex gap-2">
+                <div class="2xl:grid grid-cols-2 gap-2">
                     <div>
                         <select wire:model.live="receiptType" class="input-text min-w-36">
                             <option value="receipt">{{ __('Receipt') }}</option>
@@ -84,7 +84,7 @@
                         </select>
                     </div>
                     @if($receiptType === 'invoice')
-                    <div >
+                    <div>
                         <select wire:model.live="contactType" class="input-text min-w-28">
                             <option value="1">{{ __('Customer') }}</option>
                             <option value="2">{{ __('Company')}}</option>
@@ -119,6 +119,11 @@
                             </div>
                         </div>
                     </div>
+                        @if($selectedContact != null)
+                        <p class="text-xs font-bold">Selected Contact: {{$selectedContact->name}}</p>
+                        <p class="text-xs">Contact Type: {{$selectedContact->type()}}</p>
+                        <p class="text-xs">Identification Number: {{$selectedContact->identification_number}}</p>
+                        @endif
                     @endif
                     @if($receiptType === 'receipt_nip')
                     <div>
@@ -185,7 +190,7 @@
                                 </div>
                             </button>
                     </td>
-                    <td class="p-2">
+                    <td class="p-2 font-semibold {{ $saleItem->pivot->price < $saleItem->purchase_price_gross ? 'text-red-600' : '' }} {{ $saleItem->pivot->price > $saleItem->purchase_price_gross ? 'text-green-500' : '' }}">
                         {{ number_format($saleItem->pivot->price / 100, 2, '.', ' ') }}
                         <button wire:click="showEditSoldPriceModal({{ $saleItem->id }})" class="text-blue-600 hover:text-blue-900">
                             {{ __('Edit') }}
@@ -239,7 +244,7 @@
                 {{ __('Cancel') }}
             </x-secondary-button>
 
-            <x-danger-button class="ms-3" wire:click="finalieSale" wire:loading.attr="disabled">
+            <x-danger-button class="ms-3" wire:click="finalizeSale" wire:loading.attr="disabled">
                 {{ __('Finalize') }}
             </x-danger-button>
         </x-slot>

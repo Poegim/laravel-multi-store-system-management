@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('status')->default(0); // 0 = pending, 1 = completed, 2 = cancelled, see app/Models/Commerce/Sale.php
             $table->integer('document_type')->default(0); // receipt, receipt_nip, invoice, see app/Models/Commerce/Sale.php
             $table->foreignId('contact_id')->nullable()->constrained()->onDelete('set null');
-            $table->integer('nip_number')->default(0);
+            $table->string('nip_number')->default('');
             $table->timestamps();
         });
     }

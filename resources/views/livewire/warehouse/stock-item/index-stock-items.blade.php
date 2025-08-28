@@ -87,12 +87,12 @@
                         <td class="px-4 py-2 sm:py-2"><button class="link" wire:click="filterByProduct({{ $item->productVariant->product }})">{{ $item->productVariant->product->name }}</button></td>
                         <td class="px-4 py-2 sm:py-2 hidden lg:table-cell">{{ $item->productVariant->name }}</td>
                         <td class="px-4 py-2 sm:py-2">
-                            <a href="{{ route('store.show', $item->store) }}" class="link" wire:navigate>
+                            <a href="{{ route('store.show', $item->store) }}" class="link">
                                 {{ $item->store->invoices_prefix }}
                             </a>
                         </td>
                         <td class="px-4 py-2 sm:py-2">
-                            <a href="{{ route('external-invoice.show', $item->externalInvoice) }}" class="link" wire:navigate>
+                            <a href="{{ route('external-invoice.show', $item->externalInvoice) }}" class="link">
                                 {{ $item->externalInvoice->invoice_number }}
                             </a>
                         </td>

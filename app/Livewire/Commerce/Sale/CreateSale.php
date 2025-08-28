@@ -89,6 +89,15 @@ class CreateSale extends Component
         }
     }
 
+    public function selectContact(Contact $contact)
+    {
+        $this->selectedContact = $contact;
+        $this->receiptType = 'invoice';
+        $this->searchContact = $contact->name;
+        $this->contacts = collect([$contact]);
+
+    }
+
 
     public function showEditSoldPriceModal($stockItemId)
     {
@@ -108,19 +117,37 @@ class CreateSale extends Component
 
     public function finalizeSale()
     {
-        $this->validate([
-            'receiptWithNIPRequest' => 'boolean',
-            'nipNumber' => 'nullable|digits:10',
-        ]);
+        if ($this->receiptType === 'receipt_nip') {
+        
+            $this->validate([
+            'receiptType' => ['required', Rule::in(['receipt', 'receipt_nip', 'invoice'])],
+            'nipNumber'   => ['required', 'regex:/^[0-9]{10,11}$/'],
+            ], [
+                'nipNumber.required' => 'Please provide an identification number for the receipt with NIP.',
+                'nipNumber.regex'    => 'The NIP number must be 10 or 11 digits.',
+            ]);
 
-        if($this->receiptWithNIPRequest && !$this->nipNumber) {
-            $this->addError('nipNumber', 'NIP number is required when receipt with NIP is selected.');
-            return;
+        } elseif ($this->receiptType === 'invoice') {
+            $this->validate([
+                'receiptType'     => ['required', Rule::in(['receipt', 'receipt_nip', 'invoice'])],
+                'selectedContact' => ['required', 'exists:contacts,id'],
+            ], [
+                'selectedContact.required' => 'Please select a contact for the invoice.',
+            ]);
+        } else {
+            $this->validate([
+                'receiptType' => ['required', Rule::in(['receipt', 'receipt_nip', 'invoice'])],
+            ]);
         }
 
-        $this->saleService->finalizeSale($this->sale, $this->receiptWithNIPRequest, $this->invoiceRequest, $this->nipNumber);
-
-        return redirect()->route('commerce.sales.show', ['store' => $this->store->id, 'sale' => $this->sale->id]);
+        $sale_status = $this->saleService->finalizeSale($this->sale, $this->nipNumber, $this->selectedContact, $this->receiptType);
+        if (! $sale_status) {
+            $this->addError('finalizeSale', 'An error occurred while finalizing the sale. Please try again.');
+            return;
+        } else 
+        {
+            return redirect()->route('sale.show', $this->sale);
+        }
     }
 
 

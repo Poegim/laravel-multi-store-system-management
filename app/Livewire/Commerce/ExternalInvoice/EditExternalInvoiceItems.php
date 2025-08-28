@@ -330,7 +330,7 @@ class EditExternalInvoiceItems extends Component
             $this->externalInvoiceService->confirm($this->externalInvoice);
             session()->flash('flash.banner', __("Invoice {$this->externalInvoiceId} has been confirmed!")); 
             session()->flash('flash.bannerStyle', 'success');
-            return redirect()->route('external-invoice.index');
+            return redirect()->route('external-invoice.index', $this->externalInvoice->store);
         } catch (\Exception $e) {
             $this->addError('externalInvoiceId', $e->getMessage());
             throw $e;

@@ -28,6 +28,10 @@ class SaleController extends Controller
 
         return view('commerce.sale.create', compact('store', 'sale'));
     }
+
+    public function show(Sale $sale) {
+        dd($sale);
+    }
     
     
 }
