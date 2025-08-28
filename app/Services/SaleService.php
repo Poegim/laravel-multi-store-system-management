@@ -32,9 +32,10 @@ class SaleService
 
         foreach ($sale->stockItems as $item) {
             $item->status = StockItem::SOLD;
-            $item->pivot->sold_at = now();
-            $item->updated_at = now();
             $item->save();
+            $sale->stockItems()->updateExistingPivot($item->id, [
+                'sold_at' => now(),
+            ]);
         }
 
         return $sale->save();

@@ -236,6 +236,53 @@
         </x-slot>
 
         <x-slot name="content">
+            @if($errors->any())
+            <x-lists.errors-list title="{{ __('Errors detected!') }}">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </x-lists.errors-list>
+            @endif
+
+            <div class="bg-white shadow-md rounded p-4 border border-gray-200">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Sale summary</h2>
+
+                <dl class="space-y-3">
+                    <!-- Items count -->
+                    <div class="flex justify-between text-gray-700">
+                        <dt class="font-medium">Items count</dt>
+                        <dd>{{ $saleItems->count() }}</dd>
+                    </div>
+
+                    <!-- Cost of purchase NET -->
+                    <div class="flex justify-between text-gray-700">
+                        <dt class="font-medium">Cost of purchase NET</dt>
+                        <dd>{{ number_format($totalPurchaseNet / 100, 2, '.', ' ') }}</dd>
+                    </div>
+
+                    <!-- Cost of purchase GROSS -->
+                    <div class="flex justify-between text-gray-700">
+                        <dt class="font-medium">Cost of purchase GROSS</dt>
+                        <dd>{{ number_format($totalPurchaseGross / 100, 2, '.', ' ') }}</dd>
+                    </div>
+
+                    <!-- Gross profit -->
+                    <div class="flex justify-between">
+                        <dt class="font-medium text-gray-700">Gross profit</dt>
+                        <dd class="font-bold {{ $totalSoldPrice - $totalPurchaseGross < 0 ? 'text-red-600' : 'text-green-600' }}">
+                            {{ number_format(($totalSoldPrice - $totalPurchaseGross) / 100, 2, '.', ' ') }}
+                        </dd>
+                    </div>
+
+                    <!-- Total price -->
+                    <div class="flex justify-between border-t border-gray-200 pt-3">
+                        <dt class="font-semibold text-gray-900">Total price</dt>
+                        <dd class="font-bold text-gray-900">
+                            {{ number_format($totalSoldPrice / 100, 2, '.', ' ') }}
+                        </dd>
+                    </div>
+                </dl>
+            </div>
             
         </x-slot>
 

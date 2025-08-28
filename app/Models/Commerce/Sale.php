@@ -50,7 +50,7 @@ class Sale extends Model
     public function stockItems()
     {
         return $this->belongsToMany(StockItem::class)
-                    ->withPivot(['price'])
+                    ->withPivot(['price', 'sold_at'])
                     ->withTimestamps();
     }
 

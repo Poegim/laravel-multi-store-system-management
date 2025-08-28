@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('price');
             $table->foreignId('sale_id')->constrained()->onDelete('cascade');
             $table->foreignId('stock_item_id')->constrained()->onDelete('cascade');
+            $table->timestamp('sold_at')->nullable();
             $table->timestamps();
         });
     }

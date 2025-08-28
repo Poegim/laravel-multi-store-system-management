@@ -19,8 +19,16 @@ trait ReturnItemStatusInfo
                 return 'Available';
 
             case StockItem::SOLD:
-                $item->status = StockItem::SOLD;
-                return 'Sold';
+                    $sale = $item->lastSale();
+
+                    if ($sale) {
+                        $pivot = $sale->stockItems()->where('stock_item_id', $item->id)->first()->pivot;
+                        $soldAt = $pivot->sold_at ?? 'unknown';
+                        $userName = $sale->user?->name ?? 'unknown';
+                        $storeName = $sale->store?->name ?? 'unknown';
+
+                        return "Sold at: {$soldAt} by {$userName} at store {$storeName}";
+                    }
 
             case StockItem::MISSING:
                 return 'Missing';

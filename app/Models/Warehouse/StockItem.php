@@ -107,7 +107,6 @@ class StockItem extends Model
         return $this->belongsTo(Product::class);
     }
 
-
     public function productVariant(): BelongsTo
     {
         return $this->belongsTo(ProductVariant::class);
@@ -172,8 +171,20 @@ class StockItem extends Model
     public function sales()
     {
         return $this->belongsToMany(Sale::class)
-                    ->withPivot(['price'])
+                    ->withPivot(['price', 'sold_at'])
                     ->withTimestamps();
     }
+
+    /**
+     * Get the last completed sale for this item
+     */
+    public function lastSale()
+    {
+        return $this->sales()
+                    ->where('status', Sale::COMPLETED)
+                    ->latest('pivot_sold_at') // lub 'pivot_created_at' jeśli wolisz
+                    ->first();
+    }
+    
 
 }
