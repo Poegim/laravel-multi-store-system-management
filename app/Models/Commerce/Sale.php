@@ -34,6 +34,10 @@ class Sale extends Model
         'status',
     ];
 
+    protected $casts = [
+        'sold_at' => 'datetime',
+    ];
+
     public function documentType(): string {
         return match ($this->document_type) {
             self::RECEIPT => 'receipt',

@@ -86,7 +86,7 @@ Route::name('feature.')->prefix('feature')->middleware(['auth'])->group(function
 });
 
 Route::name('sale.')->prefix('sale')->middleware(['auth'])->group(function () {
-    Route::get('/{store:id?}', [SaleController::class, 'index'])->name('index');
+    Route::get('/', [SaleController::class, 'index'])->name('index');
     Route::get('/{store:id}/create', [SaleController::class, 'create'])->name('create');
     Route::post('/store', [SaleController::class, 'store'])->name('store');
     Route::get('/show/{sale}', [SaleController::class, 'show'])->name('show');
