@@ -74,6 +74,8 @@
                 </header>
                 @elseif($routeStore !== null)
                 <x-store-nav :storeId="$routeStore->id" />
+                @elseif (request()->has('store'))
+                <x-store-nav :storeId="request('store')" />
                 @endif
 
                 <!-- Page Content -->

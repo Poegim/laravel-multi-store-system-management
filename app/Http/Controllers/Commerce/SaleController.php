@@ -17,6 +17,13 @@ class SaleController extends Controller
         $dateEnd   = $request->query('dateEnd');
         $paginate  = $request->query('paginate', 15);
 
+        $request->validate([
+            'dateStart' => 'nullable|date|before_or_equal:dateEnd',
+            'dateEnd'   => 'nullable|date|after_or_equal:dateStart',
+            'store'     => 'nullable|integer|exists:stores,id',
+            'paginate'  => 'nullable|integer|min:1',
+        ]);
+
         $salesQuery = Sale::completed();
 
         if ($storeId) {

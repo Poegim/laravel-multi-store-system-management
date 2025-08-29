@@ -27,7 +27,7 @@
         <div class="overflow-x-auto">
             <table
                 class="rounded overflow-hidden min-w-full text-xs text-left text-gray-700 dark:text-gray-300 border dark:border-gray-700">
-                <thead class="uppercase bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                <thead class="uppercase bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
                     <th scope="col" class="px-4 py-2 sm:py-3">
                         <div class="flex cursor-pointer" wire:click="sortBy('id')">
                             <span class="uppercase">

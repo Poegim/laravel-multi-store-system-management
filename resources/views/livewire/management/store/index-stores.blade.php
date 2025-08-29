@@ -24,7 +24,7 @@
             </thead>
             <tbody>
                 @foreach($stores as $item)
-                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800 transition">
+                <tr class="hover:bg-gray-100 dark:hover:bg-gray-800 transition">
                     <!-- Name with Color Circle -->
                     <td class="px-2 sm:px-6 py-1 sm:py-3 whitespace-nowrap">
                         <div class="flex items-center space-x-3">

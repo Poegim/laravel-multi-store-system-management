@@ -119,11 +119,13 @@
                             </div>
                         </div>
                     </div>
-                        @if($selectedContact != null)
+                    @if($selectedContact != null)
+                    <div>
                         <p class="text-xs font-bold">Selected Contact: {{$selectedContact->name}}</p>
                         <p class="text-xs">Contact Type: {{$selectedContact->type()}}</p>
                         <p class="text-xs">Identification Number: {{$selectedContact->identification_number}}</p>
-                        @endif
+                    </div>
+                    @endif
                     @endif
                     @if($receiptType === 'receipt_nip')
                     <div>
@@ -138,6 +140,7 @@
                 </div>
             </div>
             <div class="flex justify-end">
+                @if($sale->stockItems->count() > 0)
                 <button 
                     class="bg-green-600 hover:bg-green-700 active:bg-green-800 
                            text-white font-semibold text-sm md:text-base 
@@ -150,6 +153,7 @@
                     </svg>
                     {{ __('Finalize Sale') }}
                 </button>
+                @endif
             </div>
         </div>
     </x-window>
@@ -157,7 +161,7 @@
 
     <x-window>
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="p-2">{{ __('Id') }}</th>
                     <th scope="col" class="p-2">{{ __('Item Name') }}</th>
