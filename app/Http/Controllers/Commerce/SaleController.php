@@ -24,7 +24,7 @@ class SaleController extends Controller
             'paginate'  => 'nullable|integer|min:1',
         ]);
 
-        $salesQuery = Sale::completed();
+        $salesQuery = Sale::completed()->with('store', 'contact', 'user', 'stockItems');
 
         if ($storeId) {
             $salesQuery->where('store_id', $storeId);
@@ -43,7 +43,7 @@ class SaleController extends Controller
             $salesQuery->whereBetween('sold_at', [$start, $end]);
         }
 
-        $sales = $salesQuery->paginate($paginate);
+        $sales = $salesQuery->orderByDesc('id')->paginate($paginate);
 
         return view('commerce.sale.index', compact('sales', 'storeId', 'dateStart', 'dateEnd'));
     }

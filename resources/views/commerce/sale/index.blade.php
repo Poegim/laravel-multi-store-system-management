@@ -84,11 +84,13 @@
                     <tr>
                         <th scope="col" class="p-2">{{ __('ID') }}</th>
                         <th scope="col" class="p-2">{{ __('Sold At') }}</th>
-                        <th scope="col" class="p-2 text-right">{{ __('Total Items') }}</th>
-                        <th scope="col" class="p-2 text-right">{{ __('Total Price') }}</th>
+                        <th scope="col" class="p-2">{{ __('Count') }}</th>
+                        <th scope="col" class="p-2">{{ __('List') }}</th>
+                        <th scope="col" class="p-2">{{ __('Total Price') }}</th>
                         @if(!$storeId)
                         <th scope="col" class="p-2">{{ __('Store') }}</th>
                         @endif
+                        <th scope="col" class="p-2">{{ __('User') }}</th>
                         <th scope="col" class="p-2">{{ __('Actions') }}</th>
                     </tr>
                 </thead>
@@ -101,8 +103,52 @@
                                 </a>
                             </td>
                             <td class="p-2">{{ $sale->sold_at->format('Y-m-d H:i') }}</td>
-                            <td class="p-2 text-right">{{ $sale->stockItems->count() }}</td>
-                            <td class="p-2 text-right font-semibold">
+                            <td>                    
+                                {{ $sale->stockItems->count() }}
+                            </td>
+                            <td class="p-2">
+
+                                <div>
+                                    <ul class="rounded border bg-white shadow-md space-y-1 text-sm text-gray-600">
+                                        @foreach($sale->stockItems as $item)
+                                            <li class="border-b last:border-0 flex text-xs p-1 justify-between">
+                                                <span>{{ $item->brand->name }} {{ $item->productVariant->product->name }} ({{ $item->productVariant->name }})</span>
+                                                <span class="font-semibold {{ $item->pivot->price < $item->purchase_price_gross ? 'text-red-600' : '' }} {{ $item->pivot->price > $item->purchase_price_gross ? 'text-green-600' : '' }}">
+                                                    <span>
+                                                        {{ number_format($item->pivot->price / 100, 2, '.', ' ') }}
+                                                    </span>
+                                                    <span class="text-xs italic font-normal">
+                                                        [{{ $item->pivot->price - $item->purchase_price_gross < 0 ? '-' : '+' }}{{ number_format(abs($item->pivot->price - $item->purchase_price_gross) / 100, 2, '.', ' ') }}]
+                                                    </span>
+                                                </span>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                @if(($sale->contact) || ($sale->nip_number))
+                                <div class=" rounded border shadow-md space-y-1 text-xs p-1 text-gray-70 bg-gray-200">                               
+                                    @if($sale->contact)
+                                    <div class="flex items-center gap-2 text-gray-800">
+                                        <span class="font-semibold">{{ __('Customer:') }}</span>
+                                        <a href="{{ route('contact.show', $sale->contact) }}" class="text-blue-600 hover:text-blue-800 hover:underline transition-colors duration-200">
+                                            {{ $sale->contact->name }}
+                                        </a>
+                                        <p>
+                                            ({{ $sale->contact->identification_number }})
+                                        </p>
+                                    </div>
+                                    @endif
+                                    
+                                    {{-- NIP number --}}
+                                    @if($sale->nip_number)
+                                        <div class="nip italic text-gray-700 mt-1">
+                                            <span class="font-semibold">{{ __('NIP:') }}</span> {{ $sale->nip_number }}
+                                        </div>
+                                    @endif
+                                </div>
+                                @endif
+                            </td>
+                            <td class="p-2 font-semibold">
                                 {{ number_format($sale->stockItems->sum(function($item) {
                                     return $item->pivot->price / 100; // convert cents to dollars
                                 }), 2, '.', ' ') }}
@@ -110,6 +156,15 @@
                             @if(!$storeId)
                             <td class="p-2">{{ $sale->store->name }}</td>
                             @endif
+                            <td class="p-2">
+                            <div class="flex">
+                                <img src="{{ $sale->user->profile_photo_url }}" alt="{{ $sale->user->name }}"
+                                class="rounded-full w-12 h-12 md:h-8 md:w-8 object-cover mr-2 my-auto mb-4 md:mb-0">
+                                <div class="my-auto">
+                                    {{$sale->user->name}}
+                                </div>
+                            </div>
+                            </td>
                             <td class="p-2 text-blue-600">
                                 {{-- <a href="{{ route('commerce.sales.show', ['sale' => $sale->id]) }}" class="hover:underline">
                                     {{ __('View') }}
