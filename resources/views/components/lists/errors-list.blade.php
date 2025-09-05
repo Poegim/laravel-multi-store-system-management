@@ -1,4 +1,6 @@
-<div class="flex p-4 mb-4 text-sm text-red-800 rounded-mid sm:rounded  bg-red-50 dark:bg-gray-900 dark:text-red-400" role="alert">
+<div x-data="{ open: true }" x-show="open"
+    class="flex p-4 mb-4 text-sm text-red-800 rounded-md sm:rounded bg-red-50 dark:bg-gray-900 dark:text-red-400 relative"
+    role="alert">
     <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
         fill="currentColor" viewBox="0 0 20 20">
         <path
@@ -6,9 +8,15 @@
     </svg>
     <span class="sr-only">{{__('Errors detected!')}}</span>
     <div>
-        <span class="font-medium">{{ $title ?? __('Ensure that these requirements are met:') }}</span>        
+        <span class="font-medium">{{ $title ?? __('Ensure that these requirements are met:') }}</span>
         <ul class="mt-1.5 list-disc list-inside">
             {{ $slot }}
         </ul>
     </div>
+
+    <!-- Close button -->
+    <button @click="open = false" type="button"
+        class="absolute top-2 right-2 text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-200">
+        &times;
+    </button>
 </div>
