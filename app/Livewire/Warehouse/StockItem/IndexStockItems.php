@@ -8,6 +8,8 @@ use App\Traits\Searchable;
 use Livewire\WithPagination;
 use App\Models\Commerce\Sale;
 use App\Services\SaleService;
+use App\Models\Warehouse\Brand;
+use App\Models\Warehouse\Product;
 use App\Services\StockItemService;
 use App\Models\Warehouse\StockItem;
 use App\Traits\ReturnItemStatusInfo;
@@ -48,13 +50,13 @@ class IndexStockItems extends Component
 
     public function filterByBrand($brand)
     {
-        $this->filters['brand_id'] = $brand;
+        $this->filters['brand_id'] = is_array($brand) ? $brand['id'] : $brand;
         $this->resetPage();
     }
 
     public function filterByProduct($product)
     {
-        $this->filters['product_id'] = $product;
+        $this->filters['product_id'] = is_array($product) ? $product['id'] : $product;
         $this->resetPage();
     }
 
@@ -190,8 +192,25 @@ class IndexStockItems extends Component
         $stockItemsQuery = $stockItemsQuery->paginate($this->perPage);
         $stockItems = $stockItemsQuery;
 
+        $filterLabels = [];
+
+        if (!empty($this->filters)) {
+            foreach ($this->filters as $key => $id) {
+                switch ($key) {
+                    case 'brand_id':
+                        $filterLabels[$key] = Brand::find($id)?->name;
+                        break;
+                    case 'product_id':
+                        $filterLabels[$key] = Product::find($id)?->name;
+                        break;
+                    default:
+                        $filterLabels[$key] = $id;
+                }
+            }
+        }
+
         $this->store ? $userPendingSale = auth()->user()->pendingSale($this->store->id)->first() : $userPendingSale = null;
 
-        return view('livewire.warehouse.stock-item.index-stock-items', compact('stockItems', 'userPendingSale'));
+        return view('livewire.warehouse.stock-item.index-stock-items', compact('stockItems', 'userPendingSale', 'filterLabels'));
     }
 }

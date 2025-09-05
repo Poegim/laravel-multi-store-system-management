@@ -153,7 +153,7 @@ class CreateSale extends Component
             return;
         } else 
         {
-            return redirect()->route('sale.show', $this->sale);
+            return redirect()->route('sale.show', [$this->sale, $this->sale->store]);
         }
 
     }

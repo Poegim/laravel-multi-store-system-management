@@ -10,13 +10,13 @@
             @endif
             <div class="flex justify-end items-center mb-2 gap-2">
                 <div>
-                    @if ($filters)                        
-                    @foreach($filters as $key => $value)
-                        <span class="inline-flex items-center px-2 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-full mr-2">
-                            {{ $key }}: <span class="font-semibold">{{ $value['name'] }}</span>
-                            <button class="ml-1 text-red-500 hover:text-red-700" wire:click="removeFilter('{{ $key }}')">&times;</button>
-                        </span>
-                    @endforeach
+                    @if ($filters)
+                        @foreach($filters as $key => $value)
+                            <span class="inline-flex items-center px-2 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-full mr-2">
+                                {{ $key }}: <span class="font-semibold">{{ $filterLabels[$key] ?? $value }}</span>
+                                <button class="ml-1 text-red-500 hover:text-red-700" wire:click="removeFilter('{{ $key }}')">&times;</button>
+                            </span>
+                        @endforeach
                     @endif
                 </div>
                 <!-- Input search -->

@@ -48,9 +48,6 @@ class SaleController extends Controller
         return view('commerce.sale.index', compact('sales', 'storeId', 'dateStart', 'dateEnd'));
     }
 
-
-
-
     public function create(Store $store)
     {
         $sale = Sale::firstOrCreate([
@@ -66,8 +63,11 @@ class SaleController extends Controller
         return view('commerce.sale.create', compact('store', 'sale'));
     }
 
-    public function show(Sale $sale) {
-        dd($sale);
+    public function show(Sale $sale, Store $store) {
+        if($sale->store_id !== $store->id) {
+            abort(403, 'The sale does not belong to the specified store.');
+        }
+        return view('commerce.sale.show', compact('sale'));
     }
     
     

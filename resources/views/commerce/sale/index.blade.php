@@ -95,14 +95,18 @@
                 <tbody>
                     @forelse ($sales as $sale)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td class="p-2">{{ $sale->id }}</td>
+                            <td class="p-2">
+                                <a href="{{route('sale.show', [$sale, $sale->store])}}" class="link">
+                                    {{ $sale->id }}
+                                </a>
+                            </td>
+                            <td class="p-2">{{ $sale->sold_at->format('Y-m-d H:i') }}</td>
                             <td class="p-2 text-right">{{ $sale->stockItems->count() }}</td>
                             <td class="p-2 text-right font-semibold">
                                 {{ number_format($sale->stockItems->sum(function($item) {
                                     return $item->pivot->price / 100; // convert cents to dollars
                                 }), 2, '.', ' ') }}
                             </td>
-                            <td class="p-2">{{ $sale->sold_at->format('Y-m-d H:i') }}</td>
                             @if(!$storeId)
                             <td class="p-2">{{ $sale->store->name }}</td>
                             @endif

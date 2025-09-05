@@ -7,8 +7,6 @@
                 @endforeach
             </x-lists.errors-list>
         @endif
-
-        
         
         <div class="flex items-center gap-2">
             <input 
@@ -194,7 +192,7 @@
                                 </div>
                             </button>
                     </td>
-                    <td class="p-2 font-semibold {{ $saleItem->pivot->price < $saleItem->purchase_price_gross ? 'text-red-600' : '' }} {{ $saleItem->pivot->price > $saleItem->purchase_price_gross ? 'text-green-500' : '' }}">
+                    <td class="p-2 font-semibold {{ $saleItem->pivot->price < $saleItem->purchase_price_gross ? 'text-red-600' : '' }} {{ $saleItem->pivot->price > $saleItem->purchase_price_gross ? 'text-green-600' : '' }}">
                         {{ number_format($saleItem->pivot->price / 100, 2, '.', ' ') }}
                         <button wire:click="showEditSoldPriceModal({{ $saleItem->id }})" class="text-blue-600 hover:text-blue-900">
                             {{ __('Edit') }}
