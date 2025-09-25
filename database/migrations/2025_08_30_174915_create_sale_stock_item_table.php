@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('sale_id')->constrained()->onDelete('cascade');
             $table->foreignId('stock_item_id')->constrained()->onDelete('cascade');
             $table->timestamp('sold_at')->nullable();
+            $table->integer('vat_rate');
+            $table->tinyInteger('is_vat_margin')->default(0);
             $table->timestamps();
         });
     }

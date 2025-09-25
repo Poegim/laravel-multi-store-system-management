@@ -17,7 +17,7 @@
     @endphp
 
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-gray-100 lg:bg-white">
+    <div class="w-full mx-auto px-4 sm:px-6 lg:px-8 bg-gray-100 lg:bg-white">
         <div class="flex justify-between h-14 py-2">
             <div class="flex">
                 <!-- Logo -->
@@ -294,12 +294,14 @@
         </div>
     </div>
 
-    <div class="hidden lg:flex h-8 my-1 px-4 bg-gray-100 dark:bg-gray-700 italic roboto">
+    <div class="hidden lg:flex py-1 my-1 px-6 bg-gray-100 dark:bg-gray-700 roboto">
         
         <div x-show="lastClicked === 'stores'" class="my-auto">
             @foreach ($stores as $store)
+            <div class="inline-block p-2 bg-gray-200 rounded text-center">
                 <x-nav-link class="{{ url()->current() == route('store.show', $store->id) ? 'nav-active-tab' : 'nav-inactive-tab'}}" href="{{ route('store.show', $store) }}">
                     <span class="font-normal">{{ $store->name }}</span>
+                </div>
                 </x-nav-link>
             @endforeach
         </div>

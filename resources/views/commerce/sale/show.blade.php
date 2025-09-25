@@ -8,6 +8,53 @@
         </x-lists.errors-list>
     </x-window>
     @endif
+
+<x-window>
+    <div class="bg-white shadow rounded p-5 border border-gray-200 flex justify-between">
+
+        <div class="space-y-2 ">
+            <!-- Date and user -->
+            <div class="flex items-center text-sm text-gray-700">
+                <!-- User avatar -->
+                <img src="{{ asset($sale->user->profile_photo_url) }}" 
+                     alt="{{ $sale->user->name }}"
+                     class="rounded-full w-10 h-10 object-cover mr-3">
+
+                <!-- User info -->
+                <div>
+                    <p class="font-medium">{{ $sale->user->name }}</p>
+                    <p class="text-xs text-gray-400">{{ $sale->created_at->format('d.m.Y H:i') }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            
+            <!-- Total -->
+            <p class="text-lg font-bold text-green-600">
+                {{ $sale->totalPrice() }}
+            </p>
+
+            <p>
+                
+            </p>
+            
+            @if($sale->conatct)
+            <!-- Customer -->
+            <p class="text-base text-gray-900">
+                {{ $sale->contact ? $sale->contact->name : __('No customer') }}
+            </p>
+            @endif
+            
+        </div>
+        
+    </div>
+</x-window>
+
+
+
+
+
     <x-window>
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">

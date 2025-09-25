@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('status')->default(0); // 0 = pending, 1 = completed, 2 = cancelled, see app/Models/Commerce/Sale.php
             $table->integer('document_type')->default(0); // receipt, receipt_nip, invoice, see app/Models/Commerce/Sale.php
+            $table->integer('payment_method')->default(0); // 0 = cash, 1 = card, 2 = transfer
             $table->foreignId('contact_id')->nullable()->constrained()->onDelete('set null');
             $table->string('nip_number')->default('');
             $table->timestamp('sold_at')->nullable();

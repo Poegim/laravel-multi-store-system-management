@@ -23,7 +23,7 @@ class NavigationTopMenu extends Component
     public function render(): View|Closure|string
     {
         return view('components.navigation-top-menu', [
-            'stores' => Store::select('id', 'name')->get(),
+            'stores' => Store::select('id', 'name', 'invoices_prefix')->get(),
         ]);
     }
 }

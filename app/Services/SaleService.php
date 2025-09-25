@@ -35,6 +35,7 @@ class SaleService
             $item->save();
             $sale->stockItems()->updateExistingPivot($item->id, [
                 'sold_at' => now(),
+                'vat_rate' => $item->vatRate->rate,
             ]);
         }
 

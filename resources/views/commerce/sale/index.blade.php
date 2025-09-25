@@ -91,7 +91,6 @@
                         <th scope="col" class="p-2">{{ __('Store') }}</th>
                         @endif
                         <th scope="col" class="p-2">{{ __('User') }}</th>
-                        <th scope="col" class="p-2">{{ __('Actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -164,11 +163,6 @@
                                     {{$sale->user->name}}
                                 </div>
                             </div>
-                            </td>
-                            <td class="p-2 text-blue-600">
-                                {{-- <a href="{{ route('commerce.sales.show', ['sale' => $sale->id]) }}" class="hover:underline">
-                                    {{ __('View') }}
-                                </a> --}}
                             </td>
                         </tr>
                     @empty

@@ -171,7 +171,7 @@ class StockItem extends Model
     public function sales()
     {
         return $this->belongsToMany(Sale::class)
-                    ->withPivot(['price', 'sold_at'])
+                    ->withPivot(['price', 'sold_at', 'vat_rate'])
                     ->withTimestamps();
     }
 

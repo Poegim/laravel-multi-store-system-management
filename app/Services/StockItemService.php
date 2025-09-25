@@ -22,6 +22,7 @@ class StockItemService
 
             $sale->stockItems()->attach($stockItem->id, [
                 'price' => $stockItem->suggestedRetailPrice(),
+                'vat_rate' => $stockItem->vat_rate_id,
             ]);
 
             return true;

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('purchase_price_gross')->nullable();
             $table->string('imei_number')->unique()->nullable();
             $table->string('serial_number')->unique()->nullable();
+            $table->tinyInteger('is_vat_margin')->default(0);
             $table->timestamps();
         });
     }

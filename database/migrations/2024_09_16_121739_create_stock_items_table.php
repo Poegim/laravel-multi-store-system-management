@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreignId('store_id');
             $table->string('imei_number')->nullable();
             $table->string('serial_number')->nullable();
+            $table->tinyInteger('is_vat_margin')->default(0);
             $table->timestamps();
         });
     }

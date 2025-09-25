@@ -28,6 +28,11 @@ class Sale extends Model
     public const RECEIPT_NIP = 1;
     public const INVOICE = 2;
 
+    public const PAYMENT_CASH = 0;
+    public const PAYMENT_CARD = 1;
+    public const PAYMENT_TRANSFER = 2;
+
+
     protected $fillable = [
         'store_id',
         'user_id',
@@ -54,7 +59,7 @@ class Sale extends Model
     public function stockItems()
     {
         return $this->belongsToMany(StockItem::class)
-                    ->withPivot(['price', 'sold_at'])
+                    ->withPivot(['price', 'sold_at', 'vat_rate'])
                     ->withTimestamps();
     }
 
@@ -98,15 +103,39 @@ class Sale extends Model
         };
     }
 
-    public function formattedPurchasePriceNet(): string
+    public function totalPrice(): string
     {
-        return $this->getFormattedAmount($this->purchase_price_net);
+        return $this->getFormattedAmount($this->stockItems->sum(function ($item) {
+            return $item->pivot->price;
+        }));
     }
 
-    public function formattedPurchasePriceGross(): string
+    public function totalPriceNet(): string
     {
-        return $this->getFormattedAmount($this->purchase_price_gross);
+        return $this->getFormattedAmount($this->stockItems->sum(function ($item) {
+            return $item->pivot->price / $item->pivot->vat_rate;
+        }));
     }
+
+    public function paymantMethod(): string
+    {
+        return match ($this->payment_method) {
+            0 => 'Cash',
+            1 => 'Card',
+            2 => 'Transfer',
+            default => 'Unknown',
+        };
+    }
+
+    // public function formattedPurchasePriceNet(): string
+    // {
+    //     return $this->getFormattedAmount($this->purchase_price_net);
+    // }
+
+    // public function formattedPurchasePriceGross(): string
+    // {
+    //     return $this->getFormattedAmount($this->purchase_price_gross);
+    // }
 
 
 

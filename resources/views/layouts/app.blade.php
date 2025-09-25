@@ -48,8 +48,6 @@
 
         <div class="bg-gray-100 dark:bg-gray-900 h-full min-h-screen">
 
-
-
             {{-- <div class="lg:hidden">
                 @livewire('navigation-menu')
             </div>
