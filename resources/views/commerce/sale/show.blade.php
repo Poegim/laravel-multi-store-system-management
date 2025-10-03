@@ -10,9 +10,9 @@
     @endif
 
 <x-window>
-    <div class="bg-white shadow rounded p-5 border border-gray-200 flex justify-between">
+    <div class="bg-white shadow rounded p-5 border border-gray-200 flex">
 
-        <div class="space-y-2 ">
+        <div class="space-y-2">
             <!-- Date and user -->
             <div class="flex items-center text-sm text-gray-700">
                 <!-- User avatar -->
@@ -26,18 +26,40 @@
                     <p class="text-xs text-gray-400">{{ $sale->created_at->format('d.m.Y H:i') }}</p>
                 </div>
             </div>
+            <div class="text-sm text-gray-700">
+                <!-- Document Type -->
+                Document: 
+                @if($sale->documentType() == 'invoice')
+                    <span>
+                    {{ __('Invoice') }}: <a class="link" href="{{ route('contact.show', $sale->contact) }}">{{ $sale->contact->name }}, {{ $sale->contact->identification_number }}</a>
+                    </span>
+                @elseif($sale->documentType() == 'receipt')
+                    <span>
+                        {{ __('Receipt') }}: {{  $sale->is_receipt_printed ? __('Printed') : __('Not printed') }}
+                    </span>
+                @elseif($sale->documentType() == 'receipt_nip')
+                    <span>
+                        {{ __('Receipt NIP') }}: {{ $sale->nip_number }}, {{  $sale->is_receipt_printed ? __('Printed') : __('Not printed') }}
+                    </span>
+                @endif
+            </div>
         </div>
 
-        <div>
-            
+        <div class="ml-auto flex space-x-2 items-center">
+            <div class="flex ml-auto">
+                @if ($sale->documentType() == 'receipt' && !$sale->is_receipt_printed)
+                            <x-danger-button>{{ __('Print Receipt') }}</x-danger-button>
+                @elseif ($sale->documentType() == 'invoice')
+                            <x-button class="ml-2">{{ __('Print Invoice') }}</x-button>
+                @elseif ($sale->documentType() == 'receipt_nip' && !$sale->is_receipt_printed)
+                            <x-danger-button>{{ __('Print Receipt NIP') }}</x-danger-button>
+                @endif
+            </div>    
             <!-- Total -->
-            <p class="text-lg font-bold text-green-600">
-                {{ $sale->totalPrice() }}
+            <p class="text-lg font-bold text-green-600 mx-auto">
+                {{ __('Price') }}: {{ $sale->totalPrice() }}
             </p>
 
-            <p>
-                
-            </p>
             
             @if($sale->conatct)
             <!-- Customer -->

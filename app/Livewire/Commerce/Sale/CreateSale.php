@@ -158,7 +158,6 @@ class CreateSale extends Component
 
     }
 
-
     public function updateSoldPrice()
     {
             $this->validate([

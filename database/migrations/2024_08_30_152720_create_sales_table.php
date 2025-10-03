@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('payment_method')->default(0); // 0 = cash, 1 = card, 2 = transfer
             $table->foreignId('contact_id')->nullable()->constrained()->onDelete('set null');
             $table->string('nip_number')->default('');
+            $table->boolean('is_receipt_printed')->default(false);
             $table->timestamp('sold_at')->nullable();
             $table->timestamps();
         });
