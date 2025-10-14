@@ -35,6 +35,9 @@
                     <x-nav-btn @click="setLastClicked('stores')" href="{{ route('store.index') }}"  :active="request()->routeIs('store.*')">
                         <a href="{{ route('store.index') }}">{{ __('Stores') }}</a>
                     </x-nav-btn>
+                    <x-nav-btn @click="setLastClicked('sales')" href="{{ route('sale.index') }}"  :active="request()->routeIs('sale.*')">
+                        <a href="{{ route('sale.index') }}">{{ __('Sales') }}</a>
+                    </x-nav-btn>
                     <x-nav-btn  @click="setLastClicked('repository')" :active="request()->routeIs('category.*') || request()->routeIs('color.*') || request()->routeIs('brand.*') || request()->routeIs('product.*') || request()->routeIs('product-variant.*') || request()->routeIs('feature.*')">
                         {{ __('Repository') }}
                     </x-nav-btn>

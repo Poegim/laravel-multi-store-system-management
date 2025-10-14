@@ -1,4 +1,11 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="breadcrumb md:text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            <div class="top-header-breadcrumb-title">
+                {{ __('Sales List') }}
+            </div>
+        </h2>
+    </x-slot>
     <x-window>
 
         @if ($errors->any())
@@ -16,9 +23,9 @@
                     'dateStart' => now()->format('Y-m-d'),
                     'dateEnd' => now()->format('Y-m-d'),
                 ])) }}">
-                    <x-secondary-button>
+                    <x-button>
                         {{ __('Today') }}
-                    </x-secondary-button>
+                    </x-button>
                 </a>
 
                 <a href="{{ route('sale.index', array_filter([
@@ -26,9 +33,9 @@
                     'dateStart' => now()->startOfMonth()->format('Y-m-d'),
                     'dateEnd' => now()->endOfMonth()->format('Y-m-d'),
                 ])) }}">
-                    <x-secondary-button>
+                    <x-button>
                         {{ __('This month') }}
-                    </x-secondary-button>
+                    </x-button>
                 </a>
 
                 <a href="{{ route('sale.index', array_filter([
@@ -36,9 +43,9 @@
                     'dateStart' => now()->startOfYear()->format('Y-m-d'),
                     'dateEnd' => now()->endOfYear()->format('Y-m-d'),
                 ])) }}">
-                    <x-secondary-button>
+                    <x-button>
                         {{ __('This year') }}
-                    </x-secondary-button>
+                    </x-button>
                 </a>
 
             </div>
@@ -69,9 +76,9 @@
                     class="rounded h-8 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm px-3 py-2"
                 />
 
-                <x-secondary-button type="submit">
+                <x-button type="submit">
                     {{ __('Apply') }}
-                </x-secondary-button>
+                </x-button>
             </form>
 
 
@@ -84,7 +91,6 @@
                     <tr>
                         <th scope="col" class="p-2">{{ __('ID') }}</th>
                         <th scope="col" class="p-2">{{ __('Sold At') }}</th>
-                        <th scope="col" class="p-2">{{ __('Count') }}</th>
                         <th scope="col" class="p-2">{{ __('List') }}</th>
                         <th scope="col" class="p-2">{{ __('Total Price') }}</th>
                         @if(!$storeId)
@@ -101,12 +107,8 @@
                                     {{ $sale->id }}
                                 </a>
                             </td>
-                            <td class="p-2">{{ $sale->sold_at->format('Y-m-d H:i') }}</td>
-                            <td>                    
-                                {{ $sale->stockItems->count() }}
-                            </td>
+                            <td class="p-2 text-xs bg-red- w-0 whitespace-nowrap">{{ $sale->sold_at->format('Y-m-d H:i') }}</td>
                             <td class="p-2">
-
                                 <div>
                                     <ul class="rounded border bg-white shadow-md space-y-1 text-sm text-gray-600">
                                         @foreach($sale->stockItems as $item)
@@ -147,13 +149,22 @@
                                 </div>
                                 @endif
                             </td>
-                            <td class="p-2 font-semibold">
+                            <td class="p-2 font-semibold text-black">
                                 {{ number_format($sale->stockItems->sum(function($item) {
                                     return $item->pivot->price / 100; // convert cents to dollars
                                 }), 2, '.', ' ') }}
                             </td>
                             @if(!$storeId)
-                            <td class="p-2">{{ $sale->store->name }}</td>
+                            <td class="p-2">
+                                <div class="flex items-center">
+                                    <div class="rounded-full w-10 h-10 md:h-6 md:w-6 object-cover mr-2 my-auto mb-4 md:mb-0" style="background-color: {{ $sale->store->color->value }};">
+                                        
+                                    </div>
+                                    <div>
+                                        {{ $sale->store->invoices_prefix }}
+                                    </div>
+                                </div>
+                            </td>
                             @endif
                             <td class="p-2">
                             <div class="flex">

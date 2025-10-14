@@ -146,7 +146,7 @@ class StockItemsTableSeeder extends Seeder
                     'status' => 0,
                     'sale_id' => null,
                     'store_id' => $storeId,
-                    'created_at' => now(),
+                    'created_at' => $invoice->created_at, // Align creation date with invoice date
                     'updated_at' => now(),
                 ];
 

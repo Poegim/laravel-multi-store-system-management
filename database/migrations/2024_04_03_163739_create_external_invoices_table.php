@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('store_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('contact_id')->constrained();
-            $table->integer('price')->nullable();
             $table->boolean('is_temp')->default(true);
             $table->timestamps();
         });
