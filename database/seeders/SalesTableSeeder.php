@@ -8,8 +8,9 @@ use App\Models\Contact;
 use App\Models\Commerce\Sale;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Warehouse\StockItem;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class SalesTableSeeder extends Seeder
 {
@@ -74,24 +75,71 @@ class SalesTableSeeder extends Seeder
 
         $sales = Sale::all();
 
-        foreach ($sales as $sale) {
-            $itemsCount = $this->getWeightedRandomNumber();
-            $stockItems = StockItem::available()->where('created_at', '<=', $sale->sold_at)
-                ->limit($itemsCount)->inRandomOrder()->get();
+        // foreach ($sales as $sale) {
+        //     $itemsCount = $this->getWeightedRandomNumber();
+        //     $stockItems = StockItem::available()->where('created_at', '<=', $sale->sold_at)
+        //         ->limit($itemsCount)->inRandomOrder()->get();
             
-                foreach ($stockItems as $stockItem) {
-                    $sale->pivot()->attach($stockItem->id, [
-                        'price' => $stockItem->suggested_retail_price > 0 ? $stockItem->suggested_retail_price : 1,
-                        'sold_at' => $sale->sold_at,
-                        'vat_rate' => 23,
-                        'is_vat_maring' => false,
-                        'created_at' => $sale->sold_at,
-                        'updated_at' => now(),
-                    ]);
-                }
+        //         foreach ($stockItems as $stockItem) {
+        //             // dd($sale, $stockItem);
+        //             // $sale->attach($stockItem->id, [
+        //             //     'price' => $stockItem->suggested_retail_price > 0 ? $stockItem->suggested_retail_price : 1,
+        //             //     'sold_at' => $sale->sold_at,
+        //             //     'vat_rate' => 23,
+        //             //     'is_vat_maring' => false,
+        //             //     'created_at' => $sale->sold_at,
+        //             //     'updated_at' => now(),
+        //             // ]);
+        //                 $sale->stockItems()->attach($stockItem->id, [
+        //                 'price' => $stockItem->suggested_retail_price > 0
+        //                     ? $stockItem->suggested_retail_price
+        //                     : 1, // fallback price if invalid
+        //                 'sold_at' => $sale->sold_at,
+        //                 'vat_rate' => 23,
+        //                 'created_at' => $sale->sold_at,
+        //                 'updated_at' => now(),
+        //             ]);
+        //         }
 
+        // }
+        $counter = 0; // initialize counter
+
+        foreach ($sales as $sale) {
+            // Generate random number of stock items to attach
+            $itemsCount = $this->getWeightedRandomNumber();
+
+            // Select available stock items created before or at the time of sale
+            $stockItems = StockItem::available()
+                ->where('created_at', '<=', $sale->sold_at)
+                ->limit($itemsCount)
+                ->inRandomOrder()
+                ->get();
+
+            // Loop through each selected stock item
+            foreach ($stockItems as $stockItem) {
+                $sale->stockItems()->attach($stockItem->id, [
+                    'price' => $stockItem->suggested_retail_price > 0
+                        ? $stockItem->suggested_retail_price
+                        : 1, // fallback price if invalid
+                    'sold_at' => $sale->sold_at,
+                    'vat_rate' => 23,
+                    'created_at' => $sale->sold_at,
+                    'updated_at' => now(),
+                ]);
+
+                // Increment counter after each attach
+                $counter++;
+
+                // Every 100 iterations, log progress to the console and to laravel.log
+                if ($counter % 100 === 0) {
+                    echo "Processed {$counter} stock item attachments...\n";
+                    Log::info("Processed {$counter} stock item attachments.");
+                }
+            }
         }
 
+        echo "✅ Finished attaching all stock items! Total processed: {$counter}\n";
+        Log::info("✅ Finished attaching all stock items! Total processed: {$counter}");
 
     }
 
