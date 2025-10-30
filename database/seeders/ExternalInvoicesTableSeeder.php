@@ -17,7 +17,7 @@ class ExternalInvoicesTableSeeder extends Seeder
         // Pobranie wszystkich kontaktów raz
         $contacts = Contact::companies()->pluck('id')->toArray();
 
-        $totalCompleted = 200; // liczba completed invoices
+        $totalCompleted = 4500; // liczba completed invoices
         $totalTemporary = 10;    // liczba temporary invoices
         $batchSize = 1000;       // wielkość batcha
         $batchData = [];

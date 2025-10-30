@@ -26,7 +26,7 @@ class SalesTableSeeder extends Seeder
         $users = User::pluck('id')->toArray();
 
         $batchSize = 100; // number of records per insert
-        $totalRecords = 1000; // total records to generate
+        $totalRecords = 10000; // total records to generate
         $batchData = [];
 
         $insertedCount = 0;
@@ -73,73 +73,43 @@ class SalesTableSeeder extends Seeder
         // Final message
         $this->command->info("✅ Seeding completed. Total inserted: {$insertedCount} records.");
 
-        $sales = Sale::all();
-
-        // foreach ($sales as $sale) {
-        //     $itemsCount = $this->getWeightedRandomNumber();
-        //     $stockItems = StockItem::available()->where('created_at', '<=', $sale->sold_at)
-        //         ->limit($itemsCount)->inRandomOrder()->get();
-            
-        //         foreach ($stockItems as $stockItem) {
-        //             // dd($sale, $stockItem);
-        //             // $sale->attach($stockItem->id, [
-        //             //     'price' => $stockItem->suggested_retail_price > 0 ? $stockItem->suggested_retail_price : 1,
-        //             //     'sold_at' => $sale->sold_at,
-        //             //     'vat_rate' => 23,
-        //             //     'is_vat_maring' => false,
-        //             //     'created_at' => $sale->sold_at,
-        //             //     'updated_at' => now(),
-        //             // ]);
-        //                 $sale->stockItems()->attach($stockItem->id, [
-        //                 'price' => $stockItem->suggested_retail_price > 0
-        //                     ? $stockItem->suggested_retail_price
-        //                     : 1, // fallback price if invalid
-        //                 'sold_at' => $sale->sold_at,
-        //                 'vat_rate' => 23,
-        //                 'created_at' => $sale->sold_at,
-        //                 'updated_at' => now(),
-        //             ]);
-        //         }
-
-        // }
-        $counter = 0; // initialize counter
+        Sale::chunk(1000, function ($sales) use ($faker) {
+        $allStockItems = StockItem::available()->get()->shuffle();
+        $pivotBatch = [];
+        $counter = 0;
 
         foreach ($sales as $sale) {
-            // Generate random number of stock items to attach
             $itemsCount = $this->getWeightedRandomNumber();
+            $selectedItems = $allStockItems->random($itemsCount);
 
-            // Select available stock items created before or at the time of sale
-            $stockItems = StockItem::available()
-                ->where('created_at', '<=', $sale->sold_at)
-                ->limit($itemsCount)
-                ->inRandomOrder()
-                ->get();
-
-            // Loop through each selected stock item
-            foreach ($stockItems as $stockItem) {
-                $sale->stockItems()->attach($stockItem->id, [
-                    'price' => $stockItem->suggested_retail_price > 0
-                        ? $stockItem->suggested_retail_price
-                        : 1, // fallback price if invalid
+            foreach ($selectedItems as $stockItem) {
+                $pivotBatch[] = [
+                    'sale_id' => $sale->id,
+                    'stock_item_id' => $stockItem->id,
+                    'price' => max($stockItem->suggested_retail_price, 1),
                     'sold_at' => $sale->sold_at,
                     'vat_rate' => 23,
                     'created_at' => $sale->sold_at,
                     'updated_at' => now(),
-                ]);
+                ];
 
-                // Increment counter after each attach
                 $counter++;
 
-                // Every 100 iterations, log progress to the console and to laravel.log
-                if ($counter % 100 === 0) {
-                    echo "Processed {$counter} stock item attachments...\n";
-                    Log::info("Processed {$counter} stock item attachments.");
+                if ($counter % 1000 === 0) {
+                    DB::table('sale_stock_item')->insert($pivotBatch);
+                    $pivotBatch = [];
+                    echo "Inserted {$counter} pivot records...\n";
                 }
             }
         }
 
+        if (!empty($pivotBatch)) {
+            DB::table('sale_stock_item')->insert($pivotBatch);
+        }
         echo "✅ Finished attaching all stock items! Total processed: {$counter}\n";
         Log::info("✅ Finished attaching all stock items! Total processed: {$counter}");
+        
+    });
 
     }
 
