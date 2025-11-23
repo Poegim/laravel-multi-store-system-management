@@ -131,8 +131,11 @@
                                 </button>
                             @elseif($item->isAvailable())
                                 <button 
+                                    disabled
                                     type="button" 
-                                    class="p-1 w-7 mt-2 text-xs rounded border border-blue-500 bg-blue-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200">
+                                    {{-- class="p-1 w-7 mt-2 text-xs rounded border border-blue-500 bg-blue-500 text-white font-medium shadow-sm hover:bg-green-600 transition-colors duration-200" --}}
+                                    class="p-1 w-7 mt-2 text-xs rounded border border-gray-300 bg-gray-300 text-white font-medium shadow-sm"
+                                    >
                                   T+
                                 </button>
                             @endif

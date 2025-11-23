@@ -41,6 +41,11 @@ class StockItem extends Model
         return $query->where('status', self::MISSING);
     }
 
+    public function scopeInStock($query)
+    {
+        return $query->whereIn('status', [self::AVAILABLE, self::IN_REPAIR, self::IN_TRANSFER, self::IN_PENDING_SALE]);
+    }
+
 
     public function formattedPurchasePriceNet()
     {

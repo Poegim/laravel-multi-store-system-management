@@ -26,7 +26,7 @@ class SalesTableSeeder extends Seeder
         $users = User::pluck('id')->toArray();
 
         $batchSize = 100; // number of records per insert
-        $totalRecords = 10000; // total records to generate
+        $totalRecords = 100000; // total records to generate
         $batchData = [];
 
         $insertedCount = 0;
@@ -133,6 +133,4 @@ class SalesTableSeeder extends Seeder
             return mt_rand(5, 8);
        }
     }
-
-
 }

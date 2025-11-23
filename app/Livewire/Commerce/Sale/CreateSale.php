@@ -102,7 +102,6 @@ class CreateSale extends Component
 
     }
 
-
     public function showEditSoldPriceModal($stockItemId)
     {
         $this->editedItem = $this->sale->stockItems()->where('stock_item_id', $stockItemId)->first();
@@ -244,9 +243,11 @@ class CreateSale extends Component
 
     public function render()
     {
+        $receipt = $this->saleService->generateReceipt($this->sale);
         $this->calculateTotals();
         return view('livewire.commerce.sale.create-sale', [
             'saleItems' => $this->sale->stockItems()->with(['brand', 'productVariant.product'])->orderByPivot('created_at', 'desc')->get(),
+            'receipt' => $receipt,
         ]);
     }
 }

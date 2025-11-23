@@ -1102,7 +1102,7 @@ class ProductsTableSeeder extends Seeder
         $categoryIds = DB::table('categories')->pluck('id')->toArray();
         $brands = Brand::select(['id', 'name'])->get();
 
-        $numberOfProducts = 1000;
+        $numberOfProducts = 300;
 
         $data = [];
 

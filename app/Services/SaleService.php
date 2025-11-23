@@ -19,6 +19,35 @@ class SaleService
         return $this->saleRepository->getActiveSale($storeId);
     }
 
+    public function generateReceipt(Sale $sale): array
+    {
+        $items = $sale->stockItems->groupBy(['brand_id', 'product_variant_id', function ($item) {
+            return $item->pivot->price;
+        }]);
+
+        return [
+            'items' => $items->map(function ($brandGroup, $brandId) {
+                return $brandGroup->map(function ($productVariantGroup, $productVariantId) use ($brandId) {
+                    return $productVariantGroup->map(function ($itemsWithSamePrice, $price) use ($brandId, $productVariantId) {
+                        return [
+                            'brand_id' => $brandId,
+                            'brand_name' => $itemsWithSamePrice->first()->brand->name,
+                            'product_variant_id' => $productVariantId,
+                            'product_name' => $itemsWithSamePrice->first()->productVariant->product->name,
+                            'unit_price' => $price,
+                            'quantity' => $itemsWithSamePrice->count(),
+                            'total_price' => $itemsWithSamePrice->count() * $price,
+                        ];
+                    })->values();
+                })->values();
+            })->flatten(2)->values(),
+            'total_amount' => $sale->stockItems->sum(function ($item) {
+                return $item->pivot->price;
+            }),
+        ];
+
+    }
+
     public function finalizeSale(Sale $sale, string $nipNumber, ?int $selectedContactId, string $receiptType): bool
     {
         $sale->nip_number = $nipNumber;

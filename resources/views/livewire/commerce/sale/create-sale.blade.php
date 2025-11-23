@@ -254,6 +254,19 @@
                     <div class="flex justify-between text-gray-700">
                         <dt class="font-medium">Items count</dt>
                         <dd>{{ $saleItems->count() }}</dd>
+                        <div >
+                            @foreach($receipt['items'] as $item)
+                                <div class="text-xs">
+                                    {{ $item['brand_name'] }} - 
+                                    {{ $item['product_name'] }} ({{ $item['quantity'] }} × {{ $item['unit_price'] }})
+                                    = {{ $item['total_price'] }}
+                                </div>
+                            @endforeach
+
+                            <div class="font-bold text-sm mt-2">
+                                Total: {{ $receipt['total_amount'] }}
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Cost of purchase NET -->

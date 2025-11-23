@@ -25,8 +25,8 @@ class IndexStockItems extends Component
     protected SaleService $saleService;
 
     protected $queryString = [
-        'filters' => ['except' => null],  // synchronizuje $filters z query stringiem, ale nie pokazuje gdy null
-        'search' => ['except' => ''],     // dla przykładu synchronizujemy też search
+        'filters' => ['except' => null],  // syncing filters but excluding null value
+        'search' => ['except' => ''],     // syncing search but excluding empty string
         'sortField' => ['except' => 'id'],
         'sortAsc' => ['except' => true],
         'perPage' => ['except' => 10],
@@ -81,14 +81,13 @@ class IndexStockItems extends Component
     {
         $sale = $this->saleService->getActiveSale($this->store->id);
 
-        // znajdź item tylko w tym sklepie
+        // find stock item
         $stockItem = StockItem::where('id', $item)
-            ->where('store_id', $this->store->id)
-            ->where('status', StockItem::AVAILABLE)
             ->first();
 
+        // if not found or not available
         if (!$stockItem) {
-            // item nie znaleziony albo niedostępny
+            // item does not exist
             $checkItem = StockItem::find($item);
             if ($checkItem) {
                 $this->addError('searchItem', 'Item #' . $checkItem->id . ' | ' . $this->returnItemStatusInfo($checkItem->id));
@@ -96,9 +95,20 @@ class IndexStockItems extends Component
                 $this->addError('searchItem', 'This item does not exist.');
             }
             return;
+        } else {
+            // check status
+            if ($stockItem->status !== StockItem::AVAILABLE) {
+                $this->addError('searchItem', $this->returnItemStatusInfo($stockItem->id));
+                return;
+            }
+            // check store
+            if($stockItem->store_id !== $this->store->id) {
+                $this->addError('searchItem', 'This item does not belong to the current store.');
+                return;
+            }
         }
 
-        // sprawdź, czy już jest w tej sprzedaży (pivot)
+        // check if already in sale
         if ($sale->stockItems()->where('stock_item_id', $stockItem->id)->exists()) {
             $this->addError(
                 'searchItem', 
@@ -107,7 +117,7 @@ class IndexStockItems extends Component
             return;
         }
 
-        // przypisz do sprzedaży
+        // assign to sale
         $this->resetErrorBag();
         $this->stockItemService->assignToSale($stockItem, $sale);
         $this->dispatch('item-added');
@@ -147,7 +157,7 @@ class IndexStockItems extends Component
     {   
         $sortDirection = $this->sortAsc ? 'asc' : 'desc';
 
-        $stockItemsQuery = StockItem::with(['productVariant.product.brand', 'vatRate', 'brand', 'externalInvoice', 'sales'])
+        $stockItemsQuery = StockItem::inStock()->with(['productVariant.product.brand', 'vatRate', 'brand', 'externalInvoice', 'sales'])
             ->where(function ($query) {
                 $query->where('stock_items.id', 'like', '%' . $this->search . '%')
                       ->orWhereHas('productVariant.product', function ($q) {

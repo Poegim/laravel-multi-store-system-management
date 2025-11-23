@@ -4,7 +4,7 @@
             <div class="top-header-breadcrumb-title">
                 <div class="flex space-x-2 bg-white dark:bg-slate-800 px-2 rounded">
                     <a href="{{ route('sale.create', $storeId) }}" 
-                       class="store-dashboard-link flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group">
+                       class="flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group">
 
                         <svg class="store-dashboard-icon fill-amber-500 dark:fill-amber-400"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -17,7 +17,7 @@
                         </span>
                     </a>
 
-                    <a href="{{ route('sale.index', ['store' => $storeId, 'dateStart' => now()->format('Y-m-d'), 'dateEnd' => now()->format('Y-m-d')]) }}" class="store-dashboard-link flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group">
+                    <a href="{{ route('sale.index', ['store' => $storeId, 'dateStart' => now()->format('Y-m-d'), 'dateEnd' => now()->format('Y-m-d')]) }}" class="flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group">
                         <div class="mx-auto flex items-center gap-1">
                             <svg class="store-dashboard-icon fill-amber-500 dark:fill-amber-400" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <g> <path d="M60.5,21h-27c-4.687,0-8.5-3.813-8.5-8.5S28.813,4,33.5,4h27c4.687,0,8.5,3.813,8.5,8.5S65.187,21,60.5,21z M33.5,8 c-2.481,0-4.5,2.019-4.5,4.5s2.019,4.5,4.5,4.5h27c2.481,0,4.5-2.019,4.5-4.5S62.981,8,60.5,8H33.5z"></path> </g> <g> <path d="M60.5,68h-27c-4.687,0-8.5-3.813-8.5-8.5s3.813-8.5,8.5-8.5h27c4.687,0,8.5,3.813,8.5,8.5S65.187,68,60.5,68z M33.5,55 c-2.481,0-4.5,2.019-4.5,4.5s2.019,4.5,4.5,4.5h27c2.481,0,4.5-2.019,4.5-4.5S62.981,55,60.5,55H33.5z"></path> </g> <g> <path d="M60.5,45h-27c-4.687,0-8.5-3.813-8.5-8.5s3.813-8.5,8.5-8.5h27c4.687,0,8.5,3.813,8.5,8.5S65.187,45,60.5,45z M33.5,32 c-2.481,0-4.5,2.019-4.5,4.5s2.019,4.5,4.5,4.5h27c2.481,0,4.5-2.019,4.5-4.5S62.981,32,60.5,32H33.5z"></path> </g> </g> <g> <g> <path d="M12.5,21h-1C6.813,21,3,17.187,3,12.5S6.813,4,11.5,4h1c4.687,0,8.5,3.813,8.5,8.5S17.187,21,12.5,21z M11.5,8 C9.019,8,7,10.019,7,12.5S9.019,17,11.5,17h1c2.481,0,4.5-2.019,4.5-4.5S14.981,8,12.5,8H11.5z"></path> </g> <g> <path d="M12.5,68h-1C6.813,68,3,64.187,3,59.5S6.813,51,11.5,51h1c4.687,0,8.5,3.813,8.5,8.5S17.187,68,12.5,68z M11.5,55 C9.019,55,7,57.019,7,59.5S9.019,64,11.5,64h1c2.481,0,4.5-2.019,4.5-4.5S14.981,55,12.5,55H11.5z"></path> </g> <g> <path d="M12.5,45h-1C6.813,45,3,41.187,3,36.5S6.813,28,11.5,28h1c4.687,0,8.5,3.813,8.5,8.5S17.187,45,12.5,45z M11.5,32 C9.019,32,7,34.019,7,36.5S9.019,41,11.5,41h1c2.481,0,4.5-2.019,4.5-4.5S14.981,32,12.5,32H11.5z"></path> </g> </g> </g> </g></svg>
                             <div class="uppercase roboto font-semibold text-xs tracking-tighter whitespace-nowrap overflow-hidden max-w-0 opacity-0 transition-all duration-300 group-hover:max-w-[200px] group-hover:opacity-100">
@@ -26,7 +26,7 @@
                         </div>
                     </a>
 
-                    <a href="{{ route('external-invoice.create', $storeId) }}" class="store-dashboard-link flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group">
+                    <a href="{{ route('external-invoice.create', $storeId) }}" class="flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group">
                         <div class="mx-auto flex items-center gap-1">
                             <svg class="store-dashboard-icon fill-lime-700 dark:fill-lime-500"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="{{ route('external-invoice.index', $storeId) }}" class="store-dashboard-link flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group" wire:navigate>
+                    <a href="{{ route('external-invoice.index', $storeId) }}" class="flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group" wire:navigate>
                         <div class="mx-auto flex items-center gap-1">
                             <svg class="store-dashboard-icon fill-lime-700 dark:fill-lime-500"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
@@ -52,7 +52,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="{{ route('stock.index', $storeId) }}" class="store-dashboard-link flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group">
+                    <a href="{{ route('stock.index', $storeId) }}" class="flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group">
                         <div class="mx-auto flex items-center gap-1">
                             <svg fill="currentColor" class="store-dashboard-icon fill-gray-800 dark:fill-gray-300"
                                 version="1.2" baseProfile="tiny" id="inventory" xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="#" class="store-dashboard-link flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group" >
+                    <a href="#" class="flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group" >
                         <div class="mx-auto flex items-center gap-1">
                             <svg class="store-dashboard-icon fill-cyan-800 dark:fill-cyan-300"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -84,7 +84,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="#" class="store-dashboard-link flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group" >
+                    <a href="#" class="flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group" >
                         <div class="mx-auto flex items-center gap-1">
                             <svg class="store-dashboard-icon fill-cyan-800 dark:fill-cyan-300"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -97,7 +97,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="#" class="store-dashboard-link flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group" >
+                    <a href="#" class="flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group" >
                         <div class="mx-auto flex items-center gap-1">
                             <svg class="store-dashboard-icon fill-violet-800 dark:fill-violet-400"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -110,7 +110,7 @@
                             </div> 
                         </div>
                     </a>
-                    <a href="#" class="store-dashboard-link flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group" >
+                    <a href="#" class="flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group" >
                         <div class="mx-auto flex items-center gap-1">
                             <svg class="store-dashboard-icon fill-violet-800 dark:fill-violet-400"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
@@ -123,7 +123,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="#" class="store-dashboard-link flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group" >
+                    <a href="#" class="flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group" >
                         <div class="mx-auto flex items-center gap-1">
                             <svg class="store-dashboard-icon fill-pink-700 dark:fill-pink-300"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -136,7 +136,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="#" class="store-dashboard-link flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group" >
+                    <a href="#" class="flex items-center gap-1 bg-white dark:bg-slate-800 px-2 rounded transition-all duration-300 group" >
                         <div class="mx-auto flex items-center gap-1">
                             <svg class="store-dashboard-icon fill-pink-700 dark:fill-pink-300"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">

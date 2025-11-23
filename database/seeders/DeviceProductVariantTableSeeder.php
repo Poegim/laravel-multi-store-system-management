@@ -16,7 +16,7 @@ class DeviceProductVariantTableSeeder extends Seeder
     public function run(): void
     {
         $variants = ProductVariant::all();
-        $devices = Product::devices()->get();
+        $devices = Product::devices()->limit(30)->get();
         $batchData = [];
         $batchSize = 1000; // Set the desired batch size
         
