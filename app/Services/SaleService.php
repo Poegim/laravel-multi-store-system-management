@@ -7,9 +7,12 @@ use App\Models\Commerce\Sale;
 use App\Models\Warehouse\StockItem;
 use Illuminate\Validation\ValidationException;
 use App\Repositories\SaleRepository\SaleRepositoryInterface;
+use App\Traits\FormatsAmount;
 
 class SaleService
 {
+    use FormatsAmount;
+
     public function __construct(
         protected SaleRepositoryInterface $saleRepository
         ) {}
@@ -19,34 +22,80 @@ class SaleService
         return $this->saleRepository->getActiveSale($storeId);
     }
 
+    // public function generateReceipt(Sale $sale): array
+    // {
+    //     $items = $sale->stockItems->groupBy(['brand_id', 'product_variant_id', function ($item) {
+    //         return $item->pivot->price;
+    //     }]);
+
+    //     return [
+    //         'items' => $items->map(function ($brandGroup, $brandId) {
+    //             return $brandGroup->map(function ($productVariantGroup, $productVariantId) use ($brandId) {
+    //                 return $productVariantGroup->map(function ($itemsWithSamePrice, $price) use ($brandId, $productVariantId) {
+    //                     return [
+    //                         'brand_id' => $brandId,
+    //                         'brand_name' => $itemsWithSamePrice->first()->brand->name,
+    //                         'product_variant_id' => $productVariantId,
+    //                         'product_name' => $itemsWithSamePrice->first()->productVariant->product->name,
+    //                         'unit_price' => $this->integerToDecimal($price),
+    //                         'quantity' => $itemsWithSamePrice->count(),
+    //                         'total_price' => $this->integerToDecimal($itemsWithSamePrice->count() * $price),
+    //                     ];
+    //                 })->values();
+    //             })->values();
+    //         })->flatten(2)->values(),
+    //         'total_amount' => $this->integerToDecimal($sale->stockItems->sum(function ($item) {
+    //             return $item->pivot->price;
+    //         })),
+    //     ];
+    // }
+
     public function generateReceipt(Sale $sale): array
     {
-        $items = $sale->stockItems->groupBy(['brand_id', 'product_variant_id', function ($item) {
-            return $item->pivot->price;
-        }]);
+        $items = $sale->stockItems->groupBy([
+            'brand_id',
+            'product_variant_id',
+            function ($item) {
+                // Group by VAT rate or by VAT margin flag
+                return $item->is_vat_margin
+                    ? 'vat_margin'
+                    : $item->vat_rate_id;
+            },
+            function ($item) {
+                // Group by unit price
+                return $item->pivot->price;
+            },
+        ]);
 
         return [
             'items' => $items->map(function ($brandGroup, $brandId) {
                 return $brandGroup->map(function ($productVariantGroup, $productVariantId) use ($brandId) {
-                    return $productVariantGroup->map(function ($itemsWithSamePrice, $price) use ($brandId, $productVariantId) {
-                        return [
-                            'brand_id' => $brandId,
-                            'brand_name' => $itemsWithSamePrice->first()->brand->name,
-                            'product_variant_id' => $productVariantId,
-                            'product_name' => $itemsWithSamePrice->first()->productVariant->product->name,
-                            'unit_price' => $price,
-                            'quantity' => $itemsWithSamePrice->count(),
-                            'total_price' => $itemsWithSamePrice->count() * $price,
-                        ];
+                    return $productVariantGroup->map(function ($vatGroup) use ($brandId, $productVariantId) {
+                        return $vatGroup->map(function ($itemsWithSamePrice, $price) use ($brandId, $productVariantId) {
+                            return [
+                                'brand_id' => $brandId,
+                                'brand_name' => $itemsWithSamePrice->first()->brand->name,
+                                'product_variant_id' => $productVariantId,
+                                'product_name' => $itemsWithSamePrice->first()->productVariant->product->name,
+                                'vat_rate' => $itemsWithSamePrice->first()->is_vat_margin
+                                    ? null
+                                    : $itemsWithSamePrice->first()->vatRate->rate,
+                                'is_vat_margin' => $itemsWithSamePrice->first()->is_vat_margin,
+                                'unit_price' => $this->integerToDecimal($price),
+                                'quantity' => $itemsWithSamePrice->count(),
+                                'total_price' => $this->integerToDecimal($itemsWithSamePrice->count() * $price),
+                            ];
+                        })->values();
                     })->values();
                 })->values();
-            })->flatten(2)->values(),
-            'total_amount' => $sale->stockItems->sum(function ($item) {
-                return $item->pivot->price;
-            }),
-        ];
+            })->flatten(3)->values(),
 
+            'total_amount' => $this->integerToDecimal(
+                $sale->stockItems->sum(fn ($item) => $item->pivot->price)
+            ),
+        ];
     }
+
 
     public function finalizeSale(Sale $sale, string $nipNumber, ?int $selectedContactId, string $receiptType): bool
     {

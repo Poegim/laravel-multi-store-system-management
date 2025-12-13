@@ -250,25 +250,6 @@
                 <h2 class="text-xl font-semibold mb-4 text-gray-800">Sale summary</h2>
 
                 <dl class="space-y-3">
-                    <!-- Items count -->
-                    <div class="flex justify-between text-gray-700">
-                        <dt class="font-medium">Items count</dt>
-                        <dd>{{ $saleItems->count() }}</dd>
-                        <div >
-                            @foreach($receipt['items'] as $item)
-                                <div class="text-xs">
-                                    {{ $item['brand_name'] }} - 
-                                    {{ $item['product_name'] }} ({{ $item['quantity'] }} × {{ $item['unit_price'] }})
-                                    = {{ $item['total_price'] }}
-                                </div>
-                            @endforeach
-
-                            <div class="font-bold text-sm mt-2">
-                                Total: {{ $receipt['total_amount'] }}
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Cost of purchase NET -->
                     <div class="flex justify-between text-gray-700">
                         <dt class="font-medium">Cost of purchase NET</dt>
@@ -287,6 +268,28 @@
                         <dd class="font-bold {{ $totalSoldPrice - $totalPurchaseGross < 0 ? 'text-red-600' : 'text-green-600' }}">
                             {{ number_format(($totalSoldPrice - $totalPurchaseGross) / 100, 2, '.', ' ') }}
                         </dd>
+                    </div>
+
+                    <!-- Receipt preview -->
+                    <div class="text-gray-700">
+                        <div>
+                            <span class="font-medium">Items count</span>: 
+                            <span>{{ $saleItems->count() }}</span>
+                        </div>
+                        <div>
+                            @foreach($receipt['items'] as $item)
+                                <div class="text-xs flex justify-between">
+                                    <div>
+                                        {{$item['quantity']}} × {{ $item['brand_name'] }} - 
+                                        {{ $item['product_name'] }} ({{ $item['unit_price'] }})
+                                    </div>
+                                    <div>
+                                        {{ $item['total_price'] }} {{ $item['vat_rate'] !== null ? ' (VAT: ' . $item['vat_rate'] . '%)' : '' }}
+                                    </div>
+                                </div>
+                            @endforeach
+
+                        </div>
                     </div>
 
                     <!-- Total price -->

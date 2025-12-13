@@ -109,9 +109,8 @@ class StockItemsTableSeeder extends Seeder
 
         // Array of all colors, stores, product variants, and brands
         $colors = Color::all()->pluck('id')->toArray();
-        $productVariants = ProductVariant::all()->pluck('id')->toArray();
         $stores = Store::all()->pluck('id')->toArray();
-        $brands = Brand::all()->pluck('id')->toArray();
+        
         $vatRate = VatRate::getDefault()->id;
 
         $batchSize = 1000; // Define batch size
@@ -121,6 +120,8 @@ class StockItemsTableSeeder extends Seeder
         foreach ($externalInvoices as $invoice) {
             // Randomly decide how many stock items to create for this invoice (between 5 and 65)
             $itemsCount = rand(5, 65);
+            $productVariants = ProductVariant::inRandomOrder()->limit(50)->pluck('id')->toArray();
+            $brands = Brand::inRandomOrder()->limit(5)->pluck('id')->toArray();
 
             for ($i = 0; $i < $itemsCount; $i++) {
                 $color = $colors[array_rand($colors)];
