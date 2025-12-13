@@ -6347,6 +6347,9 @@
                 "php": "^7.4 || ^8.0",
                 "psr/container": "^1.0 || ^2.0",
                 "symfony/deprecation-contracts": "^2.2 || ^3.0",
+                "fakerphp/faker": "^1.23"
+            },
+            "conflict": {
                 "fzaninotto/faker": "*"
             },
             "require-dev": {
