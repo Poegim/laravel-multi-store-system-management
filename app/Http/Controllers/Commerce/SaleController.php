@@ -43,7 +43,7 @@ class SaleController extends Controller
             $salesQuery->whereBetween('sold_at', [$start, $end]);
         }
 
-        $sales = $salesQuery->orderByDesc('id')->paginate($paginate);
+        $sales = $salesQuery->orderByDesc('sold_at')->paginate($paginate);
 
         return view('commerce.sale.index', compact('sales', 'storeId', 'dateStart', 'dateEnd'));
     }

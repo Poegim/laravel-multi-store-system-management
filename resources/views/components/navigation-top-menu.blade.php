@@ -301,11 +301,11 @@
         
         <div x-show="lastClicked === 'stores'" class="my-auto">
             @foreach ($stores as $store)
-            <div class="inline-block p-2 bg-gray-200 rounded text-center">
-                <x-nav-link class="{{ url()->current() == route('store.show', $store->id) ? 'nav-active-tab' : 'nav-inactive-tab'}}" href="{{ route('store.show', $store) }}">
+            <div class="inline-block overflow-hidden bg-gray-200 mt-2 rounded text-center">
+                <x-nav-link :active="url()->current() == route('store.show', $store->id)" href="{{ route('store.show', $store) }}">
                     <span class="font-normal">{{ $store->name }}</span>
-                </div>
                 </x-nav-link>
+            </div>
             @endforeach
         </div>
 
